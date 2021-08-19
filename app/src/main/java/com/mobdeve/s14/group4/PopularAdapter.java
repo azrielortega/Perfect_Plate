@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +25,16 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     @Override
     public PopularViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View iv = inflater.inflate(R.layout.popular_template, parent, false);
+        View itemView = inflater.inflate(R.layout.popular_template, parent, false);
 
-        PopularViewHolder popularViewHolder = new PopularViewHolder(iv);
+        PopularViewHolder popularViewHolder = new PopularViewHolder(itemView);
         return popularViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
         holder.setIvPopularPic(popularList.get(position).getPopularPic());
-        holder.setTvPopularName(popularList.get(position).getPopularName());
+        //holder.setTvPopularName(popularList.get(position).getPopularName());
     }
 
     @Override

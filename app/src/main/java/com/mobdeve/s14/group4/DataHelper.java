@@ -20,9 +20,7 @@ public class DataHelper {
         };
 
         for(int i = 0; i < 3; i++){
-            popularList.add(new Popular(popularPics[i],
-                    popularName[i]
-            ));
+            popularList.add(new Popular(popularPics[i]));
         }
 
         return popularList;
