@@ -50,14 +50,14 @@
         android:background="@android:color/transparent"
         android:ems="10"
         android:fontFamily="@font/montserrat"
+        android:hint="Search a Recipe..."
         android:inputType="textPersonName"
-        android:text="Search a Recipe..."
         android:textColor="#99000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_search_top"
         app:layout_constraintLeft_toRightOf="@id/iv_search"
-        app:layout_constraintTop_toTopOf="@id/tv_search_top"
-        app:layout_constraintRight_toLeftOf="@id/gl_right"/>
+        app:layout_constraintRight_toLeftOf="@id/gl_right"
+        app:layout_constraintTop_toTopOf="@id/tv_search_top" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_search_bot"
@@ -76,5 +76,28 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="10dp"
 />
+
+    <TextView
+        android:id="@+id/tv_popular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Popular"
+        android:textColor="#D30045"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/gl_search_bot" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_popular"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="#975757"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintRight_toLeftOf="@id/gl_right"
+        app:layout_constraintTop_toBottomOf="@id/tv_popular" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_home); DONT DELETE 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
+        /*setContentView(R.layout.activity_main);
 
         btnLogin = findViewById(R.id.main_btn_login);
         btnSignUp = findViewById(R.id.main_btn_join);
@@ -36,6 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SignUpActivity1.class);
                 MainActivity.this.startActivity(intent);
             }
-        });
+        });*/
     }
 }
