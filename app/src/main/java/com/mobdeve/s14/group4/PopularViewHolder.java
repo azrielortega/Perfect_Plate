@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PopularViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivPopularPic;
-    private TextView tvPopularName;
+   // private TextView tvPopularName;
 
     public PopularViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -24,7 +24,7 @@ public class PopularViewHolder extends RecyclerView.ViewHolder {
         this.ivPopularPic.setImageResource(p);
     }
 
-    public void setTvPopularName(String n){
-        this.tvPopularName.setText(n);
-    }
+//    public void setTvPopularName(String n){
+//        this.tvPopularName.setText(n);
+//    }
 }

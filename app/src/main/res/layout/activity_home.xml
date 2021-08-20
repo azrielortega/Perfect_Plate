@@ -92,14 +92,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_popular"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#975757"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/gl_left"
         app:layout_constraintRight_toLeftOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/tv_popular" />
+        app:layout_constraintTop_toBottomOf="@id/tv_popular"/>
 
     <TextView
         android:id="@+id/textView4"

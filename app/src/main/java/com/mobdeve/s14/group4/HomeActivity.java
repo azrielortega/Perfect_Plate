@@ -26,14 +26,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-//        DataHelper helper = new DataHelper();
-//        this.popularList = helper.initPopular();
         this.rvPopular = findViewById(R.id.rv_popular);
 
-        this.initData();
-        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
+        this.initData();
         this.popularAdapter = new PopularAdapter(this.popularList);
         this.rvPopular.setAdapter(this.popularAdapter);
     }
@@ -41,9 +39,9 @@ public class HomeActivity extends AppCompatActivity {
     private void initData(){
         this.popularList = new ArrayList<Popular>();
 
-        this.popularList.add(new Popular(R.drawable.person));
-        this.popularList.add(new Popular(R.drawable.perfectplate_email));
-        this.popularList.add(new Popular(R.drawable.perfectplate_birthday));
+        this.popularList.add(new Popular(R.drawable.popular1));
+        this.popularList.add(new Popular(R.drawable.popular2));
+        this.popularList.add(new Popular(R.drawable.popular3));
 
 
     }
