@@ -66,26 +66,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="62dp" />
 
-    <TextView
-        android:id="@+id/tv_popular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Popular"
-        android:textColor="#D30045"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/gl_left"
-        app:layout_constraintTop_toBottomOf="@id/gl_search_bot" />
-
     <View
         android:id="@+id/v_divider"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:layout_marginTop="10dp"
         android:background="#02043F"
-        app:layout_constraintBottom_toTopOf="@id/v_divider"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_top" />
 
@@ -100,13 +86,16 @@
          />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_popular"
+        android:id="@+id/rv_home_main"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/v_dividerbot"
-        app:layout_constraintLeft_toRightOf="@id/gl_left"
-        app:layout_constraintRight_toLeftOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/tv_popular" />
+        android:layout_height="wrap_content"
+
+        android:clipToPadding="true"
+        android:paddingStart="10dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_popular_label" />
 
     <LinearLayout
         android:id="@+id/ll_home"
@@ -244,6 +233,17 @@
             android:textAlignment="center"
             android:textSize="12sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_popular_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Popular"
+        android:textColor="#D30045"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/v_divider" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

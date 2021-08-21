@@ -1,7 +1,6 @@
 package com.mobdeve.s14.group4;
 
-import android.text.Layout;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
-    private ArrayList<Popular> popularList;
+    private ArrayList<Recipe> foodList;
 
-    public PopularAdapter(ArrayList<Popular> p){
-        this.popularList = p;
+    public static final String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
+    public static final String KEY_RECIPE_PIC = "KEY_RECIPE_PIC";
+
+
+    public PopularAdapter(ArrayList<Recipe> p){
+        this.foodList = p;
     }
 
     @NonNull
@@ -28,17 +31,30 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
         View itemView = inflater.inflate(R.layout.popular_template, parent, false);
 
         PopularViewHolder popularViewHolder = new PopularViewHolder(itemView);
+
+        popularViewHolder.getCvPopularCard().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
+                i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodName());
+                i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodPic());
+
+                v.getContext().startActivity(i);
+
+            }
+        });
         return popularViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
-        holder.setIvPopularPic(popularList.get(position).getPopularPic());
-        //holder.setTvPopularName(popularList.get(position).getPopularName());
+        holder.setIvPopularPic(foodList.get(position).getFoodPic());
+        holder.setTvPopularName(foodList.get(position).getFoodName());
     }
 
     @Override
     public int getItemCount() {
-        return this.popularList.size();
+        return this.foodList.size();
     }
 }

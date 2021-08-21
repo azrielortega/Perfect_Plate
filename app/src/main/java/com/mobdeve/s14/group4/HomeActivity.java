@@ -5,14 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView rvPopular;
-    private ArrayList<Popular> popularList;
+    private ArrayList<Recipe> foodList;
 
     private RecyclerView.LayoutManager popularManager;
     private PopularAdapter popularAdapter;
@@ -26,23 +25,24 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        this.rvPopular = findViewById(R.id.rv_popular);
+
+        DataHelper helper = new DataHelper();
+        this.foodList = helper.initFood();
+        this.rvPopular = findViewById(R.id.rv_home_main);
 
         this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
-        this.initData();
-        this.popularAdapter = new PopularAdapter(this.popularList);
+        //this.initData();
+        this.popularAdapter = new PopularAdapter(this.foodList);
         this.rvPopular.setAdapter(this.popularAdapter);
     }
 
-    private void initData(){
-        this.popularList = new ArrayList<Popular>();
-
-        this.popularList.add(new Popular(R.drawable.popular1));
-        this.popularList.add(new Popular(R.drawable.popular2));
-        this.popularList.add(new Popular(R.drawable.popular3));
-
-
-    }
+//    private void initData(){
+//        this.foodList = new ArrayList<Food>();
+//
+//        this.foodList.add(new Food(R.drawable.popular1, "Food 1"));
+//        this.foodList.add(new Food(R.drawable.popular2, "Meow Meow"));
+//        this.foodList.add(new Food(R.drawable.popular3, "Poopers poopie meow meow"));
+//    }
 }

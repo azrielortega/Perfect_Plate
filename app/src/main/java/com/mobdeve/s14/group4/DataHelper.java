@@ -3,27 +3,31 @@ package com.mobdeve.s14.group4;
 import java.util.ArrayList;
 
 public class DataHelper {
-    private ArrayList<Integer> popularPics;
 
-    public ArrayList<Popular> initPopular(){
-        ArrayList<Popular> popularList = new ArrayList<>();
+    public ArrayList<Recipe> initFood(){
+        ArrayList<Recipe> foodList = new ArrayList<>();
 
-        int[] popularPics = {
+        int[] foodPics = {
                 R.drawable.popular1,
                 R.drawable.popular2,
                 R.drawable.popular3
         };
-        String[] popularName ={
+        String[] foodName ={
                 "Food 1",
                 "Nomnomnom",
                 "Lorem lorem lorem"
         };
+        Integer[] foodFave = {
+                23,
+                35,
+                123
+        };
 
         for(int i = 0; i < 3; i++){
-            popularList.add(new Popular(popularPics[i]));
+            foodList.add(new Recipe(foodPics[i], foodName[i]));
         }
 
-        return popularList;
+        return foodList;
     }
 
 }
