@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private void initRecyclerView(){
         this.rvPopular = findViewById(R.id.rv_popular);
 
-        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
         this.initData();
