@@ -38,6 +38,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/heart_off"
             app:tint="#F4F0EF" />
+
+        <TextView
+            android:id="@+id/tv_recipe_details_name_top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:text="LOREM LOREM LOREM LOREM LOREM LOREM"
+            android:textAlignment="center"
+            android:textColor="#F4F0EF"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/ib_recipe_details_fav"
+            app:layout_constraintLeft_toRightOf="@id/ib_recipe_details_back"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -54,15 +73,302 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/tv_details_ingredients"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="#ffc540"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="Ingredients"
+                android:textAlignment="center"
+                android:textColor="#F4F0EF"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_details_instructions"
+                app:layout_constraintTop_toBottomOf="@id/iv_recipe_details_pic" />
+
+            <TextView
+                android:id="@+id/tv_details_instructions"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Instructions"
+                android:textAlignment="center"
+                android:textColor="#02043F"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/tv_details_ingredients"
+                app:layout_constraintRight_toLeftOf="@id/tv_details_reviews"
+                app:layout_constraintTop_toBottomOf="@id/iv_recipe_details_pic" />
+
+            <TextView
+                android:id="@+id/tv_details_reviews"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Reviews"
+                android:textAlignment="center"
+                android:textColor="#02043F"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/tv_details_instructions"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_recipe_details_pic" />
+
             <ImageView
                 android:id="@+id/iv_recipe_details_pic"
                 android:layout_width="0dp"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintLeft_toRightOf="@id/gl_details_left"
-                app:layout_constraintRight_toLeftOf="@id/gl_details_right"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_write_review"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_details_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.04" />
+
+            <TextView
+                android:id="@+id/tv_recipe_details_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Food Name Hereeeee Meow Meow"
+                android:textColor="#02043F"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
+                app:layout_constraintRight_toRightOf="@id/gl_details_right"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_details_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96" />
+
+            <View
+                android:id="@+id/v_details_bot"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="#ffc540"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_details_instructions" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_details_ingredients"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
+                app:layout_constraintRight_toRightOf="@id/gl_details_right"
+                app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
+
+                <View
+                    android:id="@+id/v_details_desc_bot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffc540"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_description" />
+
+                <TextView
+                    android:id="@+id/tv_contrib_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="bottom"
+                    android:text="Contributed by:"
+                    android:textColor="#02043F"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_recipe_details_contributor_name"
+                    app:layout_constraintLeft_toRightOf="@id/cv_recipe_details_user_pic"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_recipe_details_user_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="50dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_recipe_details_description"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_recipe_details_contributor_pic"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"
+                        tools:srcCompat="@drawable/person3" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_recipe_details_contributor_name"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="top"
+                    android:text="Ariana Grande"
+                    android:textColor="#02043F"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_recipe_details_user_pic"
+                    app:layout_constraintLeft_toRightOf="@id/cv_recipe_details_user_pic"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contrib_text" />
+
+                <TextView
+                    android:id="@+id/tv_recipe_details_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="An easy and moist Banana Bread Recipe that is loaded with bananas, tangy-sweet raisins, and toasted walnuts. This is one of our favorite overripe banana recipes with hundreds of 5-star reviews."
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/v_details_desc_bot"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_recipe_details_user_pic" />
+
+                <LinearLayout
+                    android:id="@+id/ll_preptime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/ll_serves"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/ll_cook"
+                    app:layout_constraintTop_toBottomOf="@id/v_details_desc_bot">
+
+                    <ImageView
+                        android:id="@+id/iv_clock1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/clockclock" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_details_prep_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Prep: 10 minutes" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_serves"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/ll_difficulty"
+                    app:layout_constraintTop_toBottomOf="@id/ll_preptime">
+
+                    <ImageView
+                        android:id="@+id/iv_person"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/vectorperson1" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_details_serves"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Serves: 10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_cook"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/ll_difficulty"
+                    app:layout_constraintLeft_toRightOf="@id/ll_preptime"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/v_details_desc_bot">
+
+                    <ImageView
+                        android:id="@+id/iv_clock2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/clockclock" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_details_cook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Cook: 10 minutes" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_difficulty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toRightOf="@id/ll_serves"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_cook">
+
+                    <ImageView
+                        android:id="@+id/iv_question"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/question_circlequestion" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_details_difficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Difficulty: Medium" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_ingredients_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="INGREDIENTS"
+                    android:textColor="#02043f"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_serves" />
+
+                <TextView
+                    android:id="@+id/tv_recipe_details_ingredients_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio purus, convallis quis diam eget, vestibulum ultrices orci. Quisque ut arcu sit amet metus mattis ornare. Nam tincidunt mi id faucibus elementum. Etiam commodo magna quis urna porttitor euismod. In hac habitasse platea dictumst. Morbi non posuere tortor. Morbi in nulla iaculis, finibus justo vel, imperdiet ante. Duis vitae gravida dolor, sit amet blandit felis. Morbi fermentum ligula at tempor fringilla. Nunc euismod, elit a lacinia pretium, nunc ex aliquam erat, ac congue metus libero euismod erat. Fusce ac libero sem. Sed maximus massa a ante placerat, quis cursus nibh accumsan. Nulla vitae dignissim sem. Quisque pellentesque, lectus quis tincidunt varius, velit lectus ornare purus, non egestas sem nisl sit amet augue. Sed rutrum hendrerit pretium. Etiam feugiat porta laoreet. Quisque porta nunc nisl, quis ornare magna dignissim a. Sed bibendum ex quam, id auctor sem dignissim nec. Nam sed cursus enim, eget rutrum sapien. Morbi id mauris eget purus consectetur mattis vitae non justo. Aliquam interdum enim id facilisis egestas. In vel maximus neque."
+                    android:textColor="#000000"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_details_reviews"
@@ -90,7 +396,7 @@
                 <TextView
                     android:id="@+id/tv_details_review_count"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="25dp"
                     android:fontFamily="@font/montserrat"
                     android:text="123 reviews"
                     android:textAlignment="center"
@@ -105,6 +411,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:foregroundGravity="left"
+                    android:paddingRight="20dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_details_review_count"
                     app:layout_constraintLeft_toRightOf="@id/tv_details_stars_summary"
                     app:layout_constraintRight_toRightOf="parent"
@@ -125,18 +432,19 @@
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_horizontal"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/contract" />
 
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:fontFamily="@font/montserrat"
                     android:text="write a review"
                     android:textAlignment="center"
                     android:textColor="#02043F" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -144,6 +452,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
+                android:weightSum="2"
                 app:layout_constraintLeft_toRightOf="@id/cl_details_reviews"
                 app:layout_constraintRight_toLeftOf="@id/ll_write_review"
                 app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_name">
@@ -151,15 +460,16 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_details_fav_count"
+                        android:layout_width="57dp"
+                        android:layout_height="25dp"
 
+                        android:layout_gravity="bottom|end"
                         android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center"
                         android:text="92k"
                         android:textAlignment="center"
                         android:textColor="#02043F"
@@ -167,11 +477,11 @@
 
                     <TextView
                         android:id="@+id/textView9"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
 
+                        android:layout_gravity="end"
                         android:fontFamily="@font/montserrat"
-                        android:gravity="center"
                         android:text="favorites"
                         android:textAlignment="center"
                         android:textColor="#02043F" />
@@ -179,56 +489,18 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start|left"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="3dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="6dp"
                     app:srcCompat="@drawable/heart_on"
                     app:tint="#D30045" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_recipe_details_name_top"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="LOREM LOREM LOREM LOREM LOREM LOREM"
-                android:textAlignment="center"
-                android:textColor="#F4F0EF"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
-                app:layout_constraintRight_toRightOf="@id/gl_details_right"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_details_left"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.04" />
-
-            <TextView
-                android:id="@+id/tv_recipe_details_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Food Name Hereeeee Meow Meow"
-                android:textColor="#02043F"
-                android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
-                app:layout_constraintRight_toRightOf="@id/gl_details_right"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_details_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.96" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
