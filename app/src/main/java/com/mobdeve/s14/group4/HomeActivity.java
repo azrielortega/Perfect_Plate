@@ -27,14 +27,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         this.initRecyclerView();
+        this.initComponents();
     }
 
-    private void initRecyclerView(){
-
-        DataHelper helper = new DataHelper();
-        this.foodList = helper.initFood();
-        this.rvPopular = findViewById(R.id.rv_home_main);
-
+    private void initComponents(){
         llProfile = findViewById(R.id.ll_profile);
 
         llProfile.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +40,16 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    private void initRecyclerView(){
 
-                this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        DataHelper helper = new DataHelper();
+        this.foodList = helper.initFood();
+        this.rvPopular = findViewById(R.id.rv_home_main);
+
+
+
+        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
         //this.initData();
