@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView.LayoutManager popularManager;
     private PopularAdapter popularAdapter;
+
+    private LinearLayout llProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,17 @@ public class HomeActivity extends AppCompatActivity {
         this.foodList = helper.initFood();
         this.rvPopular = findViewById(R.id.rv_home_main);
 
-        this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        llProfile = findViewById(R.id.ll_profile);
+
+        llProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+                this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
         //this.initData();

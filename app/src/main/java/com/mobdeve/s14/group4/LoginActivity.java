@@ -24,9 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                //TESTING PURPOSES FOR PROFILE - MATT | COMMENT OUT IF CHECKING HOME ACTIVITY
-                Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
+                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(i);
                 finish();
             }

@@ -58,10 +58,10 @@ public class ProfileActivity extends AppCompatActivity {
     private void initData() {
         data = new ArrayList<Recipe>();
 
-        data.add(new Recipe (R.drawable.takoyaki, "Takoyaki"));
-        data.add(new Recipe (R.drawable.adobo, "Adobo"));
-        data.add(new Recipe (R.drawable.curry, "Curry"));
-        data.add(new Recipe (R.drawable.ramen, "Ramen"));
+        data.add(new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, R.drawable.person_gray,  "John Doe", "Description", 10));
+        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, R.drawable.person_gray,  "John Doe", "Description", 10));
+        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, R.drawable.person_gray,  "John Doe", "Description", 10));
+        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, R.drawable.person_gray,  "John Doe", "Description", 10));
 
     }
 }
