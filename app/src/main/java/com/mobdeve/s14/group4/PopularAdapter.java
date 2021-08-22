@@ -17,6 +17,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 
     public static final String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
     public static final String KEY_RECIPE_PIC = "KEY_RECIPE_PIC";
+    public static final String KEY_RECIPE_FAV = "KEY_RECIPE_FAV";
+    public static final String KEY_RECIPE_STARS = "KEY_RECIPE_STARS";
+    public static final String KEY_CONTRIBUTOR_PIC = "KEY_CONTRIBUTOR_PIC";
+    public static final String KEY_CONTRIBUTOR_NAME = "KEY_CONTRIBUTOR_NAME";
+    public static final String KEY_RECIPE_DESCRIPTION = "KEY_RECIPE_DESCRIPTION";
+    public static final String KEY_RECIPE_REVIEWS_COUNT = "KEY_RECIPE_REVIEWS_COUNT";
 
 
     public PopularAdapter(ArrayList<Recipe> p){
@@ -39,6 +45,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
                 i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodName());
                 i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodPic());
+//                i.putExtra(KEY_RECIPE_FAV, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodFave());
+//                i.putExtra(KEY_RECIPE_STARS, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRating());
+//                i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorPic());
+//                i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorName());
+//                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(popularViewHolder.getBindingAdapterPosition()).getDesc());
+//                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(popularViewHolder.getBindingAdapterPosition()).getReviewCount());
 
                 v.getContext().startActivity(i);
 
