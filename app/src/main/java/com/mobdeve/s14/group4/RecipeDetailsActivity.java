@@ -1,10 +1,13 @@
 package com.mobdeve.s14.group4;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
@@ -17,6 +20,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvContributorName;
     private TextView tvDescription;
     private TextView tvReviewCount;
+    private LinearLayout llWriteReview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +35,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.ivContributorPic = findViewById(R.id.iv_recipe_details_contributor_pic);
         this.tvContributorName = findViewById(R.id.tv_recipe_details_contributor_name);
         this.tvDescription = findViewById(R.id.tv_recipe_details_description);
-        this.tvReviewCount = findViewById(R.id.tv_details_review_count); 
+        this.tvReviewCount = findViewById(R.id.tv_details_review_count);
+
+        this.llWriteReview = findViewById(R.id.ll_write_review);
 
         Intent i = getIntent();
 
@@ -58,6 +65,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //
 //        int iRC = i.getIntExtra(PopularAdapter.KEY_RECIPE_REVIEWS_COUNT, 0);
 //        this.tvReviewCount.setText(iRC);
+
+        this.llWriteReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }
