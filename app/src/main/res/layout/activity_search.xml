@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f0ef"
+    tools:context=".SearchActivity">
+
+    <TextView
+        android:id="@+id/tv_search_top_search"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_bar"
+        app:layout_constraintLeft_toRightOf="@id/gl_search_left"
+        app:layout_constraintRight_toLeftOf="@id/gl_search_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search_top_search"
+        app:layout_constraintLeft_toLeftOf="@id/gl_search_left"
+        app:layout_constraintTop_toTopOf="@id/tv_search_top_search"
+        app:srcCompat="@drawable/ic_vectorsearch" />
+
+    <EditText
+        android:id="@+id/et_search_recipe_search"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Search a Recipe..."
+        android:inputType="textPersonName"
+        android:textColor="#99000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search_top_search"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/iv_search"
+        app:layout_constraintRight_toLeftOf="@id/gl_search_right"
+        app:layout_constraintTop_toTopOf="@id/tv_search_top_search"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/v_search_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="#02043F"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_top_search" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_search_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_search_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <TextView
+        android:id="@+id/tv_search_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="View Perfect Plate Recipes By Category"
+        android:textColor="#02043F"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toLeftOf="@id/gl_search_left"
+        app:layout_constraintRight_toRightOf="@id/gl_search_right"
+        app:layout_constraintTop_toBottomOf="@id/v_search_divider" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_appetizer"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/gl_search_left"
+        app:layout_constraintRight_toLeftOf="@id/cv_search_pasta"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_label">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/appetizer" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Appetizer"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_pasta"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toRightOf="@id/cv_search_appetizer"
+        app:layout_constraintRight_toLeftOf="@id/cv_search_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_label">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/pasta" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Pasta"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_main"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toRightOf="@id/cv_search_pasta"
+        app:layout_constraintRight_toLeftOf="@id/gl_search_right"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_label">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/main" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Main"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_dessert"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toRightOf="@id/gl_search_left"
+        app:layout_constraintRight_toLeftOf="@id/cv_search_pastry"
+        app:layout_constraintTop_toBottomOf="@id/cv_search_appetizer">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/dessert" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Dessert"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_pastry"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toRightOf="@id/cv_search_dessert"
+        app:layout_constraintRight_toLeftOf="@id/cv_search_drinks"
+        app:layout_constraintTop_toBottomOf="@id/cv_search_pasta">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/pastry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Pastry"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_search_drinks"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintLeft_toRightOf="@id/cv_search_pasta"
+        app:layout_constraintRight_toLeftOf="@id/gl_search_right"
+        app:layout_constraintTop_toBottomOf="@id/cv_search_main">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/drinks" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="#ff9400"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingLeft="5dp"
+            android:text="Drinks"
+            android:textColor="#F4F0EF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="5dp"
+            android:text="View Recipes >"
+            android:textColor="#F4F0EF"
+            android:textSize="12sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_search_view_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="View all Perfect Plate recipes"
+        android:textColor="#d30045"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/gl_search_left"
+        app:layout_constraintTop_toBottomOf="@+id/cv_search_dessert" />
+
+    <LinearLayout
+        android:id="@+id/ll_home"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ll_search">
+
+        <ImageView
+            android:id="@+id/iv_home_home"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:tint="#868484"
+            app:srcCompat="@drawable/vectorhome" />
+
+        <TextView
+            android:id="@+id/tv_home_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Home"
+            android:textAlignment="center"
+            android:textColor="#868484"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ll_home"
+        app:layout_constraintRight_toLeftOf="@id/ll_create">
+
+        <ImageView
+            android:id="@+id/iv_home_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/vectorsearch"
+            app:tint="#ff9400" />
+
+        <TextView
+            android:id="@+id/tv_home_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Search"
+            android:textAlignment="center"
+            android:textColor="#FF9400"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_create"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ll_search"
+        app:layout_constraintRight_toLeftOf="@id/ll_fav">
+
+        <ImageView
+            android:id="@+id/iv_home_create"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/plus_circlecreate" />
+
+        <TextView
+            android:id="@+id/tv_home_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Create"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_profile"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ll_fav"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_home_profile"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/vectorperson" />
+
+        <TextView
+            android:id="@+id/tv_home_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Profile"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fav"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ll_create"
+        app:layout_constraintRight_toLeftOf="@id/ll_profile">
+
+        <ImageView
+            android:id="@+id/iv_home_fav"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/vectorheart" />
+
+        <TextView
+            android:id="@+id/tv_home_fav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Favorites"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <View
+        android:id="@+id/v_dividerbot"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+
+        android:background="#02043F"
+        app:layout_constraintBottom_toTopOf="@id/ll_profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

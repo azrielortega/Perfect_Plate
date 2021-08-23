@@ -20,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     private PopularAdapter popularAdapter;
 
     private LinearLayout llProfile;
+    private LinearLayout llSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initComponents(){
         llProfile = findViewById(R.id.ll_profile);
+        this.llSearch = findViewById(R.id.ll_search);
 
         llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        this.llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, SearchActivity.class);
                 startActivity(i);
             }
         });
