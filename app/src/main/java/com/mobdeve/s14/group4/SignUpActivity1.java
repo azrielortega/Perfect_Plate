@@ -23,6 +23,7 @@ public class SignUpActivity1 extends AppCompatActivity {
 
     private Button btnNext;
 
+
     private TextView tvSignIn;
 
     private FirebaseAuth mAuth;
@@ -30,6 +31,21 @@ public class SignUpActivity1 extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etPassword;
+    private EditText etUsername;
+
+    private String email;
+    private String password;
+    private String username;
+
+    public static final String KEY_EMAIL = "KEY_EMAIL";
+    public static final String KEY_USERNAME = "KEY_USERNAME";
+    public static final String KEY_PASSWORD = "KEY_PASSWORD";
+
+
+    private void initFirebase() {
+        this.mAuth = FirebaseAuth.getInstance();
+        this.mDatabase = FirebaseDatabase.getInstance();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +53,13 @@ public class SignUpActivity1 extends AppCompatActivity {
         setContentView(R.layout.activity_signup1);
 
         btnNext = findViewById(R.id.signup1_btn_next);
+
+
         tvSignIn = findViewById(R.id.signup1_tv_signin);
+
         etEmail = findViewById(R.id.signup1_et_email);
         etPassword = findViewById(R.id.signup1_et_password);
+        etUsername = findViewById(R.id.signup1_et_username);
 
 
         this.initFirebase();
@@ -47,79 +67,21 @@ public class SignUpActivity1 extends AppCompatActivity {
         this.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+                email = etEmail.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                username = etUsername.getText().toString().trim();
 
-                if (!isEmpty(email, password)) {
-                    //add user to db
-                    User user = new User(email, password);
-                    storeUser(user);
-                }
 
-//                Intent intent = new Intent(SignUpActivity1.this, SignUpActivity2.class);
-//                SignUpActivity1.this.startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
+                i.putExtra(KEY_EMAIL, email);
+                i.putExtra(KEY_USERNAME, username);
+                i.putExtra(KEY_PASSWORD, password);
+
+                SignUpActivity1.this.startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-    }
-    private boolean isEmpty(String e, String p){
 
-        if(e.isEmpty()){
-            this.etEmail.setError("Required field");
-            this.etEmail.requestFocus();
-            return true;
-        }
-        return false;
-    }
-
-    private void initFirebase(){
-        this.mAuth = FirebaseAuth.getInstance();
-        this.mDatabase = FirebaseDatabase.getInstance();
-    }
-
-    private void storeUser(User u){
-        this.btnNext.setVisibility(View.VISIBLE);
-
-        //register to firebase
-        this.mAuth.createUserWithEmailAndPassword(u.getEmail(), u.getPassword())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            mDatabase.getReference("users")
-                                    .child(mAuth.getCurrentUser().getUid())
-                                    .setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        successfulRegistration();
-                                    } else {
-                                        failedRegistration();
-                                    }
-                                }
-                            });
-
-
-
-                        } else {
-                            failedRegistration();
-                        }
-                    }
-                });
-    }
-    private void successfulRegistration(){
-
-        Toast.makeText(this, "User Registration Successful", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(SignUpActivity1.this, LoginActivity.class);
-        this.btnNext.setVisibility(View.GONE);
-        startActivity(i);
-        finish();
-    }
-
-    private void failedRegistration(){
-        this.btnNext.setVisibility(View.GONE);
-        Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
 
     }
-
 }
