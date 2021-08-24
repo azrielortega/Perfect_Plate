@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PerfectPlate">
-        <activity android:name=".CreateRecipe1"></activity>
+
+        <activity android:name=".CreateRecipeActivity1"></activity>
+        <activity android:name=".CreateRecipeActivity2"></activity>
         <activity android:name=".SearchActivity" />
         <activity android:name=".WriteReviewActivity" />
         <activity android:name=".EditProfileActivity" />
