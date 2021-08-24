@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,14 +24,19 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String password;
     private String username;
 
+    private String fname;
+    private String lname;
     private EditText etFirstN;
     private EditText etLastN;
 
+    private ProgressBar pbSignup;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.initFirebase();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup2);
 
@@ -38,25 +45,28 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etFirstN = findViewById(R.id.signup2_et_fname);
         this.etLastN = findViewById(R.id.signup2_et_lname);
 
+        this.pbSignup = findViewById(R.id.pb_signup);
+
+        Intent i = getIntent();
+
+        email = i.getStringExtra(SignUpActivity1.KEY_EMAIL);
+        password = i.getStringExtra(SignUpActivity1.KEY_PASSWORD);
+        username = i.getStringExtra(SignUpActivity1.KEY_USERNAME);
+
+        Log.d("TEST EMAIL SIGN UP 2", email);
+        Log.d("TEST PASSWORD SIGN UP 2", password);
+        Log.d("TEST USERNAME SIGN UP 2", username);
+
         this.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = getIntent();
 
-                email = i.getStringExtra(SignUpActivity1.KEY_EMAIL);
-                password = i.getStringExtra(SignUpActivity1.KEY_PASSWORD);
-                username = i.getStringExtra(SignUpActivity1.KEY_USERNAME);
-//                email = "hehe@gmail.com";
-//                password = "hehehe";
-//                username = "hehehe";
-
-                String fname = etFirstN.getText().toString().trim();
-                String lname = etLastN.getText().toString().trim();
+                fname = etFirstN.getText().toString().trim();
+                lname = etLastN.getText().toString().trim();
 
                 if (!isEmpty(email, password, username, fname, lname)) {
                     //add user to db
-                    //User user = new User(email, password, username, fname, lname);
-                    User user = new User(fname, lname);
+                    User user = new User(email, password, username, fname, lname);
                     storeUser(user);
                 }
             }
@@ -68,10 +78,9 @@ public class SignUpActivity2 extends AppCompatActivity {
 //SET FUNCTION HERE
     private boolean isEmpty(String email, String password, String username, String fname, String lname){
 
-        if(fname.isEmpty()){
+        if(email.isEmpty()){
 //            this.et.setError("Required field");
 //           this.etEmail.requestFocus();
-
             return true;
         }
         return false;
@@ -87,8 +96,18 @@ public class SignUpActivity2 extends AppCompatActivity {
     private void storeUser(User u){
         this.btnSignUp.setVisibility(View.VISIBLE);
 
+        this.pbSignup.setVisibility(View.VISIBLE);
+        Log.d("TEST EMAIL STORE", email);
+        Log.d("TEST PASSWORD STORE", password);
+        Log.d("TEST USERNAME STORE", username);
+        Log.d("TEST FNAME STORE", fname);
+        Log.d("TEST LNAME STORE", lname);
+
+        Log.d("TEST GETEMAIL STORE", u.getEmail());
+        Log.d("TEST GETEMAIL PASSWORD", u.getPassword());
+
         //register to firebase
-        this.mAuth.createUserWithEmailAndPassword(email, password)
+        this.mAuth.createUserWithEmailAndPassword(u.getEmail(), u.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -126,5 +145,10 @@ public class SignUpActivity2 extends AppCompatActivity {
         Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(SignUpActivity2.this, WriteReviewActivity.class);
 
+    }
+
+    private void initFirebase() {
+        this.mAuth = FirebaseAuth.getInstance();
+        this.mDatabase = FirebaseDatabase.getInstance();
     }
 }

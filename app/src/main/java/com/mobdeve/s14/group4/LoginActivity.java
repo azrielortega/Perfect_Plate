@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     private void initFirebase(){
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
+        this.databaseReference = mDatabase.getReference("users");
+
     }
 
     private void initComponents(){
@@ -92,12 +104,33 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
     private void sucessfulLogin(){
+        FirebaseUser fUser;
+        User currUser;
 
-        Toast.makeText(this, "User Registration Successful", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(LoginActivity.this, CreateRecipeActivity2.class);
-        //this.btnNext.setVisibility(View.GONE);
-        startActivity(i);
-        finish();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    
+                    Log.d("SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());
+                    Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    // User is signed out
+                    Log.d("TAG", "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+
+
+
+
     }
 
     private void failedLogin(){
@@ -105,9 +138,4 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
 
     }
-
-
-
-
-
 }
