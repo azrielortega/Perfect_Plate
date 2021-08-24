@@ -61,13 +61,19 @@ public class LoginActivity extends AppCompatActivity {
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //testing purposes - matt
+                Intent i = new Intent(LoginActivity.this, CreateRecipeActivity2.class);
+                //this.btnNext.setVisibility(View.GONE);
+                startActivity(i);
+                finish();
+                /*
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
                 if (!isEmpty(email, password)) {
                     //add user to db
                     signIn(email, password);
-                }
+                }*/
             }
         });
     }
