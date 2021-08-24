@@ -1,6 +1,8 @@
 package com.mobdeve.s14.group4;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String email;
     private String password;
     private String username;
@@ -27,5 +29,15 @@ public class User {
     public String getPassword(){
         return this.password;
     }
+    public String getUsername(){
+        return this.username;
+    }
+    public String getFname(){
+        return this.fname;
+    }
+    public String getLname(){
+        return this.lname;
+    }
+
 
 }

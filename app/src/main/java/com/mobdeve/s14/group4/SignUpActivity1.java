@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,11 +72,16 @@ public class SignUpActivity1 extends AppCompatActivity {
                 password = etPassword.getText().toString().trim();
                 username = etUsername.getText().toString().trim();
 
+                Log.d("TEST EMAIL SIGN UP 1", email);
+                Log.d("TEST PASSWORD SIGN UP 1", password);
+                Log.d("TEST USERNAME SIGN UP 1", username);
+
 
                 Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
                 i.putExtra(KEY_EMAIL, email);
                 i.putExtra(KEY_USERNAME, username);
                 i.putExtra(KEY_PASSWORD, password);
+
 
                 SignUpActivity1.this.startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
