@@ -91,13 +91,24 @@
         android:id="@+id/rv_home_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:clipToPadding="true"
         android:paddingStart="10dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_popular_label" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_recent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:clipToPadding="true"
+        android:paddingStart="10dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recent_label"
+        app:layout_constraintBottom_toTopOf="@id/ll_home"/>
 
     <LinearLayout
         android:id="@+id/ll_home"
@@ -247,5 +258,15 @@
         app:layout_constraintLeft_toRightOf="@id/gl_left"
         app:layout_constraintTop_toBottomOf="@id/v_divider" />
 
+    <TextView
+        android:id="@+id/tv_recent_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Recent"
+        android:textColor="#D30045"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/rv_home_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

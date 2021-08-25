@@ -14,10 +14,14 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView rvPopular;
-    private ArrayList<Recipe> foodList;
+    private ArrayList<Recipe> popularRecipeList;
+    private RecyclerView rvRecent;
+    private ArrayList<Recipe> recentRecipeList;
 
     private RecyclerView.LayoutManager popularManager;
     private PopularAdapter popularAdapter;
+    private RecyclerView.LayoutManager recentManager;
+    private RecentAdapter recentAdapter;
 
     private LinearLayout llProfile;
     private LinearLayout llSearch;
@@ -28,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         this.initRecyclerView();
+        this.initRecentFeed();
         this.initComponents();
     }
 
@@ -54,17 +59,28 @@ public class HomeActivity extends AppCompatActivity {
     private void initRecyclerView(){
 
         DataHelper helper = new DataHelper();
-        this.foodList = helper.initFood();
+        this.popularRecipeList = helper.initFood();
         this.rvPopular = findViewById(R.id.rv_home_main);
-
-
 
         this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
         //this.initData();
-        this.popularAdapter = new PopularAdapter(this.foodList);
+        this.popularAdapter = new PopularAdapter(this.popularRecipeList);
         this.rvPopular.setAdapter(this.popularAdapter);
+    }
+
+    private void initRecentFeed(){
+        DataHelper helper = new DataHelper();
+
+        this.recentRecipeList = helper.initFood();
+        this.rvRecent = findViewById(R.id.rv_home_recent);
+
+        this.recentManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.rvRecent.setLayoutManager(recentManager);
+
+        this.recentAdapter = new RecentAdapter(this.recentRecipeList);
+        this.rvRecent.setAdapter(recentAdapter);
     }
 
 //    private void initData(){

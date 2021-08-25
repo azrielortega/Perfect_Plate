@@ -45,7 +45,7 @@ public class Recipe {
         return this.desc;
     }
     public int getReviewCount(){
-        return this.getReviewCount();
+            return this.reviewCount;
     }
 }
 
