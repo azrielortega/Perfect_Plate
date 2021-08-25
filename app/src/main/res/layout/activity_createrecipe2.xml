@@ -7,144 +7,153 @@
     android:background="#F4F0EF"
     tools:context=".CreateRecipeActivity2">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_blue" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="301dp"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/montserrat_bold"
-            android:gravity="center|center_vertical"
-            android:text="Create Recipe"
-            android:textAlignment="center"
-            android:textColor="#02043F"
-            android:textSize="21sp" />
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFC540" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="What goes in your dish?"
-        android:textColor="#FF9400"
-        app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#868484" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="ADD INGRIDIENT"
-        android:textColor="#02043F"
-        app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="What goes in your dish?"
+                android:textColor="#FF9400"
+                app:layout_constraintStart_toStartOf="@+id/guideline28"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <Button
-        android:id="@+id/createrecipe2_btn_add"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/roundercornersbutton"
-        android:drawableLeft="@drawable/ic_baseline_add_24"
-        android:fontFamily="@font/montserrat"
-        android:foregroundTint="#FFFFFF"
-        android:shadowColor="#7C7979"
-        android:text="Add an Ingredient"
-        android:textColor="#FF9400"
-        android:textSize="13sp"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/guideline30"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toBottomOf="@+id/createrecipe2_ll_ingredients" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.93" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.07" />
+            <LinearLayout
+                android:id="@+id/createrecipe2_ll_ingredients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintStart_toStartOf="@+id/guideline28"
+                app:layout_constraintTop_toBottomOf="@+id/textView20">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.93" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/createrecipe2_btn_next"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/roundercornersbutton"
-        android:drawableRight="@drawable/ic_baseline_arrow_next"
-        android:fontFamily="@font/montserrat"
-        android:foregroundTint="#FFFFFF"
-        android:shadowColor="#7C7979"
-        android:text="Next"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        app:backgroundTint="#02043F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline30"
-        app:layout_constraintTop_toBottomOf="@+id/createrecipe2_btn_add"
-        app:layout_constraintVertical_bias="1.0" />
+            <Button
+                android:id="@+id/createrecipe2_btn_next"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/roundercornersbutton"
+                android:drawableRight="@drawable/ic_baseline_arrow_next"
+                android:fontFamily="@font/montserrat"
+                android:foregroundTint="#FFFFFF"
+                android:shadowColor="#7C7979"
+                android:text="Next"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                app:backgroundTint="#02043F"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/createrecipe2_btn_add" />
 
-    <LinearLayout
-        android:id="@+id/createrecipe2_ll_ingredients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/guideline30"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toBottomOf="@+id/textView20">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.07" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/createrecipe2_btn_add"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/roundercornersbutton"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:fontFamily="@font/montserrat"
+                android:foregroundTint="#FFFFFF"
+                android:shadowColor="#7C7979"
+                android:text="Add an Ingredient"
+                android:textColor="#FF9400"
+                android:textSize="13sp"
+                app:backgroundTint="#FFFFFF"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline28"
+                app:layout_constraintTop_toBottomOf="@+id/createrecipe2_ll_ingredients" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="ADD INGRIDIENT"
+                android:textColor="#02043F"
+                app:layout_constraintStart_toStartOf="@+id/guideline28"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FFC540" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#868484" />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/ic_baseline_arrow_back_blue" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="301dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center|center_vertical"
+                    android:text="Create Recipe"
+                    android:textAlignment="center"
+                    android:textColor="#02043F"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
