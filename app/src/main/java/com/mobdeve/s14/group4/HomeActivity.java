@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private LinearLayout llProfile;
     private LinearLayout llSearch;
+    private LinearLayout llCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
-        llProfile = findViewById(R.id.ll_profile);
+        this.llProfile = findViewById(R.id.ll_profile);
         this.llSearch = findViewById(R.id.ll_search);
 
-        llProfile.setOnClickListener(new View.OnClickListener() {
+        this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, ProfileActivity.class);
@@ -49,6 +50,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(i);
+            }
+        });
+
+        this.llCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, CreateRecipeActivity1.class);
                 startActivity(i);
             }
         });

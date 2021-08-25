@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //testing purposes - matt
-                Intent i = new Intent(LoginActivity.this, CreateRecipeActivity2.class);
+                Intent i = new Intent(LoginActivity.this, CreateRecipeActivity1.class);
                 //this.btnNext.setVisibility(View.GONE);
                 startActivity(i);
                 finish();
