@@ -10,9 +10,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -25,7 +31,15 @@ public class ProfileActivity extends AppCompatActivity {
     private ArrayList<Recipe> data;
 
     private ImageView ivEdit;
+    private TextView tvName;
+    private TextView tvUsername;
     private FirebaseUser user;
+    private DatabaseReference databaseReference;
+
+    private String fname;
+    private String lname;
+    private String username;
+
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
@@ -33,29 +47,43 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
         this.initRecyclerView();
         this.initComponents();
-        Log.d("SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());
     }
 
     private void initComponents(){
         ivEdit = findViewById(R.id.profile_iv_edit);
+        this.tvName = findViewById(R.id.profile_tv_name);
+        this.tvUsername = findViewById(R.id.profile_tv_username);
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+
+
+
+        //authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d("PROFILE SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+
+        databaseReference.addValueEventListener(new ValueEventListener(){
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d("PROFILE SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d("TAG", "onAuthStateChanged:signed_out");
-                }
-                // ...
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                fname = dataSnapshot.child("fname").getValue(String.class);
+                lname = dataSnapshot.child("lname").getValue(String.class);
+                username = dataSnapshot.child("username").getValue(String.class);
+
+                String fullName = fname + " " + lname;
+                tvName.setText(fullName);
+                tvUsername.setText(username);
             }
-        };
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("FAIL TAG", "Failed to read value.", error.toException());
+            }
+        });
+
+
+
 
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
