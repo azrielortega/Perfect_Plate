@@ -100,7 +100,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home_recent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="true"
         android:paddingStart="10dp"
