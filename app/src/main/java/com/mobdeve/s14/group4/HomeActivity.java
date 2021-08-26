@@ -59,13 +59,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        this.llCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, CreateRecipeActivity1.class);
-                startActivity(i);
-            }
-        });
+//        this.llCreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(HomeActivity.this, CreateRecipeActivity1.class);
+//                startActivity(i);
+//            }
+//        });
     }
     private void initRecyclerView(){
 
