@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private LinearLayout llProfile;
     private LinearLayout llSearch;
     private LinearLayout llCreate;
+    private LinearLayout llFavorites;
 
     private ImageView ivSearch;
 
@@ -47,6 +48,15 @@ public class HomeActivity extends AppCompatActivity {
         this.llSearch = findViewById(R.id.ll_search);
         llCreate = findViewById(R.id.ll_create);
         ivSearch = findViewById(R.id.iv_search);
+        llFavorites = findViewById(R.id.ll_fav);
+
+        llFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (HomeActivity.this, ViewFavoritesActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override

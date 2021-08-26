@@ -12,6 +12,7 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout llProfile;
     private LinearLayout llHome;
     private LinearLayout llCreate;
+    private LinearLayout llFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,15 @@ public class SearchActivity extends AppCompatActivity {
         this.llProfile = findViewById(R.id.ll_profile);
         this.llHome = findViewById(R.id.ll_home);
         llCreate = findViewById(R.id.ll_create);
+        llFavorites = findViewById(R.id.ll_fav);
+
+        llFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (SearchActivity.this, ViewFavoritesActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
