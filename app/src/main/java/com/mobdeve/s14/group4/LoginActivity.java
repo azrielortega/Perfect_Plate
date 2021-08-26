@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -96,14 +99,15 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                           sucessfulLogin();
+                           successfulLogin();
                         } else {
                             failedLogin();
                         }
                     }
                 });
     }
-    private void sucessfulLogin(){
+
+    private void successfulLogin(){
         FirebaseUser fUser;
         User currUser;
 
@@ -128,16 +132,19 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
-
-
-
-
-
     }
 
     private void failedLogin(){
         //this.btnNext.setVisibility(View.GONE);
         Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void initGoogleSignIn(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
 }
