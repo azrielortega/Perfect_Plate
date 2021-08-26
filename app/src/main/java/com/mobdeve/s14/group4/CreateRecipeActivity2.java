@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
     private Button btnAdd;
     private Button btnNext;
+    private ImageButton ibBack;
     private LinearLayout llIngredients;
 
     @Override
@@ -40,12 +43,20 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         btnAdd = findViewById(R.id.createrecipe2_btn_add);
         llIngredients = findViewById(R.id.createrecipe2_ll_ingredients);
         btnNext = findViewById(R.id.createrecipe2_btn_next);
+        ibBack = findViewById(R.id.createrecipe2_ib_back);
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -68,5 +79,11 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 llIngredients.addView(ingredientLayout);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }

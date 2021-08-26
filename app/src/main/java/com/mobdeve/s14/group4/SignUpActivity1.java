@@ -24,7 +24,6 @@ public class SignUpActivity1 extends AppCompatActivity {
 
     private Button btnNext;
 
-
     private TextView tvSignIn;
 
     private FirebaseAuth mAuth;
@@ -55,7 +54,6 @@ public class SignUpActivity1 extends AppCompatActivity {
 
         btnNext = findViewById(R.id.signup1_btn_next);
 
-
         tvSignIn = findViewById(R.id.signup1_tv_signin);
 
         etEmail = findViewById(R.id.signup1_et_email);
@@ -64,6 +62,13 @@ public class SignUpActivity1 extends AppCompatActivity {
 
 
         this.initFirebase();
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         this.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

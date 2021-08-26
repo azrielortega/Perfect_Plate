@@ -56,9 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
         this.tvName = findViewById(R.id.profile_tv_name);
         this.tvUsername = findViewById(R.id.profile_tv_username);
 
-
-
-
         //authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
         user = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("PROFILE SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());

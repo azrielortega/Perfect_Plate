@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
     private LinearLayout llSearch;
     private LinearLayout llCreate;
 
+    private ImageView ivSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
     private void initComponents(){
         this.llProfile = findViewById(R.id.ll_profile);
         this.llSearch = findViewById(R.id.ll_search);
+        llCreate = findViewById(R.id.ll_create);
+        ivSearch = findViewById(R.id.iv_search);
 
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
