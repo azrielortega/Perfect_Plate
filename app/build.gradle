@@ -30,6 +30,8 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+
     implementation 'com.intellij:annotations:+@jar'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
