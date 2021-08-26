@@ -23,7 +23,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/vectorback"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_blue"
             app:tint="#02043f" />
 
         <TextView
@@ -151,6 +151,8 @@
                 android:fontFamily="@font/montserrat"
                 android:hint="E.g. Cinnamon Rolls"
                 android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textColorHint="#868484"
                 app:layout_constraintEnd_toStartOf="@+id/gl_create1_right"
                 app:layout_constraintStart_toStartOf="@+id/gl_create1_left"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create1_name" />
@@ -200,6 +202,8 @@
                 android:gravity="start|top"
                 android:hint="E.g. The BEST cinnamon rolls in the WORLD! Big, fluffy, soft and absolutely delicious. You’ll never go back to any other recipe once you try this one!"
                 android:inputType="textMultiLine"
+                android:textColor="#000000"
+                android:textColorHint="#868484"
                 app:layout_constraintEnd_toStartOf="@+id/gl_create1_right"
                 app:layout_constraintStart_toStartOf="@+id/gl_create1_left"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create1_description" />
@@ -317,6 +321,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
                     android:text="How many servings does your recipe make?"
+                    android:textColor="#868484"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/et_create1_servings"
                     app:layout_constraintTop_toBottomOf="@id/tv_create1_portion" />
@@ -342,6 +347,8 @@
                     android:hint="0"
                     android:inputType="number"
                     android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textColorHint="#868484"
                     app:layout_constraintBottom_toBottomOf="@id/tv_servings"
                     app:layout_constraintRight_toLeftOf="@id/tv_servings"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -389,6 +396,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
                     android:text="How much time is actively spent in making this recipe? "
+                    android:textColor="#868484"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/et_create1_preptime"
                     app:layout_constraintTop_toBottomOf="@id/tv_create1_preptime" />
@@ -415,6 +423,8 @@
 
                     android:hint="00"
                     android:inputType="number"
+                    android:textColor="#000000"
+                    android:textColorHint="#868484"
                     app:layout_constraintBottom_toBottomOf="@id/tv_create1_preptime"
                     app:layout_constraintRight_toLeftOf="@id/tv_minn"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -463,6 +473,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
                     android:text="How much time is spent in cooking (or baking!) this recipe? "
+                    android:textColor="#868484"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/et_create1_cookingtime"
                     app:layout_constraintTop_toBottomOf="@id/tv_create1_cookingtime" />
@@ -489,6 +500,8 @@
 
                     android:hint="00"
                     android:inputType="number"
+                    android:textColor="#000000"
+                    android:textColorHint="#868484"
                     app:layout_constraintBottom_toBottomOf="@id/tv_create1_cookingtime"
                     app:layout_constraintBottom_toTopOf="@id/textView26"
                     app:layout_constraintRight_toLeftOf="@id/tv_min"
@@ -520,7 +533,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_create1_recipe_pic">
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/createrecipe2_ib_back"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     app:srcCompat="@android:drawable/ic_menu_camera"

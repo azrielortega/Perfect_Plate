@@ -1,23 +1,14 @@
 package com.mobdeve.s14.group4;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class CreateRecipeActivity3 extends AppCompatActivity {
 
@@ -26,6 +17,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private Button btnAdd;
     private Button btnFinish;
     private LinearLayout llSteps;
+    private ImageButton ibBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +32,21 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         this.btnAdd = findViewById(R.id.createrecipe3_btn_add);
         this.llSteps = findViewById(R.id.createrecipe3_ll_steps);
         btnFinish = findViewById(R.id.createrecipe3_btn_finish);
+        ibBack = findViewById(R.id.createrecipe3_ib_back);
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         this.btnAdd.setOnClickListener(new View.OnClickListener() {
