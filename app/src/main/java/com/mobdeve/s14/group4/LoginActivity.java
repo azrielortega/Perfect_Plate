@@ -233,10 +233,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addGoogleUser(GoogleSignInAccount account){
-        DatabaseReference newUser = this.databaseReference.push();
-        User user = new User(account.getId(), account.getDisplayName(), account.getGivenName(), account.getFamilyName());
-        user.setUserId(newUser.getKey());
+        
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull @NotNull FirebaseAuth firebaseAuth) {
+                String id = firebaseAuth.getCurrentUser().getUid();
 
-        this.databaseReference.child(user.getUserId()).setValue(user);
+                User user = new User(account.getId(), account.getDisplayName(), account.getGivenName(), account.getFamilyName());
+                user.setUserId(id);
+
+                databaseReference.child(id).setValue(user);
+            }
+        });
     }
 }
