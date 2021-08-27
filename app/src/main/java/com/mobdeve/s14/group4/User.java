@@ -3,16 +3,25 @@ package com.mobdeve.s14.group4;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    private String userId;
     private String email;
     private String password;
     private String username;
     private String fname;
     private String lname;
+    private String googleId;
 
 
     public User(String email, String  password, String username, String fname, String lname){
         this.email = email;
         this.password = password;
+        this.username = username;
+        this.fname = fname;
+        this.lname = lname;
+    }
+
+    public User(String googleId, String username, String fname, String lname){
+        this.googleId = googleId;
         this.username = username;
         this.fname = fname;
         this.lname = lname;
@@ -38,6 +47,10 @@ public class User implements Serializable {
     public String getLname(){
         return this.lname;
     }
+    public String getGoogleId() { return this.googleId; }
+    public String getUserId(){ return this.userId; }
 
-
+    public void setUserId(String userId){
+        this.userId = userId;
+    }
 }
