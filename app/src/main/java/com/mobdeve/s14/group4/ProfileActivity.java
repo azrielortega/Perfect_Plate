@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +51,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         this.initRecyclerView();
         this.initComponents();
+//        this.initGoogleComponents();
+    }
+
+    private void initGoogleComponents(){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (account != null){
+            this.fname = account.getDisplayName();
+        }
     }
 
     private void initComponents(){
