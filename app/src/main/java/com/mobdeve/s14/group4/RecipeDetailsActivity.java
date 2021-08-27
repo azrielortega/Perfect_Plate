@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -104,9 +105,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
+
+
 
         this.tvIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,5 +191,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         *
         * */
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1){
+            llComment2.setVisibility(View.VISIBLE);
+        }
     }
 }
