@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton ibBack;
     private ImageButton ibAdd;
 
+    private Button btnLogout;
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
@@ -72,6 +74,19 @@ public class ProfileActivity extends AppCompatActivity {
         this.tvUsername = findViewById(R.id.profile_tv_username);
         ibBack = findViewById(R.id.ib_profile_back);
         ibAdd = findViewById(R.id.ib_profile_add);
+
+        btnLogout = findViewById(R.id.btn_profile_logout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,
+                        LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         ibAdd.setOnClickListener(new View.OnClickListener() {
             @Override
