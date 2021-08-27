@@ -35,9 +35,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         this.ibSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(WriteReviewActivity.this, RecipeDetailsActivity.class);
-                i.putExtra(KEY_SUBMITTED, "true");
-                v.getContext().startActivity(i);
+               finish();
             }
         });
     }

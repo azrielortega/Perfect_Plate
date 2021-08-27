@@ -37,6 +37,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     private ImageButton ibFave;
     private ImageButton ibBack;
+    private ImageView ivDeleteComment;
 
     private Boolean liked = false;
     public static Boolean reviewed = false;
@@ -68,6 +69,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         this.ibFave = findViewById(R.id.ib_recipe_details_fav);
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
+
+        this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
 
         //this.clReviews = findViewById(R.id.cl_details_reviews);
 
@@ -105,7 +108,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
-                startActivityForResult(i, 1);
+                startActivity(i);
             }
         });
 
@@ -186,10 +189,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        *  ADD HERE IF REVIEWED, MAKE LLCOMMENT2 VISIBLE THEN OPTION TO DELETE IT
-        *
-        * */
+        this.ivDeleteComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llComment2.setVisibility(View.GONE);
+            }
+        });
 
     }
 

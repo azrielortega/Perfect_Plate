@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,10 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout llHome;
     private LinearLayout llCreate;
     private LinearLayout llFavorites;
+
+    private CardView cvCategory;
+
+    public static final String KEY_CATEGORY = "KEY_CATEGORY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         this.llHome = findViewById(R.id.ll_home);
         llCreate = findViewById(R.id.ll_create);
         llFavorites = findViewById(R.id.ll_fav);
+        this.cvCategory = findViewById(R.id.cv_search_appetizer);
 
         llFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,5 +66,16 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        this.cvCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Appetizer");
+                startActivity(i);
+
+            }
+        });
+        
     }
 }
