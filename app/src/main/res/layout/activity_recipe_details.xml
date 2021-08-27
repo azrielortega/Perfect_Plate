@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:paddingBottom="20dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
                 app:layout_constraintRight_toLeftOf="@id/gl_details_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
@@ -225,7 +225,7 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/imageView11"
+                        android:id="@+id/iv_delete_comment"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="0.1"
