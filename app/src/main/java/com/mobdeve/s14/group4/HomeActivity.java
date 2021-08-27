@@ -109,11 +109,4 @@ public class HomeActivity extends AppCompatActivity {
         this.rvRecent.setAdapter(recentAdapter);
     }
 
-//    private void initData(){
-//        this.foodList = new ArrayList<Food>();
-//
-//        this.foodList.add(new Food(R.drawable.popular1, "Food 1"));
-//        this.foodList.add(new Food(R.drawable.popular2, "Meow Meow"));
-//        this.foodList.add(new Food(R.drawable.popular3, "Poopers poopie meow meow"));
-//    }
 }

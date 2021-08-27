@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="label_color">#9902043F</color>
     <color name="heart_color">#FFD30045</color>
+
+    <color name ="proj_white">#f4f0ef</color>
+    <color name ="proj_yellow">#ffc540</color>
+    <color name ="proj_blue">#02043f</color>
+    <color name ="proj_red_pink">#d30045</color>
+    <color name ="proj_orange">#ff9400</color>
 </resources>
