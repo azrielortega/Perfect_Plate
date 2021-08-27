@@ -78,9 +78,9 @@
 
         <TextView
             android:id="@+id/textView30"
-            android:layout_width="40dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.3"
             android:background="#FFC540" />
 
         <TextView
