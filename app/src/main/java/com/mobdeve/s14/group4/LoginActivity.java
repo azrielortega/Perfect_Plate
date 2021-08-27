@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         this.etPassword = findViewById(R.id.login_et_password);
 
 
+
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     // User is signed in
                     
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
+                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(i);
                     finish();
                 } else {
