@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
     private String lname;
     private String username;
 
+    private ImageButton ibBack;
+    private ImageButton ibAdd;
+
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
@@ -55,6 +59,23 @@ public class ProfileActivity extends AppCompatActivity {
         ivEdit = findViewById(R.id.profile_iv_edit);
         this.tvName = findViewById(R.id.profile_tv_name);
         this.tvUsername = findViewById(R.id.profile_tv_username);
+        ibBack = findViewById(R.id.ib_profile_back);
+        ibAdd = findViewById(R.id.ib_profile_add);
+
+        ibAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfileActivity.this, CreateRecipeActivity1.class);
+                startActivity(i);
+            }
+        });
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
         user = FirebaseAuth.getInstance().getCurrentUser();

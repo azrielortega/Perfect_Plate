@@ -9,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
 public class CreateRecipeActivity3 extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Recipe Created!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

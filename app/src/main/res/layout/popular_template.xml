@@ -63,7 +63,7 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/template_fr_iv_heart"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="bottom"

@@ -34,15 +34,6 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/roundcorners_image" />
 
-            <ImageView
-                android:id="@+id/pt_recipe_iv_heart"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:translationX="175dp"
-                android:translationY="215dp"
-                app:srcCompat="@drawable/heart_off"
-                app:tint="#000000" />
-
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

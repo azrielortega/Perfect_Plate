@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_popular_card"
+            android:id="@+id/template_fr_cv_recipe"
             android:layout_width="300dp"
             android:layout_height="290dp"
             android:background="@drawable/shadow"
@@ -55,12 +55,13 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/template_fr_iv_heart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="260dp"
                 android:layout_marginBottom="5dp"
+                android:foregroundTint="#FF0000"
                 app:srcCompat="@drawable/heart_off" />
         </androidx.cardview.widget.CardView>
 
