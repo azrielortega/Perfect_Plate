@@ -53,4 +53,8 @@ public class RecentViewHolder extends RecyclerView.ViewHolder  {
     public void setTvRecentHearts(int h){
         this.tvRecentHearts.setText(String.valueOf(h));
     }
+
+    public ImageView getRecentCard(){
+        return this.ivRecentPic;
+    }
 }
