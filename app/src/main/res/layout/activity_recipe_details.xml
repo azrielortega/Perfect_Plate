@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:paddingBottom="20dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
                 app:layout_constraintRight_toLeftOf="@id/gl_details_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
@@ -179,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintTop_toBottomOf="@id/ll_comment1">
 
                     <androidx.cardview.widget.CardView
