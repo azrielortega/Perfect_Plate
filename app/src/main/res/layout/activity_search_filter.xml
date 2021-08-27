@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ib_category_back"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -66,12 +66,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_filter_result"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="20dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintLeft_toLeftOf="@id/gl_filter_keft"
 
+        app:layout_constraintLeft_toLeftOf="@id/gl_filter_keft"
         app:layout_constraintRight_toRightOf="@id/gl_filter_right"
         app:layout_constraintTop_toBottomOf="@id/tv_showing_results">
 

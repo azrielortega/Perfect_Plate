@@ -108,7 +108,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
-                startActivityForResult(i, 1);
+                startActivity(i);
             }
         });
 
