@@ -131,10 +131,6 @@ public class LoginActivity extends AppCompatActivity {
 
         authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
 
-
-
-
-
     }
 
     private void failedLogin(){

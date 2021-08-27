@@ -196,8 +196,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1){
+        if (resultCode == 1){
             llComment2.setVisibility(View.VISIBLE);
         }
     }
