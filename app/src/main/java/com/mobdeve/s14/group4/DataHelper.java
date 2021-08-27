@@ -14,7 +14,7 @@ public class DataHelper {
         };
         String[] foodName ={
                 "Egg Toast",
-                "Banana and Blueberry French Toast",
+                "Fruity French Toast",
                 "Meatballs"
         };
         Integer[] foodFave = {
