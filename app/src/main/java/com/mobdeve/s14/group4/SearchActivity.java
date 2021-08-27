@@ -16,6 +16,11 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout llFavorites;
 
     private CardView cvCategory;
+    private CardView cvPasta;
+    private CardView cvMain;
+    private CardView cvDessert;
+    private CardView cvPastry;
+    private CardView cvDrinks;
 
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
 
@@ -35,6 +40,11 @@ public class SearchActivity extends AppCompatActivity {
         llCreate = findViewById(R.id.ll_create);
         llFavorites = findViewById(R.id.ll_fav);
         this.cvCategory = findViewById(R.id.cv_search_appetizer);
+        this.cvPasta = findViewById(R.id.cv_search_pasta);
+        this.cvMain = findViewById(R.id.cv_search_main);
+        this.cvDessert = findViewById(R.id.cv_search_dessert);
+        this.cvPastry = findViewById(R.id.cv_search_pastry);
+        this.cvDrinks = findViewById(R.id.cv_search_drinks);
 
         llFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +86,55 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-        
+
+        this.cvPasta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Pasta");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Main");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvDessert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Dessert");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvPastry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Pastry");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_CATEGORY, "Drinks");
+                startActivity(i);
+
+            }
+        });
     }
 }
