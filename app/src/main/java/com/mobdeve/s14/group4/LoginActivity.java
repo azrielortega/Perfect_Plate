@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
 
+    private ProgressBar pbLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         this.btnGoogleLogin = findViewById(R.id.login_btn_google);
         this.etEmail = findViewById(R.id.login_et_email);
         this.etPassword = findViewById(R.id.login_et_password);
+        pbLogin = findViewById(R.id.login_pb);
 
 
 
@@ -83,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();*/
-
+                pbLogin.setVisibility(View.VISIBLE);
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
@@ -130,9 +134,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                pbLogin.setVisibility(View.GONE);
                 if (user != null) {
                     // User is signed in
-                    
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(i);
@@ -164,6 +168,7 @@ public class LoginActivity extends AppCompatActivity {
         this.btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pbLogin.setVisibility(View.VISIBLE);
                 Intent i = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(i, RC_SIGN_IN);
             }
@@ -187,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                 this.databaseReference.orderByChild("googleId").equalTo(account.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        pbLogin.setVisibility(View.GONE);
                         if (!snapshot.exists()){
                             addGoogleUser(account);
                         }
