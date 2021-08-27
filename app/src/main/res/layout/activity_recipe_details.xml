@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="16dp" />
+                app:layout_constraintGuide_percent="0.04" />
 
             <TextView
                 android:id="@+id/tv_recipe_details_name"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="395dp" />
+                app:layout_constraintGuide_percent="0.96" />
 
             <View
                 android:id="@+id/v_details_bot"
@@ -364,7 +364,8 @@
                     android:id="@+id/tv_recipe_details_ingredients_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio purus, convallis quis diam eget, vestibulum ultrices orci. Quisque ut arcu sit amet metus mattis ornare. Nam tincidunt mi id faucibus elementum. Etiam commodo magna quis urna porttitor euismod. In hac habitasse platea dictumst. Morbi non posuere tortor. Morbi in nulla iaculis, finibus justo vel, imperdiet ante. Duis vitae gravida dolor, sit amet blandit felis. Morbi fermentum ligula at tempor fringilla. Nunc euismod, elit a lacinia pretium, nunc ex aliquam erat, ac congue metus libero euismod erat. Fusce ac libero sem. Sed maximus massa a ante placerat, quis cursus nibh accumsan. Nulla vitae dignissim sem. Quisque pellentesque, lectus quis tincidunt varius, velit lectus ornare purus, non egestas sem nisl sit amet augue. Sed rutrum hendrerit pretium. Etiam feugiat porta laoreet. Quisque porta nunc nisl, quis ornare magna dignissim a. Sed bibendum ex quam, id auctor sem dignissim nec. Nam sed cursus enim, eget rutrum sapien. Morbi id mauris eget purus consectetur mattis vitae non justo. Aliquam interdum enim id facilisis egestas. In vel maximus neque."
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/ingredients"
                     android:textColor="#000000"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ingredients_title" />

@@ -22,6 +22,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvReviewCount;
     private LinearLayout llWriteReview;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +55,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //        int iFavCount = i.getIntExtra(PopularAdapter.KEY_RECIPE_FAV, 0);
 //        this.tvFavCount.setText(iFavCount);
 //
-//        int iContributorPic = i.getIntExtra(PopularAdapter.KEY_CONTRIBUTOR_PIC, 0);
-//        this.ivContributorPic.setImageResource(iContributorPic);
+        int iContributorPic = i.getIntExtra(PopularAdapter.KEY_CONTRIBUTOR_PIC, 0);
+        this.ivContributorPic.setImageResource(iContributorPic);
 //
-//        String iContName = i.getStringExtra(PopularAdapter.KEY_CONTRIBUTOR_NAME);
-//        this.tvContributorName.setText(iContName);
+        String iContName = i.getStringExtra(PopularAdapter.KEY_CONTRIBUTOR_NAME);
+        this.tvContributorName.setText(iContName);
 //
-//        String iDesc = i.getStringExtra(PopularAdapter.KEY_RECIPE_DESCRIPTION);
-//        this.tvDescription.setText(iDesc);
+        String iDesc = i.getStringExtra(PopularAdapter.KEY_RECIPE_DESCRIPTION);
+        this.tvDescription.setText(iDesc);
 //
 //        int iRC = i.getIntExtra(PopularAdapter.KEY_RECIPE_REVIEWS_COUNT, 0);
 //        this.tvReviewCount.setText(iRC);

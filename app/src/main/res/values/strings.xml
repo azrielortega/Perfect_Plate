@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Perfect Plate</string>
+    <string name="ingredients">
+        1 slice bread \n
+        1/2 tbsp butter \n
+        1 egg \n
+        salt \n
+        pepper\n
+    </string>
+
 </resources>

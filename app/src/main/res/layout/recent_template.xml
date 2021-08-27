@@ -3,27 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="292dp">
+    android:layout_height="292dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp">
 
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_user_satisfaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_begin="272dp"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="272dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_left_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_begin="29dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
 
     <ImageView
         android:id="@+id/iv_recent_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:adjustViewBounds="true"
         android:background="@drawable/roundedcorners_allcorners_bg"
         android:scaleType="centerCrop"
@@ -47,24 +50,28 @@
 
     <TextView
         android:id="@+id/tv_recent_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="bottom"
         android:text="Food Name"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_recent_author"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left_margin" />
+        app:layout_constraintLeft_toLeftOf="@id/gl_left_margin"
+        app:layout_constraintRight_toLeftOf="@+id/gl_margin_right" />
 
     <TextView
         android:id="@+id/tv_recent_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Author"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
         app:layout_constraintLeft_toLeftOf="@id/gl_left_margin" />
@@ -73,20 +80,21 @@
         android:id="@+id/tv_recent_ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="4.5"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left_margin"/>
+        app:layout_constraintLeft_toLeftOf="@id/gl_left_margin"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <ImageView
         android:id="@+id/iv_star"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginLeft="4dp"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
         app:layout_constraintLeft_toRightOf="@+id/tv_recent_ratings"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:srcCompat="@drawable/vectorstar" />
 
     <View
@@ -95,31 +103,33 @@
         android:layout_height="4dp"
         android:layout_marginLeft="9dp"
         android:background="@drawable/circle"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/iv_star" />
+        app:layout_constraintLeft_toRightOf="@id/iv_star"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <TextView
         android:id="@+id/tv_recent_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="9dp"
+        android:fontFamily="@font/montserrat"
         android:text="14k"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/v_dot1"/>
+        app:layout_constraintLeft_toRightOf="@id/v_dot1"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <TextView
         android:id="@+id/tv_reviews_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
+        android:fontFamily="@font/montserrat"
         android:text="reviews"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/tv_recent_reviews"/>
+        app:layout_constraintLeft_toRightOf="@id/tv_recent_reviews"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <View
         android:id="@+id/v_dot2"
@@ -127,30 +137,38 @@
         android:layout_height="4dp"
         android:layout_marginLeft="9dp"
         android:background="@drawable/circle"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/tv_reviews_label" />
+        app:layout_constraintLeft_toRightOf="@id/tv_reviews_label"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <TextView
         android:id="@+id/tv_recent_hearts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="9dp"
+        android:fontFamily="@font/montserrat"
         android:text="8k"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/v_dot2"/>
+        app:layout_constraintLeft_toRightOf="@id/v_dot2"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction" />
 
     <ImageView
         android:id="@+id/iv_heart"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginLeft="4dp"
-        app:srcCompat="@drawable/vectorheart"
-        app:tint="@color/heart_color"
-        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
         app:layout_constraintBottom_toBottomOf="@id/gl_user_satisfaction"
-        app:layout_constraintLeft_toRightOf="@id/tv_recent_hearts"/>
+        app:layout_constraintLeft_toRightOf="@id/tv_recent_hearts"
+        app:layout_constraintTop_toTopOf="@id/gl_user_satisfaction"
+        app:srcCompat="@drawable/vectorheart"
+        app:tint="@color/heart_color" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_margin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

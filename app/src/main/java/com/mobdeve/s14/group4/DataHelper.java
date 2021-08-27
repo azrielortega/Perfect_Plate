@@ -13,9 +13,9 @@ public class DataHelper {
                 R.drawable.popular3
         };
         String[] foodName ={
-                "Food 1",
-                "Nomnomnom",
-                "Lorem lorem lorem"
+                "Egg Toast",
+                "Banana and Blueberry French Toast",
+                "Meatballs"
         };
         Integer[] foodFave = {
                 23,
@@ -41,9 +41,9 @@ public class DataHelper {
                 "Jennie Kim"
         };
         String[] description = {
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eleifend lorem vel lorem finibus, nec auctor magna dictum. Vivamus id diam purus. Aliquam tristique nisl sit amet elit pellentesque, a mattis sem ornare. Sed sagittis mi ac urna aliquam, congue venenatis justo vehicula.",
-                "Pellentesque congue nulla nec orci sollicitudin finibus. Vivamus vulputate malesuada sapien ac faucibus. Ut vitae pellentesque arcu.",
-                ""
+                "This Egg Toast is so easy to make, filling, and so incredibly tasty, that it is going to make your morning better. Guaranteed. ",
+                "With so many toppings and breads there is an endless variety of French toast you can make. Cinnamon French toast, Brioche French toast, stuffed French toast and even a French toast that tastes like a Starbucks caramel macchiato. If you are feeling adventurous, you can even make French toast in a mug! ",
+                "I never knew how to make good meatballs until I found this recipe. I normally make mine with just ground beef and they still taste great. I've used the combination of pork, beef and veal and they are equally good. Definitely use fresh bread crumbs and freshly grate your cheese instead of using the canned variety...it really does make a difference."
         };
         Integer[] reviewCount = {
                 123,
