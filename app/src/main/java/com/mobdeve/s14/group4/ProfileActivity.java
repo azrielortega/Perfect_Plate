@@ -9,12 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ImageButton ibBack;
     private ImageButton ibAdd;
+    private Button btnLogout;
 
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -58,12 +62,15 @@ public class ProfileActivity extends AppCompatActivity {
 //        this.initGoogleComponents();
     }
 
-    private void initGoogleComponents(){
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+    private void signOut(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        if (account != null){
-            this.fname = account.getDisplayName();
-        }
+        mGoogleSignInClient.signOut();
+        FirebaseAuth.getInstance().signOut();
     }
 
     private void initComponents(){
@@ -72,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.tvUsername = findViewById(R.id.profile_tv_username);
         ibBack = findViewById(R.id.ib_profile_back);
         ibAdd = findViewById(R.id.ib_profile_add);
+        this.btnLogout = findViewById(R.id.btn_profile_logout);
 
         ibAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +119,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                ProfileActivity.this.startActivity(intent);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                signOut();
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 ProfileActivity.this.startActivity(intent);
             }
         });
