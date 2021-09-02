@@ -126,10 +126,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void successfulLogin(){
-        FirebaseUser fUser;
-        User currUser;
-
-        fUser = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseUser fUser;
+//        User currUser;
+//
+//        fUser = FirebaseAuth.getInstance().getCurrentUser();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initGoogleSignIn(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("291440976878-t0uvtk44iplvllf64kbu09k7pupsnjgn.apps.googleusercontent.com")
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
         this.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
