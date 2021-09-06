@@ -1,89 +1,56 @@
 package com.mobdeve.s14.group4;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Recipe {
-    private String recipeId;
-    private int recipePic;
-    private String recipeName;
-    private int foodFave;
-    private double rating;
-    private int contributorPic;
-    private String contributorName;
-    private String desc;
-    private int reviewCount;
-    private ArrayList<Ingredient> ingredientsList;
-
+public class Recipe extends FirebaseRecipe
+{
     public Recipe(int recipePic, String recipeName, int foodFave, double rating, int contributorPic, String contributorName, String desc, int reviewCount){
-        this.recipePic = recipePic;
-        this.recipeName = recipeName;
-        this.foodFave = foodFave;
-        this.rating = rating;
-        this.contributorPic = contributorPic;
-        this.contributorName = contributorName;
-        this.desc = desc;
-        this.reviewCount = reviewCount;
-        this.ingredientsList = new ArrayList<Ingredient>();
+        super(recipePic, recipeName, foodFave, rating, contributorPic, contributorName, desc, reviewCount);
     }
 
-    public int getFoodPic(){
-        return this.recipePic;
+    public String getRatingString() {
+        return String.valueOf(getRating());
     }
 
-    public String getFoodName(){
-        return this.recipeName;
-    }
+    public FirebaseRecipe getFirebaseRecipe(){
+        FirebaseRecipe firebaseRecipe = new FirebaseRecipe(getFoodPic(), getFoodName(), getFoodFave(), getRating(), getContributorPic(), getContributorName(), getDescription(), getReviewCount());
+        firebaseRecipe.setId(getId());
+        firebaseRecipe.setIngredientsList(getIngredientsList());
 
-    public int getFoodFave(){
-        return this.foodFave;
-    }
-
-    public double getRating(){ return this.rating; }
-
-    public String getRatingString() { return String.valueOf(this.rating); }
-
-    public int getContributorPic(){
-        return this.contributorPic;
-    }
-
-    public String getContributorName(){
-        return this.contributorName;
-    }
-
-    public String getDesc(){
-        return this.desc;
-    }
-
-    public int getReviewCount(){
-            return this.reviewCount;
+        return firebaseRecipe;
     }
 
     public void addIngredient(Ingredient ingredient){
-        this.ingredientsList.add(ingredient);
+        RecipeDatabase recipeDatabase = new RecipeDatabase();
+
+        String id = recipeDatabase.addIngredient(ingredient);
+
+        addIngredientId(id);
     }
 
-    public void removeIngredient(String ingredientId){
-        int size = this.getIngredientsCount();
-        int remove_index = -1;
-        for (int i = 0; i < size; i++){
-            if (ingredientId.equals(this.ingredientsList.get(i).getIngredientId())){
-                remove_index = i;
-            }
-        }
-
-        if (remove_index != -1){
-            this.ingredientsList.remove(remove_index);
-            //remove also from database
-        }
-    }
-
-    public ArrayList<Ingredient> getIngredientsList(){
-        return this.ingredientsList;
-    }
-
-    public int getIngredientsCount(){ return this.ingredientsList.size();}
-
-
+//    public void removeIngredient(int ingredientId){
+//        int size = this.getIngredientsCount();
+//        int remove_index = -1;
+//
+//        for (int i = 0; i < size; i++){
+////            if (ingredientId == this.ingredientsList.get(i).getId()){
+////                remove_index = i;
+////            }
+//        }
+//
+//        if (remove_index != -1){
+////            this.ingredientsList.remove(remove_index);
+//            //remove also from database
+//            //update recipe
+//        }
+//    }
+//
+//    public void updateRecipe(){
+//        RecipeDatabase recipeDatabase = new RecipeDatabase();
+//
+//        recipeDatabase.updateRecipe(this);
+//    }
 }
-
-
