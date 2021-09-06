@@ -3,6 +3,7 @@ package com.mobdeve.s14.group4;
 import java.util.ArrayList;
 
 public class Recipe {
+    private String recipeId;
     private int recipePic;
     private String recipeName;
     private int foodFave;
@@ -57,17 +58,32 @@ public class Recipe {
             return this.reviewCount;
     }
 
-    public void addIngredient(double quantity, String units, String ingredientName){
-        this.ingredientsList.add(new Ingredient(quantity, units, ingredientName));
+    public void addIngredient(Ingredient ingredient){
+        this.ingredientsList.add(ingredient);
     }
 
-    public void addIngredient(String id, double quantity, String units, String ingredientName){
-        this.ingredientsList.add(new Ingredient(id, quantity, units, ingredientName));
+    public void removeIngredient(String ingredientId){
+        int size = this.getIngredientsCount();
+        int remove_index = -1;
+        for (int i = 0; i < size; i++){
+            if (ingredientId.equals(this.ingredientsList.get(i).getIngredientId())){
+                remove_index = i;
+            }
+        }
+
+        if (remove_index != -1){
+            this.ingredientsList.remove(remove_index);
+            //remove also from database
+        }
     }
 
     public ArrayList<Ingredient> getIngredientsList(){
         return this.ingredientsList;
     }
+
+    public int getIngredientsCount(){ return this.ingredientsList.size();}
+
+
 }
 
 
