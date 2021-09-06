@@ -19,6 +19,8 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
+    public String getIngredientId(){ return this.ingredientId; }
+
     public double getQuantity(){
         return this.quantity;
     }
