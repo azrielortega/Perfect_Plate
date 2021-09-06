@@ -16,8 +16,21 @@ public class Recipe extends FirebaseRecipe
     }
 
     public FirebaseRecipe getFirebaseRecipe(){
-        FirebaseRecipe firebaseRecipe = new FirebaseRecipe(getFoodPic(), getFoodName(), getFoodFave(), getRating(), getContributorPic(), getContributorName(), getDescription(), getReviewCount());
+        FirebaseRecipe firebaseRecipe = new FirebaseRecipe();
+
         firebaseRecipe.setId(getId());
+
+        firebaseRecipe.setRecipePic(getFoodPic());
+        firebaseRecipe.setFoodName(getFoodName());
+        firebaseRecipe.setDescription(getDescription());
+
+        firebaseRecipe.setContributorPic(getContributorPic());
+        firebaseRecipe.setContributorName(getContributorName());
+
+        firebaseRecipe.setFoodFave(getFoodFave());
+        firebaseRecipe.setRating(getRating());
+        firebaseRecipe.setReviewCount(getReviewCount());
+
         firebaseRecipe.setIngredientsList(getIngredientsList());
 
         return firebaseRecipe;
