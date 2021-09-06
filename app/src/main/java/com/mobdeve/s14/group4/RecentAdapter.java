@@ -48,7 +48,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
 //                i.putExtra(KEY_RECIPE_STARS, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRating());
                 i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorPic());
                 i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorName());
-                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(recentViewHolder.getBindingAdapterPosition()).getDesc());
+                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(recentViewHolder.getBindingAdapterPosition()).getDescription());
 //                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(recentViewHolder.getBindingAdapterPosition()).getReviewCount());
 
                 v.getContext().startActivity(i);

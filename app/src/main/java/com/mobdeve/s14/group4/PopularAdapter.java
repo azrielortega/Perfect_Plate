@@ -49,7 +49,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 //                i.putExtra(KEY_RECIPE_STARS, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRating());
                 i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorPic());
                 i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorName());
-                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(popularViewHolder.getBindingAdapterPosition()).getDesc());
+                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(popularViewHolder.getBindingAdapterPosition()).getDescription());
 //                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(popularViewHolder.getBindingAdapterPosition()).getReviewCount());
 
                 v.getContext().startActivity(i);
