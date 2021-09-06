@@ -1,6 +1,5 @@
 package com.mobdeve.s14.group4;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ProfileRecipeHolder holder, int position) {
-        holder.setCover(data.get(position).getFoodPic());
+        holder.setCover(data.get(position).getRecipePic());
     }
 
     @Override

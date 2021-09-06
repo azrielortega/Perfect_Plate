@@ -43,8 +43,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
             public void onClick(View v) {
 
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodName());
-                i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodPic());
+                i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRecipeName());
+                i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRecipePic());
 //                i.putExtra(KEY_RECIPE_FAV, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodFave());
 //                i.putExtra(KEY_RECIPE_STARS, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRating());
                 i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorPic());
@@ -61,8 +61,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
-        holder.setIvPopularPic(foodList.get(position).getFoodPic());
-        holder.setTvPopularName(foodList.get(position).getFoodName());
+        holder.setIvPopularPic(foodList.get(position).getRecipePic());
+        holder.setTvPopularName(foodList.get(position).getRecipeName());
     }
 
     @Override

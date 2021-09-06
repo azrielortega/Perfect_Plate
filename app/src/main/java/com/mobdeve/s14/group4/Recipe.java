@@ -1,10 +1,5 @@
 package com.mobdeve.s14.group4;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Recipe extends FirebaseRecipe
 {
     public Recipe(int recipePic, String recipeName, int foodFave, double rating, int contributorPic, String contributorName, String desc, int reviewCount){
@@ -20,14 +15,14 @@ public class Recipe extends FirebaseRecipe
 
         firebaseRecipe.setId(getId());
 
-        firebaseRecipe.setRecipePic(getFoodPic());
-        firebaseRecipe.setFoodName(getFoodName());
+        firebaseRecipe.setRecipePic(getRecipePic());
+        firebaseRecipe.setRecipeName(getRecipeName());
         firebaseRecipe.setDescription(getDescription());
 
         firebaseRecipe.setContributorPic(getContributorPic());
         firebaseRecipe.setContributorName(getContributorName());
 
-        firebaseRecipe.setFoodFave(getFoodFave());
+        firebaseRecipe.setFaveCount(getFaveCount());
         firebaseRecipe.setRating(getRating());
         firebaseRecipe.setReviewCount(getReviewCount());
 

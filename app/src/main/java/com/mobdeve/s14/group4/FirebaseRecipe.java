@@ -6,9 +6,9 @@ public class FirebaseRecipe {
     private String recipeId;
     private int recipePic;
     private String recipeName;
-    private String desc;
+    private String description;
 
-    private int foodFave;
+    private int faveCount;
     private double rating;
     private int reviewCount;
 
@@ -21,14 +21,14 @@ public class FirebaseRecipe {
         this.ingredientsList = new ArrayList<String>();
     }
 
-    public FirebaseRecipe(int recipePic, String recipeName, int foodFave, double rating, int contributorPic, String contributorName, String desc, int reviewCount){
+    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, int contributorPic, String contributorName, String description, int reviewCount){
         this.recipePic = recipePic;
         this.recipeName = recipeName;
-        this.foodFave = foodFave;
+        this.faveCount = faveCount;
         this.rating = rating;
         this.contributorPic = contributorPic;
         this.contributorName = contributorName;
-        this.desc = desc;
+        this.description = description;
         this.reviewCount = reviewCount;
 
         this.ingredientsList = new ArrayList<String>();
@@ -38,16 +38,16 @@ public class FirebaseRecipe {
         return this.recipeId;
     }
 
-    public int getFoodPic(){
+    public int getRecipePic(){
         return this.recipePic;
     }
 
-    public String getFoodName(){
+    public String getRecipeName(){
         return this.recipeName;
     }
 
-    public int getFoodFave(){
-        return this.foodFave;
+    public int getFaveCount(){
+        return this.faveCount;
     }
 
     public double getRating(){
@@ -63,7 +63,7 @@ public class FirebaseRecipe {
     }
 
     public String getDescription(){
-        return this.desc;
+        return this.description;
     }
 
     public int getReviewCount(){
@@ -86,12 +86,12 @@ public class FirebaseRecipe {
         this.recipePic = pic;
     }
 
-    public void setFoodName(String recipeName){
+    public void setRecipeName(String recipeName){
         this.recipeName = recipeName;
     }
 
-    public void setFoodFave(int foodFave){
-        this.foodFave = foodFave;
+    public void setFaveCount(int faveCount){
+        this.faveCount = faveCount;
     }
 
     public void setRating(double rating){
@@ -106,8 +106,8 @@ public class FirebaseRecipe {
         this.contributorName = name;
     }
 
-    public void setDescription(String desc){
-        this.desc = desc;
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public void setIngredientsList(ArrayList<String> list){
