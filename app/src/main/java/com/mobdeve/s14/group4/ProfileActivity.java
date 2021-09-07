@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton ibAdd;
     private Button btnLogout;
 
+    private Button btnLogout;
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
@@ -80,6 +81,19 @@ public class ProfileActivity extends AppCompatActivity {
         ibBack = findViewById(R.id.ib_profile_back);
         ibAdd = findViewById(R.id.ib_profile_add);
         this.btnLogout = findViewById(R.id.btn_profile_logout);
+
+        btnLogout = findViewById(R.id.btn_profile_logout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,
+                        LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         ibAdd.setOnClickListener(new View.OnClickListener() {
             @Override
