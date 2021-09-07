@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CreateRecipeActivity2 extends AppCompatActivity {
 
@@ -29,6 +33,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
     private Button btnNext;
     private ImageButton ibBack;
     private LinearLayout llIngredients;
+
+    public static final String KEY_INGREDIENTS = "KEY_CR_INGREDIENTS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,40 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+                final int ingredientCount = llIngredients.getChildCount();
+
+                for (int i = 0; i < ingredientCount; i++){
+                    View tempV = llIngredients.getChildAt(i);
+                    EditText etQty = tempV.findViewById(R.id.createrecipe_ingredients_et_number);
+                    EditText etUnit = tempV.findViewById(R.id.createrecipe_ingredients_et_unit);
+                    EditText etName = tempV.findViewById(R.id.createrecipe_ingredients_et_name);
+
+                    Double qty = Double.parseDouble(etQty.getText().toString().trim());
+                    String unit = etUnit.getText().toString().trim();
+                    String name = etName.getText().toString().trim();
+
+                    ingredients.add(new Ingredient(qty, unit, name));
+                }
+
+                Intent tempI = getIntent();
+
+                String recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
+                String cookingTime =tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME);
+                String prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
+                String servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
+                String description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
+
                 Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
+
+                i.putExtra(KEY_INGREDIENTS, (Serializable) ingredients);
+                i.putExtra(CreateRecipeActivity1.KEY_RECIPENAME, recipeName);
+                i.putExtra(CreateRecipeActivity1.KEY_COOKINGTIME, cookingTime);
+                i.putExtra(CreateRecipeActivity1.KEY_DESCRIPTION, description);
+                i.putExtra(CreateRecipeActivity1.KEY_PREPTIME, prepTime);
+                i.putExtra(CreateRecipeActivity1.KEY_SERVINGS, servings);
+
                 startActivityForResult(i, 1);
             }
         });

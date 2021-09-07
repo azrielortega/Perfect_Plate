@@ -1,6 +1,11 @@
 package com.mobdeve.s14.group4;
 
-public class Ingredient {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private String ingredientId;
     private double quantity;
     private String units;

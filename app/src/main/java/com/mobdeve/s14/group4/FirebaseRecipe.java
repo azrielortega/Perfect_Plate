@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirebaseRecipe {
@@ -15,6 +16,7 @@ public class FirebaseRecipe {
     private String contributorId;
 
     private ArrayList<String> ingredientsList;
+    private ArrayList<String> stepsList;
 
     public FirebaseRecipe(){
         this.ingredientsList = new ArrayList<String>();
@@ -32,6 +34,7 @@ public class FirebaseRecipe {
         this.reviewCount = reviewCount;
 
         this.ingredientsList = new ArrayList<String>();
+        this.stepsList = new ArrayList<String>();
     }
 
     public String getId(){
@@ -73,6 +76,10 @@ public class FirebaseRecipe {
     public int getIngredientsCount(){
         return this.ingredientsList.size();
     }
+
+    public ArrayList<String> getStepsList(){ return this.stepsList;}
+
+    public void setStepsList(ArrayList<String> list) { this.stepsList = list;}
 
     public void setId(String id){
         this.recipeId = id;

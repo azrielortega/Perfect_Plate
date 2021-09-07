@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton ibAdd;
     private Button btnLogout;
 
-    private Button btnLogout;
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override

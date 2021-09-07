@@ -1,5 +1,7 @@
 package com.mobdeve.s14.group4;
 
+import java.util.ArrayList;
+
 public class Recipe extends FirebaseRecipe
 {
     public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount){
@@ -37,6 +39,7 @@ public class Recipe extends FirebaseRecipe
         firebaseRecipe.setReviewCount(getReviewCount());
 
         firebaseRecipe.setIngredientsList(getIngredientsList());
+        firebaseRecipe.setStepsList(getStepsList());
 
         return firebaseRecipe;
     }
@@ -47,6 +50,10 @@ public class Recipe extends FirebaseRecipe
         String id = recipeDatabase.addIngredient(ingredient);
 
         addIngredientId(id);
+    }
+
+    public void addStepsList(ArrayList<String> steps){
+        setStepsList(steps);
     }
 
 //    public void removeIngredient(int ingredientId){

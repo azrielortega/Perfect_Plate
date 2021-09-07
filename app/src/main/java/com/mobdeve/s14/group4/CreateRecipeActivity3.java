@@ -2,14 +2,19 @@ package com.mobdeve.s14.group4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
@@ -22,12 +27,23 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private LinearLayout llSteps;
     private ImageButton ibBack;
 
+    private String recipeName, cookingTime, prepTime, servings, description;
+    private ArrayList<Ingredient> ingredients;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createrecipe3);
 
         this.initComponents();
+
+        Intent tempI = getIntent();
+
+        recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
+        cookingTime =tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME);
+        prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
+        servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
+        description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
+        ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
     }
 
     private void initComponents() {
@@ -47,7 +63,33 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Recipe Created!", Toast.LENGTH_SHORT).show();
+
+                ArrayList<String> steps = new ArrayList<>();
+
+                final int ingredientCount = llSteps.getChildCount();
+
+                for (int i = 0; i < ingredientCount; i++){
+                    View tempV = llSteps.getChildAt(i);
+                    EditText etStep = tempV.findViewById(R.id.template_cr_steps_et_step);
+
+                    String step = etStep.getText().toString().trim();
+
+                    steps.add(step);
+                }
+
+
+                RecipeDatabase db = new RecipeDatabase();
+                Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
+                        description, 0);
+
+                recipe.addStepsList(steps);
+
+                for (int i = 0; i <ingredients.size(); i++){
+                    recipe.addIngredient(ingredients.get(i));
+                }
+
+                db.addRecipe(recipe);
+                Toast.makeText(v.getContext(), steps.get(0), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
