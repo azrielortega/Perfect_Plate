@@ -2,8 +2,19 @@ package com.mobdeve.s14.group4;
 
 public class Recipe extends FirebaseRecipe
 {
-    public Recipe(int recipePic, String recipeName, int foodFave, double rating, int contributorPic, String contributorName, String desc, int reviewCount){
-        super(recipePic, recipeName, foodFave, rating, contributorPic, contributorName, desc, reviewCount);
+    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount){
+        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount);
+    }
+
+    public int getContributorPic(){
+        int contributorPic = R.drawable.person_gray;
+        return contributorPic;
+    }
+
+    public String getContributorName(){
+        //get username
+        String contributorName = "John Doe";
+        return contributorName;
     }
 
     public String getRatingString() {
@@ -19,8 +30,7 @@ public class Recipe extends FirebaseRecipe
         firebaseRecipe.setRecipeName(getRecipeName());
         firebaseRecipe.setDescription(getDescription());
 
-        firebaseRecipe.setContributorPic(getContributorPic());
-        firebaseRecipe.setContributorName(getContributorName());
+        firebaseRecipe.setContributorId(getContributorId());
 
         firebaseRecipe.setFaveCount(getFaveCount());
         firebaseRecipe.setRating(getRating());

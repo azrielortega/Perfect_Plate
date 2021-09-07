@@ -29,16 +29,10 @@ public class DataHelper {
                 3.8
         };
 
-        Integer[] contributorPic = {
-                R.drawable.person1,
-                R.drawable.person2,
-                R.drawable.person3
-        };
-
-        String[] contributorName = {
-                "Taylor Swift",
-                "Ariana Grande",
-                "Jennie Kim"
+        String[] contributorId = {
+                "1",
+                "2",
+                "3"
         };
         String[] description = {
                 "This Egg Toast is so easy to make, filling, and so incredibly tasty, that it is going to make your morning better. Guaranteed. ",
@@ -52,7 +46,7 @@ public class DataHelper {
         };
 
         for(int i = 0; i < 3; i++){
-            foodList.add(new Recipe(foodPics[i], foodName[i], foodFave[i], foodRating[i], contributorPic[i], contributorName[i], description[i], reviewCount[i]));
+            foodList.add(new Recipe(foodPics[i], foodName[i], foodFave[i], foodRating[i], contributorId[i], description[i], reviewCount[i]));
         }
 
         return foodList;

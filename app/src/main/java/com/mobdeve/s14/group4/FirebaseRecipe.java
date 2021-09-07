@@ -12,8 +12,7 @@ public class FirebaseRecipe {
     private double rating;
     private int reviewCount;
 
-    private int contributorPic;
-    private String contributorName;
+    private String contributorId;
 
     private ArrayList<String> ingredientsList;
 
@@ -21,14 +20,15 @@ public class FirebaseRecipe {
         this.ingredientsList = new ArrayList<String>();
     }
 
-    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, int contributorPic, String contributorName, String description, int reviewCount){
+    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount){
         this.recipePic = recipePic;
         this.recipeName = recipeName;
+        this.description = description;
+
+        this.contributorId = contributorId;
+
         this.faveCount = faveCount;
         this.rating = rating;
-        this.contributorPic = contributorPic;
-        this.contributorName = contributorName;
-        this.description = description;
         this.reviewCount = reviewCount;
 
         this.ingredientsList = new ArrayList<String>();
@@ -54,12 +54,8 @@ public class FirebaseRecipe {
         return this.rating;
     }
 
-    public int getContributorPic(){
-        return this.contributorPic;
-    }
-
-    public String getContributorName(){
-        return this.contributorName;
+    public String getContributorId(){
+        return this.contributorId;
     }
 
     public String getDescription(){
@@ -98,12 +94,8 @@ public class FirebaseRecipe {
         this.rating = rating;
     }
 
-    public void setContributorPic(int pic){
-        this.contributorPic = pic;
-    }
-
-    public void setContributorName(String name){
-        this.contributorName = name;
+    public void setContributorId(String id){
+        this.contributorId = id;
     }
 
     public void setDescription(String description){
