@@ -40,8 +40,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_NAME, data.get(holder.getBindingAdapterPosition()).getFoodName());
-                i.putExtra(KEY_RECIPE_PIC, data.get(holder.getBindingAdapterPosition()).getFoodPic());
+                i.putExtra(KEY_RECIPE_NAME, data.get(holder.getBindingAdapterPosition()).getRecipeName());
+                i.putExtra(KEY_RECIPE_PIC, data.get(holder.getBindingAdapterPosition()).getRecipePic());
                 v.getContext().startActivity(i);
             }
         });
@@ -51,8 +51,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull FavoriteRecipeHolder holder, int position) {
-        holder.setRecipePic(data.get(position).getFoodPic());
-        holder.setRecipeName(data.get(position).getFoodName());
+        holder.setRecipePic(data.get(position).getRecipePic());
+        holder.setRecipeName(data.get(position).getRecipeName());
 
     }
 

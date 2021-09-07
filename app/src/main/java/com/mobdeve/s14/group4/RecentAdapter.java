@@ -42,13 +42,13 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
             public void onClick(View v) {
 
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getFoodName());
-                i.putExtra(KEY_RECIPE_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getFoodPic());
+                i.putExtra(KEY_RECIPE_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRecipeName());
+                i.putExtra(KEY_RECIPE_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRecipePic());
 //                i.putExtra(KEY_RECIPE_FAV, foodList.get(recentViewHolder.getBindingAdapterPosition()).getFoodFave());
 //                i.putExtra(KEY_RECIPE_STARS, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRating());
                 i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorPic());
                 i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorName());
-                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(recentViewHolder.getBindingAdapterPosition()).getDesc());
+                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(recentViewHolder.getBindingAdapterPosition()).getDescription());
 //                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(recentViewHolder.getBindingAdapterPosition()).getReviewCount());
 
                 v.getContext().startActivity(i);
@@ -61,12 +61,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecentViewHolder holder, int position) {
-        holder.setIvRecentPic(foodList.get(position).getFoodPic());
-        holder.setTvRecentName(foodList.get(position).getFoodName());
+        holder.setIvRecentPic(foodList.get(position).getRecipePic());
+        holder.setTvRecentName(foodList.get(position).getRecipeName());
         holder.setTvRecentAuthor(foodList.get(position).getContributorName());
         holder.setTvRecentRatings(foodList.get(position).getRatingString());
         holder.setTvRecentReviews(foodList.get(position).getReviewCount());
-        holder.setTvRecentHearts(foodList.get(position).getFoodFave());
+        holder.setTvRecentHearts(foodList.get(position).getFaveCount());
 
 
     }

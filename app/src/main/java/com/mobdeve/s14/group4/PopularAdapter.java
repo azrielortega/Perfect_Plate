@@ -43,13 +43,13 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
             public void onClick(View v) {
 
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodName());
-                i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodPic());
+                i.putExtra(KEY_RECIPE_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRecipeName());
+                i.putExtra(KEY_RECIPE_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRecipePic());
 //                i.putExtra(KEY_RECIPE_FAV, foodList.get(popularViewHolder.getBindingAdapterPosition()).getFoodFave());
 //                i.putExtra(KEY_RECIPE_STARS, foodList.get(popularViewHolder.getBindingAdapterPosition()).getRating());
                 i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorPic());
                 i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(popularViewHolder.getBindingAdapterPosition()).getContributorName());
-                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(popularViewHolder.getBindingAdapterPosition()).getDesc());
+                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(popularViewHolder.getBindingAdapterPosition()).getDescription());
 //                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(popularViewHolder.getBindingAdapterPosition()).getReviewCount());
 
                 v.getContext().startActivity(i);
@@ -61,8 +61,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
-        holder.setIvPopularPic(foodList.get(position).getFoodPic());
-        holder.setTvPopularName(foodList.get(position).getFoodName());
+        holder.setIvPopularPic(foodList.get(position).getRecipePic());
+        holder.setTvPopularName(foodList.get(position).getRecipeName());
     }
 
     @Override
