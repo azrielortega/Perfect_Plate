@@ -2,7 +2,6 @@ package com.mobdeve.s14.group4;
 
 public class Ingredient {
     private String ingredientId;
-//    private String recipeId;
     private double quantity;
     private String units;
     private String ingredientName;
@@ -22,10 +21,6 @@ public class Ingredient {
 
     public String getId(){ return this.ingredientId; }
 
-//    public String getRecipeId(){
-//        return this.recipeId;
-//    }
-
     public double getQuantity(){
         return this.quantity;
     }
@@ -39,8 +34,4 @@ public class Ingredient {
     }
 
     public void setId(String id) { this.ingredientId = id; }
-
-//    public void setRecipeId(String id){
-//        this.recipeId = id;
-//    }
 }
