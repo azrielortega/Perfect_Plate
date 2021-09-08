@@ -1,11 +1,14 @@
 package com.mobdeve.s14.group4;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Recipe extends FirebaseRecipe
 {
-    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount){
-        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount);
+    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
+                  String category, String difficulty){
+        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
     }
 
     public int getContributorPic(){
@@ -40,6 +43,15 @@ public class Recipe extends FirebaseRecipe
 
         firebaseRecipe.setIngredientsList(getIngredientsList());
         firebaseRecipe.setStepsList(getStepsList());
+
+        firebaseRecipe.setCookingTime(getCookingTime());
+        firebaseRecipe.setPrepTime(getPrepTime());
+        firebaseRecipe.setServings(getServings());
+
+        firebaseRecipe.setCategory(getCategory());
+        firebaseRecipe.setDifficulty(getDifficulty());
+
+        Log.d("myTag", String.valueOf(firebaseRecipe));
 
         return firebaseRecipe;
     }

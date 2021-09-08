@@ -117,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                fname = dataSnapshot.child("fname").getValue(String.class);
-                lname = dataSnapshot.child("lname").getValue(String.class);
+                fname = dataSnapshot.child("firstName").getValue(String.class);
+                lname = dataSnapshot.child("lastName").getValue(String.class);
                 username = dataSnapshot.child("username").getValue(String.class);
 
                 String fullName = fname + " " + lname;
@@ -169,15 +169,15 @@ public class ProfileActivity extends AppCompatActivity {
         //change
         RecipeDatabase db = new RecipeDatabase();
 
-        Recipe r1 = new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "id", "Description", 10);
+        Recipe r1 = new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy");
 
         r1.addIngredient(new Ingredient(2, "cups", "sugar"));
 //        r1.addIngredient(new Ingredient(1, "drops", "Chemical X"));
         db.addRecipe(r1);
         data.add(r1);
-        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "id", "Description", 10));
-        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "id", "Description", 10));
-        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "id", "Description", 10));
+        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
 
     }
 }

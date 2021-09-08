@@ -15,6 +15,13 @@ public class FirebaseRecipe {
 
     private String contributorId;
 
+    private int cookingTime;
+    private int prepTime;
+    private int servings;
+
+    private String category;
+    private String difficulty;
+
     private ArrayList<String> ingredientsList;
     private ArrayList<String> stepsList;
 
@@ -22,7 +29,8 @@ public class FirebaseRecipe {
         this.ingredientsList = new ArrayList<String>();
     }
 
-    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount){
+    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount,
+                          int cookingTime, int prepTime, int servings, String category, String difficulty){
         this.recipePic = recipePic;
         this.recipeName = recipeName;
         this.description = description;
@@ -35,6 +43,13 @@ public class FirebaseRecipe {
 
         this.ingredientsList = new ArrayList<String>();
         this.stepsList = new ArrayList<String>();
+
+        this.cookingTime = cookingTime;
+        this.prepTime = prepTime;
+        this.servings = servings;
+
+        this.category = category;
+        this.difficulty = difficulty;
     }
 
     public String getId(){
@@ -79,6 +94,26 @@ public class FirebaseRecipe {
 
     public ArrayList<String> getStepsList(){ return this.stepsList;}
 
+    public int getPrepTime (){
+        return this.prepTime;
+    }
+
+    public int getCookingTime (){
+        return this.cookingTime;
+    }
+
+    public int getServings (){
+        return this.servings;
+    }
+
+    public String getDifficulty(){return this.difficulty;}
+
+    public String getCategory () {return this.category;}
+
+    public void setDifficulty (String d) {this.difficulty = d;}
+
+    public void setCategory (String c) {this.category = c;}
+
     public void setStepsList(ArrayList<String> list) { this.stepsList = list;}
 
     public void setId(String id){
@@ -119,5 +154,17 @@ public class FirebaseRecipe {
 
     public void addIngredientId(String id){
         this.ingredientsList.add(id);
+    }
+
+    public void setPrepTime (int pt){
+        this.prepTime = pt;
+    }
+
+    public void setCookingTime (int ct){
+        this.cookingTime = ct;
+    }
+
+    public void setServings (int s){
+        this.servings = s;
     }
 }

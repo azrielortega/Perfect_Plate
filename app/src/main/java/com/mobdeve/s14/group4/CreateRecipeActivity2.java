@@ -85,6 +85,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 String prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
                 String servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
                 String description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
+                String difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
+                String category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
 
                 Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
 
@@ -94,6 +96,8 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 i.putExtra(CreateRecipeActivity1.KEY_DESCRIPTION, description);
                 i.putExtra(CreateRecipeActivity1.KEY_PREPTIME, prepTime);
                 i.putExtra(CreateRecipeActivity1.KEY_SERVINGS, servings);
+                i.putExtra(CreateRecipeActivity1.KEY_CATEGORY, category);
+                i.putExtra(CreateRecipeActivity1.KEY_DIFFICULTY, difficulty);
 
                 startActivityForResult(i, 1);
             }

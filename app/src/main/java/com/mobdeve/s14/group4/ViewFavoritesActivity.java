@@ -54,9 +54,9 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     private void initData() {
         data = new ArrayList<Recipe>();
 
-        data.add(new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "John Doe", "Description", 10));
-        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "John Doe", "Description", 10));
-        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "John Doe", "Description", 10));
-        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "John Doe", "Description", 10));
+        data.add(new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
     }
 }
