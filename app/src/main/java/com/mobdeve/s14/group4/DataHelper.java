@@ -46,7 +46,7 @@ public class DataHelper {
         };
 
         for(int i = 0; i < 3; i++){
-            foodList.add(new Recipe(foodPics[i], foodName[i], foodFave[i], foodRating[i], contributorId[i], description[i], reviewCount[i], 0, 0, 0));
+            foodList.add(new Recipe(foodPics[i], foodName[i], foodFave[i], foodRating[i], contributorId[i], description[i], reviewCount[i], 0, 0, 0, "Main", "Easy"));
         }
 
         return foodList;

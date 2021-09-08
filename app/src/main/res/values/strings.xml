@@ -8,6 +8,16 @@
         salt \n
         pepper \n
     </string>
+
+    <string-array name = "category">
+        <item>Appetizer</item>
+        <item>Pasta</item>
+        <item>Main</item>
+        <item>Dessert</item>
+        <item>Pastry</item>
+        <item>Drinks</item>
+    </string-array>
+
     <string name="server_client_id">291440976878-t0uvtk44iplvllf64kbu09k7pupsnjgn.apps.googleusercontent.com</string>
 
 </resources>

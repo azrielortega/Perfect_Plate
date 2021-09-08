@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f4f0ef"
+    android:background="#F4F0EF"
     tools:context=".CreateRecipeActivity1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="#02043f"
-            tools:layout_editor_absoluteY="50dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_recipe1_top"/>
+            app:layout_constraintTop_toBottomOf="@id/cl_recipe1_top"
+            tools:layout_editor_absoluteY="50dp" />
 
         <ProgressBar
             android:id="@+id/pb_create"
@@ -95,10 +95,10 @@
         android:id="@+id/sv_create1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout3"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/linearLayout3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -185,13 +185,26 @@
                 android:id="@+id/tv_create1_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="DESCRIPTION"
                 android:textColor="#02043F"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/gl_create1_left"
                 app:layout_constraintTop_toBottomOf="@+id/iv_create1_recipe_pic" />
+
+            <TextView
+                android:id="@+id/tv_create1_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="CATEGORY"
+                android:textColor="#02043F"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/gl_create1_left"
+                app:layout_constraintTop_toBottomOf="@+id/et_create1_description" />
 
             <TextView
                 android:id="@+id/tv_create1_pic"
@@ -238,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="DIFFUCULTY"
+                android:text="DIFFICULTY"
                 android:textColor="#02043F"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/gl_create1_left"
@@ -317,6 +330,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_create1_hard"
                 app:layout_constraintVertical_bias="1.0" />
 
+            <Spinner
+                android:id="@+id/sp_create1_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                app:layout_constraintEnd_toStartOf="@+id/gl_create1_right"
+                app:layout_constraintStart_toStartOf="@+id/gl_create1_left"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create1_category" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_create1_portion"
                 android:layout_width="0dp"
@@ -324,7 +346,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintLeft_toLeftOf="@id/gl_create1_left"
                 app:layout_constraintRight_toRightOf="@id/gl_create1_right"
-                app:layout_constraintTop_toBottomOf="@id/et_create1_description">
+                app:layout_constraintTop_toBottomOf="@id/sp_create1_category">
 
 
                 <TextView

@@ -1,5 +1,7 @@
 package com.mobdeve.s14.group4;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +25,7 @@ public class RecipeDatabase {
     }
 
     public void addRecipe(Recipe recipe){
+        Log.d("myTag", "Add Recipe Entered");
         String key = this.databaseReference.push().getKey();
 
         recipe.setId(key);

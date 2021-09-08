@@ -19,6 +19,9 @@ public class FirebaseRecipe {
     private int prepTime;
     private int servings;
 
+    private String category;
+    private String difficulty;
+
     private ArrayList<String> ingredientsList;
     private ArrayList<String> stepsList;
 
@@ -27,7 +30,7 @@ public class FirebaseRecipe {
     }
 
     public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount,
-                          int cookingTime, int prepTime, int servings){
+                          int cookingTime, int prepTime, int servings, String category, String difficulty){
         this.recipePic = recipePic;
         this.recipeName = recipeName;
         this.description = description;
@@ -44,6 +47,9 @@ public class FirebaseRecipe {
         this.cookingTime = cookingTime;
         this.prepTime = prepTime;
         this.servings = servings;
+
+        this.category = category;
+        this.difficulty = difficulty;
     }
 
     public String getId(){
@@ -99,6 +105,14 @@ public class FirebaseRecipe {
     public int getServings (){
         return this.servings;
     }
+
+    public String getDifficulty(){return this.difficulty;}
+
+    public String getCategory () {return this.category;}
+
+    public void setDifficulty (String d) {this.difficulty = d;}
+
+    public void setCategory (String c) {this.category = c;}
 
     public void setStepsList(ArrayList<String> list) { this.stepsList = list;}
 

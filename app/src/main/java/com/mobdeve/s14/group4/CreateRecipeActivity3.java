@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private LinearLayout llSteps;
     private ImageButton ibBack;
 
-    private String recipeName, description;
+    private String recipeName, description, category, difficulty;
     private int cookingTime, prepTime, servings;
     private ArrayList<Ingredient> ingredients;
 
@@ -46,8 +47,8 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         servings = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS));
         description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
         ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
-
-        Toast.makeText(this, "0", Toast.LENGTH_SHORT).show();
+        difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
+        category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
     }
 
     private void initComponents() {
@@ -84,16 +85,16 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
 
                 RecipeDatabase db = new RecipeDatabase();
                 Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
-                        description, 0, cookingTime, prepTime, servings);
+                        description, 0, cookingTime, prepTime, servings, category, difficulty);
 
                 recipe.addStepsList(steps);
 
                 for (int i = 0; i <ingredients.size(); i++){
                     recipe.addIngredient(ingredients.get(i));
                 }
-
+                Log.d("myTag", "Adding Recipe");
                 db.addRecipe(recipe);
-                Toast.makeText(v.getContext(), "Added Recipe!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Added Recipe", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

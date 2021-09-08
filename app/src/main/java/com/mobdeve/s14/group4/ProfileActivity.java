@@ -169,15 +169,15 @@ public class ProfileActivity extends AppCompatActivity {
         //change
         RecipeDatabase db = new RecipeDatabase();
 
-        Recipe r1 = new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "id", "Description", 10, 0, 0, 0);
+        Recipe r1 = new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy");
 
         r1.addIngredient(new Ingredient(2, "cups", "sugar"));
 //        r1.addIngredient(new Ingredient(1, "drops", "Chemical X"));
         db.addRecipe(r1);
         data.add(r1);
-        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "id", "Description", 10, 0, 0, 0));
-        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "id", "Description", 10, 0, 0, 0));
-        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "id", "Description", 10, 0, 0, 0));
+        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
+        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
 
     }
 }
