@@ -117,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                fname = dataSnapshot.child("fname").getValue(String.class);
-                lname = dataSnapshot.child("lname").getValue(String.class);
+                fname = dataSnapshot.child("firstName").getValue(String.class);
+                lname = dataSnapshot.child("lastName").getValue(String.class);
                 username = dataSnapshot.child("username").getValue(String.class);
 
                 String fullName = fname + " " + lname;
