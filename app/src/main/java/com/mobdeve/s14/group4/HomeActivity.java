@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 
         DataHelper helper = new DataHelper();
         this.popularRecipeList = helper.initFood();
-        this.rvPopular = findViewById(R.id.rv_home_main);
+        this.rvPopular = findViewById(R.id.rv_home_popular);
 
         this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);

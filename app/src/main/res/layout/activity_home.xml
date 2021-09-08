@@ -87,32 +87,75 @@
         app:layout_constraintLeft_toLeftOf="parent"
          />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home_main"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clipToPadding="true"
-        android:paddingStart="10dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_popular_label" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home_recent"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:clipToPadding="true"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        app:layout_constraintBottom_toTopOf="@id/ll_home"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left"
-        app:layout_constraintRight_toRightOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/tv_recent_label"
-        app:layout_constraintVertical_bias="1.0" />
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/v_dividerbot"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_divider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_cont"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_home_recent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:clipToPadding="true"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recent_label" />
+
+            <TextView
+                android:id="@+id/tv_popular_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Popular"
+                android:textColor="#D30045"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_recent_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Recent"
+                android:textColor="#D30045"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_home_popular" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_home_popular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+
+                android:layout_marginRight="15dp"
+                android:clipToPadding="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_popular_label">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/ll_home"
@@ -254,27 +297,5 @@
             android:textColor="#868484"
             android:textSize="12sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_popular_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Popular"
-        android:textColor="#D30045"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/gl_left"
-        app:layout_constraintTop_toBottomOf="@id/v_divider" />
-
-    <TextView
-        android:id="@+id/tv_recent_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Recent"
-        android:textColor="#D30045"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/gl_left"
-        app:layout_constraintTop_toBottomOf="@id/rv_home_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

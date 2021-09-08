@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvRecipeName;
     private ImageView ivRecipePic;
@@ -39,6 +41,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private ImageButton ibBack;
     private ImageView ivDeleteComment;
 
+    private FloatingActionButton fabHeart;
     private Boolean liked = false;
     public static Boolean reviewed = false;
 
@@ -46,7 +49,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-
+        this.fabHeart = findViewById(R.id.fab_heart);
         this.tvRecipeName = findViewById(R.id.tv_recipe_details_name);
         this.ivRecipePic = findViewById(R.id.iv_recipe_details_pic);
         this.tvRecipeNameTop = findViewById(R.id.tv_recipe_details_name_top);
@@ -67,7 +70,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvInstructions = findViewById(R.id.tv_details_instructions);
         this.tvReviews = findViewById(R.id.tv_details_reviews);
 
-        this.ibFave = findViewById(R.id.ib_recipe_details_fav);
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
 
         this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
@@ -167,17 +169,17 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         });
 
-        this.ibFave.setOnClickListener(new View.OnClickListener() {
+        this.fabHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!liked){
-                    ibFave.setImageResource(R.drawable.heart_on);
+                    fabHeart.setImageResource(R.drawable.heart_on);
                     liked = true;
-                    ibFave.setColorFilter(getResources().getColor(R.color.proj_red_pink));
+                    fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
                 } else {
-                    ibFave.setImageResource(R.drawable.heart_off);
+                    fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
-                    ibFave.setColorFilter(getResources().getColor(R.color.proj_white));
+                    fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
                 }
             }
         });

@@ -26,24 +26,11 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/vectorback" />
 
-        <ImageButton
-            android:id="@+id/ib_recipe_details_fav"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:adjustViewBounds="true"
-            android:backgroundTint="#00000000"
-            android:scaleType="fitCenter"
-            app:layout_constraintBaseline_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/heart_off"
-            app:tint="#F4F0EF" />
-
         <TextView
             android:id="@+id/tv_recipe_details_name_top"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginRight="15dp"
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
@@ -54,10 +41,10 @@
             android:textAlignment="center"
             android:textColor="#F4F0EF"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/ib_recipe_details_fav"
-            app:layout_constraintLeft_toRightOf="@id/ib_recipe_details_back"/>
+            app:layout_constraintLeft_toRightOf="@id/ib_recipe_details_back"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -117,6 +104,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_recipe_details_pic" />
 
+
             <ImageView
                 android:id="@+id/iv_recipe_details_pic"
                 android:layout_width="0dp"
@@ -145,6 +133,7 @@
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
                 app:layout_constraintRight_toRightOf="@id/gl_details_right"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/cl_details_favorites"
                 />
 
             <androidx.constraintlayout.widget.Guideline
@@ -153,6 +142,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.96" />
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/ib_recipe_details_fav"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:backgroundTint="#00000000"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/iv_recipe_details_pic"-->
+<!--                app:layout_constraintRight_toRightOf="@id/iv_recipe_details_pic"-->
+
+<!--                app:srcCompat="@drawable/heart_off"-->
+<!--                app:tint="#F4F0EF" />-->
 
             <View
                 android:id="@+id/v_details_bot"
@@ -651,7 +653,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
-                app:layout_constraintRight_toLeftOf="@id/ll_details_favorites"
+                app:layout_constraintRight_toLeftOf="@id/cl_details_favorites"
                 app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_name">
 
                 <TextView
@@ -702,9 +704,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintLeft_toRightOf="@id/ll_details_favorites"
+                app:layout_constraintLeft_toRightOf="@id/cl_details_favorites"
                 app:layout_constraintRight_toLeftOf="@id/gl_details_right"
-                app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_name">
+                app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_name"
+               >
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -724,8 +727,8 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_details_favorites"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_details_favorites"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
@@ -734,50 +737,74 @@
                 app:layout_constraintRight_toLeftOf="@id/ll_write_review"
                 app:layout_constraintTop_toBottomOf="@id/tv_recipe_details_name">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_details_fav_count"
-                        android:layout_width="57dp"
-                        android:layout_height="25dp"
-
-                        android:layout_gravity="bottom|end"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="23"
-                        android:textAlignment="center"
-                        android:textColor="#02043F"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-
-                        android:layout_gravity="end"
-                        android:fontFamily="@font/montserrat"
-                        android:text="favorites"
-                        android:textAlignment="center"
-                        android:textColor="#02043F" />
-                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="28dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start|left"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:cropToPadding="false"
                     android:paddingLeft="3dp"
                     android:paddingTop="6dp"
-                    android:paddingRight="3dp"
+                    android:paddingRight="20dp"
                     android:paddingBottom="6dp"
+                    app:layout_constraintBottom_toTopOf="@id/textView9"
+                    app:layout_constraintLeft_toRightOf="@id/tv_details_fav_count"
+                    app:layout_constraintRight_toRightOf="@id/cl_details_favorites"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/heart_on"
                     app:tint="#D30045" />
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_details_fav_count"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="right|end"
+                    android:text="23"
+                    android:textAlignment="textEnd"
+                    android:textColor="#02043F"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/textView9"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/imageView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="top"
+                    android:paddingBottom="3dp"
+                    android:text="favorites"
+                    android:textAlignment="center"
+
+                    android:textColor="#02043F"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_details_fav_count" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_heart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                app:backgroundTint="#FFFFFF"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_recipe_details_pic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/heart_off"
+                app:tint="@color/proj_red_pink"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
