@@ -27,8 +27,10 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private LinearLayout llSteps;
     private ImageButton ibBack;
 
-    private String recipeName, cookingTime, prepTime, servings, description;
+    private String recipeName, description;
+    private int cookingTime, prepTime, servings;
     private ArrayList<Ingredient> ingredients;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,13 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         Intent tempI = getIntent();
 
         recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
-        cookingTime =tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME);
-        prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
-        servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
+        cookingTime = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME));
+        prepTime = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME));
+        servings = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS));
         description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
         ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
+
+        Toast.makeText(this, "0", Toast.LENGTH_SHORT).show();
     }
 
     private void initComponents() {
@@ -80,7 +84,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
 
                 RecipeDatabase db = new RecipeDatabase();
                 Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
-                        description, 0);
+                        description, 0, cookingTime, prepTime, servings);
 
                 recipe.addStepsList(steps);
 
@@ -89,7 +93,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
                 }
 
                 db.addRecipe(recipe);
-                Toast.makeText(v.getContext(), steps.get(0), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Added Recipe!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

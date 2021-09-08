@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Recipe extends FirebaseRecipe
 {
-    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount){
-        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount);
+    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings){
+        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings);
     }
 
     public int getContributorPic(){
@@ -40,6 +40,10 @@ public class Recipe extends FirebaseRecipe
 
         firebaseRecipe.setIngredientsList(getIngredientsList());
         firebaseRecipe.setStepsList(getStepsList());
+
+        firebaseRecipe.setCookingTime(getCookingTime());
+        firebaseRecipe.setPrepTime(getPrepTime());
+        firebaseRecipe.setServings(getServings());
 
         return firebaseRecipe;
     }
