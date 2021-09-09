@@ -24,16 +24,23 @@ public class RecipeDatabase {
         return this.ingredientDatabase.addIngredient(ingredient);
     }
 
-    public void addRecipe(Recipe recipe){
+    public String addRecipe(Recipe recipe){
         Log.d("myTag", "Add Recipe Entered");
         String key = this.databaseReference.push().getKey();
 
         recipe.setId(key);
 
         this.databaseReference.child(key).setValue(recipe.getFirebaseRecipe());
+
+        return key;
     }
 
     public void updateRecipe(Recipe recipe){
         this.databaseReference.child(recipe.getId()).setValue(recipe);
+    }
+
+    public void dropRecipes(){
+        this.databaseReference.setValue(null);
+        this.ingredientDatabase.dropIngredients();
     }
 }
