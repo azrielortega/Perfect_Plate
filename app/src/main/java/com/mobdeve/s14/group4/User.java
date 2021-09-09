@@ -6,6 +6,8 @@ public class User extends FirebaseUser{
     private ArrayList<Recipe> userRecipes; //TODO: get recipes from db
     private ArrayList<Recipe> faveRecipes; //TODO: get recipes from db
 
+    public User(){}
+
     public User(FirebaseUser user){
         user.setUserId(getUserId());
 
@@ -44,20 +46,11 @@ public class User extends FirebaseUser{
         return getFirstName() + " " + getLastName();
     }
 
+    //add user recipe to current list of recipes
     public void addUserRecipe(Recipe recipe){
-        UserDatabase userDatabase = new UserDatabase();
-        RecipeDatabase recipeDatabase = new RecipeDatabase();
-
         //add to local lists
-//        this.userRecipes.add(recipe);
-//        addUserRecipeId(recipe.getId());
-        addUserRecipeId("01189998819991197253");
-
-        // add to user db
-        userDatabase.updateUserRecipes(getUserId(), getUserRecipesList());
-
-        //add to recipe db
-//        recipeDatabase.addRecipe(recipe);
+        this.userRecipes.add(recipe);
+        addUserRecipeId(recipe.getId());
     }
 
     //TODO: add recipe to db list
