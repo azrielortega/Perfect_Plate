@@ -64,10 +64,11 @@ public class SignUpActivity2 extends AppCompatActivity {
                 fname = etFirstN.getText().toString().trim();
                 lname = etLastN.getText().toString().trim();
 
-                if (!isEmpty(email, password, username, fname, lname)) {
+                User user = new User(email, password, username, fname, lname);
+                if (validateUser(user)){
                     //add user to db
-                    User user = new User(email, password, username, fname, lname);
-                    storeUser(user);
+
+//                    storeUser(user);
                 }
             }
         });
@@ -75,15 +76,36 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
 
-//SET FUNCTION HERE
-    private boolean isEmpty(String email, String password, String username, String fname, String lname){
 
-        if(email.isEmpty()){
-//            this.et.setError("Required field");
-//           this.etEmail.requestFocus();
-            return true;
+    private boolean validateUser(User user){
+        boolean isValidUser = true;
+
+        //validate email
+        if(user.getEmail().isEmpty()){
+            isValidUser = false;
         }
-        return false;
+
+        //validate password
+        if (user.getPassword().isEmpty()){
+            isValidUser = false;
+        }
+
+        //validate username
+        if (user.getUsername().isEmpty()){
+            isValidUser = false;
+        }
+
+        //validate first name
+        if (user.getFirstName().isEmpty()){
+            isValidUser = false;
+        }
+
+        //validate last name
+        if (user.getLastName().isEmpty()){
+            isValidUser = false;
+        }
+
+        return isValidUser;
     }
 
 
@@ -114,7 +136,7 @@ public class SignUpActivity2 extends AppCompatActivity {
                         if(task.isSuccessful()){
                             mDatabase.getReference("users")
                                     .child(mAuth.getCurrentUser().getUid())
-                                    .setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(u.getFirebaseUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -132,7 +154,6 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
     private void successfulRegistration(){
-
         Toast.makeText(this, "User Registration Successful", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(SignUpActivity2.this, LoginActivity.class);
         this.btnSignUp.setVisibility(View.GONE);
