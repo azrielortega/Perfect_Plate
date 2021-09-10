@@ -112,7 +112,8 @@ public class UserDatabase {
             public void onSuccess(Object o) {
                 FirebaseUser user = (FirebaseUser) o;
 
-                //if null of empty, update
+                //if null or empty, update
+
 
                 databaseReference.child(user.getUserId()).setValue(user);
             }
@@ -141,21 +142,41 @@ public class UserDatabase {
                 //link recipe to user
                 recipe.setContributorId(userId);
                 String recipeId = recipeDatabase.addRecipe(recipe);
-                recipe.setId(recipeId);
-                user.addUserRecipeId(recipeId);
 
                 //add to dbs
-                updateUserRecipes(
-                        userId,
-                        user.getUserRecipesList(),
-                        user.getUserRecipesCount());
-
+                user.addUserRecipeId(recipeId);
+                updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
             }
 
             @Override
             public void onFailure() {
                 Log.d("FAILED TO ADD",
                         "Failed to add recipe: " + recipe.getId() + " for: " + userId);
+            }
+        });
+    }
+
+    /**
+     * Removes user recipe from user's list and from the recipe db
+     * */
+    public void removeUserRecipe(String userId, String recipeId){
+        getFirebaseUser(userId, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                FirebaseUser user = (FirebaseUser) o;
+
+                //remove from recipe db
+                recipeDatabase.deleteRecipe(recipeId);
+
+                //remove from user db
+                user.removeUserRecipeId(recipeId);
+                updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILED TO REMOVE",
+                        "Failed to remove recipe: " + recipeId + " for: " + userId);
             }
         });
     }
@@ -170,7 +191,60 @@ public class UserDatabase {
                 .setValue(recipeList);
     }
 
-    public void removeUserRecipe(User user, Recipe recipe){
+    /**
+     * Adds fave recipe under user. Increase fave count of recipe
+     *
+     * @param userId    user id of recipe creator
+     * @param recipeId  recipe id of favorite recipe
+     * */
+    public void addFaveRecipe(String userId, String recipeId){
+        getFirebaseUser(userId, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                FirebaseUser user = (FirebaseUser) o;
 
+                //add to db
+                user.addFaveRecipeId(recipeId);
+                updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILED TO ADD",
+                        "Failed to add fave recipe: " + recipeId + " for: " + userId);
+            }
+        });
+    }
+
+    /**
+     * Removes fave recipe from user's list
+     * */
+    public void removeFaveRecipe(String userId, String recipeId){
+        getFirebaseUser(userId, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                FirebaseUser user = (FirebaseUser) o;
+
+                //remove from user db
+                user.removeFaveRecipeId(recipeId);
+                updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILED TO REMOVE",
+                        "Failed to remove fave recipe: " + recipeId + " for: " + userId);
+            }
+        });
+    }
+
+    public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){
+        this.databaseReference.child(userId)
+                .child("faveRecipesCount")
+                .setValue(newSize);
+
+        this.databaseReference.child(userId)
+                .child("faveRecipesList")
+                .setValue(recipeList);
     }
 }
