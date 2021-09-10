@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                     int recipePic = 2131230935;
                     String recipeName = recipeSnapshot.child("recipeName").getValue().toString();
                     int foodFave = Integer.valueOf(recipeSnapshot.child("faveCount").getValue().toString());
-                    double rating = (double) recipeSnapshot.child("rating").getValue();
+                    double rating = Double.valueOf(recipeSnapshot.child("rating").getValue().toString());
                     String contributorId = recipeSnapshot.child("contributorId").getValue().toString();
                     String desc = recipeSnapshot.child("description").getValue().toString();
                     int reviewCount = Integer.valueOf(recipeSnapshot.child("reviewCount").getValue().toString());
@@ -107,6 +107,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 initPopularRecyclerView();
+                initRecentFeed();
 
             }
             @Override
@@ -177,15 +178,13 @@ public class HomeActivity extends AppCompatActivity {
         this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         this.rvPopular.setLayoutManager(this.popularManager);
 
-        //this.initData();
         this.popularAdapter = new PopularAdapter(this.popularRecipeList);
         this.rvPopular.setAdapter(this.popularAdapter);
     }
 
     private void initRecentFeed(){
-        DataHelper helper = new DataHelper();
 
-        this.recentRecipeList = helper.initFood();
+        this.recentRecipeList = this.recipeList;
         this.rvRecent = findViewById(R.id.rv_home_recent);
 
         this.recentManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
