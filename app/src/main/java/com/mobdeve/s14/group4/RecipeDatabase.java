@@ -71,9 +71,15 @@ public class RecipeDatabase {
         }
     }
 
+    /**
+     * Delete recipe from recipe database. Does not delete recipe from user list
+     * */
+    public void deleteRecipe(String id){
+        this.databaseReference.child(id).setValue(null);
+    }
 
-//    public void dropRecipes(){
-//        this.databaseReference.setValue(null);
-//        this.ingredientDatabase.dropIngredients();
-//    }
+    public void dropRecipes(){
+        this.databaseReference.setValue(null);
+        this.ingredientDatabase.dropIngredients();
+    }
 }
