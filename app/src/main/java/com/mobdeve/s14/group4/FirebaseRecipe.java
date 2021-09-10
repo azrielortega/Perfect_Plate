@@ -75,6 +75,16 @@ public class FirebaseRecipe {
         this.difficulty = difficulty;
     }
 
+    public Recipe findRecipe(String id){
+
+        for (int i = 0; i < HomeActivity.recipeList.size(); i++) {
+            if(id.equalsIgnoreCase(HomeActivity.recipeList.get(i).getId())){
+                return HomeActivity.recipeList.get(i);
+            }
+        }
+        return null;
+    }
+
     public String getId(){
         return this.recipeId;
     }

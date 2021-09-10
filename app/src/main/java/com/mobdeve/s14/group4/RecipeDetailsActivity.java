@@ -26,6 +26,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvContributorName;
     private TextView tvDescription;
     private TextView tvReviewCount;
+    private TextView tvCategory;
 
     private TextView tvIngredients;
     private TextView tvInstructions;
@@ -59,6 +60,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvContributorName = findViewById(R.id.tv_recipe_details_contributor_name);
         this.tvDescription = findViewById(R.id.tv_recipe_details_description);
         this.tvReviewCount = findViewById(R.id.tv_details_review_count);
+        this.tvCategory = findViewById(R.id.tv_recipe_details_category);
 
         this.llWriteReview = findViewById(R.id.ll_write_review);
         this.clIngredients = findViewById(R.id.cl_details_ingredients);
@@ -77,19 +79,29 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         //this.clReviews = findViewById(R.id.cl_details_reviews);
 
         Intent i = getIntent();
+        String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
 
-        int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
+        FirebaseRecipe fr = new FirebaseRecipe();
+        fr = fr.findRecipe(id);
+
+        this.tvRecipeName.setText(fr.getRecipeName());
+        this.ivRecipePic.setImageResource(fr.getRecipePic());
+        this.tvDescription.setText(fr.getDescription());
+        this.tvRecipeNameTop.setText(fr.getRecipeName());
+        this.tvStarsSummary.setText(String.valueOf(fr.getRating()));
+        this.tvFavCount.setText(String.valueOf(fr.getFaveCount()));
+        this.tvReviewCount.setText(String.valueOf(fr.getReviewCount()).concat(" reviews"));
+        String temp = "Category: ".concat(fr.getCategory());
+        this.tvCategory.setText(temp);
+
+        /*int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
         this.ivRecipePic.setImageResource(iRecipePic);
 
         String iRecipeName = i.getStringExtra(PopularAdapter.KEY_RECIPE_NAME);
         this.tvRecipeName.setText(iRecipeName);
         this.tvRecipeNameTop.setText(iRecipeName);
 
-//        String iStarsSummary = i.getStringExtra(PopularAdapter.KEY_RECIPE_STARS);
-//        this.tvStarsSummary.setText(iStarsSummary);
-//
-//        int iFavCount = i.getIntExtra(PopularAdapter.KEY_RECIPE_FAV, 0);
-//        this.tvFavCount.setText(iFavCount);
+
 //
         int iContributorPic = i.getIntExtra(PopularAdapter.KEY_CONTRIBUTOR_PIC, 0);
         this.ivContributorPic.setImageResource(iContributorPic);
@@ -102,6 +114,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //
 //        int iRC = i.getIntExtra(PopularAdapter.KEY_RECIPE_REVIEWS_COUNT, 0);
 //        this.tvReviewCount.setText(iRC);
+        //        String iStarsSummary = i.getStringExtra(PopularAdapter.KEY_RECIPE_STARS);
+//        this.tvStarsSummary.setText(iStarsSummary);
+//
+//        int iFavCount = i.getIntExtra(PopularAdapter.KEY_RECIPE_FAV, 0);
+//        this.tvFavCount.setText(iFavCount);
+*/
 
         this.clIngredients.setVisibility(View.VISIBLE);
 

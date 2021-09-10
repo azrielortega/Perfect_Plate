@@ -441,7 +441,7 @@
                 android:layout_marginTop="15dp"
                 android:paddingBottom="30dp"
 
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
                 app:layout_constraintRight_toRightOf="@id/gl_details_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
@@ -623,6 +623,33 @@
                         android:text="Difficulty: Medium" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/tv_ingredients_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/ll_cook"
+                    app:layout_constraintTop_toBottomOf="@id/ll_serves">
+
+                    <ImageView
+                        android:id="@+id/iv_spoon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/vectorspoon" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_details_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Category: Appetizer" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_ingredients_title"
                     android:layout_width="wrap_content"
@@ -633,7 +660,7 @@
                     android:textColor="#02043f"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_serves" />
+                    app:layout_constraintTop_toBottomOf="@id/ll_category" />
 
                 <TextView
                     android:id="@+id/tv_recipe_details_ingredients_list"
