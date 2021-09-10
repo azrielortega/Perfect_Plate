@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -81,12 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*testing purposes - matt
-                Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
-                //this.btnNext.setVisibility(View.GONE);
-                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                finish();*/
                 pbLogin.setVisibility(View.VISIBLE);
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
@@ -114,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
         this.mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
+                       @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                            successfulLogin();
@@ -126,10 +121,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void successfulLogin(){
-//        FirebaseUser fUser;
-//        User currUser;
-//
-//        fUser = FirebaseAuth.getInstance().getCurrentUser();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -185,28 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             try{
                 GoogleSignInAccount account = task.getResult (ApiException.class);
                 Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-
-                //if user does not exist,
-                //create user
-                this.databaseReference.orderByChild("googleId").equalTo(account.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        pbLogin.setVisibility(View.GONE);
-                        if (!snapshot.exists()){
-                            addGoogleUser(account);
-                        }
-                        else{
-                            Log.d("SUCCESS", "signInResult:success for " + account.getDisplayName());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                        Log.e("CANCELLED", "signInResult:failed " + error);
-                    }
-                });
-
+                firebaseAuthWithGoogle(account);
 
                 Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(i);
@@ -217,32 +187,51 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        String idToken = account.getIdToken();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithCredential:success");
+                            Log.d("SUCCESS", "signInWithCredential:success");
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+                            if (firebaseUser != null){
+                                String id = mAuth.getCurrentUser().getUid();
+                                addGoogleUser(account, id);
+
+                                Log.d("SUCCESS", "successfully added Google user");
+                            }
+                            else{
+                                Log.d("FAILURE", "failed to add Google user");
+                            }
                         } else {
-                            Log.w("TAG", "signInWithCredential:failure", task.getException());
+                            Log.w("FAILURE", "signInWithCredential:failure", task.getException());
                         }
                     }
                 });
     }
 
-    private void addGoogleUser(GoogleSignInAccount account){
-        
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+    private void addGoogleUser(GoogleSignInAccount account, String userId){
+        UserDatabase userDatabase = new UserDatabase();
+        userDatabase.getGoogleUser(account.getId(), new CallbackListener() {
             @Override
-            public void onAuthStateChanged(@NonNull @NotNull FirebaseAuth firebaseAuth) {
-                String id = firebaseAuth.getCurrentUser().getUid();
+            public void onSuccess(Object o) {
+                pbLogin.setVisibility(View.GONE);
+                Log.d("SUCCESS", "signInResult:success for " + account.getDisplayName());
+            }
+
+            @Override
+            public void onFailure() {
+                pbLogin.setVisibility(View.GONE);
 
                 User user = new User(account.getId(), account.getDisplayName(), account.getGivenName(), account.getFamilyName());
-                user.setUserId(id);
+                user.setUserId(userId);
 
-                databaseReference.child(id).setValue(user);
+                new UserDatabase().addGoogleUser(user);
             }
         });
     }
