@@ -10,6 +10,15 @@ public class Recipe extends FirebaseRecipe
                   String category, String difficulty){
         super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
     }
+    //with id from database
+    public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
+                  String category, String difficulty){
+        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
+    }
+
+    public Recipe() {
+
+    }
 
     public int getContributorPic(){
         int contributorPic = R.drawable.person_gray;
