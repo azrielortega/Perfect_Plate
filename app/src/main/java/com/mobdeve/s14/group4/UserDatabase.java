@@ -30,8 +30,8 @@ public class UserDatabase {
      * Gets user details from database. Returns details in a callbacklistener.
      * */
     public void getFirebaseUser(String userId, final CallbackListener listener){
-        this.databaseReference.child(userId);
-        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        this.databaseReference.child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

@@ -24,4 +24,8 @@ public class IngredientDatabase {
 
         return key;
     }
+
+    public void dropIngredients(){
+        this.databaseReference.setValue(null);
+    }
 }
