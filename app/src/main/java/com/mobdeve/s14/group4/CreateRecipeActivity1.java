@@ -3,6 +3,7 @@ package com.mobdeve.s14.group4;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,12 +22,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -42,7 +47,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     public static final String KEY_PREPTIME= "KEY_CR_PREPTIME";
     public static final String KEY_DIFFICULTY = "KEY_CR_DIFFICULTY";
     public static final String KEY_CATEGORY = "KEY_CR_CATEGORY";
-    public static final String KEY_IMAGE = "KEY_CR_IMAGE";
+    public static final String filename = "bitmap.png";
 
 
     private EditText etRecipeName;
@@ -57,14 +62,16 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     private TextView tvMedium;
     private TextView tvHard;
 
-    private String difficulty;
+    private static String difficulty;
 
     private LinearLayout llAddPic;
 
     private ImageView ivRecipePic;
 
     private Uri dataPic;
-    private Bitmap image;
+    private static Bitmap image;
+
+    private ProgressBar pb;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
@@ -76,6 +83,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
         setContentView(R.layout.activity_create_recipe1);
 
         difficulty = "Easy";
+        image = null;
 
 
         initSpinner();
@@ -93,6 +101,8 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     }
 
     private void initComponents() {
+
+        pb = findViewById(R.id.pb_createrecipe1);
 
         etRecipeName = findViewById(R.id.et_create1_recipe_name);
 
@@ -201,27 +211,81 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
         btnCreate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recipeName, cookingTime, prepTime, servings, description, category;
 
-                recipeName = etRecipeName.getText().toString().trim();
-                cookingTime = etCookingTime.getText().toString().trim();
-                prepTime = etPrepTime.getText().toString().trim();
-                servings = etServings.getText().toString().trim();
-                description = etDescription.getText().toString().trim();
-                category = spCategory.getSelectedItem().toString().trim();
+                pb.setVisibility(View.VISIBLE);
 
-                Intent i = new Intent(CreateRecipeActivity1.this, CreateRecipeActivity2.class);
+                if(TextUtils.isEmpty(etRecipeName.getText()) ||
+                        TextUtils.isEmpty(etDescription.getText() )||
+                                TextUtils.isEmpty(etCookingTime.getText())||
+                                        TextUtils.isEmpty(etPrepTime.getText()) ||
+                                                TextUtils.isEmpty(etServings.getText()) ||
+                                                        image == null){
 
-                i.putExtra(KEY_RECIPENAME, recipeName);
-                i.putExtra(KEY_COOKINGTIME, cookingTime);
-                i.putExtra(KEY_DESCRIPTION, description);
-                i.putExtra(KEY_PREPTIME, prepTime);
-                i.putExtra(KEY_SERVINGS, servings);
-                i.putExtra(KEY_CATEGORY, category);
-                i.putExtra(KEY_DIFFICULTY, difficulty);
-                i.putExtra(KEY_IMAGE, image);
+                    if(TextUtils.isEmpty(etRecipeName.getText()))
+                        etRecipeName.setError("Recipe Name is Required");
 
-                startActivityForResult(i, 1);
+
+                    if(TextUtils.isEmpty(etDescription.getText()))
+                        etDescription.setError("Description is Required");
+
+
+                    if(TextUtils.isEmpty(etCookingTime.getText()))
+                        etCookingTime.setError("Cooking Time is Required");
+
+
+                    if(TextUtils.isEmpty(etPrepTime.getText()))
+                        etPrepTime.setError("Prep Time is Required");
+
+
+                    if(TextUtils.isEmpty(etServings.getText()))
+                        etServings.setError("Servings is Required");
+
+
+                    Toast.makeText(CreateRecipeActivity1.this, "Fill Up All Values", Toast.LENGTH_LONG).show();
+                    pb.setVisibility(View.GONE);
+                }
+                else{
+                    String recipeName, cookingTime, prepTime, servings, description, category;
+
+                    recipeName = etRecipeName.getText().toString().trim();
+                    cookingTime = etCookingTime.getText().toString().trim();
+                    prepTime = etPrepTime.getText().toString().trim();
+                    servings = etServings.getText().toString().trim();
+                    description = etDescription.getText().toString().trim();
+                    category = spCategory.getSelectedItem().toString().trim();
+
+                    try {
+                        FileOutputStream stream = openFileOutput(filename, Context.MODE_PRIVATE);
+                        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                        stream.close();
+                        image.recycle();
+
+                        Intent i = new Intent(CreateRecipeActivity1.this, CreateRecipeActivity2.class);
+
+                        i.putExtra(KEY_RECIPENAME, recipeName);
+                        i.putExtra(KEY_COOKINGTIME, cookingTime);
+                        i.putExtra(KEY_DESCRIPTION, description);
+                        i.putExtra(KEY_PREPTIME, prepTime);
+                        i.putExtra(KEY_SERVINGS, servings);
+                        i.putExtra(KEY_CATEGORY, category);
+                        i.putExtra(KEY_DIFFICULTY, difficulty);
+                        pb.setVisibility(View.GONE);
+
+                        startActivityForResult(i, 1);
+
+                    } catch (FileNotFoundException e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+                    }
+
+                    /*
+                    ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.PNG, 200, bs);*/
+                }
             }
         });
     }
@@ -234,9 +298,6 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
 
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(imageUri);
-
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(90);
 
                     image = BitmapFactory.decodeStream(inputStream);
 
@@ -258,12 +319,5 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
             finish();
         }
-    }
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
     }
 }

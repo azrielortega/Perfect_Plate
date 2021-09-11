@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -15,6 +17,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +25,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -66,43 +73,72 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
 
                 final int ingredientCount = llIngredients.getChildCount();
 
-                for (int i = 0; i < ingredientCount; i++){
-                    View tempV = llIngredients.getChildAt(i);
-                    EditText etQty = tempV.findViewById(R.id.createrecipe_ingredients_et_number);
-                    EditText etUnit = tempV.findViewById(R.id.createrecipe_ingredients_et_unit);
-                    EditText etName = tempV.findViewById(R.id.createrecipe_ingredients_et_name);
+                if(ingredientCount != 0) {
+                    boolean flag = false;
+                    for (int i = 0; i < ingredientCount; i++) {
 
-                    Double qty = Double.parseDouble(etQty.getText().toString().trim());
-                    String unit = etUnit.getText().toString().trim();
-                    String name = etName.getText().toString().trim();
+                        View tempV = llIngredients.getChildAt(i);
+                        EditText etQty = tempV.findViewById(R.id.createrecipe_ingredients_et_number);
+                        EditText etUnit = tempV.findViewById(R.id.createrecipe_ingredients_et_unit);
+                        EditText etName = tempV.findViewById(R.id.createrecipe_ingredients_et_name);
 
-                    ingredients.add(new Ingredient(qty, unit, name));
+                        if(TextUtils.isEmpty(etQty.getText()) ||
+                                TextUtils.isEmpty(etUnit.getText() )||
+                                TextUtils.isEmpty(etName.getText())){
+
+                            if(TextUtils.isEmpty(etQty.getText()))
+                                etQty.setError("Quantity is Required");
+
+
+                            if(TextUtils.isEmpty(etUnit.getText()))
+                                etUnit.setError("Unit is Required");
+
+
+                            if(TextUtils.isEmpty(etName.getText()))
+                                etName.setError("Ingredient Name is Required");
+
+                            flag = true;
+                        }else {
+                            Double qty = Double.parseDouble(etQty.getText().toString().trim());
+                            String unit = etUnit.getText().toString().trim();
+                            String name = etName.getText().toString().trim();
+
+                            ingredients.add(new Ingredient(qty, unit, name));
+                        }
+                    }
+
+                    if(!flag) {
+
+                        Intent tempI = getIntent();
+
+                        String recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
+                        String cookingTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME);
+                        String prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
+                        String servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
+                        String description = tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
+                        String difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
+                        String category = tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
+
+                        Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
+
+                        i.putExtra(KEY_INGREDIENTS, (Serializable) ingredients);
+                        i.putExtra(CreateRecipeActivity1.KEY_RECIPENAME, recipeName);
+                        i.putExtra(CreateRecipeActivity1.KEY_COOKINGTIME, cookingTime);
+                        i.putExtra(CreateRecipeActivity1.KEY_DESCRIPTION, description);
+                        i.putExtra(CreateRecipeActivity1.KEY_PREPTIME, prepTime);
+                        i.putExtra(CreateRecipeActivity1.KEY_SERVINGS, servings);
+                        i.putExtra(CreateRecipeActivity1.KEY_CATEGORY, category);
+                        i.putExtra(CreateRecipeActivity1.KEY_DIFFICULTY, difficulty);
+
+                        startActivityForResult(i, 1);
+                    }
+                    else{
+                        Toast.makeText(CreateRecipeActivity2.this, "Fill Up All Values", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                Intent tempI = getIntent();
-
-                String recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
-                String cookingTime =tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME);
-                String prepTime = tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME);
-                String servings = tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS);
-                String description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
-                String difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
-                String category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
-                Bitmap image = (Bitmap) tempI.getParcelableExtra(CreateRecipeActivity1.KEY_IMAGE);
-
-                Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
-
-                i.putExtra(KEY_INGREDIENTS, (Serializable) ingredients);
-                i.putExtra(CreateRecipeActivity1.KEY_RECIPENAME, recipeName);
-                i.putExtra(CreateRecipeActivity1.KEY_COOKINGTIME, cookingTime);
-                i.putExtra(CreateRecipeActivity1.KEY_DESCRIPTION, description);
-                i.putExtra(CreateRecipeActivity1.KEY_PREPTIME, prepTime);
-                i.putExtra(CreateRecipeActivity1.KEY_SERVINGS, servings);
-                i.putExtra(CreateRecipeActivity1.KEY_CATEGORY, category);
-                i.putExtra(CreateRecipeActivity1.KEY_DIFFICULTY, difficulty);
-                i.putExtra(CreateRecipeActivity1.KEY_IMAGE, image);
-
-                startActivityForResult(i, 1);
+                else{
+                    Toast.makeText(CreateRecipeActivity2.this, "Add at least 1 Ingredient", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

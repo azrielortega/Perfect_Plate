@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -49,8 +52,14 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
         difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
         category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
-        image = (Bitmap) tempI.getParcelableExtra(CreateRecipeActivity1.KEY_IMAGE);
 
+        try{
+            FileInputStream is = openFileInput(CreateRecipeActivity1.filename);
+            image = BitmapFactory.decodeStream(is);
+            is.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         this.initComponents();
     }
 
@@ -77,31 +86,50 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
 
                 ArrayList<String> steps = new ArrayList<>();
 
-                final int ingredientCount = llSteps.getChildCount();
+                final int stepCount = llSteps.getChildCount();
 
-                for (int i = 0; i < ingredientCount; i++){
-                    View tempV = llSteps.getChildAt(i);
-                    EditText etStep = tempV.findViewById(R.id.template_cr_steps_et_step);
+                if(stepCount != 0) {
+                    boolean flag = false;
 
-                    String step = etStep.getText().toString().trim();
+                    for (int i = 0; i < stepCount; i++) {
+                        View tempV = llSteps.getChildAt(i);
+                        EditText etStep = tempV.findViewById(R.id.template_cr_steps_et_step);
 
-                    steps.add(step);
+                        if(TextUtils.isEmpty(etStep.getText())){
+
+                            if(TextUtils.isEmpty(etStep.getText()))
+                                etStep.setError("Step " + String.valueOf(i + 1) + " is Required");
+
+                            flag = true;
+                        }
+                        else{
+                            String step = etStep.getText().toString().trim();
+                            steps.add(step);
+                        }
+                    }
+
+                    if(!flag) {
+                        RecipeDatabase db = new RecipeDatabase();
+                        Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
+                                description, 0, cookingTime, prepTime, servings, category, difficulty);
+
+                        recipe.addStepsList(steps);
+
+                        for (int i = 0; i < ingredients.size(); i++) {
+                            recipe.addIngredient(ingredients.get(i));
+                        }
+                        Log.d("myTag", "Adding Recipe");
+                        db.addRecipe(recipe);
+                        Toast.makeText(v.getContext(), "Added Recipe", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(CreateRecipeActivity3.this, "Fill Up All Values", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
-                RecipeDatabase db = new RecipeDatabase();
-                Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
-                        description, 0, cookingTime, prepTime, servings, category, difficulty);
-
-                recipe.addStepsList(steps);
-
-                for (int i = 0; i <ingredients.size(); i++){
-                    recipe.addIngredient(ingredients.get(i));
+                else{
+                    Toast.makeText(CreateRecipeActivity3.this, "Add at least 1 Step", Toast.LENGTH_LONG).show();
                 }
-                Log.d("myTag", "Adding Recipe");
-                db.addRecipe(recipe);
-                Toast.makeText(v.getContext(), "Added Recipe", Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
 
