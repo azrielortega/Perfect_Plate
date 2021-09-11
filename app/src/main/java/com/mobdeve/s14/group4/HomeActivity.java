@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -108,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 initPopularRecyclerView();
                 initRecentFeed();
-
             }
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
