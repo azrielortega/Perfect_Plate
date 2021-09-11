@@ -569,10 +569,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                android:id="@+id/create1_ll_addpick"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
 
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_create1_recipe_pic"
                 app:layout_constraintEnd_toEndOf="@+id/iv_create1_recipe_pic"
                 app:layout_constraintStart_toStartOf="@+id/iv_create1_recipe_pic"

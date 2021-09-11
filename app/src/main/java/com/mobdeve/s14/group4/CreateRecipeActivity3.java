@@ -3,6 +3,7 @@ package com.mobdeve.s14.group4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,13 +32,12 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private String recipeName, description, category, difficulty;
     private int cookingTime, prepTime, servings;
     private ArrayList<Ingredient> ingredients;
+    private Bitmap image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createrecipe3);
-
-        this.initComponents();
 
         Intent tempI = getIntent();
 
@@ -49,6 +49,9 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
         difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
         category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
+        image = (Bitmap) tempI.getParcelableExtra(CreateRecipeActivity1.KEY_IMAGE);
+
+        this.initComponents();
     }
 
     private void initComponents() {
@@ -57,6 +60,9 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         this.llSteps = findViewById(R.id.createrecipe3_ll_steps);
         btnFinish = findViewById(R.id.createrecipe3_btn_finish);
         ibBack = findViewById(R.id.createrecipe3_ib_back);
+
+        ImageView ivTempPic = findViewById(R.id.create3_tempPic);
+        ivTempPic.setImageBitmap(image);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override

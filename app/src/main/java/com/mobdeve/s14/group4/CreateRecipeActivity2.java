@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -87,6 +88,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 String description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
                 String difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
                 String category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
+                Bitmap image = (Bitmap) tempI.getParcelableExtra(CreateRecipeActivity1.KEY_IMAGE);
 
                 Intent i = new Intent(CreateRecipeActivity2.this, CreateRecipeActivity3.class);
 
@@ -98,6 +100,7 @@ public class CreateRecipeActivity2 extends AppCompatActivity {
                 i.putExtra(CreateRecipeActivity1.KEY_SERVINGS, servings);
                 i.putExtra(CreateRecipeActivity1.KEY_CATEGORY, category);
                 i.putExtra(CreateRecipeActivity1.KEY_DIFFICULTY, difficulty);
+                i.putExtra(CreateRecipeActivity1.KEY_IMAGE, image);
 
                 startActivityForResult(i, 1);
             }

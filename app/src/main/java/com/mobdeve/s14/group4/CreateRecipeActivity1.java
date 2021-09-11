@@ -4,16 +4,30 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class CreateRecipeActivity1 extends AppCompatActivity {
 
@@ -28,9 +42,10 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     public static final String KEY_PREPTIME= "KEY_CR_PREPTIME";
     public static final String KEY_DIFFICULTY = "KEY_CR_DIFFICULTY";
     public static final String KEY_CATEGORY = "KEY_CR_CATEGORY";
+    public static final String KEY_IMAGE = "KEY_CR_IMAGE";
+
 
     private EditText etRecipeName;
-
     private EditText etPrepTime;
     private EditText etServings;
     private EditText etCookingTime;
@@ -43,6 +58,16 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     private TextView tvHard;
 
     private String difficulty;
+
+    private LinearLayout llAddPic;
+
+    private ImageView ivRecipePic;
+
+    private Uri dataPic;
+    private Bitmap image;
+
+    public static final int IMAGE_GALLERY_REQUEST = 20;
+
 
 
     @Override
@@ -82,6 +107,41 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
         tvEasy = findViewById(R.id.tv_create1_easy);
         tvMedium = findViewById(R.id.tv_create1_medium);
         tvHard = findViewById(R.id.tv_create1_hard);
+
+        llAddPic = findViewById(R.id.create1_ll_addpick);
+        ivRecipePic = findViewById(R.id.iv_create1_recipe_pic);
+
+        ivRecipePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (Intent.ACTION_PICK);
+
+                File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                String path = pictureDirectory.getPath();
+
+                dataPic = Uri.parse(path);
+
+                i.setDataAndType(dataPic, "image/*");
+
+                startActivityForResult(i, IMAGE_GALLERY_REQUEST);
+            }
+        });
+
+        llAddPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (Intent.ACTION_PICK);
+
+                File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                String path = pictureDirectory.getPath();
+
+                dataPic = Uri.parse(path);
+
+                i.setDataAndType(dataPic, "image/*");
+
+                startActivityForResult(i, IMAGE_GALLERY_REQUEST);
+            }
+        });
 
         tvEasy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +219,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
                 i.putExtra(KEY_SERVINGS, servings);
                 i.putExtra(KEY_CATEGORY, category);
                 i.putExtra(KEY_DIFFICULTY, difficulty);
+                i.putExtra(KEY_IMAGE, image);
 
                 startActivityForResult(i, 1);
             }
@@ -167,7 +228,42 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        finish();
+        if(resultCode == RESULT_OK){
+            if(requestCode == IMAGE_GALLERY_REQUEST){
+                Uri imageUri = data.getData();
+
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+
+                    image = BitmapFactory.decodeStream(inputStream);
+
+                    ivRecipePic.setImageBitmap(image);
+                    llAddPic.setVisibility(View.GONE);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                super.onActivityResult(requestCode, resultCode, data);
+                finish();
+            }
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+            finish();
+        }
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
     }
 }
