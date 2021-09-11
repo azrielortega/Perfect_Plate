@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.UserData;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -44,8 +45,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private DatabaseReference ingredientDatabaseReference;
 
     public static ArrayList<Recipe> recipeList;
+    private ArrayList<Ingredient> allIngredientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,57 +71,41 @@ public class HomeActivity extends AppCompatActivity {
 
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("recipes");
-        this.recipeList = new ArrayList<>();
+        this.ingredientDatabaseReference = this.database.getReference("ingredients");
+        recipeList = new ArrayList<>();
+        this.allIngredientList = new ArrayList<>();
 
-        final Recipe[] tempRecipe = new Recipe[1];
+        Log.d("LISTSIZE", String.valueOf(recipeList.size()));
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+
+        ingredientDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                int ctr = 0;
-                Recipe recipes = dataSnapshot.getValue(Recipe.class);
-                Log.d("meow", "meow");
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                allIngredientList.clear();
+                for (DataSnapshot ingredientSnapshot : snapshot.getChildren()){
+                    String id = ingredientSnapshot.getKey();
+                    String ingredientName = ingredientSnapshot.child("ingredientName").getValue().toString();
+                    Double qty = Double.valueOf(ingredientSnapshot.child("quantity").getValue().toString());
+                    String units = ingredientSnapshot.child("units").getValue().toString();
 
-                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
-                    String id = recipeSnapshot.getKey();
-                    int recipePic = 2131230935;
-                    String recipeName = recipeSnapshot.child("recipeName").getValue().toString();
-                    int foodFave = Integer.valueOf(recipeSnapshot.child("faveCount").getValue().toString());
-                    double rating = Double.valueOf(recipeSnapshot.child("rating").getValue().toString());
-                    String contributorId = recipeSnapshot.child("contributorId").getValue().toString();
-                    String desc = recipeSnapshot.child("description").getValue().toString();
-                    int reviewCount = Integer.valueOf(recipeSnapshot.child("reviewCount").getValue().toString());
-                    int cookingTime = Integer.valueOf(recipeSnapshot.child("cookingTime").getValue().toString());
-                    int prepTime = Integer.valueOf(recipeSnapshot.child("prepTime").getValue().toString());
-                    int servings = Integer.valueOf(recipeSnapshot.child("cookingTime").getValue().toString());
-                    String category = recipeSnapshot.child("category").getValue().toString();
-                    String difficulty = recipeSnapshot.child("difficulty").getValue().toString();
-
-                    tempRecipe[0] = new Recipe(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
-                    recipeList.add(tempRecipe[0]);
-                    Log.d("RECIPE LIST SIZE", String.valueOf(recipeList.size()));
-
-                    Log.d("getKey", id);
-                    Log.d("name", recipeSnapshot.child("recipeName").getValue().toString());
-                    Log.d("recipe", String.valueOf(tempRecipe[0]));
-                    Log.d("test name", tempRecipe[0].getRecipeName());
-                    Log.d("test id", tempRecipe[0].getId());
-                    ctr += 1;
-                    Log.d("CTR", String.valueOf(ctr));
+                    Log.d("INGREDIENT ID", id);
+                    Log.d("INGREDIENT NAME", ingredientName);
+                    Ingredient temp = new Ingredient(id, qty, units, ingredientName);
+                    allIngredientList.add(temp);
+                    initRecipes();
                 }
-
-                initPopularRecyclerView();
-                initRecentFeed();
             }
+
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
             }
         });
 
 
 
-
+        //initRecipes
 
         llFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +149,71 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("recipes", String.valueOf(recipes));
             }
 
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void initRecipes(){
+        final Recipe[] tempRecipe = new Recipe[1];
+
+        databaseReference.addValueEventListener(new ValueEventListener() { // load all recipes
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                int ctr = 0;
+                recipeList.clear();
+                Recipe recipes = dataSnapshot.getValue(Recipe.class);
+                Log.d("meow", "meow");
+                Log.d("WAAAAHHHHH", String.valueOf(allIngredientList.size()));
+                Log.d("MOOOO", String.valueOf(recipeList.size()));
+
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
+                    String id = recipeSnapshot.getKey();
+                    int recipePic = 2131230935;
+                    String recipeName = recipeSnapshot.child("recipeName").getValue().toString();
+                    int foodFave = Integer.valueOf(recipeSnapshot.child("faveCount").getValue().toString());
+                    double rating = Double.valueOf(recipeSnapshot.child("rating").getValue().toString());
+                    String contributorId = recipeSnapshot.child("contributorId").getValue().toString();
+                    String desc = recipeSnapshot.child("description").getValue().toString();
+                    int reviewCount = Integer.valueOf(recipeSnapshot.child("reviewCount").getValue().toString());
+                    int cookingTime = Integer.valueOf(recipeSnapshot.child("cookingTime").getValue().toString());
+                    int prepTime = Integer.valueOf(recipeSnapshot.child("prepTime").getValue().toString());
+                    int servings = Integer.valueOf(recipeSnapshot.child("cookingTime").getValue().toString());
+                    String category = recipeSnapshot.child("category").getValue().toString();
+                    String difficulty = recipeSnapshot.child("difficulty").getValue().toString();
+                    ArrayList<String> ingredientList = new ArrayList();
+                    ArrayList<Ingredient> ingredientDetailsList = new ArrayList<>();
+                    ingredientList = recipeSnapshot.child("ingredientsList").getValue(new GenericTypeIndicator<ArrayList<String>>(){});
+
+                    for (int i = 0; i < ingredientList.size(); i++) {
+                        for (int j = 0; j < allIngredientList.size(); j++){
+                            if (ingredientList.get(i).equalsIgnoreCase(allIngredientList.get(j).getId())){
+                                ingredientDetailsList.add(allIngredientList.get(j));
+                            }
+                        }
+                    }
+                    Log.d("INGRNAME", ingredientDetailsList.get(0).getIngredientName());
+
+                    tempRecipe[0] = new Recipe(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, ingredientDetailsList);
+                    recipeList.add(tempRecipe[0]);
+                    Log.d("RECIPE LIST SIZE", String.valueOf(recipeList.size()));
+                    Log.d("INGREDIENTS", String.valueOf(tempRecipe[0].getIngredientsList()));
+
+                    Log.d("getKey", id);
+                    Log.d("name", recipeSnapshot.child("recipeName").getValue().toString());
+                    Log.d("recipe", String.valueOf(tempRecipe[0]));
+                    Log.d("test name", tempRecipe[0].getRecipeName());
+                    Log.d("test id", tempRecipe[0].getId());
+                    ctr += 1;
+                    Log.d("CTR", String.valueOf(ctr));
+                }
+
+                initPopularRecyclerView();
+                initRecentFeed();
+
+            }
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
