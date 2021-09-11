@@ -12,8 +12,8 @@ public class Recipe extends FirebaseRecipe
     }
     //with id from database
     public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty){
-        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
+                  String category, String difficulty, ArrayList ingredientList, ArrayList ingredientDetailsList){
+        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, ingredientDetailsList);
     }
 
     public Recipe() {
