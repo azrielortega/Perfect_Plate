@@ -37,6 +37,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private ConstraintLayout clReviews;
     private LinearLayout llWriteReview;
     private LinearLayout llComment2;
+    private LinearLayout llIngredientsCont;
 
     private ImageButton ibFave;
     private ImageButton ibBack;
@@ -71,6 +72,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvIngredients = findViewById(R.id.tv_details_ingredients);
         this.tvInstructions = findViewById(R.id.tv_details_instructions);
         this.tvReviews = findViewById(R.id.tv_details_reviews);
+        this.llIngredientsCont = findViewById(R.id.ll_ingredients_cont);
 
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
 
@@ -93,6 +95,22 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvReviewCount.setText(String.valueOf(fr.getReviewCount()).concat(" reviews"));
         String temp = "Category: ".concat(fr.getCategory());
         this.tvCategory.setText(temp);
+
+
+        //set ingredients
+        for (int ctr = 0; ctr < fr.getIngredientDetailsList().size(); ctr++){
+            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
+            llIngredientsCont.addView(ingredientLayout);
+
+            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
+            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
+
+            String tempM = String.valueOf(fr.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + fr.getIngredientDetailsList().get(ctr).getUnits());
+            measurement.setText(tempM);
+
+            ingrName.setText(fr.getIngredientDetailsList().get(ctr).getIngredientName());
+        }
+
 
         /*int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
         this.ivRecipePic.setImageResource(iRecipePic);

@@ -662,16 +662,14 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ll_category" />
 
-                <TextView
-                    android:id="@+id/tv_recipe_details_ingredients_list"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ll_ingredients_cont"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/ingredients"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients_title" />
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ingredients_title"></LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -72,14 +72,17 @@ public class HomeActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("recipes");
         this.ingredientDatabaseReference = this.database.getReference("ingredients");
-        this.recipeList = new ArrayList<>();
+        recipeList = new ArrayList<>();
         this.allIngredientList = new ArrayList<>();
+
+        Log.d("LISTSIZE", String.valueOf(recipeList.size()));
 
 
 
         ingredientDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                allIngredientList.clear();
                 for (DataSnapshot ingredientSnapshot : snapshot.getChildren()){
                     String id = ingredientSnapshot.getKey();
                     String ingredientName = ingredientSnapshot.child("ingredientName").getValue().toString();
@@ -155,13 +158,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initRecipes(){
         final Recipe[] tempRecipe = new Recipe[1];
+
         databaseReference.addValueEventListener(new ValueEventListener() { // load all recipes
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 int ctr = 0;
+                recipeList.clear();
                 Recipe recipes = dataSnapshot.getValue(Recipe.class);
                 Log.d("meow", "meow");
                 Log.d("WAAAAHHHHH", String.valueOf(allIngredientList.size()));
+                Log.d("MOOOO", String.valueOf(recipeList.size()));
 
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
                     String id = recipeSnapshot.getKey();

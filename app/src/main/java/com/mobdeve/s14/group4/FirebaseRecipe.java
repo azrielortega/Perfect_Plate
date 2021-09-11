@@ -131,6 +131,10 @@ public class FirebaseRecipe {
         return this.ingredientsList.size();
     }
 
+    public ArrayList<Ingredient> getIngredientDetailsList(){
+        return this.ingredientDetailsList;
+    }
+
     public ArrayList<String> getStepsList(){ return this.stepsList;}
 
     public int getPrepTime (){
