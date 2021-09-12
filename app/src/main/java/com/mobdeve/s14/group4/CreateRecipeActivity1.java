@@ -27,6 +27,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,6 +49,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
     public static final String KEY_PREPTIME= "KEY_CR_PREPTIME";
     public static final String KEY_DIFFICULTY = "KEY_CR_DIFFICULTY";
     public static final String KEY_CATEGORY = "KEY_CR_CATEGORY";
+    public static final String KEY_IMAGEURI = "KEY_CR_IMAGEURI";
     public static final String filename = "bitmap.png";
 
 
@@ -219,7 +222,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
                                 TextUtils.isEmpty(etCookingTime.getText())||
                                         TextUtils.isEmpty(etPrepTime.getText()) ||
                                                 TextUtils.isEmpty(etServings.getText()) ||
-                                                        image == null){
+                                                        dataPic == null){
 
                     if(TextUtils.isEmpty(etRecipeName.getText()))
                         etRecipeName.setError("Recipe Name is Required");
@@ -254,7 +257,22 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
                     description = etDescription.getText().toString().trim();
                     category = spCategory.getSelectedItem().toString().trim();
 
+                    Intent i = new Intent(CreateRecipeActivity1.this, CreateRecipeActivity2.class);
+
+                    i.putExtra(KEY_RECIPENAME, recipeName);
+                    i.putExtra(KEY_COOKINGTIME, cookingTime);
+                    i.putExtra(KEY_DESCRIPTION, description);
+                    i.putExtra(KEY_PREPTIME, prepTime);
+                    i.putExtra(KEY_SERVINGS, servings);
+                    i.putExtra(KEY_CATEGORY, category);
+                    i.putExtra(KEY_DIFFICULTY, difficulty);
+                    i.putExtra(KEY_IMAGEURI, dataPic.toString());
+                    pb.setVisibility(View.GONE);
+
+                    startActivityForResult(i, 1);
+                    /*
                     try {
+
                         FileOutputStream stream = openFileOutput(filename, Context.MODE_PRIVATE);
                         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
@@ -280,11 +298,7 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
                     } catch (IOException e) {
                         pb.setVisibility(View.GONE);
                         e.printStackTrace();
-                    }
-
-                    /*
-                    ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.PNG, 200, bs);*/
+                    }*/
                 }
             }
         });
@@ -292,23 +306,14 @@ public class CreateRecipeActivity1 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == RESULT_OK){
             if(requestCode == IMAGE_GALLERY_REQUEST){
-                Uri imageUri = data.getData();
+                dataPic = data.getData();
 
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
-
-                    image = BitmapFactory.decodeStream(inputStream);
-
-                    ivRecipePic.setImageBitmap(image);
-                    llAddPic.setVisibility(View.GONE);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Picasso.with(this).load(dataPic).into(ivRecipePic);
+                llAddPic.setVisibility(View.GONE);
             }
             else{
                 super.onActivityResult(requestCode, resultCode, data);
