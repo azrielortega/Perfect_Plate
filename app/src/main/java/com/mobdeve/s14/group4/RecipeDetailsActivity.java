@@ -38,6 +38,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private LinearLayout llWriteReview;
     private LinearLayout llComment2;
     private LinearLayout llIngredientsCont;
+    private LinearLayout llStepsCont;
 
     private ImageButton ibFave;
     private ImageButton ibBack;
@@ -73,6 +74,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvInstructions = findViewById(R.id.tv_details_instructions);
         this.tvReviews = findViewById(R.id.tv_details_reviews);
         this.llIngredientsCont = findViewById(R.id.ll_ingredients_cont);
+        this.llStepsCont = findViewById(R.id.ll_steps_cont);
 
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
 
@@ -110,6 +112,20 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
             ingrName.setText(fr.getIngredientDetailsList().get(ctr).getIngredientName());
         }
+
+        //set steps
+        for (int ctr = 0; ctr < fr.getStepsList().size(); ctr++){
+            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
+            llStepsCont.addView(stepsLayout);
+
+            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
+            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
+
+            number.setText(String.valueOf(ctr+1));
+            str.setText(fr.getStepsList().get(ctr));
+
+        }
+
 
 
         /*int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
