@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 public class PopularViewHolder extends RecyclerView.ViewHolder {
-    private ImageView ivPopularPic;
+    public ImageView ivPopularPic;
     private TextView tvPopularName;
     private CardView cvPopularCard;
 
@@ -27,9 +27,9 @@ public class PopularViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void setIvPopularPic(int p){
-        this.ivPopularPic.setImageResource(p);
-    }
+//    public void setIvPopularPic(int p){
+//        this.ivPopularPic.setImageResource(p);
+//    }
 
     public void setTvPopularName(String n){
         this.tvPopularName.setText(n);
