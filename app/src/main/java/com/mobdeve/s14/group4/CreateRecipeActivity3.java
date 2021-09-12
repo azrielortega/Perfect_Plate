@@ -97,9 +97,6 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         btnFinish = findViewById(R.id.createrecipe3_btn_finish);
         ibBack = findViewById(R.id.createrecipe3_ib_back);
 
-        ImageView ivTempPic = findViewById(R.id.create3_tempPic);
-        Picasso.with(CreateRecipeActivity3.this).load(imageUri).into(ivTempPic);
-
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
