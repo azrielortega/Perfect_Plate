@@ -18,15 +18,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -57,6 +62,8 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private Uri imageUri;
 
     private UploadImage upload;
+
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,8 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
 
     private void initComponents() {
 
+        pb = findViewById(R.id.pb_create3);
+
         this.btnAdd = findViewById(R.id.createrecipe3_btn_add);
         this.llSteps = findViewById(R.id.createrecipe3_ll_steps);
         btnFinish = findViewById(R.id.createrecipe3_btn_finish);
@@ -107,7 +116,8 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                btnFinish.setEnabled(false);
+                pb.setVisibility(View.VISIBLE);
                 ArrayList<String> steps = new ArrayList<>();
 
                 final int stepCount = llSteps.getChildCount();
@@ -149,10 +159,14 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(CreateRecipeActivity3.this, "Fill Up All Values", Toast.LENGTH_SHORT).show();
+                        pb.setVisibility(View.GONE);
+                        btnFinish.setEnabled(true);
                     }
                 }
                 else{
                     Toast.makeText(CreateRecipeActivity3.this, "Add at least 1 Step", Toast.LENGTH_LONG).show();
+                    pb.setVisibility(View.GONE);
+                    btnFinish.setEnabled(true);
                 }
             }
         });
@@ -202,38 +216,48 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private void uploadFile(Recipe recipe, RecipeDatabase db){
 
         if (imageUri != null){
-            StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            final StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            UploadTask uploadTask = fileRef.putFile(imageUri);
 
-            fileRef.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //upload image to storage and store in recipe
-                            upload = new UploadImage("recipeImage", taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                            recipe.setUploadImage(upload);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
 
-                            //upload everything to DB;
-                            db.addRecipe(recipe);
-                            Toast.makeText(CreateRecipeActivity3.this, "Added Recipe", Toast.LENGTH_SHORT).show();
-                            finish();
+                    // Continue with the task to get the download URL
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        String downloadURL = downloadUri.toString();
 
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull @NotNull Exception e) {
-                            Toast.makeText(CreateRecipeActivity3.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        upload = new UploadImage ("recipeImage", downloadURL);
+                        recipe.setUploadImage(upload);
 
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull @NotNull UploadTask.TaskSnapshot snapshot) {
-
-                        }
-                    });
+                        //upload everything to DB;
+                        db.addRecipe(recipe);
+                        Toast.makeText(CreateRecipeActivity3.this, "Added Recipe", Toast.LENGTH_SHORT).show();
+                        pb.setVisibility(View.GONE);
+                        btnFinish.setEnabled(true);
+                        finish();
+                    } else {
+                        // Handle failures
+                        // ...
+                        Toast.makeText(CreateRecipeActivity3.this, "FAIL ADDING RECIPE", Toast.LENGTH_SHORT).show();
+                        pb.setVisibility(View.GONE);
+                        btnFinish.setEnabled(true);
+                    }
+                }
+            });
         }else{
             Toast.makeText(CreateRecipeActivity3.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+            pb.setVisibility(View.GONE);
+            btnFinish.setEnabled(true);
         }
 
     }
