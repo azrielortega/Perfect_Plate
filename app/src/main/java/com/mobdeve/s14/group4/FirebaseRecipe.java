@@ -35,7 +35,7 @@ public class FirebaseRecipe {
 
     //get from database
     public FirebaseRecipe(String id, int recipePic, String recipeName, int faveCount, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty, ArrayList ingredientsList, ArrayList ingredientDetailsList){
+                  String category, String difficulty, ArrayList ingredientsList, ArrayList ingredientDetailsList, ArrayList steps, UploadImage upload){
         this.recipeId = id;
         this.recipePic = recipePic;
         this.recipeName = recipeName;
@@ -58,6 +58,8 @@ public class FirebaseRecipe {
         this.difficulty = difficulty;
         this.ingredientsList = ingredientsList;
         this.ingredientDetailsList = ingredientDetailsList;
+        this.stepsList = steps;
+        this.image = upload;
     }
     public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount,
                           int cookingTime, int prepTime, int servings, String category, String difficulty){

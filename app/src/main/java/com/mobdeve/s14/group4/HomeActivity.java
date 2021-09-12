@@ -186,6 +186,13 @@ public class HomeActivity extends AppCompatActivity {
                     ArrayList<String> ingredientList = new ArrayList();
                     ArrayList<Ingredient> ingredientDetailsList = new ArrayList<>();
                     ingredientList = recipeSnapshot.child("ingredientsList").getValue(new GenericTypeIndicator<ArrayList<String>>(){});
+                    ArrayList<String> stepsList = new ArrayList<>();
+                    stepsList = recipeSnapshot.child("stepsList").getValue(new GenericTypeIndicator<ArrayList<String>>(){});
+
+                    UploadImage mUpload = recipeSnapshot.child("uploadImage").getValue(UploadImage.class);
+
+                    Log.d("MUPLOAD", mUpload.getmImageUrl());
+
 
                     for (int i = 0; i < ingredientList.size(); i++) {
                         for (int j = 0; j < allIngredientList.size(); j++){
@@ -196,7 +203,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                     Log.d("INGRNAME", ingredientDetailsList.get(0).getIngredientName());
 
-                    tempRecipe[0] = new Recipe(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, ingredientDetailsList);
+                    tempRecipe[0] = new Recipe(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, ingredientDetailsList, stepsList, mUpload);
                     recipeList.add(tempRecipe[0]);
                     Log.d("RECIPE LIST SIZE", String.valueOf(recipeList.size()));
                     Log.d("INGREDIENTS", String.valueOf(tempRecipe[0].getIngredientsList()));
