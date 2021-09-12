@@ -60,6 +60,8 @@ public class Recipe extends FirebaseRecipe
         firebaseRecipe.setCategory(getCategory());
         firebaseRecipe.setDifficulty(getDifficulty());
 
+        firebaseRecipe.setUploadImage(getUploadImage());
+
         Log.d("myTag", String.valueOf(firebaseRecipe));
 
         return firebaseRecipe;

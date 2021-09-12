@@ -27,6 +27,7 @@ public class FirebaseRecipe {
 
     private ArrayList<Ingredient> ingredientDetailsList;
 
+    private UploadImage image;
 
     public FirebaseRecipe(){
         this.ingredientsList = new ArrayList<String>();
@@ -72,6 +73,8 @@ public class FirebaseRecipe {
 
         this.ingredientsList = new ArrayList<String>();
         this.stepsList = new ArrayList<String>();
+
+        this.image = null;
 
         this.cookingTime = cookingTime;
         this.prepTime = prepTime;
@@ -152,6 +155,14 @@ public class FirebaseRecipe {
     public String getDifficulty(){return this.difficulty;}
 
     public String getCategory () {return this.category;}
+
+    public UploadImage getUploadImage (){
+        return this.image;
+    }
+
+    public void setUploadImage (UploadImage ui){
+        this.image = ui;
+    }
 
     public void setDifficulty (String d) {this.difficulty = d;}
 
