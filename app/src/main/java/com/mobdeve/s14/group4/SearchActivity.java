@@ -2,11 +2,14 @@ package com.mobdeve.s14.group4;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -21,6 +24,8 @@ public class SearchActivity extends AppCompatActivity {
     private CardView cvDessert;
     private CardView cvPastry;
     private CardView cvDrinks;
+
+    private ArrayList<Recipe> recipeFilter;
 
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
 
@@ -45,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         this.cvDessert = findViewById(R.id.cv_search_dessert);
         this.cvPastry = findViewById(R.id.cv_search_pastry);
         this.cvDrinks = findViewById(R.id.cv_search_drinks);
+        this.recipeFilter = new ArrayList<Recipe>();
 
         llFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,4 +143,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

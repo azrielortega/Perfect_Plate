@@ -253,4 +253,6 @@ public class HomeActivity extends AppCompatActivity {
         this.rvRecent.setAdapter(recentAdapter);
     }
 
+
+
 }
