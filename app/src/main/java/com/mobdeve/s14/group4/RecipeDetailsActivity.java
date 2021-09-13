@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvRecipeName;
@@ -89,7 +91,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         fr = fr.findRecipe(id);
 
         this.tvRecipeName.setText(fr.getRecipeName());
-        this.ivRecipePic.setImageResource(fr.getRecipePic());
+        //this.ivRecipePic.setImageResource(fr.getRecipePic());
         this.tvDescription.setText(fr.getDescription());
         this.tvRecipeNameTop.setText(fr.getRecipeName());
         this.tvStarsSummary.setText(String.valueOf(fr.getRating()));
@@ -97,6 +99,16 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvReviewCount.setText(String.valueOf(fr.getReviewCount()).concat(" reviews"));
         String temp = "Category: ".concat(fr.getCategory());
         this.tvCategory.setText(temp);
+
+        Log.d("SETTING PIC", fr.getUploadImage().getmImageUrl());
+        //set pic
+        Picasso.with(this)
+                .load(fr.getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(this.ivRecipePic);
+
 
 
         //set ingredients

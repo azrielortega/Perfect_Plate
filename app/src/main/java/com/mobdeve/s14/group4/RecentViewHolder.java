@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 public class RecentViewHolder extends RecyclerView.ViewHolder  {
-    private ImageView ivRecentPic;
+    public ImageView ivRecentPic;
     private TextView tvRecentName;
     private TextView tvRecentAuthor;
     private TextView tvRecentRatings;

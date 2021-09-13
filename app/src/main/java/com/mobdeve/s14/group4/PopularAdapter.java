@@ -89,6 +89,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
         System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
         Picasso.with(holder.itemView.getContext())
                 .load(foodList.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
                 .fit()
                 .centerCrop()
                 .into(holder.ivPopularPic);
