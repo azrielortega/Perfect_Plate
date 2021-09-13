@@ -40,14 +40,38 @@ public class SearchFilterActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         String categ = i.getStringExtra(SearchActivity.KEY_CATEGORY);
+        String key = i.getStringExtra(SearchActivity.KEY_SEARCH);
         Log.d("CATEG", categ);
 
-        for (int ctr = 0; ctr < HomeActivity.recipeList.size(); ctr ++){
-            if (HomeActivity.recipeList.get(ctr).getCategory().equalsIgnoreCase(categ)){
-                filterRecipe.add(HomeActivity.recipeList.get(ctr));
+        if (categ.equalsIgnoreCase("All Recipes")){
+            filterRecipe = HomeActivity.recipeList;
+        } else {
+            for (int ctr = 0; ctr < HomeActivity.recipeList.size(); ctr ++){
+                if (HomeActivity.recipeList.get(ctr).getCategory().equalsIgnoreCase(categ)){
+                    filterRecipe.add(HomeActivity.recipeList.get(ctr));
+                }
             }
         }
-        this.tvCategory.setText(categ);
+
+        if(!key.equalsIgnoreCase("-9999")){
+            for (int ctr = 0; ctr < HomeActivity.recipeList.size(); ctr ++){
+                String tempName = HomeActivity.recipeList.get(ctr).getRecipeName().toLowerCase();
+                String tempKey = key.toLowerCase();
+
+                if (tempName.contains(tempKey)){
+                    filterRecipe.add(HomeActivity.recipeList.get(ctr));
+                }
+            }
+        }
+
+        if (!categ.equalsIgnoreCase("-9999")){
+            String temp = "'" + categ + "'";
+            this.tvCategory.setText(temp);
+        } else {
+            String temp = "'" + key + "'";
+            this.tvCategory.setText(temp);
+        }
+
 
         this.ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +81,7 @@ public class SearchFilterActivity extends AppCompatActivity {
         });
 
         this.initFilter();
+
         if(this.filterRecipe.size() == 0){
             tvNoResult.setVisibility(View.VISIBLE);
         } else {

@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -47,8 +49,13 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private DatabaseReference ingredientDatabaseReference;
 
+    private EditText etSearch;
+
     public static ArrayList<Recipe> recipeList;
     private ArrayList<Ingredient> allIngredientList;
+
+    public static final String KEY_CATEGORY = "KEY_CATEGORY";
+    public static final String KEY_SEARCH = "KEY_SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +72,17 @@ public class HomeActivity extends AppCompatActivity {
     private void initComponents(){
         this.llProfile = findViewById(R.id.ll_profile);
         this.llSearch = findViewById(R.id.ll_search);
-        llCreate = findViewById(R.id.ll_create);
-        ivSearch = findViewById(R.id.iv_search);
-        llFavorites = findViewById(R.id.ll_fav);
+        this.llCreate = findViewById(R.id.ll_create);
+        this.ivSearch = findViewById(R.id.iv_search);
+        this.llFavorites = findViewById(R.id.ll_fav);
 
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("recipes");
         this.ingredientDatabaseReference = this.database.getReference("ingredients");
-        recipeList = new ArrayList<>();
+        this.recipeList = new ArrayList<>();
         this.allIngredientList = new ArrayList<>();
+
+        this.etSearch = findViewById(R.id.et_search_recipe);
 
         Log.d("LISTSIZE", String.valueOf(recipeList.size()));
 
@@ -138,6 +147,26 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        this.etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    Log.d("SEARCHTEST", "enter pressed");
+                    String key = etSearch.getText().toString();
+                    Intent i = new Intent(HomeActivity.this, SearchFilterActivity.class);
+                    etSearch.setText("");
+                    i.putExtra(KEY_SEARCH, key);
+                    i.putExtra(KEY_CATEGORY, "-9999");
+                    startActivity(i);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         Log.d("RECIPE LIST SIZE aaaaaa", String.valueOf(recipeList.size()));
     }
 
