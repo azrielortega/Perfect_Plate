@@ -11,6 +11,8 @@ public class Ingredient implements Serializable {
     private String units;
     private String ingredientName;
 
+    public Ingredient(){}
+
     public Ingredient(double quantity, String units, String ingredientName){
         this.quantity = quantity;
         this.units = units;
@@ -39,4 +41,16 @@ public class Ingredient implements Serializable {
     }
 
     public void setId(String id) { this.ingredientId = id; }
+
+    public void setQuantity(double quantity){
+        this.quantity = quantity;
+    }
+
+    public void setUnits(String units){
+        this.units = units;
+    }
+
+    public void setIngredientName(String name){
+        this.ingredientName = name;
+    }
 }
