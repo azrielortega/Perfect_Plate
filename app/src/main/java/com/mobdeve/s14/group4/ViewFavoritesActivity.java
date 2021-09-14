@@ -15,7 +15,6 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     private RecyclerView rvRecipes;
     private RecyclerView.LayoutManager manager;
     private FavoriteAdapter adapter;
-    private ArrayList<Recipe> data;
 
     private ImageButton ibBack;
 
@@ -46,17 +45,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecipes.setLayoutManager(manager);
 
-        initData();
-        adapter = new FavoriteAdapter(data);
+        adapter = new FavoriteAdapter(DataHelper.user.getFaveRecipes());
         rvRecipes.setAdapter(adapter);
-    }
-
-    private void initData() {
-        data = new ArrayList<Recipe>();
-
-        data.add(new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
-        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
-        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
-        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "John Doe", "Description", 10, 0, 0 ,0, "Main", "Easy"));
     }
 }
