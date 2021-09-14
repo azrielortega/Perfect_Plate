@@ -157,14 +157,14 @@ public class UserDatabase {
     /**
      * Removes user recipe from user's list and from the recipe db
      * */
-    public void removeUserRecipe(String userId, String recipeId){
+    public void removeUserRecipe(String recipeId){
         //remove from recipe db
         recipeDatabase.deleteRecipe(recipeId); //TODO: delete from DataHelper
 
         //remove from user db
         User user = DataHelper.user;
         user.removeUserRecipe(recipeId);
-        updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
+        updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
     public void updateUserRecipes(String userId, ArrayList<String> recipeList, int newSize){
@@ -180,22 +180,21 @@ public class UserDatabase {
     /**
      * Adds fave recipe under user. Increase fave count of recipe
      *
-     * @param userId    user id of recipe creator
-     * @param recipeId  recipe id of favorite recipe
+     * @param recipe  recipe of favorite recipe
      * */
-    public void addFaveRecipe(String userId, String recipeId){
+    public void addFaveRecipe(Recipe recipe){
         User user = DataHelper.user;
-        user.addFaveRecipeId(recipeId);
-        updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
+        user.addFaveRecipe(recipe);
+        updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
     }
 
     /**
      * Removes fave recipe from user's list
      * */
-    public void removeFaveRecipe(String userId, String recipeId){
+    public void removeFaveRecipe(String recipeId){
         User user = DataHelper.user;
         user.removeFaveRecipeId(recipeId);
-        updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
+        updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){
