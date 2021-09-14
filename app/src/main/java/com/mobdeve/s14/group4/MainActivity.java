@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         this.mAuth = FirebaseAuth.getInstance();
+        DataHelper.initRecipes(); //initialize data helper recipes
     }
 
 //    @Override
