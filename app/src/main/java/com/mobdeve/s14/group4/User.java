@@ -24,8 +24,6 @@ public class User extends FirebaseUser{
         setUserRecipesList(user.getUserRecipesList());
         setFaveRecipesList(user.getFaveRecipesList());
 
-        RecipeDatabase recipeDatabase = new RecipeDatabase();
-
         initializeRecipeLists();
     }
 
