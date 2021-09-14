@@ -19,8 +19,6 @@ public class UserDatabase {
     private final RecipeDatabase recipeDatabase;
 
     public UserDatabase(){
-//        this.auth = FirebaseAuth.getInstance();
-        //    private FirebaseAuth auth;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         this.databaseReference = database.getReference("users");
         this.recipeDatabase = new RecipeDatabase();
@@ -30,8 +28,7 @@ public class UserDatabase {
      * Gets user details from database. Returns details in a callbacklistener.
      * */
     public void getFirebaseUser(String userId, final CallbackListener listener){
-        this.databaseReference.child(userId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        this.databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -103,82 +100,68 @@ public class UserDatabase {
     /**
      * Updates user values based on non-null and non-empty variables
      * Does not update recipe or ingredient details
-     * @param userId   id of user to update
+     *
      * @param newUser  new details to be updated
      * */
-    public void updateUser(String userId, User newUser){
-        getFirebaseUser(userId, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                FirebaseUser user = (FirebaseUser) o;
+    public void updateCurrentUser(User newUser){
+        User user = DataHelper.user;
 
-                //if null or empty, update
+        String username = newUser.getUsername().trim();
+        if (!username.isEmpty()){
+            user.setUsername(username);
+        }
 
+        String firstName = newUser.getFirstName().trim();
+        if (!firstName.isEmpty()){
+            user.setFirstName(firstName);
+        }
 
-                databaseReference.child(user.getUserId()).setValue(user);
-            }
+        String lastName = newUser.getLastName().trim();
+        if (!lastName.isEmpty()){
+            user.setLastName(lastName);
+        }
 
-            @Override
-            public void onFailure() {
-                Log.d("FAILED TO UPDATE", "Failed to update user: " + userId);
-            }
-        });
+        String email = newUser.getEmail().trim();
+        if (!email.isEmpty()){
+            user.setEmail(email);
+        }
+
+        String password = newUser.getPassword().trim();
+        if (!password.isEmpty()){
+            user.setPassword(password);
+        }
+
+        //TODO: set birthday
+
+        databaseReference.child(user.getUserId()).setValue(user);
     }
 
     /**
      * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
      * to the user's list of recipes in the database. Adds recipe to the database.
      *
-     * @param userId    user id of recipe creator
      * @param recipe    recipe to be added to the database
      * */
-    public void addUserRecipe(String userId, Recipe recipe){
-        getFirebaseUser(userId, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                FirebaseUser user = (FirebaseUser) o;
+    public void addUserRecipe(Recipe recipe){
+        User user = DataHelper.user;
+        recipe.setContributorId(user.getUserId());
+        String recipeId = recipeDatabase.addRecipe(recipe);
 
-                //add to recipe database and get id
-                //link recipe to user
-                recipe.setContributorId(userId);
-                String recipeId = recipeDatabase.addRecipe(recipe);
-
-                //add to dbs
-                user.addUserRecipeId(recipeId);
-                updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("FAILED TO ADD",
-                        "Failed to add recipe: " + recipe.getId() + " for: " + userId);
-            }
-        });
+        user.addUserRecipeId(recipeId);
+        updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
     /**
      * Removes user recipe from user's list and from the recipe db
      * */
     public void removeUserRecipe(String userId, String recipeId){
-        getFirebaseUser(userId, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                FirebaseUser user = (FirebaseUser) o;
+        //remove from recipe db
+        recipeDatabase.deleteRecipe(recipeId); //TODO: delete from DataHelper
 
-                //remove from recipe db
-                recipeDatabase.deleteRecipe(recipeId);
-
-                //remove from user db
-                user.removeUserRecipeId(recipeId);
-                updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("FAILED TO REMOVE",
-                        "Failed to remove recipe: " + recipeId + " for: " + userId);
-            }
-        });
+        //remove from user db
+        User user = DataHelper.user;
+        user.removeUserRecipe(recipeId);
+        updateUserRecipes(userId, user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
     public void updateUserRecipes(String userId, ArrayList<String> recipeList, int newSize){
@@ -198,44 +181,18 @@ public class UserDatabase {
      * @param recipeId  recipe id of favorite recipe
      * */
     public void addFaveRecipe(String userId, String recipeId){
-        getFirebaseUser(userId, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                FirebaseUser user = (FirebaseUser) o;
-
-                //add to db
-                user.addFaveRecipeId(recipeId);
-                updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("FAILED TO ADD",
-                        "Failed to add fave recipe: " + recipeId + " for: " + userId);
-            }
-        });
+        User user = DataHelper.user;
+        user.addFaveRecipeId(recipeId);
+        updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
     }
 
     /**
      * Removes fave recipe from user's list
      * */
     public void removeFaveRecipe(String userId, String recipeId){
-        getFirebaseUser(userId, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                FirebaseUser user = (FirebaseUser) o;
-
-                //remove from user db
-                user.removeFaveRecipeId(recipeId);
-                updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("FAILED TO REMOVE",
-                        "Failed to remove fave recipe: " + recipeId + " for: " + userId);
-            }
-        });
+        User user = DataHelper.user;
+        user.removeFaveRecipeId(recipeId);
+        updateFaveRecipes(userId, user.getFaveRecipesList(), user.getFaveRecipesCount());
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){
