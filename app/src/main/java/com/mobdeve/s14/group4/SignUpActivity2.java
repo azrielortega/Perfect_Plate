@@ -3,11 +3,13 @@ package com.mobdeve.s14.group4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,9 +31,15 @@ public class SignUpActivity2 extends AppCompatActivity {
     private EditText etFirstN;
     private EditText etLastN;
 
+    private EditText etBirthday;
+
     private ProgressBar pbSignup;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
+
+    private int year = 2010;
+    private int month = 1;
+    private int day = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,8 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         this.pbSignup = findViewById(R.id.pb_signup);
 
+        etBirthday = findViewById(R.id.signup2_et_birthday);
+
         Intent i = getIntent();
 
         email = i.getStringExtra(SignUpActivity1.KEY_EMAIL);
@@ -57,18 +67,36 @@ public class SignUpActivity2 extends AppCompatActivity {
         Log.d("TEST PASSWORD SIGN UP 2", password);
         Log.d("TEST USERNAME SIGN UP 2", username);
 
+        etBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePicker = new DatePickerDialog(SignUpActivity2.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = day +"/" + month + "/" + year;
+                        etBirthday.setText(date);
+                    }
+                }, year, month, day);
+                datePicker.show();
+            }
+        });
+
         this.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 fname = etFirstN.getText().toString().trim();
                 lname = etLastN.getText().toString().trim();
+                String birthday = etBirthday.getText().toString().trim();
 
-                User user = new User(email, password, username, fname, lname);
+                Toast.makeText(SignUpActivity2.this, birthday, Toast.LENGTH_SHORT).show();
+
+                User user = new User(email, password, username, fname, lname, birthday);
                 if (validateUser(user)){
                     //add user to db
 
-//                    storeUser(user);
+                    storeUser(user);
                 }
             }
         });
@@ -102,6 +130,10 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         //validate last name
         if (user.getLastName().isEmpty()){
+            isValidUser = false;
+        }
+
+        if (user.getBirthday().isEmpty()){
             isValidUser = false;
         }
 

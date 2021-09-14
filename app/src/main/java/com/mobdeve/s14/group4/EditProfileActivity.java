@@ -104,10 +104,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     String fname, lname, username, email;
                     String [] fullName;
 
+                    if (etEmail.isShown()){
+                        email = etEmail.getText().toString().trim();
+                    }
+
+                    username = etUsername.getText().toString().trim();
                     fullName = etName.getText().toString().trim().split(" ");
-
-                    Toast.makeText(EditProfileActivity.this, "Fill Up All Values", Toast.LENGTH_LONG).show();
-
 
                     finish();
                 }

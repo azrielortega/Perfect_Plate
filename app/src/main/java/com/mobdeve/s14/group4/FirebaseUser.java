@@ -15,6 +15,8 @@ public class FirebaseUser {
 
     private String googleId;
 
+    private String birthday;
+
     private ArrayList<String> userRecipesList;
     private ArrayList<String> faveRecipesList;
 
@@ -42,6 +44,19 @@ public class FirebaseUser {
         this.faveRecipesList = new ArrayList<String>();
     }
 
+    public FirebaseUser(String email, String  password, String username, String firstName, String lastName, String birthday){
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userPic = R.drawable.person_gray;
+        this.birthday = birthday;
+
+        this.userRecipesList = new ArrayList<String>();
+        this.faveRecipesList = new ArrayList<String>();
+    }
+
     public FirebaseUser(String googleId, String username, String firstName, String lastName){
         this.googleId = googleId;
         this.username = username;
@@ -51,6 +66,14 @@ public class FirebaseUser {
 
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
+    }
+
+    public String getBirthday(){
+        return this.birthday;
+    }
+
+    public void setBirthday (String b){
+        birthday = b;
     }
 
     public String getUserId(){
