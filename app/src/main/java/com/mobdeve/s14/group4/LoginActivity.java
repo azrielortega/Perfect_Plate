@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString().trim();
 
                 if (!isEmpty(email, password)) {
-                    //add user to db
                     signIn(email, password);
                 }
             }
@@ -128,15 +127,15 @@ public class LoginActivity extends AppCompatActivity {
                 pbLogin.setVisibility(View.GONE);
                 if (user != null) {
                     // User is signed in
+                    DataHelper.loadUser(user.getUid());
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(i);
+
+                    moveToHomeActivity();
                     finish();
                 } else {
                     // User is signed out
                     Log.d("TAG", "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
 
@@ -177,9 +176,6 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult (ApiException.class);
                 Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account);
-
-                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(i);
             } catch (ApiException e){
                 Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
                 Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
@@ -200,9 +196,8 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                             if (firebaseUser != null){
-                                String id = mAuth.getCurrentUser().getUid();
+                                String id = firebaseUser.getUid();
                                 addGoogleUser(account, id);
-
                                 Log.d("SUCCESS", "successfully added Google user");
                             }
                             else{
@@ -221,7 +216,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object o) {
                 pbLogin.setVisibility(View.GONE);
+
+                User user = new User((com.mobdeve.s14.group4.FirebaseUser) o);
+                DataHelper.setGlobalUser(user); //add to static class
                 Log.d("SUCCESS", "signInResult:success for " + account.getDisplayName());
+
+                moveToHomeActivity();
             }
 
             @Override
@@ -231,8 +231,16 @@ public class LoginActivity extends AppCompatActivity {
                 User user = new User(account.getId(), account.getDisplayName(), account.getGivenName(), account.getFamilyName());
                 user.setUserId(userId);
 
+                DataHelper.setGlobalUser(user); //add to static class
                 new UserDatabase().addGoogleUser(user);
+
+                moveToHomeActivity();
             }
         });
+    }
+
+    private void moveToHomeActivity(){
+        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(i);
     }
 }
