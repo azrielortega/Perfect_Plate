@@ -10,6 +10,18 @@ public class DataHelper {
     public static User user;
     public static ArrayList<Recipe> allRecipes;
     public static ArrayList<Recipe> sortedRecipes;
+    public static ArrayList<Ingredient> allIngredients;
+
+    public static void initData(String uid){
+        loadAllIngredients();
+        loadRecipes();
+        loadUser(uid);
+    }
+
+    public static void initRecipes(){
+        loadAllIngredients();
+        loadRecipes();
+    }
 
     public static void loadUser(String uid){
         new UserDatabase().getUser(uid, new CallbackListener() {
@@ -50,7 +62,21 @@ public class DataHelper {
 
             @Override
             public void onFailure() {
-                Log.d("FAILURE", "Failed to getRecipes");
+                Log.d("FAILURE", "Failed to get recipes");
+            }
+        });
+    }
+
+    public static void loadAllIngredients(){
+        new IngredientDatabase().getAllIngredients(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                allIngredients = (ArrayList<Ingredient>) o;
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get ingredients");
             }
         });
     }
