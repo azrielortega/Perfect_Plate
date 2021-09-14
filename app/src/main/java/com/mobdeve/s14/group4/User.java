@@ -9,23 +9,24 @@ public class User extends FirebaseUser{
     public User(){}
 
     public User(FirebaseUser user){
-        user.setUserId(getUserId());
+        setUserId(user.getUserId());
 
-        user.setUsername(getUsername());
-        user.setEmail(getEmail());
-        user.setPassword(getPassword());
+        setUsername(user.getUsername());
+        setEmail(user.getEmail());
+        setPassword(user.getPassword());
 
-        user.setUserPic(getUserPic());
-        user.setFirstName(getFirstName());
-        user.setLastName(getLastName());
+        setUserPic(user.getUserPic());
+        setFirstName(user.getFirstName());
+        setLastName(user.getLastName());
 
-        user.setGoogleId(getGoogleId());
+        setGoogleId(user.getGoogleId());
 
-        user.setUserRecipesList(getUserRecipesList());
-        user.setFaveRecipesList(getFaveRecipesList());
+        setUserRecipesList(user.getUserRecipesList());
+        setFaveRecipesList(user.getFaveRecipesList());
 
-        this.userRecipes = new ArrayList<Recipe>();
-        this.faveRecipes = new ArrayList<Recipe>();
+        RecipeDatabase recipeDatabase = new RecipeDatabase();
+
+        initializeRecipeLists();
     }
 
     public User(String email, String  password, String username, String firstName, String lastName){
@@ -40,6 +41,13 @@ public class User extends FirebaseUser{
 
         this.userRecipes = new ArrayList<Recipe>();
         this.faveRecipes = new ArrayList<Recipe>();
+    }
+
+    private void initializeRecipeLists(){
+        RecipeDatabase recipeDatabase = new RecipeDatabase();
+
+        this.userRecipes = recipeDatabase.findRecipes(getUserRecipesList());
+        this.faveRecipes = recipeDatabase.findRecipes(getFaveRecipesList());
     }
 
     public String getFullName(){
