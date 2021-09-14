@@ -48,11 +48,13 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private DatabaseReference ingredientDatabaseReference;
+    private DatabaseReference usersDatabaseReference;
 
     private EditText etSearch;
 
     public static ArrayList<Recipe> recipeList;
     private ArrayList<Ingredient> allIngredientList;
+    public static ArrayList<User> userList;
 
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
     public static final String KEY_SEARCH = "KEY_SEARCH";
@@ -79,8 +81,10 @@ public class HomeActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("recipes");
         this.ingredientDatabaseReference = this.database.getReference("ingredients");
+        this.usersDatabaseReference = this.database.getReference("users");
         this.recipeList = new ArrayList<>();
         this.allIngredientList = new ArrayList<>();
+        this.userList = new ArrayList<>();
 
         this.etSearch = findViewById(R.id.et_search_recipe);
 
@@ -102,6 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                     Log.d("INGREDIENT NAME", ingredientName);
                     Ingredient temp = new Ingredient(id, qty, units, ingredientName);
                     allIngredientList.add(temp);
+                    initUsers();
                     initRecipes();
                 }
             }
@@ -185,6 +190,31 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    private void initUsers(){
+        usersDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                allIngredientList.clear();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()){
+                    String id = userSnapshot.getKey();
+                    String fName = userSnapshot.child("firstName").getValue().toString();
+                    String lName = userSnapshot.child("lastName").getValue().toString();
+
+                    Log.d("FNAME", fName);
+                    Log.d("LNAME", lName);
+                    Log.d("ID", id);
+
+                    User u = new User(id, fName, lName);
+                    userList.add(u);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+            }
+        });
+    }
     private void initRecipes(){
         final Recipe[] tempRecipe = new Recipe[1];
 
@@ -230,7 +260,7 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    Log.d("INGRNAME", ingredientDetailsList.get(0).getIngredientName());
+                    //Log.d("INGRNAME", ingredientDetailsList.get(0).getIngredientName());
 
                     tempRecipe[0] = new Recipe(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, ingredientDetailsList, stepsList, mUpload);
                     recipeList.add(tempRecipe[0]);

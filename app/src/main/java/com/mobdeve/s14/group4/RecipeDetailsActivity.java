@@ -100,6 +100,22 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         String temp = "Category: ".concat(fr.getCategory());
         this.tvCategory.setText(temp);
 
+        //find contributor
+
+        Log.d("CONTRIBUTORID", fr.getContributorId());
+
+        for (int ctr = 0; ctr < HomeActivity.userList.size(); ctr++) {
+            //Log.d("CTRID", HomeActivity.userList.get(ctr).getUserId());
+            if(HomeActivity.userList.get(ctr).getUserId().equalsIgnoreCase(fr.getContributorId())){
+                String name = HomeActivity.userList.get(ctr).getFullName();
+                String fName = HomeActivity.userList.get(ctr).getFirstName();
+                Log.d("USERfName", fName);
+                Log.d("FULLNAME", name);
+                this.tvContributorName.setText(name);
+            }
+        }
+
+
         Log.d("SETTING PIC", fr.getUploadImage().getmImageUrl());
         //set pic
         Picasso.with(this)

@@ -18,9 +18,16 @@ public class FirebaseUser {
     private ArrayList<String> userRecipesList;
     private ArrayList<String> faveRecipesList;
 
+
     public FirebaseUser(){
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
+    }
+
+    public FirebaseUser(String id, String fName, String lName){
+        this.userId = id;
+        this.firstName = fName;
+        this.lastName = lName;
     }
 
     public FirebaseUser(String email, String  password, String username, String firstName, String lastName){
