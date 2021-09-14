@@ -13,6 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class RecipeDatabase {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -27,8 +29,59 @@ public class RecipeDatabase {
         this.ingredientDatabase = new IngredientDatabase();
     }
 
-    public String addIngredient(Ingredient ingredient){
-        return this.ingredientDatabase.addIngredient(ingredient);
+    /**
+     * For initializing DataHelper
+     */
+    public void getAllRecipes(final CallbackListener callbackListener){
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
+        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot recipeSnapshot : snapshot.getChildren()){
+                        FirebaseRecipe firebaseRecipe = recipeSnapshot.getValue(FirebaseRecipe.class);
+                        Recipe recipe = new Recipe(firebaseRecipe);
+
+                        recipes.add(recipe);
+
+                    }
+                }
+
+                callbackListener.onSuccess(recipes);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                callbackListener.onFailure();
+            }
+        });
+    }
+
+    /**
+     * Find a single recipe from data helper
+     * */
+    public Recipe findRecipe(String id){
+        for (Recipe recipe : DataHelper.allRecipes){
+            if(id.equals(recipe.getId())){
+                return recipe;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find recipes from data helper
+     * */
+    public ArrayList<Recipe> findRecipes(ArrayList<String> recipeIds){
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
+        for (String id : recipeIds){
+            recipes.add(findRecipe(id));
+        }
+
+        return recipes;
     }
 
     public String addRecipe(Recipe recipe){
@@ -72,14 +125,9 @@ public class RecipeDatabase {
     }
 
     /**
-     * Delete recipe from recipe database. Does not delete recipe from user list
+     * Delete recipe from recipe database.
      * */
     public void deleteRecipe(String id){
         this.databaseReference.child(id).setValue(null);
-    }
-
-    public void dropRecipes(){
-        this.databaseReference.setValue(null);
-        this.ingredientDatabase.dropIngredients();
     }
 }
