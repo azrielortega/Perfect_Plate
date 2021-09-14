@@ -49,12 +49,14 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private DatabaseReference ingredientDatabaseReference;
     private DatabaseReference usersDatabaseReference;
+    private DatabaseReference reviewsDatabaseReference;
 
     private EditText etSearch;
 
     public static ArrayList<Recipe> recipeList;
     private ArrayList<Ingredient> allIngredientList;
     public static ArrayList<User> userList;
+    public static ArrayList<Review> reviewList;
 
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
     public static final String KEY_SEARCH = "KEY_SEARCH";
@@ -82,9 +84,14 @@ public class HomeActivity extends AppCompatActivity {
         this.databaseReference = this.database.getReference("recipes");
         this.ingredientDatabaseReference = this.database.getReference("ingredients");
         this.usersDatabaseReference = this.database.getReference("users");
+        this.reviewsDatabaseReference = this.database.getReference("reviews");
+
+
         this.recipeList = new ArrayList<>();
         this.allIngredientList = new ArrayList<>();
         this.userList = new ArrayList<>();
+
+        reviewList = new ArrayList<>();
 
         this.etSearch = findViewById(R.id.et_search_recipe);
 
@@ -106,6 +113,9 @@ public class HomeActivity extends AppCompatActivity {
                     Log.d("INGREDIENT NAME", ingredientName);
                     Ingredient temp = new Ingredient(id, qty, units, ingredientName);
                     allIngredientList.add(temp);
+
+                    initReviews();
+
                     initUsers();
                     initRecipes();
                 }
@@ -208,6 +218,37 @@ public class HomeActivity extends AppCompatActivity {
                     userList.add(u);
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+            }
+        });
+    }
+
+    private void initReviews(){
+        //load reviews
+        reviewsDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                reviewList.clear();
+                for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
+                    String reviewId = reviewSnapshot.getKey();
+                    String contributorId = reviewSnapshot.child("contributorId").getValue().toString();
+                    float rating = Float.valueOf(reviewSnapshot.child("rating").getValue().toString());
+                    String comment = reviewSnapshot.child("comment").getValue().toString();
+                    String recipeId = reviewSnapshot.child("recipeId").getValue().toString();
+
+                    Log.d("COMMENT", comment);
+                    Log.d("CONTID" ,contributorId);
+
+                    Review temp = new Review(reviewId, contributorId, rating, comment, recipeId);
+                    reviewList.add(temp);
+                }
+                Log.d("REVIEWSIZE", String.valueOf(reviewList.size()));
+            }
+
+
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {

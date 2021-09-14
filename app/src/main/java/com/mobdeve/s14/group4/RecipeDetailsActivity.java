@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,7 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvRecipeName;
@@ -34,6 +44,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvInstructions;
     private TextView tvReviews;
 
+    private TextView tvReviewName;
+    private TextView tvReviewComment;
+
     private ConstraintLayout clIngredients;
     private ConstraintLayout clInstructions;
     private ConstraintLayout clReviews;
@@ -41,14 +54,28 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private LinearLayout llComment2;
     private LinearLayout llIngredientsCont;
     private LinearLayout llStepsCont;
+    private LinearLayout llCommentCont;
 
     private ImageButton ibFave;
     private ImageButton ibBack;
     private ImageView ivDeleteComment;
+    private ImageView ivReviewUserPic;
 
     private FloatingActionButton fabHeart;
     private Boolean liked = false;
     public static Boolean reviewed = false;
+
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+    private FirebaseRecipe fr;
+
+    private DatabaseReference reviewsDatabaseReference;
+    private FirebaseDatabase database;
+
+    private TextView tvEmpty;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,28 +93,34 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvReviewCount = findViewById(R.id.tv_details_review_count);
         this.tvCategory = findViewById(R.id.tv_recipe_details_category);
 
+        this.ivReviewUserPic = findViewById(R.id.iv_review_user_pic);
+        this.tvReviewComment = findViewById(R.id.tv_review_comment);
+        this.tvReviewName = findViewById(R.id.tv_review_name);
+
         this.llWriteReview = findViewById(R.id.ll_write_review);
         this.clIngredients = findViewById(R.id.cl_details_ingredients);
         this.clInstructions = findViewById(R.id.cl_details_instructions);
         this.clReviews = findViewById(R.id.cl_details_community_review);
-        this.llComment2 = findViewById(R.id.ll_comment2);
+        //this.llComment2 = findViewById(R.id.ll_comment2);
 
         this.tvIngredients = findViewById(R.id.tv_details_ingredients);
         this.tvInstructions = findViewById(R.id.tv_details_instructions);
         this.tvReviews = findViewById(R.id.tv_details_reviews);
         this.llIngredientsCont = findViewById(R.id.ll_ingredients_cont);
         this.llStepsCont = findViewById(R.id.ll_steps_cont);
+        this.llCommentCont = findViewById(R.id.ll_comment_container);
+        this.tvEmpty = findViewById(R.id.tv_review_empty);
 
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
 
-        this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
+        //this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
 
         //this.clReviews = findViewById(R.id.cl_details_reviews);
 
         Intent i = getIntent();
         String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
 
-        FirebaseRecipe fr = new FirebaseRecipe();
+        fr = new FirebaseRecipe();
         fr = fr.findRecipe(id);
 
         this.tvRecipeName.setText(fr.getRecipeName());
@@ -99,6 +132,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvReviewCount.setText(String.valueOf(fr.getReviewCount()).concat(" reviews"));
         String temp = "Category: ".concat(fr.getCategory());
         this.tvCategory.setText(temp);
+
+//        this.reviewsDatabaseReference = this.database.getReference("reviews");
+        this.database = FirebaseDatabase.getInstance();
+
 
         //find contributor
 
@@ -154,6 +191,32 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         }
 
+    // set comments
+        boolean empty = true;
+        for (int ctr = 0; ctr < HomeActivity.reviewList.size(); ctr++){
+
+            if (fr.getId().equalsIgnoreCase(HomeActivity.reviewList.get(ctr).getRecipeId())){
+                empty = false;
+                View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
+                llCommentCont.addView(commentLayout);
+
+                TextView name = commentLayout.findViewById(R.id.tv_review_name);
+                TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
+                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+
+                name.setText(HomeActivity.reviewList.get(ctr).getContribName());
+                comment.setText(HomeActivity.reviewList.get(ctr).getComment());
+            }
+        }
+
+        if(empty){
+            this.tvEmpty.setVisibility(View.VISIBLE);
+        } else{
+            this.tvEmpty.setVisibility(View.GONE);
+        }
+
+
+
 
 
         /*int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
@@ -190,6 +253,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
+                i.putExtra(KEY_RECIPE_ID, fr.findRecipe(id).getId());
                 startActivity(i);
             }
         });
@@ -271,12 +335,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         });
 
-        this.ivDeleteComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                llComment2.setVisibility(View.GONE);
-            }
-        });
 
     }
 

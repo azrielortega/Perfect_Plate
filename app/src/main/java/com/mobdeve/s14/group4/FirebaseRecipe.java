@@ -29,8 +29,11 @@ public class FirebaseRecipe {
 
     private UploadImage image;
 
+    private ArrayList<String> reviewArrayList = new ArrayList<String>();
+
     public FirebaseRecipe(){
         this.ingredientsList = new ArrayList<String>();
+        this.reviewArrayList = new ArrayList<String>();
     }
 
     //get from database
@@ -94,6 +97,14 @@ public class FirebaseRecipe {
             }
         }
         return null;
+    }
+
+    public void addReview(Review r){
+        RecipeDatabase recipeDatabase = new RecipeDatabase();
+
+        String id = recipeDatabase.addReview(r);
+
+        reviewArrayList.add(id);
     }
 
     public String getId(){
