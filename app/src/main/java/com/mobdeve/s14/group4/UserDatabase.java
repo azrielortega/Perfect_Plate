@@ -68,13 +68,16 @@ public class UserDatabase {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (!snapshot.exists()){
-                    listener.onFailure();
-                    Log.d("FAILURE", "user with google id " + googleId + " does not exist");
+                if (snapshot.exists()){
+                    Log.d("SUCCESS", "found user with googleId: " + googleId);
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()){
+                        FirebaseUser firebaseUser = userSnapshot.getValue(FirebaseUser.class);
+                        listener.onSuccess(firebaseUser);
+                    }
                 }
                 else{
-                    Log.d("SUCCESS", "found user with googleId: " + googleId);
-                    listener.onSuccess(snapshot);
+                    Log.d("FAILURE", "user with google id " + googleId + " does not exist");
+                    listener.onFailure();
                 }
             }
 
