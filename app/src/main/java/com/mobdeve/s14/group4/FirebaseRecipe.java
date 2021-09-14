@@ -25,12 +25,14 @@ public class FirebaseRecipe {
     private ArrayList<String> ingredientsList;
     private ArrayList<String> stepsList;
 
+
     public FirebaseRecipe(){
         this.ingredientsList = new ArrayList<String>();
     }
 
+    //get from database
     public FirebaseRecipe(String id, int recipePic, String recipeName, int faveCount, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty){
+                  String category, String difficulty, ArrayList<String> ingredients, ArrayList<String> steps){
         this.recipeId = id;
         this.recipePic = recipePic;
         this.recipeName = recipeName;
@@ -42,8 +44,8 @@ public class FirebaseRecipe {
         this.rating = rating;
         this.reviewCount = reviewCount;
 
-        this.ingredientsList = new ArrayList<String>();
-        this.stepsList = new ArrayList<String>();
+        this.ingredientsList = ingredients;
+        this.stepsList = steps;
 
         this.cookingTime = cookingTime;
         this.prepTime = prepTime;
@@ -190,4 +192,5 @@ public class FirebaseRecipe {
     public void setServings (int s){
         this.servings = s;
     }
+
 }

@@ -6,25 +6,52 @@ import java.util.ArrayList;
 
 public class Recipe extends FirebaseRecipe
 {
-    public Recipe(int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty){
-        super(recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
+    private ArrayList<Ingredient> ingredientDetailsList;
+
+    public Recipe(FirebaseRecipe firebaseRecipe){
+        setId(firebaseRecipe.getId());
+
+        setRecipePic(firebaseRecipe.getRecipePic());
+        setRecipeName(firebaseRecipe.getRecipeName());
+        setDescription(firebaseRecipe.getDescription());
+
+        setFaveCount(firebaseRecipe.getFaveCount());
+        setRating(firebaseRecipe.getRating());
+        setReviewCount(firebaseRecipe.getReviewCount());
+
+        setContributorId(firebaseRecipe.getContributorId());
+
+        setCookingTime(firebaseRecipe.getCookingTime());
+        setPrepTime(firebaseRecipe.getPrepTime());
+        setServings(firebaseRecipe.getServings());
+
+        setCategory(firebaseRecipe.getCategory());
+        setDifficulty(firebaseRecipe.getDifficulty());
+
+        setIngredientsList(firebaseRecipe.getIngredientsList());
+        setStepsList(firebaseRecipe.getStepsList());
+
+        this.ingredientDetailsList = new IngredientDatabase().findIngredients(firebaseRecipe.getIngredientsList());
     }
+
     //with id from database
     public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty){
-        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty);
+                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList){
+        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList);
+
+        //TODO: initialize ingredients list
     }
 
     public Recipe() {
-
     }
 
+    //TODO: contributor pic
     public int getContributorPic(){
         int contributorPic = R.drawable.person_gray;
         return contributorPic;
     }
 
+    //TODO: contributor name
     public String getContributorName(){
         //get username
         String contributorName = "John Doe";
@@ -33,6 +60,10 @@ public class Recipe extends FirebaseRecipe
 
     public String getRatingString() {
         return String.valueOf(getRating());
+    }
+
+    public ArrayList<Ingredient> getIngredientDetailsList(){
+        return this.ingredientDetailsList;
     }
 
     public FirebaseRecipe getFirebaseRecipe(){
@@ -66,37 +97,12 @@ public class Recipe extends FirebaseRecipe
     }
 
     public void addIngredient(Ingredient ingredient){
-        RecipeDatabase recipeDatabase = new RecipeDatabase();
+        //get ingredient from db
+        String id = new IngredientDatabase().addIngredient(ingredient);
 
-        String id = recipeDatabase.addIngredient(ingredient);
-
+        //add ingredient to both lists
+        this.ingredientDetailsList.add(ingredient);
         addIngredientId(id);
     }
 
-    public void addStepsList(ArrayList<String> steps){
-        setStepsList(steps);
-    }
-
-//    public void removeIngredient(int ingredientId){
-//        int size = this.getIngredientsCount();
-//        int remove_index = -1;
-//
-//        for (int i = 0; i < size; i++){
-////            if (ingredientId == this.ingredientsList.get(i).getId()){
-////                remove_index = i;
-////            }
-//        }
-//
-//        if (remove_index != -1){
-////            this.ingredientsList.remove(remove_index);
-//            //remove also from database
-//            //update recipe
-//        }
-//    }
-//
-//    public void updateRecipe(){
-//        RecipeDatabase recipeDatabase = new RecipeDatabase();
-//
-//        recipeDatabase.updateRecipe(this);
-//    }
 }
