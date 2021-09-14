@@ -3,8 +3,8 @@ package com.mobdeve.s14.group4;
 import java.util.ArrayList;
 
 public class User extends FirebaseUser{
-    private ArrayList<Recipe> userRecipes; //TODO: get recipes from db
-    private ArrayList<Recipe> faveRecipes; //TODO: get recipes from db
+    private ArrayList<Recipe> userRecipes;
+    private ArrayList<Recipe> faveRecipes;
 
     public User(){}
 
@@ -53,29 +53,30 @@ public class User extends FirebaseUser{
         addUserRecipeId(recipe.getId());
     }
 
-    //TODO: add recipe to db list
     public void addFaveRecipe(Recipe recipe){
         this.faveRecipes.add(recipe);
         addFaveRecipeId(recipe.getId());
-
-        // add to db
     }
 
-    //TODO: remove from db list
-    public void removeUserRecipe(Recipe recipe){
+    /**
+     * Removes user recipe from User and FirebaseUser
+     */
+    public void removeUserRecipe(String id){
         int removeIndex = 0;
 
         for (int i = 0; i < getUserRecipesCount(); i++){
-            if (this.userRecipes.get(i).getId().equals(recipe.getId())){
+            if (this.userRecipes.get(i).getId().equals(id)){
                 removeIndex = i;
             }
         }
 
-        removeUserRecipeId(recipe.getId());
+        removeUserRecipeId(id);
         this.userRecipes.remove(removeIndex);
     }
 
-    //TODO: remove from db list
+    /**
+     * Removes favorite recipe from User and FirebaseUser
+     */
     public void removeFaveRecipe(Recipe recipe){
         int removeIndex = 0;
 
