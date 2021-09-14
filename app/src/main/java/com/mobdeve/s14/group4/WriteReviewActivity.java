@@ -71,7 +71,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 System.out.println(review.getRecipeId());
                 //adding review to realtime database
                 fr.addReview(review);
-                
+
 
                 finish();
             }
