@@ -34,17 +34,13 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager manager;
     private ProfileAdapter adapter;
 
-    private ArrayList<Recipe> data;
-
     private ImageView ivEdit;
     private TextView tvName;
     private TextView tvUsername;
+    private TextView tvRecipes;
+
     private FirebaseUser user;
     private DatabaseReference databaseReference;
-
-    private String fname;
-    private String lname;
-    private String username;
 
     private ImageButton ibBack;
     private ImageButton ibAdd;
@@ -59,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         this.initRecyclerView();
         this.initComponents();
-//        this.initGoogleComponents();
     }
 
     private void signOut(){
@@ -74,14 +69,18 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
-        ivEdit = findViewById(R.id.profile_iv_edit);
+        this.ivEdit = findViewById(R.id.profile_iv_edit);
         this.tvName = findViewById(R.id.profile_tv_name);
         this.tvUsername = findViewById(R.id.profile_tv_username);
-        ibBack = findViewById(R.id.ib_profile_back);
-        ibAdd = findViewById(R.id.ib_profile_add);
+        this.tvRecipes = findViewById(R.id.profile_tv_norecipes);
+        this.ibBack = findViewById(R.id.ib_profile_back);
+        this.ibAdd = findViewById(R.id.ib_profile_add);
         this.btnLogout = findViewById(R.id.btn_profile_logout);
 
-        btnLogout = findViewById(R.id.btn_profile_logout);
+        tvName.setText(DataHelper.user.getFullName());
+        tvUsername.setText(DataHelper.user.getUsername());
+        String recipeCount = "Recipes: " + DataHelper.user.getUserRecipesCount();
+        tvRecipes.setText(recipeCount);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,29 +108,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //authStateListener.onAuthStateChanged(FirebaseAuth.getInstance());
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d("PROFILE SIGNED IN", "onAuthStateChanged:signed_in:" + user.getUid());
-        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-
-        databaseReference.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                fname = dataSnapshot.child("firstName").getValue(String.class);
-                lname = dataSnapshot.child("lastName").getValue(String.class);
-                username = dataSnapshot.child("username").getValue(String.class);
-
-                String fullName = fname + " " + lname;
-                tvName.setText(fullName);
-                tvUsername.setText(username);
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("FAIL TAG", "Failed to read value.", error.toException());
-            }
-        });
-
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,33 +127,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-
         rvRecipes = findViewById(R.id.profile_rv_recipes);
 
         manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvRecipes.setLayoutManager(manager);
 
-        this.initData();
-        adapter = new ProfileAdapter(data);
+        adapter = new ProfileAdapter(DataHelper.user.getUserRecipes());
         rvRecipes.setAdapter(adapter);
-
-    }
-
-    private void initData() {
-        data = new ArrayList<Recipe>();
-
-        //change
-        RecipeDatabase db = new RecipeDatabase();
-
-        Recipe r1 = new Recipe (R.drawable.takoyaki, "Takoyaki", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy");
-
-        r1.addIngredient(new Ingredient(2, "cups", "sugar"));
-//        r1.addIngredient(new Ingredient(1, "drops", "Chemical X"));
-        db.addRecipe(r1);
-        data.add(r1);
-        data.add(new Recipe (R.drawable.adobo, "Adobo", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
-        data.add(new Recipe (R.drawable.curry, "Curry", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
-        data.add(new Recipe (R.drawable.ramen, "Ramen", 0, 4.5, "id", "Description", 10, 0, 0, 0, "Main", "Easy"));
-
     }
 }
