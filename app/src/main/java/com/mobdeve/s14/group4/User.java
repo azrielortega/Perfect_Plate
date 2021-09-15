@@ -69,6 +69,8 @@ public class User extends FirebaseUser{
     public void addFaveRecipe(Recipe recipe){
         this.faveRecipes.add(recipe);
         addFaveRecipeId(recipe.getId());
+
+        recipe.setFaveCount(recipe.getFaveCount() + 1);
     }
 
     /**

@@ -184,5 +184,4 @@ public class FirebaseRecipe {
     public void setServings (int s){
         this.servings = s;
     }
-
 }

@@ -52,8 +52,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
     private LinearLayout llSteps;
     private ImageButton ibBack;
 
-    private String recipeName, description, category, difficulty;
-    private int cookingTime, prepTime, servings;
+    private Recipe recipe;
     private ArrayList<Ingredient> ingredients;
     private Bitmap image;
 
@@ -73,17 +72,19 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference("uploads");
 
         Intent tempI = getIntent();
+        recipe = new Recipe();
 
-        recipeName = tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME);
-        cookingTime = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME));
-        prepTime = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME));
-        servings = Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS));
-        description =tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION);
+        recipe.setRecipeName(tempI.getStringExtra(CreateRecipeActivity1.KEY_RECIPENAME));
+        recipe.setCookingTime(Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_COOKINGTIME)));
+        recipe.setPrepTime(Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_PREPTIME)));
+        recipe.setServings(Integer.parseInt(tempI.getStringExtra(CreateRecipeActivity1.KEY_SERVINGS)));
+        recipe.setDescription(tempI.getStringExtra(CreateRecipeActivity1.KEY_DESCRIPTION));
+        recipe.setDifficulty(tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY));
+        recipe.setCategory(tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY));
+
         ingredients = (ArrayList<Ingredient>) tempI.getSerializableExtra(CreateRecipeActivity2.KEY_INGREDIENTS);
-        difficulty = tempI.getStringExtra(CreateRecipeActivity1.KEY_DIFFICULTY);
-        category =tempI.getStringExtra(CreateRecipeActivity1.KEY_CATEGORY);
-        String tempImageUri = tempI.getStringExtra(CreateRecipeActivity1.KEY_IMAGEURI);
 
+        String tempImageUri = tempI.getStringExtra(CreateRecipeActivity1.KEY_IMAGEURI);
         imageUri = Uri.parse(tempImageUri);
 
         /*
@@ -143,20 +144,16 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
                     }
 
                     if(!flag) {
-                        //TODO: add recipe
-//                        RecipeDatabase db = new RecipeDatabase();
-//                        Recipe recipe = new Recipe(R.drawable.adobo, recipeName, 0, 0, "108649384933214190699",
-//                                description, 0, cookingTime, prepTime, servings, category, difficulty);
-//
-//                        //adding steps to realtime database
-//                        recipe.addStepsList(steps);
-//
-//                        //adding ingredients to realtime database
-//                        for (int i = 0; i < ingredients.size(); i++) {
-//                            recipe.addIngredient(ingredients.get(i));
-//                        }
-//                        //adding image to storage and add recipe to real database
-//                        uploadFile(recipe, db);
+                        //adding steps to realtime database
+                        recipe.setStepsList(steps);
+
+                        //adding ingredients to realtime database
+                        for (Ingredient ingredient : ingredients){
+                            recipe.addIngredient(ingredient);
+                        }
+
+                        //adding image to storage and add recipe to real database
+                        uploadFile(recipe);
                     }
                     else{
                         Toast.makeText(CreateRecipeActivity3.this, "Fill Up All Values", Toast.LENGTH_SHORT).show();
@@ -214,8 +211,7 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    private void uploadFile(Recipe recipe, RecipeDatabase db){
-
+    private void uploadFile(Recipe recipe){
         if (imageUri != null){
             final StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             UploadTask uploadTask = fileRef.putFile(imageUri);
@@ -241,10 +237,13 @@ public class CreateRecipeActivity3 extends AppCompatActivity {
                         recipe.setUploadImage(upload);
 
                         //upload everything to DB;
-                        db.addRecipe(recipe);
+                        new UserDatabase().addUserRecipe(recipe);
+
                         Toast.makeText(CreateRecipeActivity3.this, "Added Recipe", Toast.LENGTH_SHORT).show();
+
                         pb.setVisibility(View.GONE);
                         btnFinish.setEnabled(true);
+
                         finish();
                     } else {
                         // Handle failures

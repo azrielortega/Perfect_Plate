@@ -54,10 +54,8 @@ public class WriteReviewActivity extends AppCompatActivity {
                 Log.d("RATING", String.valueOf(rating));
                 String rev = etReview.getText().toString();
 
-                RecipeDatabase rb = new RecipeDatabase();
 
-                FirebaseRecipe fr = new FirebaseRecipe();
-                //fr = fr.findRecipe(recipeId);
+                Recipe recipe = DataHelper.recipeDatabase.findRecipe(recipeId);
 
 
 
@@ -65,12 +63,12 @@ public class WriteReviewActivity extends AppCompatActivity {
                 String contributorId = "9GqIbsKba4Mi1p75l7HvGkg5nJh1";
 
                 ReviewDatabase db = new ReviewDatabase();
-                Review review = new Review(contributorId, rating, rev, fr.getId());
+                Review review = new Review(contributorId, rating, rev, recipe.getId());
 
-                Log.d("REVIEWWW", fr.getId());
+                Log.d("REVIEWWW", recipe.getId());
                 System.out.println(review.getRecipeId());
                 //adding review to realtime database
-                //fr.addReview(review);
+//                recipe.addReview(review);
 
 
                 finish();

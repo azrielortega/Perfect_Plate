@@ -121,7 +121,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
 
-        this.recipe = new RecipeDatabase().findRecipe(id);
+        this.recipe = DataHelper.recipeDatabase.findRecipe(id);
 
         this.tvRecipeName.setText(recipe.getRecipeName());
 //        this.ivRecipePic.setImageResource(recipe.getRecipePic());
@@ -133,21 +133,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         String temp = "Category: ".concat(recipe.getCategory());
 
 
-        //TODO: find contributor
         Log.d("CONTRIBUTORID", recipe.getContributorId());
 
-        //TODO: find user
-//        for (int ctr = 0; ctr < HomeActivity.userList.size(); ctr++) {
-//            //Log.d("CTRID", HomeActivity.userList.get(ctr).getUserId());
-//            if(HomeActivity.userList.get(ctr).getUserId().equalsIgnoreCase(fr.getContributorId())){
-//                String name = HomeActivity.userList.get(ctr).getFullName();
-//                String fName = HomeActivity.userList.get(ctr).getFirstName();
-//                Log.d("USERfName", fName);
-//                Log.d("FULLNAME", name);
-//                this.tvContributorName.setText(name);
-//            }
-//        }
-
+        // set user
+        this.tvContributorName.setText(recipe.getContributorName());
 
         Log.d("SETTING PIC", recipe.getUploadImage().getmImageUrl());
         //set pic
@@ -158,35 +147,32 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(this.ivRecipePic);
 
+        // set ingredients
+        for (Ingredient ingredient : recipe.getIngredientDetailsList()){
+            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
+            llIngredientsCont.addView(ingredientLayout);
 
+            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
+            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
 
-        //TODO: set ingredients
-        //set ingredients
-//        for (int ctr = 0; ctr < recipe.getIngredientDetailsList().size(); ctr++){
-//            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
-//            llIngredientsCont.addView(ingredientLayout);
-//
-//            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
-//            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
-//
-//            String tempM = String.valueOf(recipe.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + recipe.getIngredientDetailsList().get(ctr).getUnits());
-//            measurement.setText(tempM);
-//
-//            ingrName.setText(recipe.getIngredientDetailsList().get(ctr).getIngredientName());
-//        }
+            String tempM = String.valueOf(ingredient.getQuantity()).concat(" " + ingredient.getUnits());
+            measurement.setText(tempM);
 
-        //TODO: set steps
-//        for (int ctr = 0; ctr < recipe.getStepsList().size(); ctr++){
-//            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
-//            llStepsCont.addView(stepsLayout);
-//
-//            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
-//            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
-//
-//            number.setText(String.valueOf(ctr+1));
-//            str.setText(recipe.getStepsList().get(ctr));
-//
-//        }
+            ingrName.setText(ingredient.getIngredientName());
+        }
+
+        //set steps
+        for (int ctr = 0; ctr < recipe.getStepsList().size(); ctr++){
+            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
+            llStepsCont.addView(stepsLayout);
+
+            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
+            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
+
+            number.setText(String.valueOf(ctr+1));
+            str.setText(recipe.getStepsList().get(ctr));
+
+        }
 
     // set comments
         //TODO: find reviews

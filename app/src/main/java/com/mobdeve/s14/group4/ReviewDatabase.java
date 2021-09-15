@@ -26,6 +26,8 @@ public class ReviewDatabase {
         this.databaseReference = this.database.getReference("reviews");
     }
 
+//    public void
+
     public String addReview(Review review){
         String key = this.databaseReference.push().getKey();
 

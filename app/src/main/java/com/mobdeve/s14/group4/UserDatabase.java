@@ -16,12 +16,10 @@ import java.util.ArrayList;
 
 public class UserDatabase {
     private final DatabaseReference databaseReference;
-    private final RecipeDatabase recipeDatabase;
 
     public UserDatabase(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         this.databaseReference = database.getReference("users");
-        this.recipeDatabase = new RecipeDatabase();
     }
 
     /**
@@ -102,7 +100,7 @@ public class UserDatabase {
     public void getAllUsers(final CallbackListener callbackListener){
         ArrayList<User> users = new ArrayList<User>();
 
-        this.databaseReference.addValueEventListener(new ValueEventListener() {
+        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -183,10 +181,11 @@ public class UserDatabase {
         User user = DataHelper.user;
         recipe.setContributorId(user.getUserId());
 
-        String recipeId = recipeDatabase.addRecipe(recipe);
+        String recipeId = DataHelper.recipeDatabase.addRecipe(recipe);
         recipe.setId(recipeId);
 
         user.addUserRecipe(recipe);
+        DataHelper.allRecipes.add(recipe);
         updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
@@ -195,7 +194,7 @@ public class UserDatabase {
      * */
     public void removeUserRecipe(String recipeId){
         //remove from recipe db
-        recipeDatabase.deleteRecipe(recipeId); //TODO: delete from DataHelper
+        DataHelper.recipeDatabase.deleteRecipe(recipeId); //TODO: delete from DataHelper
 
         //remove from user db
         User user = DataHelper.user;
@@ -222,6 +221,9 @@ public class UserDatabase {
         User user = DataHelper.user;
         user.addFaveRecipe(recipe);
         updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
+
+        DataHelper.recipeDatabase.updateFaveCount(recipe.getId(), recipe.getFaveCount());
+        DataHelper.updatePopularity();
     }
 
     /**
@@ -231,6 +233,8 @@ public class UserDatabase {
         User user = DataHelper.user;
         user.removeFaveRecipeId(recipeId);
         updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
+
+
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){

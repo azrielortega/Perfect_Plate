@@ -6,9 +6,12 @@ import java.util.ArrayList;
 
 public class Recipe extends FirebaseRecipe
 {
+    private User contributor;
     private ArrayList<Ingredient> ingredientDetailsList;
 
     public Recipe() {
+        super();
+        this.ingredientDetailsList = new ArrayList<Ingredient>();
     }
 
     public Recipe(FirebaseRecipe firebaseRecipe){
@@ -23,6 +26,7 @@ public class Recipe extends FirebaseRecipe
         setReviewCount(firebaseRecipe.getReviewCount());
 
         setContributorId(firebaseRecipe.getContributorId());
+        contributor = DataHelper.userDatabase.findUser(getContributorId());
 
         setCookingTime(firebaseRecipe.getCookingTime());
         setPrepTime(firebaseRecipe.getPrepTime());
@@ -35,7 +39,7 @@ public class Recipe extends FirebaseRecipe
         setStepsList(firebaseRecipe.getStepsList());
         setUploadImage(firebaseRecipe.getUploadImage());
 
-        this.ingredientDetailsList = new IngredientDatabase().findIngredients(firebaseRecipe.getIngredientsList());
+        this.ingredientDetailsList = DataHelper.ingredientDatabase.findIngredients(firebaseRecipe.getIngredientsList());
     }
 
     //with id from database
@@ -44,17 +48,20 @@ public class Recipe extends FirebaseRecipe
         super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image);
     }
 
-    //TODO: contributor pic
     public int getContributorPic(){
-        int contributorPic = R.drawable.person_gray;
-        return contributorPic;
+        if (contributor != null){
+            return contributor.getUserPic();
+        }
+
+        return R.drawable.person_gray;
     }
 
-    //TODO: contributor name
     public String getContributorName(){
-        //get username
-        String contributorName = "John Doe";
-        return contributorName;
+        if (contributor != null){
+            return contributor.getUsername();
+        }
+
+        return "Guest";
     }
 
     public String getRatingString() {
@@ -99,11 +106,11 @@ public class Recipe extends FirebaseRecipe
 
     public void addIngredient(Ingredient ingredient){
         //get ingredient from db
-        String id = new IngredientDatabase().addIngredient(ingredient);
+        String id = DataHelper.ingredientDatabase.addIngredient(ingredient);
 
         //add ingredient to both lists
+        ingredient.setId(id);
         this.ingredientDetailsList.add(ingredient);
         addIngredientId(id);
     }
-
 }

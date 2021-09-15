@@ -47,7 +47,6 @@ public class RecipeDatabase {
                         Recipe recipe = new Recipe(firebaseRecipe);
 
                         recipes.add(recipe);
-
                     }
                 }
 

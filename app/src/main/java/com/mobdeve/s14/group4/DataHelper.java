@@ -11,6 +11,8 @@ public class DataHelper {
 
     public static ArrayList<User> allUsers;
     public static ArrayList<Recipe> allRecipes;
+    public static ArrayList<Recipe> sortedRecipes;
+    public static int popularRecipesCount;
     public static ArrayList<Recipe> popularRecipes;
     public static ArrayList<Ingredient> allIngredients;
     public static ArrayList<Review> allReviews;
@@ -33,10 +35,10 @@ public class DataHelper {
         ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
-        loadAllReviews();
-        loadAllIngredients();
-        loadRecipes();
-        loadAllUsers();
+        initAllReviews();
+        initAllIngredients();
+        initRecipes();
+        initAllUsers();
     }
 
     public static void loadUser(String uid){
@@ -53,7 +55,7 @@ public class DataHelper {
         });
     }
 
-    public static void loadAllUsers(){
+    public static void initAllUsers(){
         userDatabase.getAllUsers(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
@@ -67,32 +69,12 @@ public class DataHelper {
         });
     }
 
-    public static void loadRecipes(){
+    public static void initRecipes(){
         recipeDatabase.getAllRecipes(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 allRecipes = (ArrayList<Recipe>) o;
-                popularRecipes = (ArrayList<Recipe>) allRecipes.clone();
-
-                Collections.sort(popularRecipes, new Comparator<Recipe>() {
-                    @Override
-                    public int compare(Recipe o1, Recipe o2) {
-                        double o1Fave = o1.getFaveCount();
-                        double o2Fave = o2.getFaveCount();
-                        if (o1Fave > o2Fave){
-                            return 1;
-                        }
-                        else if (o1Fave < o2Fave){
-                            return -1;
-                        }
-
-                        return 0;
-                    }
-                });
-
-                int recipeCount = allRecipes.size();
-                int toIndex = (recipeCount > 10)? 10 : recipeCount;
-                popularRecipes = new ArrayList<>(popularRecipes.subList(0, recipeCount));
+                updatePopularity();
             }
 
             @Override
@@ -102,7 +84,7 @@ public class DataHelper {
         });
     }
 
-    public static void loadAllIngredients(){
+    public static void initAllIngredients(){
         ingredientDatabase.getAllIngredients(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
@@ -116,7 +98,7 @@ public class DataHelper {
         });
     }
 
-    public static void loadAllReviews(){
+    public static void initAllReviews(){
         new ReviewDatabase().getAllReviews(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
@@ -128,6 +110,44 @@ public class DataHelper {
                 Log.d("FAILURE", "Failed to get reviews");
             }
         });
+    }
+
+    public static void addRecipe(Recipe recipe){
+        allRecipes.add(recipe);
+        sortedRecipes.add(recipe);
+
+        if (popularRecipesCount < 10){
+            popularRecipesCount++;
+            popularRecipes.add(recipe);
+        }
+    }
+
+    public static void updatePopularity(){
+        if (popularRecipes != null){
+            popularRecipes.clear();
+        }
+
+        popularRecipes = (ArrayList<Recipe>) allRecipes.clone();
+
+        Collections.sort(popularRecipes, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe o1, Recipe o2) {
+                double o1Fave = o1.getFaveCount();
+                double o2Fave = o2.getFaveCount();
+                if (o1Fave > o2Fave){
+                    return 1;
+                }
+                else if (o1Fave < o2Fave){
+                    return -1;
+                }
+
+                return 0;
+            }
+        });
+
+        int recipeCount = allRecipes.size();
+        popularRecipesCount = (recipeCount > 10)? 10 : recipeCount;
+        popularRecipes = new ArrayList<>(popularRecipes.subList(0, popularRecipesCount));
     }
 
     public static void setGlobalUser(User u){
