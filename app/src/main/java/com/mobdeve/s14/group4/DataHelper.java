@@ -35,7 +35,7 @@ public class DataHelper {
         ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
-        initAllReviews();
+//        initAllReviews();
         initAllIngredients();
         initRecipes();
         initAllUsers();
@@ -98,19 +98,19 @@ public class DataHelper {
         });
     }
 
-    public static void initAllReviews(){
-        new ReviewDatabase().getAllReviews(new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                allReviews = (ArrayList<Review>) o;
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("FAILURE", "Failed to get reviews");
-            }
-        });
-    }
+//    public static void initAllReviews(){
+//        new ReviewDatabase().getAllReviews(new CallbackListener() {
+//            @Override
+//            public void onSuccess(Object o) {
+//                allReviews = (ArrayList<Review>) o;
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//                Log.d("FAILURE", "Failed to get reviews");
+//            }
+//        });
+//    }
 
     public static void addRecipe(Recipe recipe){
         allRecipes.add(recipe);

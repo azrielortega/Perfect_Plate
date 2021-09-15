@@ -43,30 +43,27 @@ public class ReviewDatabase {
     /**
      * For initializing DataHelper
      * */
-    public void getAllReviews(final CallbackListener callbackListener){
-        ArrayList<Review> reviews = new ArrayList<Review>();
-
-        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
-                        Review review = reviewSnapshot.getValue(Review.class);
-
-                        reviews.add(review);
-                    }
-                }
-
-                callbackListener.onSuccess(reviews);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                callbackListener.onFailure();
-            }
-        });
-    }
-    public void dropIngredients(){
-        this.databaseReference.setValue(null);
-    }
+//    public void getAllReviews(final CallbackListener callbackListener){
+//        ArrayList<Review> reviews = new ArrayList<Review>();
+//
+//        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+//                if (snapshot.exists()){
+//                    for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
+//                        Review review = reviewSnapshot.getValue(Review.class);
+//
+//                        reviews.add(review);
+//                    }
+//                }
+//
+//                callbackListener.onSuccess(reviews);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+//                callbackListener.onFailure();
+//            }
+//        });
+//    }
 }
