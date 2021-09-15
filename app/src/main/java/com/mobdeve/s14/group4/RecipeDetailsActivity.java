@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
+    private Recipe recipe;
+
     private TextView tvRecipeName;
     private ImageView ivRecipePic;
     private TextView tvRecipeNameTop;
@@ -83,61 +85,32 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
 
-        FirebaseRecipe fr = new FirebaseRecipe();
-        fr = fr.findRecipe(id);
+        this.recipe = new RecipeDatabase().findRecipe(id);
 
-        this.tvRecipeName.setText(fr.getRecipeName());
-        this.ivRecipePic.setImageResource(fr.getRecipePic());
-        this.tvDescription.setText(fr.getDescription());
-        this.tvRecipeNameTop.setText(fr.getRecipeName());
-        this.tvStarsSummary.setText(String.valueOf(fr.getRating()));
-        this.tvFavCount.setText(String.valueOf(fr.getFaveCount()));
-        this.tvReviewCount.setText(String.valueOf(fr.getReviewCount()).concat(" reviews"));
-        String temp = "Category: ".concat(fr.getCategory());
+        this.tvRecipeName.setText(recipe.getRecipeName());
+        this.ivRecipePic.setImageResource(recipe.getRecipePic());
+        this.tvDescription.setText(recipe.getDescription());
+        this.tvRecipeNameTop.setText(recipe.getRecipeName());
+        this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
+        this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
+        this.tvReviewCount.setText(String.valueOf(recipe.getReviewCount()).concat(" reviews"));
+        String temp = "Category: ".concat(recipe.getCategory());
         this.tvCategory.setText(temp);
 
 
         //set ingredients
-        for (int ctr = 0; ctr < fr.getIngredientDetailsList().size(); ctr++){
+        for (int ctr = 0; ctr < recipe.getIngredientDetailsList().size(); ctr++){
             View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
             llIngredientsCont.addView(ingredientLayout);
 
             TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
             TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
 
-            String tempM = String.valueOf(fr.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + fr.getIngredientDetailsList().get(ctr).getUnits());
+            String tempM = String.valueOf(recipe.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + recipe.getIngredientDetailsList().get(ctr).getUnits());
             measurement.setText(tempM);
 
-            ingrName.setText(fr.getIngredientDetailsList().get(ctr).getIngredientName());
+            ingrName.setText(recipe.getIngredientDetailsList().get(ctr).getIngredientName());
         }
-
-
-        /*int iRecipePic = i.getIntExtra(PopularAdapter.KEY_RECIPE_PIC, 0);
-        this.ivRecipePic.setImageResource(iRecipePic);
-
-        String iRecipeName = i.getStringExtra(PopularAdapter.KEY_RECIPE_NAME);
-        this.tvRecipeName.setText(iRecipeName);
-        this.tvRecipeNameTop.setText(iRecipeName);
-
-
-//
-        int iContributorPic = i.getIntExtra(PopularAdapter.KEY_CONTRIBUTOR_PIC, 0);
-        this.ivContributorPic.setImageResource(iContributorPic);
-//
-        String iContName = i.getStringExtra(PopularAdapter.KEY_CONTRIBUTOR_NAME);
-        this.tvContributorName.setText(iContName);
-//
-        String iDesc = i.getStringExtra(PopularAdapter.KEY_RECIPE_DESCRIPTION);
-        this.tvDescription.setText(iDesc);
-//
-//        int iRC = i.getIntExtra(PopularAdapter.KEY_RECIPE_REVIEWS_COUNT, 0);
-//        this.tvReviewCount.setText(iRC);
-        //        String iStarsSummary = i.getStringExtra(PopularAdapter.KEY_RECIPE_STARS);
-//        this.tvStarsSummary.setText(iStarsSummary);
-//
-//        int iFavCount = i.getIntExtra(PopularAdapter.KEY_RECIPE_FAV, 0);
-//        this.tvFavCount.setText(iFavCount);
-*/
 
         this.clIngredients.setVisibility(View.VISIBLE);
 
@@ -212,10 +185,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     fabHeart.setImageResource(R.drawable.heart_on);
                     liked = true;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
+                    new UserDatabase().addFaveRecipe(recipe);
                 } else {
                     fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
+                    new UserDatabase().removeFaveRecipe(recipe.getId());
                 }
             }
         });
