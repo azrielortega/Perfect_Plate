@@ -161,7 +161,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
 
         //TODO: set ingredients
-//        //set ingredients
+        //set ingredients
 //        for (int ctr = 0; ctr < recipe.getIngredientDetailsList().size(); ctr++){
 //            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
 //            llIngredientsCont.addView(ingredientLayout);
@@ -176,7 +176,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //        }
 
         //TODO: set steps
-//        for (int ctr = 0; ctr < fr.getStepsList().size(); ctr++){
+//        for (int ctr = 0; ctr < recipe.getStepsList().size(); ctr++){
 //            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
 //            llStepsCont.addView(stepsLayout);
 //
@@ -184,7 +184,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
 //
 //            number.setText(String.valueOf(ctr+1));
-//            str.setText(fr.getStepsList().get(ctr));
+//            str.setText(recipe.getStepsList().get(ctr));
 //
 //        }
 

@@ -13,7 +13,7 @@ public class DataHelper {
     public static ArrayList<Recipe> allRecipes;
     public static ArrayList<Recipe> popularRecipes;
     public static ArrayList<Ingredient> allIngredients;
-    public static ArrayList<String> allReviews;
+    public static ArrayList<Review> allReviews;
 
     public static UserDatabase userDatabase;
     public static RecipeDatabase recipeDatabase;
@@ -117,8 +117,17 @@ public class DataHelper {
     }
 
     public static void loadAllReviews(){
+        new ReviewDatabase().getAllReviews(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                allReviews = (ArrayList<Review>) o;
+            }
 
-
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get reviews");
+            }
+        });
     }
 
     public static void setGlobalUser(User u){
