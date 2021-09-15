@@ -39,27 +39,46 @@ public class DataHelper {
         });
     }
 
+    public static void loadAllUsers(){
+        userDatabase.getAllUsers(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                allUsers = (ArrayList<User>) o;
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get users");
+            }
+        });
+    }
+
     public static void loadRecipes(){
-        new RecipeDatabase().getAllRecipes(new CallbackListener() {
+        recipeDatabase.getAllRecipes(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 allRecipes = (ArrayList<Recipe>) o;
-                sortedRecipes = (ArrayList<Recipe>) allRecipes.clone();
-                Collections.sort(sortedRecipes, new Comparator<Recipe>() {
+                popularRecipes = (ArrayList<Recipe>) allRecipes.clone();
+
+                Collections.sort(popularRecipes, new Comparator<Recipe>() {
                     @Override
                     public int compare(Recipe o1, Recipe o2) {
-                        double o1Rating = o1.getRating();
-                        double o2Rating = o2.getRating();
-                        if (o1Rating > o2Rating){
+                        double o1Fave = o1.getFaveCount();
+                        double o2Fave = o2.getFaveCount();
+                        if (o1Fave > o2Fave){
                             return 1;
                         }
-                        else if (o1Rating < o2Rating){
+                        else if (o1Fave < o2Fave){
                             return -1;
                         }
 
                         return 0;
                     }
                 });
+
+                int recipeCount = allRecipes.size();
+                int toIndex = (recipeCount > 10)? 10 : recipeCount;
+                popularRecipes = new ArrayList<>(popularRecipes.subList(0, recipeCount));
             }
 
             @Override

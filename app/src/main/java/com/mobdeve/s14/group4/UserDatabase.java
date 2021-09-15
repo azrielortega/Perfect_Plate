@@ -97,6 +97,44 @@ public class UserDatabase {
     }
 
     /**
+     * For initializing DataHelper
+     */
+    public void getAllUsers(final CallbackListener callbackListener){
+        ArrayList<User> users = new ArrayList<User>();
+
+        this.databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()){
+                        FirebaseUser firebaseUser = userSnapshot.getValue(FirebaseUser.class);
+                        User user = new User(firebaseUser);
+
+                        users.add(user);
+                    }
+                }
+
+                callbackListener.onSuccess(users);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                callbackListener.onFailure();
+            }
+        });
+    }
+
+    public User findUser(String userId){
+        for (User user : DataHelper.allUsers){
+            if (user.getUserId().equals(userId)){
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Updates user values based on non-null and non-empty variables
      * Does not update recipe or ingredient details
      *
