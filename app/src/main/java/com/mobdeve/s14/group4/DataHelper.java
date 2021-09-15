@@ -2,31 +2,45 @@ package com.mobdeve.s14.group4;
 
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class DataHelper {
     public static User user;
+
+    public static ArrayList<User> allUsers;
     public static ArrayList<Recipe> allRecipes;
-    public static ArrayList<Recipe> sortedRecipes;
+    public static ArrayList<Recipe> popularRecipes;
     public static ArrayList<Ingredient> allIngredients;
     public static ArrayList<String> allReviews;
 
-    public static void initData(String uid){
-        loadAllIngredients();
-        loadRecipes();
+    public static UserDatabase userDatabase;
+    public static RecipeDatabase recipeDatabase;
+    public static IngredientDatabase ingredientDatabase;
+    public static ReviewDatabase reviewDatabase;
+
+    public static void initUser(String uid){
         loadUser(uid);
     }
 
-    public static void initRecipes(){
+    public static void initDatabase(){
+        allUsers = new ArrayList<User>();
+        allRecipes = new ArrayList<Recipe>();
+
+        userDatabase = new UserDatabase();
+        recipeDatabase = new RecipeDatabase();
+        ingredientDatabase = new IngredientDatabase();
+        reviewDatabase = new ReviewDatabase();
+
+        loadAllReviews();
         loadAllIngredients();
         loadRecipes();
+        loadAllUsers();
     }
 
     public static void loadUser(String uid){
-        new UserDatabase().getUser(uid, new CallbackListener() {
+        userDatabase.getUser(uid, new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 setGlobalUser((User) o);
@@ -89,7 +103,7 @@ public class DataHelper {
     }
 
     public static void loadAllIngredients(){
-        new IngredientDatabase().getAllIngredients(new CallbackListener() {
+        ingredientDatabase.getAllIngredients(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 allIngredients = (ArrayList<Ingredient>) o;
@@ -103,6 +117,7 @@ public class DataHelper {
     }
 
     public static void loadAllReviews(){
+
 
     }
 
