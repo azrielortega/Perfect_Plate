@@ -8,6 +8,9 @@ public class Recipe extends FirebaseRecipe
 {
     private ArrayList<Ingredient> ingredientDetailsList;
 
+    public Recipe() {
+    }
+
     public Recipe(FirebaseRecipe firebaseRecipe){
         setId(firebaseRecipe.getId());
 
@@ -30,19 +33,15 @@ public class Recipe extends FirebaseRecipe
 
         setIngredientsList(firebaseRecipe.getIngredientsList());
         setStepsList(firebaseRecipe.getStepsList());
+        setUploadImage(firebaseRecipe.getUploadImage());
 
         this.ingredientDetailsList = new IngredientDatabase().findIngredients(firebaseRecipe.getIngredientsList());
     }
 
     //with id from database
     public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList){
-        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList);
-
-        //TODO: initialize ingredients list
-    }
-
-    public Recipe() {
+                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList, UploadImage image){
+        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image);
     }
 
     //TODO: contributor pic
@@ -90,6 +89,8 @@ public class Recipe extends FirebaseRecipe
 
         firebaseRecipe.setCategory(getCategory());
         firebaseRecipe.setDifficulty(getDifficulty());
+
+        firebaseRecipe.setUploadImage(getUploadImage());
 
         Log.d("myTag", String.valueOf(firebaseRecipe));
 

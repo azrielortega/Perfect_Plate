@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.core.Context;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,9 +38,11 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     public static final String KEY_RECIPE_DIFFICULTY = "KEY_RECIPE_DIFFICULTY";
 
 
+
     public PopularAdapter(ArrayList<Recipe> p){
         this.foodList = p;
     }
+
 
     @NonNull
     @NotNull
@@ -78,8 +84,15 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
-        holder.setIvPopularPic(foodList.get(position).getRecipePic());
+        //holder.setIvPopularPic(foodList.get(position).getRecipePic());
         holder.setTvPopularName(foodList.get(position).getRecipeName());
+        System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
+        Picasso.with(holder.itemView.getContext())
+                .load(foodList.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(holder.ivPopularPic);
     }
 
     @Override

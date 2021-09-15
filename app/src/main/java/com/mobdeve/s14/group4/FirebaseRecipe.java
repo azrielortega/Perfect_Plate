@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 public class FirebaseRecipe {
     private String recipeId;
+
     private int recipePic;
+    private UploadImage image;
     private String recipeName;
     private String description;
 
@@ -24,15 +26,17 @@ public class FirebaseRecipe {
 
     private ArrayList<String> ingredientsList;
     private ArrayList<String> stepsList;
-
+    private ArrayList<String> reviewArrayList;
 
     public FirebaseRecipe(){
         this.ingredientsList = new ArrayList<String>();
+        this.reviewArrayList = new ArrayList<String>();
+        this.stepsList = new ArrayList<String>();
     }
 
     //get from database
     public FirebaseRecipe(String id, int recipePic, String recipeName, int faveCount, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty, ArrayList<String> ingredients, ArrayList<String> steps){
+                  String category, String difficulty, ArrayList<String> ingredients, ArrayList<String> steps, UploadImage upload){
         this.recipeId = id;
         this.recipePic = recipePic;
         this.recipeName = recipeName;
@@ -53,28 +57,8 @@ public class FirebaseRecipe {
 
         this.category = category;
         this.difficulty = difficulty;
-    }
-    public FirebaseRecipe(int recipePic, String recipeName, int faveCount, double rating, String contributorId, String description, int reviewCount,
-                          int cookingTime, int prepTime, int servings, String category, String difficulty){
-        this.recipePic = recipePic;
-        this.recipeName = recipeName;
-        this.description = description;
 
-        this.contributorId = contributorId;
-
-        this.faveCount = faveCount;
-        this.rating = rating;
-        this.reviewCount = reviewCount;
-
-        this.ingredientsList = new ArrayList<String>();
-        this.stepsList = new ArrayList<String>();
-
-        this.cookingTime = cookingTime;
-        this.prepTime = prepTime;
-        this.servings = servings;
-
-        this.category = category;
-        this.difficulty = difficulty;
+        this.image = upload;
     }
 
     public String getId(){
@@ -134,6 +118,14 @@ public class FirebaseRecipe {
     public String getDifficulty(){return this.difficulty;}
 
     public String getCategory () {return this.category;}
+
+    public UploadImage getUploadImage (){
+        return this.image;
+    }
+
+    public void setUploadImage (UploadImage ui){
+        this.image = ui;
+    }
 
     public void setDifficulty (String d) {this.difficulty = d;}
 

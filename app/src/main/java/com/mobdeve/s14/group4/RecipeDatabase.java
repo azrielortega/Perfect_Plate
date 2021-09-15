@@ -22,11 +22,14 @@ public class RecipeDatabase {
 
     private IngredientDatabase ingredientDatabase;
 
+    private ReviewDatabase reviewDatabase;
+
     public RecipeDatabase(){
         this.auth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("recipes");
         this.ingredientDatabase = new IngredientDatabase();
+        this.reviewDatabase = new ReviewDatabase();
     }
 
     /**
@@ -93,6 +96,11 @@ public class RecipeDatabase {
         this.databaseReference.child(key).setValue(recipe.getFirebaseRecipe());
 
         return key;
+    }
+
+    public String addReview(Review r){
+        Log.d("recipedbrecipeid", r.getRecipeId());
+        return this.reviewDatabase.addReview(r);
     }
 
     public void updateRecipe(String id, Recipe recipe){

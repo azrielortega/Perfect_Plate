@@ -27,8 +27,19 @@ public class User extends FirebaseUser{
         initializeRecipeLists();
     }
 
+    public User(String id, String fName, String lName){
+        super(id, fName, lName);
+    }
+
     public User(String email, String  password, String username, String firstName, String lastName){
         super(email, password, username, firstName, lastName);
+
+        this.userRecipes = new ArrayList<Recipe>();
+        this.faveRecipes = new ArrayList<Recipe>();
+    }
+
+    public User(String email, String  password, String username, String firstName, String lastName, String birthday){
+        super(email, password, username, firstName, lastName, birthday);
 
         this.userRecipes = new ArrayList<Recipe>();
         this.faveRecipes = new ArrayList<Recipe>();

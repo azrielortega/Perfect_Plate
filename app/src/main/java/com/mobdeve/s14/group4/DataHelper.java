@@ -2,6 +2,7 @@ package com.mobdeve.s14.group4;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +12,7 @@ public class DataHelper {
     public static ArrayList<Recipe> allRecipes;
     public static ArrayList<Recipe> sortedRecipes;
     public static ArrayList<Ingredient> allIngredients;
+    public static ArrayList<String> allReviews;
 
     public static void initData(String uid){
         loadAllIngredients();
@@ -79,6 +81,10 @@ public class DataHelper {
                 Log.d("FAILURE", "Failed to get ingredients");
             }
         });
+    }
+
+    public static void loadAllReviews(){
+
     }
 
     public static void setGlobalUser(User u){

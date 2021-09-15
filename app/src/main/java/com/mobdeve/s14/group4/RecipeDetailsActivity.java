@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -8,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private Recipe recipe;
@@ -34,20 +46,37 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView tvInstructions;
     private TextView tvReviews;
 
+    private TextView tvReviewName;
+    private TextView tvReviewComment;
+
     private ConstraintLayout clIngredients;
     private ConstraintLayout clInstructions;
     private ConstraintLayout clReviews;
     private LinearLayout llWriteReview;
     private LinearLayout llComment2;
     private LinearLayout llIngredientsCont;
+    private LinearLayout llStepsCont;
+    private LinearLayout llCommentCont;
 
     private ImageButton ibFave;
     private ImageButton ibBack;
     private ImageView ivDeleteComment;
+    private ImageView ivReviewUserPic;
 
     private FloatingActionButton fabHeart;
     private Boolean liked = false;
     public static Boolean reviewed = false;
+
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+
+    private DatabaseReference reviewsDatabaseReference;
+    private FirebaseDatabase database;
+
+    private TextView tvEmpty;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +94,27 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvReviewCount = findViewById(R.id.tv_details_review_count);
         this.tvCategory = findViewById(R.id.tv_recipe_details_category);
 
+        this.ivReviewUserPic = findViewById(R.id.iv_review_user_pic);
+        this.tvReviewComment = findViewById(R.id.tv_review_comment);
+        this.tvReviewName = findViewById(R.id.tv_review_name);
+
         this.llWriteReview = findViewById(R.id.ll_write_review);
         this.clIngredients = findViewById(R.id.cl_details_ingredients);
         this.clInstructions = findViewById(R.id.cl_details_instructions);
         this.clReviews = findViewById(R.id.cl_details_community_review);
-        this.llComment2 = findViewById(R.id.ll_comment2);
+        //this.llComment2 = findViewById(R.id.ll_comment2);
 
         this.tvIngredients = findViewById(R.id.tv_details_ingredients);
         this.tvInstructions = findViewById(R.id.tv_details_instructions);
         this.tvReviews = findViewById(R.id.tv_details_reviews);
         this.llIngredientsCont = findViewById(R.id.ll_ingredients_cont);
+        this.llStepsCont = findViewById(R.id.ll_steps_cont);
+        this.llCommentCont = findViewById(R.id.ll_comment_container);
+        this.tvEmpty = findViewById(R.id.tv_review_empty);
 
         this.ibBack = findViewById(R.id.ib_recipe_details_back);
 
-        this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
+        //this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
 
         //this.clReviews = findViewById(R.id.cl_details_reviews);
 
@@ -88,29 +124,94 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.recipe = new RecipeDatabase().findRecipe(id);
 
         this.tvRecipeName.setText(recipe.getRecipeName());
-        this.ivRecipePic.setImageResource(recipe.getRecipePic());
+//        this.ivRecipePic.setImageResource(recipe.getRecipePic());
         this.tvDescription.setText(recipe.getDescription());
         this.tvRecipeNameTop.setText(recipe.getRecipeName());
         this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
         this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
         this.tvReviewCount.setText(String.valueOf(recipe.getReviewCount()).concat(" reviews"));
         String temp = "Category: ".concat(recipe.getCategory());
-        this.tvCategory.setText(temp);
 
 
-        //set ingredients
-        for (int ctr = 0; ctr < recipe.getIngredientDetailsList().size(); ctr++){
-            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
-            llIngredientsCont.addView(ingredientLayout);
+        //TODO: find contributor
+        Log.d("CONTRIBUTORID", recipe.getContributorId());
 
-            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
-            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
+        //TODO: find user
+//        for (int ctr = 0; ctr < HomeActivity.userList.size(); ctr++) {
+//            //Log.d("CTRID", HomeActivity.userList.get(ctr).getUserId());
+//            if(HomeActivity.userList.get(ctr).getUserId().equalsIgnoreCase(fr.getContributorId())){
+//                String name = HomeActivity.userList.get(ctr).getFullName();
+//                String fName = HomeActivity.userList.get(ctr).getFirstName();
+//                Log.d("USERfName", fName);
+//                Log.d("FULLNAME", name);
+//                this.tvContributorName.setText(name);
+//            }
+//        }
 
-            String tempM = String.valueOf(recipe.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + recipe.getIngredientDetailsList().get(ctr).getUnits());
-            measurement.setText(tempM);
 
-            ingrName.setText(recipe.getIngredientDetailsList().get(ctr).getIngredientName());
-        }
+        Log.d("SETTING PIC", recipe.getUploadImage().getmImageUrl());
+        //set pic
+        Picasso.with(this)
+                .load(recipe.getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(this.ivRecipePic);
+
+
+
+        //TODO: set ingredients
+//        //set ingredients
+//        for (int ctr = 0; ctr < recipe.getIngredientDetailsList().size(); ctr++){
+//            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
+//            llIngredientsCont.addView(ingredientLayout);
+//
+//            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
+//            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
+//
+//            String tempM = String.valueOf(recipe.getIngredientDetailsList().get(ctr).getQuantity()).concat(" " + recipe.getIngredientDetailsList().get(ctr).getUnits());
+//            measurement.setText(tempM);
+//
+//            ingrName.setText(recipe.getIngredientDetailsList().get(ctr).getIngredientName());
+//        }
+
+        //TODO: set steps
+//        for (int ctr = 0; ctr < fr.getStepsList().size(); ctr++){
+//            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
+//            llStepsCont.addView(stepsLayout);
+//
+//            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
+//            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
+//
+//            number.setText(String.valueOf(ctr+1));
+//            str.setText(fr.getStepsList().get(ctr));
+//
+//        }
+
+    // set comments
+        //TODO: find reviews
+//        boolean empty = true;
+//        for (int ctr = 0; ctr < HomeActivity.reviewList.size(); ctr++){
+//
+//            if (fr.getId().equalsIgnoreCase(HomeActivity.reviewList.get(ctr).getRecipeId())){
+//                empty = false;
+//                View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
+//                llCommentCont.addView(commentLayout);
+//
+//                TextView name = commentLayout.findViewById(R.id.tv_review_name);
+//                TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
+//                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+//
+//                name.setText(HomeActivity.reviewList.get(ctr).getContribName());
+//                comment.setText(HomeActivity.reviewList.get(ctr).getComment());
+//            }
+//        }
+//
+//        if(empty){
+//            this.tvEmpty.setVisibility(View.VISIBLE);
+//        } else{
+//            this.tvEmpty.setVisibility(View.GONE);
+//        }
 
         this.clIngredients.setVisibility(View.VISIBLE);
 
@@ -119,6 +220,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
+//                i.putExtra(KEY_RECIPE_ID, fr.findRecipe(id).getId()); //TODO: ???
                 startActivity(i);
             }
         });
@@ -202,12 +304,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         });
 
-        this.ivDeleteComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                llComment2.setVisibility(View.GONE);
-            }
-        });
 
     }
 

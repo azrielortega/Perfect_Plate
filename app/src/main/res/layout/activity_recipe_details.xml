@@ -176,64 +176,6 @@
                 app:layout_constraintRight_toLeftOf="@id/gl_details_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
 
-                <LinearLayout
-                    android:id="@+id/ll_comment2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:visibility="visible"
-                    app:layout_constraintTop_toBottomOf="@id/ll_comment1">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="50dp">
-
-                        <ImageView
-                            android:id="@+id/imageView10"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/person3" />
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="230dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView70"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Franchezka Cruz"
-                            android:textColor="@color/proj_blue"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView71"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:text="This is my comment"
-                            android:textColor="@color/proj_blue"
-                            android:textSize="16sp" />
-
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/iv_delete_comment"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="0.1"
-                        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/tv_community"
                     android:layout_width="wrap_content"
@@ -246,54 +188,26 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/tv_review_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="No reviews yet"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_community" />
+
                 <LinearLayout
-                    android:id="@+id/ll_comment1"
+                    android:id="@+id/ll_comment_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_community">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="50dp">
-
-                        <ImageView
-                            android:id="@+id/imageView9"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/person2" />
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView36"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Madison Rae"
-                            android:textColor="@color/proj_blue"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView37"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:text="Woah!!! I love this recipe so much :)) "
-                            android:textColor="@color/proj_blue"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_community"></LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -320,117 +234,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/ll_step3"
+                    android:id="@+id/ll_steps_cont"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/ll_step2">
-
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.05"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center"
-                        android:text="3"
-                        android:textColor="@color/proj_yellow" />
-
-                    <TextView
-                        android:id="@+id/textView33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Line the edges of the bread with shredded cheese."
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_step1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/tv_steps">
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.05"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center"
-                        android:text="1"
-                        android:textColor="@color/proj_yellow" />
-
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
-                        android:text="With a spoon, press down on the center of the bread to form a pocket."
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_step2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/ll_step1">
-
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.05"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center"
-                        android:text="2"
-                        android:textColor="@color/proj_yellow" />
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Line the edges of the bread with butter, and crack an egg into the pocket."
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_step4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/ll_step3">
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.05"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center"
-                        android:text="4"
-                        android:textColor="@color/proj_yellow" />
-
-                    <TextView
-                        android:id="@+id/textView40"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Sprinkle on salt and pepper, and bake at 400°F (204°C) for 10-15 min. 10 min will have a runny yolk whereas 15 min will have a firmer yolk."
-                        android:textColor="#000000" />
-                </LinearLayout>
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_steps"></LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -441,7 +252,7 @@
                 android:layout_marginTop="15dp"
                 android:paddingBottom="30dp"
 
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="@id/gl_details_left"
                 app:layout_constraintRight_toRightOf="@id/gl_details_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_ingredients">
