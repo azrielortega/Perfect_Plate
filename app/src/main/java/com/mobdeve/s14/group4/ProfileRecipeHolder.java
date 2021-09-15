@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProfileRecipeHolder extends RecyclerView.ViewHolder {
 
-    private ImageView ivCover;
+    public ImageView ivCover;
 
     public ProfileRecipeHolder(@NonNull @NotNull View itemView) {
         super(itemView);

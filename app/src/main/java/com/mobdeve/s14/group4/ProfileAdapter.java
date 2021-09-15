@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -34,6 +36,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
     @Override
     public void onBindViewHolder(@NonNull @NotNull ProfileRecipeHolder holder, int position) {
         holder.setCover(data.get(position).getRecipePic());
+        Picasso.with(holder.itemView.getContext())
+                .load(data.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(holder.ivCover);
     }
 
     @Override
