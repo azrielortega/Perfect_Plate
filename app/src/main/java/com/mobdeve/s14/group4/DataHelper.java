@@ -12,7 +12,7 @@ public class DataHelper {
     public static ArrayList<Recipe> allRecipes;
     public static ArrayList<Recipe> sortedRecipes;
     public static ArrayList<Ingredient> allIngredients;
-    public static ArrayList<String> allReviews;
+    public static ArrayList<Review> allReviews;
 
     public static void initData(String uid){
         loadAllIngredients();
@@ -84,7 +84,17 @@ public class DataHelper {
     }
 
     public static void loadAllReviews(){
+        new ReviewDatabase().getAllReviews(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                allReviews = (ArrayList<Review>) o;
+            }
 
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get reviews");
+            }
+        });
     }
 
     public static void setGlobalUser(User u){

@@ -57,7 +57,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 RecipeDatabase rb = new RecipeDatabase();
 
                 FirebaseRecipe fr = new FirebaseRecipe();
-                fr = fr.findRecipe(recipeId);
+                //fr = fr.findRecipe(recipeId);
 
 
 
@@ -70,7 +70,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 Log.d("REVIEWWW", fr.getId());
                 System.out.println(review.getRecipeId());
                 //adding review to realtime database
-                fr.addReview(review);
+                //fr.addReview(review);
 
 
                 finish();
