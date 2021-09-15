@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
+
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private ArrayList<Recipe> data;
 
@@ -30,12 +33,21 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
         View view = inflater.inflate(R.layout.profile_recipe_template, parent, false);
 
         ProfileRecipeHolder holder = new ProfileRecipeHolder(view);
+
+        holder.ivCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
+                i.putExtra(KEY_RECIPE_ID, data.get(holder.getBindingAdapterPosition()).getId());
+                v.getContext().startActivity(i);
+            }
+        });
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ProfileRecipeHolder holder, int position) {
-        holder.setCover(data.get(position).getRecipePic());
         Picasso.with(holder.itemView.getContext())
                 .load(data.get(position).getUploadImage().getmImageUrl())
                 .placeholder(R.drawable.perfect_plate_transparent_bg)
