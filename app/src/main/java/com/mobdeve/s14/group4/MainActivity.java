@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_home);
         setContentView(R.layout.activity_main);
+
+        DataHelper.initDatabase(); //initialize data helper recipes
 
         btnLogin = findViewById(R.id.main_btn_login);
         btnSignUp = findViewById(R.id.main_btn_join);
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         this.mAuth = FirebaseAuth.getInstance();
-        DataHelper.initRecipes(); //initialize data helper recipes
     }
 
 //    @Override
