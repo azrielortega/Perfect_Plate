@@ -273,12 +273,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     fabHeart.setImageResource(R.drawable.heart_on);
                     liked = true;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    new UserDatabase().addFaveRecipe(recipe);
+                    DataHelper.userDatabase.addFaveRecipe(recipe);
                 } else {
                     fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    new UserDatabase().removeFaveRecipe(recipe.getId());
+                    DataHelper.userDatabase.removeFaveRecipe(recipe);
                 }
             }
         });
