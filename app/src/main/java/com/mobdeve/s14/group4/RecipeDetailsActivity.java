@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
@@ -127,7 +128,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //        this.ivRecipePic.setImageResource(recipe.getRecipePic());
         this.tvDescription.setText(recipe.getDescription());
         this.tvRecipeNameTop.setText(recipe.getRecipeName());
-        this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
+        //this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
         this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
         this.tvReviewCount.setText(String.valueOf(recipe.getReviewCount()).concat(" reviews"));
         String temp = "Category: ".concat(recipe.getCategory());
@@ -137,6 +138,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         // set user
         this.tvContributorName.setText(recipe.getContributorName());
+
 
         Log.d("SETTING PIC", recipe.getUploadImage().getmImageUrl());
         //set pic
@@ -174,8 +176,82 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         }
 
-    // set comments
+    // set comments and reviews
         //TODO: find reviews
+
+        boolean empty = true;
+//        for (Review review : recipe.getReviewList()){
+//            Log.d("RECIPEREVIEWSIZE", String.valueOf(recipe.getReviewList().size()));
+//
+//            empty = false;
+//            View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
+//            llCommentCont.addView(commentLayout);
+//
+//            TextView name = commentLayout.findViewById(R.id.tv_review_name);
+//            TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
+//            ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+//
+//            Log.d("REVIEWTEST", review.getId());
+//            // Log.d("DETAILSCOMMENT", review.getComment());
+//
+//            name.setText(review.getContribName());
+//            comment.setText(review.getComment());
+//        }
+
+        float stars = 0;
+        int reviewCtr = 0;
+
+        Log.d("AAA", recipe.getId());
+        for(int ctr = 0; ctr < DataHelper.allReviews.size(); ctr++){
+            Log.d("recipedetailsid", DataHelper.allReviews.get(ctr).getRecipeId());
+            if (DataHelper.allReviews.get(ctr).getRecipeId().equals(recipe.getId())) {
+                Review review = DataHelper.allReviews.get(ctr);
+
+
+                //recipe.addReview(review);
+                stars += review.getRating();
+                reviewCtr += 1;
+
+
+                empty = false;
+                View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
+                llCommentCont.addView(commentLayout);
+
+                TextView name = commentLayout.findViewById(R.id.tv_review_name);
+                TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
+                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+
+                Log.d("REVIEWTEST", review.getId());
+                Log.d("REVIEWTEST", review.getComment());
+                name.setText(review.getContribName());
+                comment.setText(review.getComment());
+//                recipe.getReviewList().clear();
+            }
+        }
+        Log.d("REVIEWSIZE", String.valueOf(recipe.getReviewList().size()));
+
+        //rating
+
+        if (reviewCtr > 0){
+            DecimalFormat value = new DecimalFormat("#.#");
+            float totalRating = (stars/reviewCtr);
+            String rating  = value.format(totalRating); 
+            tvStarsSummary.setText(String.valueOf(rating));
+        } else {
+            tvStarsSummary.setText("0.0");
+        }
+
+
+
+
+
+        if(empty){
+            this.tvEmpty.setVisibility(View.VISIBLE);
+        } else{
+            this.tvEmpty.setVisibility(View.GONE);
+        }
+
+
 //        boolean empty = true;
 //        for (int ctr = 0; ctr < HomeActivity.reviewList.size(); ctr++){
 //
@@ -206,7 +282,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
-//                i.putExtra(KEY_RECIPE_ID, fr.findRecipe(id).getId()); //TODO: ???
+                i.putExtra(KEY_RECIPE_ID, id); //TODO: ???
                 startActivity(i);
             }
         });
@@ -300,4 +376,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             llComment2.setVisibility(View.VISIBLE);
         }
     }
+
+
 }

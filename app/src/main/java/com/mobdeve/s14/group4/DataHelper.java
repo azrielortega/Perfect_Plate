@@ -29,16 +29,20 @@ public class DataHelper {
     public static void initDatabase(){
         allUsers = new ArrayList<User>();
         allRecipes = new ArrayList<Recipe>();
+        allReviews = new ArrayList<Review>();
+
 
         userDatabase = new UserDatabase();
         recipeDatabase = new RecipeDatabase();
         ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
-//        initAllReviews();
+
         initAllIngredients();
         initRecipes();
         initAllUsers();
+        initAllReviews();
+
     }
 
     public static void loadUser(String uid){
@@ -89,6 +93,7 @@ public class DataHelper {
             @Override
             public void onSuccess(Object o) {
                 allIngredients = (ArrayList<Ingredient>) o;
+                Log.d("ALLING", String.valueOf(allIngredients.size()));
             }
 
             @Override
@@ -98,19 +103,21 @@ public class DataHelper {
         });
     }
 
-//    public static void initAllReviews(){
-//        new ReviewDatabase().getAllReviews(new CallbackListener() {
-//            @Override
-//            public void onSuccess(Object o) {
-//                allReviews = (ArrayList<Review>) o;
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//                Log.d("FAILURE", "Failed to get reviews");
-//            }
-//        });
-//    }
+    public static void initAllReviews(){
+        reviewDatabase.getAllReviews(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                allReviews = (ArrayList<Review>) o;
+                Log.d("ALLREVIEWS", String.valueOf(allReviews.size()));
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get reviews");
+            }
+        });
+
+    }
 
     public static void addRecipe(Recipe recipe){
         allRecipes.add(recipe);

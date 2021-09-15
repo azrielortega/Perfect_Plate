@@ -2,6 +2,7 @@ package com.mobdeve.s14.group4;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 
 import java.io.Serializable;
 
@@ -12,6 +13,8 @@ public class Review {
     private String contributorId;
     private String recipeId;
     private String contribName;
+
+    public Review(){}
 
 
     public Review(String contributorId, float rating, String comment, String recipeId){
@@ -27,7 +30,12 @@ public class Review {
         this.rating = rating;
         this.comment = comment;
         this.recipeId = recipeId;
-        this.contribName = contribName;
+
+        for(int i = 0; i < DataHelper.allUsers.size(); i++){
+            if(contributorId.equals(DataHelper.allUsers.get(i).getUserId())){
+                this.contribName = DataHelper.allUsers.get(i).getFirstName();
+            }
+        }
     }
 
     public String getId(){ return this.reviewId; }
@@ -51,6 +59,6 @@ public class Review {
     }
 
     public String getContribName() {
-        return contribName;
+        return this.contribName;
     }
 }

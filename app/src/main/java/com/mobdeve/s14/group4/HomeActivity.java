@@ -21,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Recipe> popularRecipeList;
     private RecyclerView rvRecent;
     private ArrayList<Recipe> recentRecipeList;
+    private ArrayList<Review> reviewList;
 
     private RecyclerView.LayoutManager popularManager;
     private PopularAdapter popularAdapter;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         this.llCreate = findViewById(R.id.ll_create);
         this.ivSearch = findViewById(R.id.iv_search);
         this.llFavorites = findViewById(R.id.ll_fav);
+        this.reviewList = DataHelper.allReviews;
 
         this.etSearch = findViewById(R.id.et_search_recipe);
 

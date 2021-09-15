@@ -33,37 +33,61 @@ public class ReviewDatabase {
 
         review.setId(key);
 
-        Log.d("REVIEWDBID", review.getRecipeId());
-
         this.databaseReference.child(key).setValue(review);
 
         return key;
     }
 
     /**
-     * For initializing DataHelper
+     * Get review from list
      * */
-//    public void getAllReviews(final CallbackListener callbackListener){
-//        ArrayList<Review> reviews = new ArrayList<Review>();
-//
-//        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                if (snapshot.exists()){
-//                    for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
-//                        Review review = reviewSnapshot.getValue(Review.class);
-//
-//                        reviews.add(review);
-//                    }
-//                }
-//
-//                callbackListener.onSuccess(reviews);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//                callbackListener.onFailure();
-//            }
-//        });
-//    }
+    public Review findReview(String reviewId){
+        for (Review review : DataHelper.allReviews){
+            if(reviewId.equalsIgnoreCase(review.getId())){
+                return review;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find ingredients from data helper
+     * */
+    public ArrayList<Review> findReviews(ArrayList<String> reviewIds){
+        ArrayList<Review> reviews = new ArrayList<Review>();
+
+        for (String id : reviewIds){
+            reviews.add(findReview(id));
+        }
+
+        return reviews;
+    }
+
+
+
+
+    public void getAllReviews(final CallbackListener callbackListener){
+        ArrayList<Review> reviews = new ArrayList<Review>();
+
+        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
+                        Review review = reviewSnapshot.getValue(Review.class);
+
+                        reviews.add(review);
+                    }
+                }
+                Log.d("REVIEWDSIZE", String.valueOf(reviews.size()));
+                callbackListener.onSuccess(reviews);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                callbackListener.onFailure();
+            }
+        });
+    }
 }
