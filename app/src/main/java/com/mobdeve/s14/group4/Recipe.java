@@ -137,4 +137,8 @@ public class Recipe extends FirebaseRecipe
         addReviewId(id);
     }
 
+    public void setContributor(User user){
+        this.contributor = user;
+        setContributorId(user.getUserId());
+    }
 }

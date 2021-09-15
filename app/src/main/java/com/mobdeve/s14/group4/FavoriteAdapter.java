@@ -9,14 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> {
 
-    public static final String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
-    public static final String KEY_RECIPE_PIC = "KEY_RECIPE_PIC";
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private ArrayList<Recipe> data;
 
@@ -40,8 +41,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_NAME, data.get(holder.getBindingAdapterPosition()).getRecipeName());
-                i.putExtra(KEY_RECIPE_PIC, data.get(holder.getBindingAdapterPosition()).getRecipePic());
+                i.putExtra(KEY_RECIPE_ID, data.get(holder.getBindingAdapterPosition()).getId());
                 v.getContext().startActivity(i);
             }
         });
@@ -51,9 +51,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull FavoriteRecipeHolder holder, int position) {
-        holder.setRecipePic(data.get(position).getRecipePic());
+        holder.setRecipe(data.get(position));
         holder.setRecipeName(data.get(position).getRecipeName());
-
+        Picasso.with(holder.itemView.getContext())
+                .load(data.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(holder.ivRecipe);
     }
 
     @Override

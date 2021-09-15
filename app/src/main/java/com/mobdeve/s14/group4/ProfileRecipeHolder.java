@@ -17,8 +17,4 @@ public class ProfileRecipeHolder extends RecyclerView.ViewHolder {
 
         ivCover = itemView.findViewById(R.id.pt_recipe_iv_cover);
     }
-
-    public void setCover (int image){
-        ivCover.setImageResource(image);
-    }
 }
