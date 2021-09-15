@@ -166,21 +166,11 @@ public class SignUpActivity2 extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            String uid = mAuth.getCurrentUser().getUid();
+                            u.setUserId(mAuth.getCurrentUser().getUid());
 
-                            mDatabase.getReference("users")
-                                    .child(uid)
-                                    .setValue(u.getFirebaseUser()).addOnCompleteListener(
-                                            new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        successfulRegistration(u);
-                                    } else {
-                                        failedRegistration();
-                                    }
-                                }
-                            });
+                            new UserDatabase().addUser(u);
+
+                            successfulRegistration(u);
                         } else {
                             failedRegistration();
                         }
