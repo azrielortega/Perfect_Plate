@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -68,15 +69,14 @@ public class SignUpActivity2 extends AppCompatActivity {
                 if (validateUser(user)){
                     //add user to db
 
-//                    storeUser(user);
+                    storeUser(user);
                 }
             }
         });
 
     }
 
-
-
+    //TODO: refine user validation
     private boolean validateUser(User user){
         boolean isValidUser = true;
 
@@ -134,13 +134,16 @@ public class SignUpActivity2 extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            String uid = mAuth.getCurrentUser().getUid();
+
                             mDatabase.getReference("users")
-                                    .child(mAuth.getCurrentUser().getUid())
-                                    .setValue(u.getFirebaseUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .child(uid)
+                                    .setValue(u.getFirebaseUser()).addOnCompleteListener(
+                                            new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        successfulRegistration();
+                                        successfulRegistration(u);
                                     } else {
                                         failedRegistration();
                                     }
@@ -153,23 +156,29 @@ public class SignUpActivity2 extends AppCompatActivity {
                 });
     }
 
-    private void successfulRegistration(){
+    private void successfulRegistration(User user){
         Toast.makeText(this, "User Registration Successful", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(SignUpActivity2.this, LoginActivity.class);
+
         this.btnSignUp.setVisibility(View.GONE);
-        startActivity(i);
+
+        DataHelper.setGlobalUser(user);
+
+        moveToHomeActivity();
         finish();
     }
 
     private void failedRegistration(){
         this.btnSignUp.setVisibility(View.GONE);
         Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(SignUpActivity2.this, WriteReviewActivity.class);
-
     }
 
     private void initFirebase() {
         this.mAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance();
+    }
+
+    private void moveToHomeActivity(){
+        Intent i = new Intent(SignUpActivity2.this, HomeActivity.class);
+        startActivity(i);
     }
 }
