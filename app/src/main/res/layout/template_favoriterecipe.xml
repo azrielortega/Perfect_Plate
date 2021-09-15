@@ -62,7 +62,7 @@
                 android:layout_marginLeft="260dp"
                 android:layout_marginBottom="5dp"
                 android:foregroundTint="#FF0000"
-                app:srcCompat="@drawable/heart_off" />
+                app:srcCompat="@drawable/vectorheart_on" />
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

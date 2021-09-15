@@ -13,14 +13,15 @@ import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
 public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
+    private Recipe recipe;
 
-    private ImageView ivRecipe;
+    public ImageView ivRecipe;
     private TextView tvRecipe;
-    private ImageView ivHeart;
+    public ImageView ivHeart;
 
     private CardView cvRecipe;
 
-    private boolean bHeart = false;
+    private boolean bHeart = true;
 
     public FavoriteRecipeHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -30,29 +31,24 @@ public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
         ivHeart = itemView.findViewById(R.id.template_fr_iv_heart);
         cvRecipe = itemView.findViewById(R.id.template_fr_cv_recipe);
 
-        cvRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-
-                v.getContext().startActivity(i);
-            }
-        });
-
         ivHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(bHeart == false) {
                     ivHeart.setImageResource(R.drawable.vectorheart_on);
                     bHeart = true;
+                    DataHelper.userDatabase.addFaveRecipe(recipe);
                 }
                 else{
                     ivHeart.setImageResource(R.drawable.heart_off);
                     bHeart = false;
+                    DataHelper.userDatabase.removeFaveRecipe(recipe);
                 }
             }
         });
     }
+
+    public void setRecipe(Recipe recipe){ this.recipe = recipe; }
 
     public void setRecipePic(int image){
         ivRecipe.setImageResource(image);
@@ -64,6 +60,10 @@ public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
 
     public CardView getCard (){
         return cvRecipe;
+    }
+
+    public boolean getLiked(){
+        return bHeart;
     }
 }
 

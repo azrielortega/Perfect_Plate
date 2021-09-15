@@ -16,6 +16,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager manager;
     private FavoriteAdapter adapter;
 
+    private ArrayList<Recipe> data;
     private ImageButton ibBack;
 
     @Override
@@ -45,7 +46,8 @@ public class ViewFavoritesActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecipes.setLayoutManager(manager);
 
-        adapter = new FavoriteAdapter(DataHelper.user.getFaveRecipes());
+        data = (ArrayList<Recipe>) DataHelper.user.getFaveRecipes().clone();
+        adapter = new FavoriteAdapter(data);
         rvRecipes.setAdapter(adapter);
     }
 }
