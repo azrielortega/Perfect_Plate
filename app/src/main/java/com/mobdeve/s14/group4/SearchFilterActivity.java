@@ -44,34 +44,34 @@ public class SearchFilterActivity extends AppCompatActivity {
         Log.d("CATEG", categ);
 
         if (categ.equalsIgnoreCase("All Recipes")){
-            filterRecipe = HomeActivity.recipeList;
+            filterRecipe = DataHelper.allRecipes;
         } else {
-            for (int ctr = 0; ctr < HomeActivity.recipeList.size(); ctr ++){
-                if (HomeActivity.recipeList.get(ctr).getCategory().equalsIgnoreCase(categ)){
-                    filterRecipe.add(HomeActivity.recipeList.get(ctr));
+            for (Recipe recipe : DataHelper.allRecipes){
+                if (recipe.getCategory().equalsIgnoreCase(categ)){
+                    filterRecipe.add(recipe);
                 }
             }
         }
 
         if(!key.equalsIgnoreCase("-9999")){
-            for (int ctr = 0; ctr < HomeActivity.recipeList.size(); ctr ++){
-                String tempName = HomeActivity.recipeList.get(ctr).getRecipeName().toLowerCase();
+            for (Recipe recipe : DataHelper.allRecipes){
+                String tempName = recipe.getRecipeName().toLowerCase();
                 String tempKey = key.toLowerCase();
 
                 if (tempName.contains(tempKey)){
-                    filterRecipe.add(HomeActivity.recipeList.get(ctr));
+                    filterRecipe.add(recipe);
                 }
             }
         }
 
+        String temp;
         if (!categ.equalsIgnoreCase("-9999")){
-            String temp = "'" + categ + "'";
-            this.tvCategory.setText(temp);
+            temp = "'" + categ + "'";
         } else {
-            String temp = "'" + key + "'";
-            this.tvCategory.setText(temp);
+            temp = "'" + key + "'";
         }
 
+        this.tvCategory.setText(temp);
 
         this.ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
