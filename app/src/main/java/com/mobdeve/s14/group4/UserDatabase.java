@@ -89,11 +89,7 @@ public class UserDatabase {
     }
 
     public void addUser(User user){
-        String key = this.databaseReference.push().getKey();
-
-        user.setUserId(key);
-
-        this.databaseReference.child(key).setValue(user.getFirebaseUser());
+        this.databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
     }
 
     public void addGoogleUser(User user){
@@ -148,9 +144,11 @@ public class UserDatabase {
     public void addUserRecipe(Recipe recipe){
         User user = DataHelper.user;
         recipe.setContributorId(user.getUserId());
-        String recipeId = recipeDatabase.addRecipe(recipe);
 
-        user.addUserRecipeId(recipeId);
+        String recipeId = recipeDatabase.addRecipe(recipe);
+        recipe.setId(recipeId);
+
+        user.addUserRecipe(recipe);
         updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
