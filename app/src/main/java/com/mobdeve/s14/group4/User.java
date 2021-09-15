@@ -95,7 +95,7 @@ public class User extends FirebaseUser{
     public void removeFaveRecipe(Recipe recipe){
         int removeIndex = 0;
 
-        for (int i = 0; i < getUserRecipesCount(); i++){
+        for (int i = 0; i < getFaveRecipesCount(); i++){
             if (this.faveRecipes.get(i).getId().equals(recipe.getId())){
                 removeIndex = i;
             }
@@ -103,6 +103,8 @@ public class User extends FirebaseUser{
 
         removeFaveRecipeId(recipe.getId());
         this.faveRecipes.remove(removeIndex);
+
+        recipe.setFaveCount(recipe.getFaveCount() - 1);
     }
 
     public ArrayList<Recipe> getUserRecipes(){
