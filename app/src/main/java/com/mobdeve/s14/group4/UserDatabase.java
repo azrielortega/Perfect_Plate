@@ -179,7 +179,7 @@ public class UserDatabase {
      * */
     public void addUserRecipe(Recipe recipe){
         User user = DataHelper.user;
-        recipe.setContributorId(user.getUserId());
+        recipe.setContributor(user);
 
         String recipeId = DataHelper.recipeDatabase.addRecipe(recipe);
         recipe.setId(recipeId);
@@ -229,12 +229,15 @@ public class UserDatabase {
     /**
      * Removes fave recipe from user's list
      * */
-    public void removeFaveRecipe(String recipeId){
+    public void removeFaveRecipe(Recipe recipe){
+        String recipeId = recipe.getId();
+
         User user = DataHelper.user;
-        user.removeFaveRecipeId(recipeId);
+        user.removeFaveRecipe(recipe);
         updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
 
-
+        DataHelper.recipeDatabase.updateFaveCount(recipeId, recipe.getFaveCount());
+        DataHelper.updatePopularity();
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){

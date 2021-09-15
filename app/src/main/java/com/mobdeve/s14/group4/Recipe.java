@@ -113,4 +113,9 @@ public class Recipe extends FirebaseRecipe
         this.ingredientDetailsList.add(ingredient);
         addIngredientId(id);
     }
+
+    public void setContributor(User user){
+        this.contributor = user;
+        setContributorId(user.getUserId());
+    }
 }
