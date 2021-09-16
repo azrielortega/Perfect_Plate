@@ -74,6 +74,19 @@ public class EditProfileActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.editprofile_et_email);
         ivEmail = findViewById(R.id.editprofile_iv_email);
 
+        if(DataHelper.user.getFirebaseUser().getProfile_Image() != null){
+            Log.d("userPic", DataHelper.user.getFirebaseUser().getProfile_Image().getmImageUrl());
+            Picasso.with(EditProfileActivity.this)
+                    .load(DataHelper.user.getFirebaseUser().getProfile_Image().getmImageUrl())
+                    .placeholder(R.drawable.vectorperson)
+                    .fit()
+                    .centerCrop()
+                    .into(ivPic);
+        }
+        else{
+            ivPic.setImageResource(R.drawable.vectorperson);
+        }
+
         ivPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +151,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     newUser.setLastName(lname);
 
                     uploadFile(newUser);
-
-                    finish();
                 }
             }
         });
@@ -182,9 +193,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         new UserDatabase().updateCurrentUser(user);
                         Log.d("getImageUrl", user.getFirebaseUser().getProfile_Image().getmImageUrl());
 
-                        Toast.makeText(EditProfileActivity.this, "Updated User - w/ pic", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, "Updated User Successfully!", Toast.LENGTH_SHORT).show();
                         finish();
-
                     } else {
                         // Handle failures
                         // ...
@@ -194,8 +204,8 @@ public class EditProfileActivity extends AppCompatActivity {
             });
         }else{
             new UserDatabase().updateCurrentUser(user);
-            Toast.makeText(EditProfileActivity.this, "Updated User - w/o pic", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(EditProfileActivity.this, "Updated User Successfully!", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
     }
@@ -218,7 +228,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (email == null){
                     etEmail.setVisibility(View.GONE);
                     ivEmail.setVisibility(View.GONE);
-
                 }
                 else{
                     etEmail.setText(email);

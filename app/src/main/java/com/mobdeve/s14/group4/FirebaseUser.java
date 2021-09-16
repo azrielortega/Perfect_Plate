@@ -216,6 +216,13 @@ public class FirebaseUser {
         user.setUserRecipesList(this.userRecipesList);
         user.setFaveRecipesList(this.faveRecipesList);
 
+        if(this.profilePic != null) {
+            user.setProfile_Image(this.profilePic);
+        }
+        else{
+            user.setProfile_Image(null);
+        }
+
         return user;
     }
 
