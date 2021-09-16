@@ -216,6 +216,8 @@ public class FirebaseUser {
         user.setUserRecipesList(this.userRecipesList);
         user.setFaveRecipesList(this.faveRecipesList);
 
+        user.setProfile_Image(this.profilePic);
+
         return user;
     }
 

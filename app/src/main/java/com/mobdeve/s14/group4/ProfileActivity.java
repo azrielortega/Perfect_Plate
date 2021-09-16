@@ -84,15 +84,20 @@ public class ProfileActivity extends AppCompatActivity {
 
         User user = DataHelper.user;
 
-        Log.d("userPic", user.getFirebaseUser().getProfile_Image().getmImageUrl());
+        if(user.getFirebaseUser().getProfile_Image().getmImageUrl() != null){
+            Log.d("userPic", user.getFirebaseUser().getProfile_Image().getmImageUrl());
+            Picasso.with(ProfileActivity.this)
+                    .load(user.getFirebaseUser().getProfile_Image().getmImageUrl())
+                    .placeholder(R.drawable.vectorperson)
+                    .fit()
+                    .centerCrop()
+                    .into(ivProfilePic);
+        }
+        else{
+            ivProfilePic.setImageResource(R.drawable.vectorperson);
+        }
 
-        /* loads picture
-        Picasso.with(ProfileActivity.this)
-                .load("")
-                .placeholder(R.drawable.vectorperson)
-                .fit()
-                .centerCrop()
-                .into(ivProfilePic);*/
+        // loads picture
 
         tvName.setText(DataHelper.user.getFullName());
         tvUsername.setText(DataHelper.user.getUsername());
