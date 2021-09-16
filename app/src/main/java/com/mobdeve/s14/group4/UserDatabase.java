@@ -206,7 +206,7 @@ public class UserDatabase {
      * */
     public void removeUserRecipe(String recipeId){
         //remove from recipe db
-        DataHelper.recipeDatabase.deleteRecipe(recipeId); //TODO: delete from DataHelper
+        DataHelper.recipeDatabase.deleteRecipe(recipeId);
 
         //remove from user db
         User user = DataHelper.user;

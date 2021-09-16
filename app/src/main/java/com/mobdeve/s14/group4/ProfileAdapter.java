@@ -43,6 +43,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
             }
         });
 
+        holder.ivBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataHelper.userDatabase.removeUserRecipe(data.get(holder.getBindingAdapterPosition()).getId());
+                data = DataHelper.user.getUserRecipes();
+                notifyDataSetChanged();
+            }
+        });
+
         return holder;
     }
 
