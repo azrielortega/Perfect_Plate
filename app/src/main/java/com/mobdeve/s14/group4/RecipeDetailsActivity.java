@@ -125,6 +125,19 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         // set user
         this.tvContributorName.setText(recipe.getContributorName());
 
+        // set contrib pic
+        if(recipe.getContributorPic() != null){
+            Picasso.with(this)
+                    .load(recipe.getContributorPic().getmImageUrl())
+                    .placeholder(R.drawable.vectorperson)
+                    .fit()
+                    .centerCrop()
+                    .into(ivContributorPic);
+        }
+        else{
+            ivContributorPic.setImageResource(R.drawable.vectorperson);
+        }
+
         //set pic
         Picasso.with(this)
                 .load(recipe.getUploadImage().getmImageUrl())
@@ -284,6 +297,26 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
                 ImageView pic = commentLayout.findViewById(R.id.iv_review_load_pic);
                 ImageView ivDelete = commentLayout.findViewById(R.id.iv_delete_comment);
+                ImageView ivReviewUserPicture = commentLayout.findViewById(R.id.iv_review_user_pic);
+
+                // set contrib pic
+                UserDatabase userDatabase = new UserDatabase();
+
+                User contributor = userDatabase.findUser(review.getContributorId());
+
+
+                if(contributor.getProfile_Image()!= null){
+                    Picasso.with(this)
+                            .load(contributor.getProfile_Image().getmImageUrl())
+                            .placeholder(R.drawable.vectorperson)
+                            .fit()
+                            .centerCrop()
+                            .into(ivReviewUserPicture);
+                }
+                else{
+                    ivReviewUserPicture.setImageResource(R.drawable.vectorperson);
+                }
+
 
                 if (DataHelper.user.getUserId().equals(review.getContributorId())){
                     ivDelete.setVisibility(View.VISIBLE);
