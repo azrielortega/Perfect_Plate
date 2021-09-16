@@ -123,13 +123,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         String temp = "Category: ".concat(recipe.getCategory());
         this.tvCategory.setText(temp);
 
-        Log.d("CONTRIBUTORID", recipe.getContributorId());
 
         // set user
         this.tvContributorName.setText(recipe.getContributorName());
 
 
-        Log.d("SETTING PIC", recipe.getUploadImage().getmImageUrl());
         //set pic
         Picasso.with(this)
                 .load(recipe.getUploadImage().getmImageUrl())
@@ -164,12 +162,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             str.setText(recipe.getStepsList().get(ctr));
 
         }
-
-        Log.d("AAA", recipe.getId());
-
         //TODO: convert to recycler view
         for (Review review : DataHelper.allReviews){
-            Log.d("recipedetailsid", review.getRecipeId());
             if (review.getRecipeId().equals(recipe.getId())) {
                 reviewCount += 1;
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
@@ -179,8 +173,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
                 ImageView pic = commentLayout.findViewById(R.id.iv_review_load_pic);
 
-                Log.d("REVIEWTEST", review.getId());
-                Log.d("REVIEWTEST", review.getComment());
                 name.setText(review.getContributorName());
                 comment.setText(review.getComment());
 
@@ -275,6 +267,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         });
 
         this.fabHeart.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if(!liked){
@@ -282,11 +275,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     liked = true;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
                     DataHelper.userDatabase.addFaveRecipe(recipe);
+                    tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
                 } else {
                     fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
                     DataHelper.userDatabase.removeFaveRecipe(recipe);
+                    tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
                 }
             }
         });
@@ -306,7 +301,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         llCommentCont.removeAllViews();
         reviewCount = 0;
         for (Review review : DataHelper.allReviews){
-            Log.d("recipedetailsid", review.getRecipeId());
             if (review.getRecipeId().equals(recipe.getId())) {
                 reviewCount += 1;
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
@@ -316,8 +310,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
                 ImageView pic = commentLayout.findViewById(R.id.iv_review_load_pic);
 
-                Log.d("REVIEWTEST", review.getId());
-                Log.d("REVIEWTEST", review.getComment());
                 name.setText(review.getContributorName());
                 comment.setText(review.getComment());
 
@@ -344,6 +336,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvStarsSummary.setText(recipe.getRatingString());
         String revCtr = reviewCount + " reviews";
         this.tvReviewCount.setText(revCtr);
+        this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
     }
 
     @Override
