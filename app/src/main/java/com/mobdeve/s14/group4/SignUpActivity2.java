@@ -91,7 +91,7 @@ public class SignUpActivity2 extends AppCompatActivity {
                 lname = etLastN.getText().toString().trim();
                 String birthday = etBirthday.getText().toString().trim();
 
-                Toast.makeText(SignUpActivity2.this, birthday, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SignUpActivity2.this, birthday, Toast.LENGTH_SHORT).show();
 
                 User user = new User(email, password, username, fname, lname, birthday);
                 if (validateUser(user)){
