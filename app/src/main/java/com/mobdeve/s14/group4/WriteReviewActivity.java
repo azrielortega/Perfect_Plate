@@ -79,8 +79,8 @@ public class WriteReviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 float rating = rbRating.getRating();
                 String reviewText = etReview.getText().toString();
-
-
+                ibSubmit.setEnabled(false);
+                
 
 //                Review review = new Review(DataHelper.user, rating, reviewText, recipeId);
 //
