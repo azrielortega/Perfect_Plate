@@ -13,6 +13,7 @@ public class Review {
     private String recipeId;
 
     private User contributor;
+    private UploadImage image;
 
     public Review(){
     }
@@ -24,12 +25,40 @@ public class Review {
         this.recipeId = recipeId;
     }
 
+    public Review(User contributor, double rating, String comment, String recipeId, UploadImage image){
+        this.contributor = contributor;
+        this.rating = rating;
+        this.comment = comment;
+        this.recipeId = recipeId;
+        this.image = image;
+        System.out.println("REVIEWPIC1 " + image.getmImageUrl());
+    }
+
     public Review(String reviewId, String contributorId, double rating, String comment, String recipeId){
         this.reviewId = reviewId;
         setContributorId(contributorId);
         this.rating = rating;
         this.comment = comment;
         this.recipeId = recipeId;
+        this.image = null;
+    }
+
+    public Review(String reviewId, String contributorId, double rating, String comment, String recipeId, UploadImage image){
+        this.reviewId = reviewId;
+        setContributorId(contributorId);
+        this.rating = rating;
+        this.comment = comment;
+        this.recipeId = recipeId;
+        System.out.println("REVIEWPIC2 " + image.getmImageUrl());
+        this.image = image;
+    }
+
+    public void setUploadImage (UploadImage ui){
+        this.image = ui;
+    }
+
+    public UploadImage getUploadImage (){
+        return this.image;
     }
 
     public String getId(){ return this.reviewId; }

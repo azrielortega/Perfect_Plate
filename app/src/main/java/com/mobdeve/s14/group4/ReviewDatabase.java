@@ -19,6 +19,7 @@ public class ReviewDatabase {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private UploadImage image;
 
     public ReviewDatabase(){
         this.auth = FirebaseAuth.getInstance();
@@ -30,6 +31,7 @@ public class ReviewDatabase {
 
     public String addReview(Review review){
         String key = "empty";
+
         Recipe recipe = DataHelper.recipeDatabase.findRecipe(review.getRecipeId());
 
         if (recipe != null){
