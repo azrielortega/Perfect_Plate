@@ -19,13 +19,13 @@ public class FirebaseUser {
     private ArrayList<String> userRecipesList;
     private ArrayList<String> faveRecipesList;
 
-    private UploadImage profile_pic;
+    private UploadImage profilePic;
 
 
     public FirebaseUser(){
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
-        this.profile_pic = null;
+        this.profilePic = getProfile_Image();
     }
 
     public FirebaseUser(String id, String fName, String lName){
@@ -67,12 +67,47 @@ public class FirebaseUser {
         this.faveRecipesList = new ArrayList<String>();
     }
 
+//    public FirebaseUser(String email, String  password, String username, String firstName, String lastName, UploadImage image){
+//        this.email = email;
+//        this.password = password;
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//
+//        this.userRecipesList = new ArrayList<String>();
+//        this.faveRecipesList = new ArrayList<String>();
+//        this.profilePic = image;
+//    }
+
+//    public FirebaseUser(String email, String  password, String username, String firstName, String lastName, String birthday, UploadImage image){
+//        this.email = email;
+//        this.password = password;
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.birthday = birthday;
+//
+//        this.userRecipesList = new ArrayList<String>();
+//        this.faveRecipesList = new ArrayList<String>();
+//        this.profilePic = image;
+//    }
+//    public FirebaseUser(String googleId, String username, String firstName, String lastName, UploadImage upload){
+//        this.googleId = googleId;
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//
+//        this.userRecipesList = new ArrayList<String>();
+//        this.faveRecipesList = new ArrayList<String>();
+//        this.profilePic = upload;
+//    }
+
     public UploadImage getProfile_Image (){
-        return this.profile_pic;
+        return this.profilePic;
     }
 
     public void setProfile_Image (UploadImage p){
-        this.profile_pic = p;
+        this.profilePic = p;
     }
 
     public String getBirthday(){

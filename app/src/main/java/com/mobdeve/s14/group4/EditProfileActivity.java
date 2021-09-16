@@ -180,6 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         //upload everything to DB;
                         new UserDatabase().updateCurrentUser(user);
+                        Log.d("getImageUrl", user.getFirebaseUser().getProfile_Image().getmImageUrl());
 
                         Toast.makeText(EditProfileActivity.this, "Updated User - w/ pic", Toast.LENGTH_SHORT).show();
                         finish();
@@ -187,7 +188,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     } else {
                         // Handle failures
                         // ...
-                        Toast.makeText(EditProfileActivity.this, "FAIL ADDING RECIPE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, "FAIL ADDING PHOTO", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
