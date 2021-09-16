@@ -197,7 +197,7 @@ public class UserDatabase {
         recipe.setId(recipeId);
 
         user.addUserRecipe(recipe);
-        DataHelper.allRecipes.add(recipe);
+        DataHelper.addRecipe(recipe);
         updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
     }
 
@@ -235,7 +235,6 @@ public class UserDatabase {
         updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
 
         DataHelper.recipeDatabase.updateFaveCount(recipe.getId(), recipe.getFaveCount());
-        DataHelper.updatePopularity();
     }
 
     /**
@@ -249,7 +248,6 @@ public class UserDatabase {
         updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
 
         DataHelper.recipeDatabase.updateFaveCount(recipeId, recipe.getFaveCount());
-        DataHelper.updatePopularity();
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){
