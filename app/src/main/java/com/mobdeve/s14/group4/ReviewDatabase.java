@@ -94,4 +94,18 @@ public class ReviewDatabase {
             }
         });
     }
+
+    public void deleteReview(Review review){
+        int remove_index = -1;
+
+        for (int i = 0; i < DataHelper.allReviews.size(); i++){
+            if (DataHelper.allReviews.get(i).equals(review.getId())){
+                remove_index = i;
+                break;
+            }
+        }
+
+        DataHelper.allReviews.remove(remove_index);
+        this.databaseReference.child(review.getId()).setValue(null);
+    }
 }
