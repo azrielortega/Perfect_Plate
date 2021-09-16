@@ -132,6 +132,20 @@ public class Recipe extends FirebaseRecipe
         DataHelper.recipeDatabase.updateRating(getId(), rating);
     }
 
+    public void removeRating(double removeRating){
+        int count = getReviewCount();
+        setReviewCount(count - 1);
+
+        if (getReviewCount() > 0){
+            double rating = getRating();
+            rating = (rating / getReviewCount()) * (count / getReviewCount()) - (removeRating / getReviewCount());
+
+            //update lists
+            setRating(rating);
+            DataHelper.recipeDatabase.updateRating(getId(), rating);
+        }
+    }
+
     public void setContributor(User user){
         this.contributor = user;
         setContributorId(user.getUserId());

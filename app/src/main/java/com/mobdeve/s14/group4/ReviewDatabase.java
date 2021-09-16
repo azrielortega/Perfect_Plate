@@ -33,12 +33,12 @@ public class ReviewDatabase {
         Recipe recipe = DataHelper.recipeDatabase.findRecipe(review.getRecipeId());
 
         if (recipe != null){
-            key = this.databaseReference.push().getKey();
+            recipe.addRating(review.getRating());
 
+            key = this.databaseReference.push().getKey();
             review.setId(key);
 
             this.databaseReference.child(key).setValue(review);
-
             DataHelper.allReviews.add(review);
         }
 
@@ -98,14 +98,20 @@ public class ReviewDatabase {
     public void deleteReview(Review review){
         int remove_index = -1;
 
-        for (int i = 0; i < DataHelper.allReviews.size(); i++){
-            if (DataHelper.allReviews.get(i).equals(review.getId())){
-                remove_index = i;
-                break;
-            }
-        }
+        Recipe recipe = DataHelper.recipeDatabase.findRecipe(review.getRecipeId());
 
-        DataHelper.allReviews.remove(remove_index);
-        this.databaseReference.child(review.getId()).setValue(null);
+        if (recipe != null) {
+            recipe.removeRating(review.getRating());
+
+            for (int i = 0; i < DataHelper.allReviews.size(); i++) {
+                if (DataHelper.allReviews.get(i).equals(review.getId())) {
+                    remove_index = i;
+                    break;
+                }
+            }
+
+            DataHelper.allReviews.remove(remove_index);
+            this.databaseReference.child(review.getId()).setValue(null);
+        }
     }
 }
