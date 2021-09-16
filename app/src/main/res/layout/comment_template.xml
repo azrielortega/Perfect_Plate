@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,13 +30,13 @@
     <TextView
         android:id="@+id/tv_review_comment"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
 
         android:fontFamily="@font/montserrat"
         android:text="Meowww"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintLeft_toRightOf="@id/cv_review_user_pic"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_review_name" />
@@ -44,13 +44,14 @@
     <TextView
         android:id="@+id/tv_review_name"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="bottom"
         android:text="Taylor Swift"
+
         android:textColor="@color/proj_blue"
-        app:layout_constraintBottom_toTopOf="@id/tv_review_comment"
         app:layout_constraintLeft_toRightOf="@id/cv_review_user_pic"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,5 +64,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+
+    <ImageView
+        android:id="@+id/iv_review_load_pic"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintLeft_toRightOf="@id/cv_review_user_pic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_review_comment"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

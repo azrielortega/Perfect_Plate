@@ -65,6 +65,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
 
     private TextView tvEmpty;
+    private int reviewCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,23 +171,39 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         for (Review review : DataHelper.allReviews){
             Log.d("recipedetailsid", review.getRecipeId());
             if (review.getRecipeId().equals(recipe.getId())) {
+                reviewCount += 1;
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
                 TextView name = commentLayout.findViewById(R.id.tv_review_name);
                 TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
-                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+                ImageView pic = commentLayout.findViewById(R.id.iv_review_load_pic);
 
                 Log.d("REVIEWTEST", review.getId());
                 Log.d("REVIEWTEST", review.getComment());
                 name.setText(review.getContributorName());
                 comment.setText(review.getComment());
+
+                if (review.getUploadImage() != null){
+                    pic.setVisibility(View.VISIBLE);
+                    Picasso.with(this)
+                            .load(review.getUploadImage().getmImageUrl())
+                            .placeholder(R.drawable.perfect_plate_transparent_bg)
+                            .fit()
+                            .centerCrop()
+                            .into(pic);
+
+                } else {
+                    pic.setVisibility(View.GONE);
+                }
             }
         }
 
-        tvStarsSummary.setText(recipe.getRatingString());
+        this.tvStarsSummary.setText(recipe.getRatingString());
+        String revCtr = reviewCount + " reviews";
+        this.tvReviewCount.setText(revCtr);
 
-        if(recipe.getReviewCount() > 0){
+        if(reviewCount < 1){
             this.tvEmpty.setVisibility(View.VISIBLE);
         } else{
             this.tvEmpty.setVisibility(View.GONE);
@@ -287,24 +304,46 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         super.onResume();
         //TODO: convert to recycler view
         llCommentCont.removeAllViews();
+        reviewCount = 0;
         for (Review review : DataHelper.allReviews){
             Log.d("recipedetailsid", review.getRecipeId());
             if (review.getRecipeId().equals(recipe.getId())) {
+                reviewCount += 1;
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
                 TextView name = commentLayout.findViewById(R.id.tv_review_name);
                 TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
-                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+                ImageView pic = commentLayout.findViewById(R.id.iv_review_load_pic);
 
                 Log.d("REVIEWTEST", review.getId());
                 Log.d("REVIEWTEST", review.getComment());
                 name.setText(review.getContributorName());
                 comment.setText(review.getComment());
+
+                if (review.getUploadImage() != null){
+                    pic.setVisibility(View.VISIBLE);
+                    Picasso.with(this)
+                            .load(review.getUploadImage().getmImageUrl())
+                            .placeholder(R.drawable.perfect_plate_transparent_bg)
+                            .fit()
+                            .centerCrop()
+                            .into(pic);
+
+                } else {
+                    pic.setVisibility(View.GONE);
+                }
             }
         }
 
-
+        if(reviewCount < 1){
+            this.tvEmpty.setVisibility(View.VISIBLE);
+        } else{
+            this.tvEmpty.setVisibility(View.GONE);
+        }
+        this.tvStarsSummary.setText(recipe.getRatingString());
+        String revCtr = reviewCount + " reviews";
+        this.tvReviewCount.setText(revCtr);
     }
 
     @Override
