@@ -16,6 +16,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -50,6 +51,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ImageView ivEmail;
 
+    private ProgressBar pb;
+
     private Uri imageUri;
 
     private StorageReference storageRef;
@@ -67,6 +70,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void initComponents() {
 
+        pb = findViewById(R.id.editprofile_pb);
         ivPic = findViewById(R.id.editprofile_iv_profile_pic);
 
         etName = findViewById(R.id.editprofile_et_name);
@@ -108,6 +112,8 @@ public class EditProfileActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnEdit.setEnabled(false);
+                pb.setVisibility(View.VISIBLE);
                 if(TextUtils.isEmpty(etName.getText()) ||
                         TextUtils.isEmpty(etUsername.getText())){
 
@@ -122,7 +128,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     if(TextUtils.isEmpty(etEmail.getText()))
                         etEmail.setError("Email is Required");
 
-
+                    pb.setVisibility(View.GONE);
+                    btnEdit.setEnabled(true);
                     Toast.makeText(EditProfileActivity.this, "Fill Up All Values", Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -194,10 +201,14 @@ public class EditProfileActivity extends AppCompatActivity {
                         Log.d("getImageUrl", user.getFirebaseUser().getProfile_Image().getmImageUrl());
 
                         Toast.makeText(EditProfileActivity.this, "Updated User Successfully!", Toast.LENGTH_SHORT).show();
+                        pb.setVisibility(View.GONE);
+                        btnEdit.setEnabled(true);
                         finish();
                     } else {
                         // Handle failures
                         // ...
+                        pb.setVisibility(View.GONE);
+                        btnEdit.setEnabled(true);
                         Toast.makeText(EditProfileActivity.this, "FAIL ADDING PHOTO", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -205,6 +216,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }else{
             new UserDatabase().updateCurrentUser(user);
             Toast.makeText(EditProfileActivity.this, "Updated User Successfully!", Toast.LENGTH_SHORT).show();
+            pb.setVisibility(View.GONE);
+            btnEdit.setEnabled(true);
             finish();
         }
 
