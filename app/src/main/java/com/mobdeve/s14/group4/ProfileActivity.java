@@ -84,6 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         User user = DataHelper.user;
 
+        Log.d("userPic", user.getFirebaseUser().getProfile_Image().getmImageUrl());
+
         /* loads picture
         Picasso.with(ProfileActivity.this)
                 .load("")

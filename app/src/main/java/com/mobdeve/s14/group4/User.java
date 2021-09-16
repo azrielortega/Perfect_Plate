@@ -23,6 +23,8 @@ public class User extends FirebaseUser{
         setUserRecipesList(user.getUserRecipesList());
         setFaveRecipesList(user.getFaveRecipesList());
 
+        setProfile_Image(user.getProfile_Image());
+
         initializeRecipeLists();
     }
 
@@ -46,6 +48,21 @@ public class User extends FirebaseUser{
         this.userRecipes = new ArrayList<Recipe>();
         this.faveRecipes = new ArrayList<Recipe>();
     }
+
+//    public User(String email, String  password, String username, String firstName, String lastName, String birthday, UploadImage upload){
+//        super(email, password, username, firstName, lastName, birthday, upload);
+//
+//        this.userRecipes = new ArrayList<Recipe>();
+//        this.faveRecipes = new ArrayList<Recipe>();
+//    }
+//
+//    public User(String googleId, String username, String firstName, String lastName, UploadImage upload){
+//        super(googleId, username, firstName, lastName, upload);
+//
+//        this.userRecipes = new ArrayList<Recipe>();
+//        this.faveRecipes = new ArrayList<Recipe>();
+//    }
+
 
     private void initializeRecipeLists(){
         RecipeDatabase recipeDatabase = new RecipeDatabase();
