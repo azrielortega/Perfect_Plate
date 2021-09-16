@@ -69,6 +69,8 @@ public class User extends FirebaseUser{
 
         this.userRecipes = recipeDatabase.findRecipes(getUserRecipesList());
         this.faveRecipes = recipeDatabase.findRecipes(getFaveRecipesList());
+
+        DataHelper.userDatabase.updateFaveRecipes(getUserId(), getFaveRecipesList(), getFaveRecipesCount());
     }
 
     public String getFullName(){

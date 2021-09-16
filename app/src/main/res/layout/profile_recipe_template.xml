@@ -26,15 +26,17 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/takoyaki" />
 
-            <ImageView
-                android:id="@+id/dumpFrame"
-                android:layout_width="210dp"
-                android:layout_height="265dp"
-                android:layout_marginLeft="8dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/roundcorners_image" />
-
         </FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_delete_user_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
