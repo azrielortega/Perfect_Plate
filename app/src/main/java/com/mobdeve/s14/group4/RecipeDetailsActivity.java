@@ -180,8 +180,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             str.setText(recipe.getStepsList().get(ctr));
 
         }
-       
-
+        llCommentCont.removeAllViews();
+        // load the reviews for this recipe
         loadReviews();
 
         this.clIngredients.setVisibility(View.VISIBLE);
