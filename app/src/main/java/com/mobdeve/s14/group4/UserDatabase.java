@@ -139,12 +139,18 @@ public class UserDatabase {
      * @param newUser  new details to be updated
      * */
     public void updateCurrentUser(User newUser){
+
+        Log.d("editprofiletag", "UPDATING CURRENT USER");
         User user = DataHelper.user;
+
+        //User user = new User();
+
 
         String username = newUser.getUsername().trim();
         if (!username.isEmpty()){
             user.setUsername(username);
         }
+
 
         String firstName = newUser.getFirstName().trim();
         if (!firstName.isEmpty()){
@@ -155,19 +161,25 @@ public class UserDatabase {
         if (!lastName.isEmpty()){
             user.setLastName(lastName);
         }
-
-        String email = newUser.getEmail().trim();
-        if (!email.isEmpty()){
-            user.setEmail(email);
+        else{
+            user.setLastName("");
         }
 
-        String password = newUser.getPassword().trim();
-        if (!password.isEmpty()){
-            user.setPassword(password);
+        if(newUser.getEmail() != null) {
+            String email = newUser.getEmail().trim();
+            if (!email.isEmpty()) {
+                user.setEmail(email);
+            }
+        }
+
+        if(newUser.getProfile_Image() != null) {
+            UploadImage profile_pic = newUser.getProfile_Image();
+            if (profile_pic != null) {
+                user.setProfile_Image(profile_pic);
+            }
         }
 
         //TODO: set birthday
-
         databaseReference.child(user.getUserId()).setValue(user);
     }
 

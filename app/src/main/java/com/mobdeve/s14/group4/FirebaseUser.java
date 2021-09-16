@@ -20,10 +20,13 @@ public class FirebaseUser {
     private ArrayList<String> userRecipesList;
     private ArrayList<String> faveRecipesList;
 
+    private UploadImage profile_pic;
+
 
     public FirebaseUser(){
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
+        this.profile_pic = null;
     }
 
     public FirebaseUser(String id, String fName, String lName){
@@ -66,6 +69,14 @@ public class FirebaseUser {
 
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
+    }
+
+    public UploadImage getProfile_Image (){
+        return this.profile_pic;
+    }
+
+    public void setProfile_Image (UploadImage p){
+        this.profile_pic = p;
     }
 
     public String getBirthday(){

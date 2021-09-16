@@ -1,8 +1,10 @@
 package com.mobdeve.s14.group4;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,11 +12,15 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,9 +28,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -40,7 +50,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ImageView ivEmail;
 
-    private Uri dataPic;
+    private Uri imageUri;
+
+    private StorageReference storageRef;
 
     public static final int IMAGE_GALLERY_REQUEST_EP = 21;
 
@@ -48,6 +60,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
+        storageRef = FirebaseStorage.getInstance().getReference("profile_pics");
 
         this.initComponents();
     }
@@ -69,9 +82,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                 String path = pictureDirectory.getPath();
 
-                dataPic = Uri.parse(path);
+                imageUri = Uri.parse(path);
 
-                i.setDataAndType(dataPic, "image/*");
+                i.setDataAndType(imageUri, "image/*");
 
                 startActivityForResult(i, IMAGE_GALLERY_REQUEST_EP);
             }
@@ -83,8 +96,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(TextUtils.isEmpty(etName.getText()) ||
-                        TextUtils.isEmpty(etUsername.getText() )||
-                        TextUtils.isEmpty(etEmail.getText())){
+                        TextUtils.isEmpty(etUsername.getText())){
 
                     if(TextUtils.isEmpty(etName.getText()))
                         etName.setError("Name is Required");
@@ -101,15 +113,31 @@ public class EditProfileActivity extends AppCompatActivity {
                     Toast.makeText(EditProfileActivity.this, "Fill Up All Values", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    String fname, lname, username, email;
-                    String [] fullName;
+
+                    User newUser = new User();
+
+                    String fname, username, email;
+                    String lname = "";
+                    String [] fullName = etName.getText().toString().trim().split(" ");
+
+                    fname = fullName[0];
+
+                    //combine remaining name to last name
+                    for (int i = 1; i < fullName.length; i++){
+                        lname = lname.concat(fullName[i] + " ");
+                    }
 
                     if (etEmail.isShown()){
                         email = etEmail.getText().toString().trim();
+                        newUser.setEmail(email);
                     }
-
                     username = etUsername.getText().toString().trim();
-                    fullName = etName.getText().toString().trim().split(" ");
+
+                    newUser.setUsername(username);
+                    newUser.setFirstName(fname);
+                    newUser.setLastName(lname);
+
+                    uploadFile(newUser);
 
                     finish();
                 }
@@ -117,6 +145,58 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         loadInfo();
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    private void uploadFile(User user){
+        if (imageUri != null){
+            final StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            UploadTask uploadTask = fileRef.putFile(imageUri);
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        String downloadURL = downloadUri.toString();
+
+                        UploadImage upload = new UploadImage ("profilePic", downloadURL);
+                        user.setProfile_Image(upload);
+
+                        //upload everything to DB;
+                        new UserDatabase().updateCurrentUser(user);
+
+                        Toast.makeText(EditProfileActivity.this, "Updated User - w/ pic", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    } else {
+                        // Handle failures
+                        // ...
+                        Toast.makeText(EditProfileActivity.this, "FAIL ADDING RECIPE", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else{
+            new UserDatabase().updateCurrentUser(user);
+            Toast.makeText(EditProfileActivity.this, "Updated User - w/o pic", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     private void loadInfo() {
@@ -162,8 +242,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if(resultCode == RESULT_OK){
             if(requestCode == IMAGE_GALLERY_REQUEST_EP){
-                dataPic = data.getData();
-                Picasso.with(this).load(dataPic).into(ivPic);
+                imageUri = data.getData();
+                Picasso.with(this).load(imageUri).into(ivPic);
             }
             else{
                 finish();

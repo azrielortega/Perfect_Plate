@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ProfileAdapter adapter;
 
     private ImageView ivEdit;
+    private ImageView ivProfilePic;
     private TextView tvName;
     private TextView tvUsername;
     private TextView tvRecipes;
@@ -76,6 +80,17 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibBack = findViewById(R.id.ib_profile_back);
         this.ibAdd = findViewById(R.id.ib_profile_add);
         this.btnLogout = findViewById(R.id.btn_profile_logout);
+        this.ivProfilePic = findViewById(R.id.profile_iv_profile_pic);
+
+        User user = DataHelper.user;
+
+        /* loads picture
+        Picasso.with(ProfileActivity.this)
+                .load("")
+                .placeholder(R.drawable.vectorperson)
+                .fit()
+                .centerCrop()
+                .into(ivProfilePic);*/
 
         tvName.setText(DataHelper.user.getFullName());
         tvUsername.setText(DataHelper.user.getUsername());
@@ -97,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ProfileActivity.this, CreateRecipeActivity1.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -112,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                ProfileActivity.this.startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -134,5 +149,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         adapter = new ProfileAdapter(DataHelper.user.getUserRecipes());
         rvRecipes.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.recreate();
     }
 }
