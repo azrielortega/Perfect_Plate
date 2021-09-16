@@ -190,7 +190,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
     private void failedRegistration(){
         this.btnSignUp.setVisibility(View.GONE);
-        Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "SIGN UP FAIL", Toast.LENGTH_SHORT).show();
 
         Intent i = new Intent(SignUpActivity2.this, MainActivity.class);
         startActivity(i);

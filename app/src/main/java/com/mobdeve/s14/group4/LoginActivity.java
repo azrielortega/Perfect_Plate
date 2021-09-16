@@ -144,7 +144,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void failedLogin(){
         //this.btnNext.setVisibility(View.GONE);
-        Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "LOG IN FAIL", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i);
+
+        finish();
 
     }
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> data;
     private ImageButton ibBack;
+    private TextView tvNoFave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,16 @@ public class ViewFavoritesActivity extends AppCompatActivity {
         
         initRecyclerView();
         initComponents();
+
+        if (data.size() < 1){
+            tvNoFave.setVisibility(View.VISIBLE);
+        } else {
+            tvNoFave.setVisibility(View.GONE);
+        }
     }
 
     private void initComponents() {
-
+        tvNoFave = findViewById(R.id.tv_no_favorites);
         ibBack = findViewById(R.id.ib_favorite_back);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
