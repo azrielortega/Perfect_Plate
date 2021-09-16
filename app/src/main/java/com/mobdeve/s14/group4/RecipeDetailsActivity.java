@@ -285,7 +285,26 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //notify the adapter about changes
+        //TODO: convert to recycler view
+        llCommentCont.removeAllViews();
+        for (Review review : DataHelper.allReviews){
+            Log.d("recipedetailsid", review.getRecipeId());
+            if (review.getRecipeId().equals(recipe.getId())) {
+                View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
+                llCommentCont.addView(commentLayout);
+
+                TextView name = commentLayout.findViewById(R.id.tv_review_name);
+                TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
+                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
+
+                Log.d("REVIEWTEST", review.getId());
+                Log.d("REVIEWTEST", review.getComment());
+                name.setText(review.getContributorName());
+                comment.setText(review.getComment());
+            }
+        }
+
+
     }
 
     @Override
