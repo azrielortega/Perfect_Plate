@@ -9,7 +9,6 @@ public class FirebaseUser {
     private String password;
     private String username;
 
-    private int userPic;
     private String firstName;
     private String lastName;
 
@@ -41,7 +40,6 @@ public class FirebaseUser {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userPic = R.drawable.person_gray;
 
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
@@ -53,7 +51,6 @@ public class FirebaseUser {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userPic = R.drawable.person_gray;
         this.birthday = birthday;
 
         this.userRecipesList = new ArrayList<String>();
@@ -65,7 +62,6 @@ public class FirebaseUser {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userPic = R.drawable.person_gray;
 
         this.userRecipesList = new ArrayList<String>();
         this.faveRecipesList = new ArrayList<String>();
@@ -101,10 +97,6 @@ public class FirebaseUser {
 
     public String getPassword(){
         return this.password;
-    }
-
-    public int getUserPic(){
-        return this.userPic;
     }
 
     public String getFirstName(){
@@ -152,10 +144,6 @@ public class FirebaseUser {
         this.password = password;
     }
 
-    public void setUserPic(int pic){
-        this.userPic = pic;
-    }
-
     public void setFirstName(String firstName){
         this.firstName = firstName;
     }
@@ -176,10 +164,6 @@ public class FirebaseUser {
         this.faveRecipesList = recipeList;
     }
 
-//    public boolean equalsGoogleId(String id){
-//        return this.googleId.equals(id);
-//    }
-
     public FirebaseUser duplicateUser(){
         FirebaseUser user = new FirebaseUser();
 
@@ -189,7 +173,6 @@ public class FirebaseUser {
         user.setEmail(this.email);
         user.setPassword(this.password);
 
-        user.setUserPic(this.userPic);
         user.setFirstName(this.firstName);
         user.setLastName(this.lastName);
 

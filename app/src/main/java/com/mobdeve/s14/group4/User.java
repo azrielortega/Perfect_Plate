@@ -15,7 +15,6 @@ public class User extends FirebaseUser{
         setEmail(user.getEmail());
         setPassword(user.getPassword());
 
-        setUserPic(user.getUserPic());
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
 
