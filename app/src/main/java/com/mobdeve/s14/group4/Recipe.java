@@ -66,9 +66,11 @@ public class Recipe extends FirebaseRecipe
     }
 
     public String getRatingString() {
-        DecimalFormat value = new DecimalFormat("#.#");
-
-        return value.format(getRating());
+        if (getRating() > 0){
+            DecimalFormat value = new DecimalFormat("#.#");
+            return value.format(getRating());
+        }
+        return "0.0";
     }
 
     public ArrayList<Ingredient> getIngredientDetailsList(){
@@ -127,7 +129,7 @@ public class Recipe extends FirebaseRecipe
         DataHelper.recipeDatabase.updateReviewCount(getId(), newCount);
 
         double rating = getRating();
-        rating = (rating / newCount) * (count / newCount) + (newRating / newCount);
+        rating = (rating * count / newCount) + (newRating / newCount);
 
         //update lists
         setRating(rating);
@@ -143,11 +145,18 @@ public class Recipe extends FirebaseRecipe
 
         if (newCount > 0){
             double rating = getRating();
-            rating = (rating / newCount) * (count / newCount) - (removeRating / newCount);
+            rating = (rating * count / newCount) - (removeRating / newCount);
+
+            if (rating < 0)
+                rating = 0;
 
             //update lists
             setRating(rating);
             DataHelper.recipeDatabase.updateRating(getId(), rating);
+        }
+        else{
+            setRating(0);
+            DataHelper.recipeDatabase.updateRating(getId(), 0);
         }
     }
 

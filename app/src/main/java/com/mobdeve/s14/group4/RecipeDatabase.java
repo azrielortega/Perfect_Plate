@@ -77,13 +77,17 @@ public class RecipeDatabase {
      * Find recipes from data helper
      * */
     public ArrayList<Recipe> findRecipes(ArrayList<String> recipeIds){
+        ArrayList<String> clone = (ArrayList<String>) recipeIds.clone();
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
-        for (String id : recipeIds){
+        for (String id : clone){
             Recipe recipe = findRecipe(id);
 
             if (recipe != null){
                 recipes.add(recipe);
+            }
+            else{
+                recipeIds.remove(id);
             }
         }
 
@@ -102,19 +106,19 @@ public class RecipeDatabase {
     }
 
     public void updateRating(String id, double rating){
-        if (rating > 0){
+        if (rating >= 0){
             this.databaseReference.child(id).child("rating").setValue(rating);
         }
     }
 
     public void updateFaveCount(String id, long faveCount){
-        if (faveCount > 0){
+        if (faveCount >= 0){
             this.databaseReference.child(id).child("faveCount").setValue(faveCount);
         }
     }
 
     public void updateReviewCount(String id, long reviewCount){
-        if (reviewCount > 0){
+        if (reviewCount >= 0){
             this.databaseReference.child(id).child("reviewCount").setValue(reviewCount);
         }
     }

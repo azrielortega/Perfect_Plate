@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private TextView tvEmpty;
-    private int reviewCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,10 +274,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     public void loadReviews(){
         //TODO: convert to recycler view
         llCommentCont.removeAllViews();
-        reviewCount = 0;
+
         for (Review review : DataHelper.allReviews){
             if (review.getRecipeId().equals(recipe.getId())) {
-                reviewCount += 1;
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
@@ -297,9 +296,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 ivDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        reviewCount -= 1;
-                        Log.d("DELETEreview.getId()", review.getId());
                         DataHelper.reviewDatabase.deleteReview(review);
+                        Log.d("DELETEreview.getId()", review.getId());
                         llCommentCont.removeView(commentLayout);
                         loadCounters();
 
@@ -324,7 +322,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         }
 
-        if(reviewCount < 1){
+        if(recipe.getReviewCount() < 1){
             this.tvEmpty.setVisibility(View.VISIBLE);
         } else{
             this.tvEmpty.setVisibility(View.GONE);
@@ -341,7 +339,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     public void loadCounters(){
         this.tvStarsSummary.setText(recipe.getRatingString());
 
-        String revCtr = reviewCount + " reviews";
+        String revCtr = recipe.getReviewCount() + " reviews";
         this.tvReviewCount.setText(revCtr);
 
         this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
