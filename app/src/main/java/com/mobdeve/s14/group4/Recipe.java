@@ -49,7 +49,7 @@ public class Recipe extends FirebaseRecipe
                   String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList, UploadImage image){
         super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image);
     }
-    
+
     public UploadImage getContributorPic(){
         if (contributor != null){
             return contributor.getProfile_Image();

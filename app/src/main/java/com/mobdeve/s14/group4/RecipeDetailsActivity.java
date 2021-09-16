@@ -62,9 +62,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
-    private DatabaseReference reviewsDatabaseReference;
-    private FirebaseDatabase database;
-
     private TextView tvEmpty;
     private int reviewCount;
 
@@ -128,7 +125,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         // set user
         this.tvContributorName.setText(recipe.getContributorName());
 
-
         //set pic
         Picasso.with(this)
                 .load(recipe.getUploadImage().getmImageUrl())
@@ -136,6 +132,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 .fit()
                 .centerCrop()
                 .into(this.ivRecipePic);
+
+        //set liked
+        for (Recipe tempRecipe : DataHelper.user.getFaveRecipes()){
+            if (recipe.getId().equals(tempRecipe.getId())){
+                setLiked();
+                break;
+            }
+        }
 
         // set ingredients
         for (Ingredient ingredient : recipe.getIngredientDetailsList()){
@@ -349,5 +353,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         if (resultCode == 1){
             llComment2.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setLiked(){
+        fabHeart.setImageResource(R.drawable.heart_on);
+        liked = true;
+        fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
     }
 }
