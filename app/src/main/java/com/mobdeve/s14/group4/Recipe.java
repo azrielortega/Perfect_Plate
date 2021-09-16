@@ -121,10 +121,13 @@ public class Recipe extends FirebaseRecipe
 
     public void addRating(double newRating){
         int count = getReviewCount();
-        setReviewCount(count + 1);
+        int newCount = count + 1;
+
+        setReviewCount(newCount);
+        DataHelper.recipeDatabase.updateReviewCount(getId(), newCount);
 
         double rating = getRating();
-        rating = (rating / getReviewCount()) * (count / getReviewCount()) + (newRating / getReviewCount());
+        rating = (rating / newCount) * (count / newCount) + (newRating / newCount);
 
         //update lists
         setRating(rating);
@@ -133,11 +136,14 @@ public class Recipe extends FirebaseRecipe
 
     public void removeRating(double removeRating){
         int count = getReviewCount();
-        setReviewCount(count - 1);
+        int newCount = count - 1;
 
-        if (getReviewCount() > 0){
+        setReviewCount(newCount);
+        DataHelper.recipeDatabase.updateReviewCount(getId(), newCount);
+
+        if (newCount > 0){
             double rating = getRating();
-            rating = (rating / getReviewCount()) * (count / getReviewCount()) - (removeRating / getReviewCount());
+            rating = (rating / newCount) * (count / newCount) - (removeRating / newCount);
 
             //update lists
             setRating(rating);
