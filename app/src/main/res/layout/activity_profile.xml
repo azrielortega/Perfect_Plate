@@ -45,7 +45,7 @@
         android:id="@+id/profile_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Firstname Lastname"
         android:textAlignment="center"
@@ -53,7 +53,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toTopOf="@+id/guideline23" />
 
     <TextView
         android:id="@+id/profileRecipeDump2"
@@ -98,18 +98,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_username" />
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/roundedcorners_allcorners_bg"
-        android:backgroundTint="#D0CCCC"
-        app:layout_constraintBottom_toTopOf="@+id/guideline23"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline22" />
-
-    <TextView
         android:id="@+id/textView12"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
@@ -120,6 +108,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_norecipes" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_profile_card"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shadow"
+        android:clipToPadding="false"
+        android:elevation="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline22">
+
+        <ImageView
+            android:id="@+id/profile_iv_profile_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/popular1" />
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_rv_recipes"
         android:layout_width="0dp"
@@ -128,7 +141,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileRecipeDump2" />
+        app:layout_constraintTop_toBottomOf="@id/profileRecipeDump2" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <ImageView
         android:id="@+id/profile_iv_edit"
@@ -140,17 +155,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline19"
         app:srcCompat="@drawable/settings" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:backgroundTint="#717171"
-        app:layout_constraintBottom_toTopOf="@+id/guideline23"
-        app:layout_constraintEnd_toEndOf="@+id/textView11"
-        app:layout_constraintStart_toStartOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/guideline22"
-        app:srcCompat="@drawable/person_gray" />
 
     <ImageButton
         android:id="@+id/ib_profile_back"
