@@ -9,33 +9,27 @@ import java.io.Serializable;
 public class Review {
     private String reviewId;
     private String comment;
-    private float rating;
-    private String contributorId;
+    private double rating;
     private String recipeId;
-    private String contribName;
 
-    public Review(){}
+    private User contributor;
 
-
-    public Review(String contributorId, float rating, String comment, String recipeId){
-       this.contributorId = contributorId;
-       this.rating = rating;
-       this.comment = comment;
-       this.recipeId = recipeId;
+    public Review(){
     }
 
-    public Review(String reviewId, String contributorId, float rating, String comment, String recipeId){
-        this.reviewId = reviewId;
-        this.contributorId = contributorId;
+    public Review(User contributor, double rating, String comment, String recipeId){
+        this.contributor = contributor;
         this.rating = rating;
         this.comment = comment;
         this.recipeId = recipeId;
+    }
 
-        for(int i = 0; i < DataHelper.allUsers.size(); i++){
-            if(contributorId.equals(DataHelper.allUsers.get(i).getUserId())){
-                this.contribName = DataHelper.allUsers.get(i).getFirstName();
-            }
-        }
+    public Review(String reviewId, String contributorId, double rating, String comment, String recipeId){
+        this.reviewId = reviewId;
+        setContributorId(contributorId);
+        this.rating = rating;
+        this.comment = comment;
+        this.recipeId = recipeId;
     }
 
     public String getId(){ return this.reviewId; }
@@ -44,21 +38,37 @@ public class Review {
         return this.comment;
     }
 
-    public float getRating(){
+    public double getRating(){
         return this.rating;
     }
 
     public String getContributorId(){
-        return this.contributorId;
+        return this.contributor.getUserId();
     }
-
-    public void setId(String id) { this.reviewId = id; }
 
     public String getRecipeId(){
         return this.recipeId;
     }
 
-    public String getContribName() {
-        return this.contribName;
+    public String getContributorName() {
+        return this.contributor.getFullName();
+    }
+
+    public void setId(String id) { this.reviewId = id; }
+
+    public void setComment(String comment){
+        this.comment = comment;
+    }
+
+    public void setRating(double rating){
+        this.rating = rating;
+    }
+
+    public void setContributorId(String id){
+        this.contributor = DataHelper.userDatabase.findUser(id);
+    }
+
+    public void setRecipeId(String id){
+        this.recipeId = id;
     }
 }

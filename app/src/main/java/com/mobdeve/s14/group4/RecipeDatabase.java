@@ -80,7 +80,11 @@ public class RecipeDatabase {
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
         for (String id : recipeIds){
-            recipes.add(findRecipe(id));
+            Recipe recipe = findRecipe(id);
+
+            if (recipe != null){
+                recipes.add(recipe);
+            }
         }
 
         return recipes;
@@ -95,11 +99,6 @@ public class RecipeDatabase {
         this.databaseReference.child(key).setValue(recipe.getFirebaseRecipe());
 
         return key;
-    }
-
-    public String addReview(Review r){
-        Log.d("recipedbrecipeid", r.getRecipeId());
-        return this.reviewDatabase.addReview(r);
     }
 
     public void updateRecipe(String id, Recipe recipe){

@@ -46,61 +46,15 @@ public class WriteReviewActivity extends AppCompatActivity {
             }
         });
 
-        /*this.ibSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int numStars = rbRating.getNumStars();
-                float rating = rbRating.getRating();
-                Log.d("RATING", String.valueOf(rating));
-                String rev = etReview.getText().toString();
-
-
-                Log.d("recipeId", recipeId);
-                Recipe recipe = DataHelper.recipeDatabase.findRecipe(recipeId);
-
-
-                /////////////////////////////TEMP
-                String contributorId = "9GqIbsKba4Mi1p75l7HvGkg5nJh1";
-
-                ReviewDatabase db = new ReviewDatabase();
-                Review review = new Review(contributorId, rating, rev, recipe.getId());
-
-                recipe.addReview(review);
-                Log.d("reviewsize", String.valueOf(recipe.getReviewList().size()));
-
-                Log.d("REVIEWWW", recipe.getId());
-                System.out.println(review.getRecipeId());
-                //adding review to realtime database
-//                recipe.addReview(review);
-
-
-                finish();
-            }
-        });*/
-
         this.ibSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numStars = rbRating.getNumStars();
                 float rating = rbRating.getRating();
-                Log.d("RATING", String.valueOf(rating));
-                String rev = etReview.getText().toString();
+                String reviewText = etReview.getText().toString();
 
-                RecipeDatabase rb = new RecipeDatabase();
+                Review review = new Review(DataHelper.user, rating, reviewText, recipeId);
 
-                RecipeDatabase fr = new RecipeDatabase();
-                Recipe r = fr.findRecipe(recipeId);
-
-                /////////////////////////////TEMP
-                String contributorId = "9GqIbsKba4Mi1p75l7HvGkg5nJh1";
-
-                ReviewDatabase db = new ReviewDatabase();
-                Review review = new Review(contributorId, rating, rev, r.getId());
-
-                Log.d("REVIEWWW", r.getId());
-                System.out.println(review.getRecipeId());
-                //adding review to realtime database
-                fr.addReview(review);
+                DataHelper.reviewDatabase.addReview(review);
 
                 finish();
             }

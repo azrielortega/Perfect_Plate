@@ -1,13 +1,10 @@
 package com.mobdeve.s14.group4;
 
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,17 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private Recipe recipe;
@@ -74,10 +65,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
 
     private TextView tvEmpty;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +118,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         //this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
         this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
         this.tvReviewCount.setText(String.valueOf(recipe.getReviewCount()).concat(" reviews"));
-        String temp = "Category: ".concat(recipe.getCategory());
 
+        String temp = "Category: ".concat(recipe.getCategory());
+        this.tvCategory.setText(temp);
 
         Log.d("CONTRIBUTORID", recipe.getContributorId());
 
@@ -176,44 +164,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         }
 
-    // set comments and reviews
-        //TODO: find reviews
-
-        boolean empty = true;
-//        for (Review review : recipe.getReviewList()){
-//            Log.d("RECIPEREVIEWSIZE", String.valueOf(recipe.getReviewList().size()));
-//
-//            empty = false;
-//            View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
-//            llCommentCont.addView(commentLayout);
-//
-//            TextView name = commentLayout.findViewById(R.id.tv_review_name);
-//            TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
-//            ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
-//
-//            Log.d("REVIEWTEST", review.getId());
-//            // Log.d("DETAILSCOMMENT", review.getComment());
-//
-//            name.setText(review.getContribName());
-//            comment.setText(review.getComment());
-//        }
-
-        float stars = 0;
-        int reviewCtr = 0;
-
         Log.d("AAA", recipe.getId());
-        for(int ctr = 0; ctr < DataHelper.allReviews.size(); ctr++){
-            Log.d("recipedetailsid", DataHelper.allReviews.get(ctr).getRecipeId());
-            if (DataHelper.allReviews.get(ctr).getRecipeId().equals(recipe.getId())) {
-                Review review = DataHelper.allReviews.get(ctr);
 
-
-                //recipe.addReview(review);
-                stars += review.getRating();
-                reviewCtr += 1;
-
-
-                empty = false;
+        //TODO: convert to recycler view
+        for (Review review : DataHelper.allReviews){
+            Log.d("recipedetailsid", review.getRecipeId());
+            if (review.getRecipeId().equals(recipe.getId())) {
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
@@ -223,57 +179,18 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
                 Log.d("REVIEWTEST", review.getId());
                 Log.d("REVIEWTEST", review.getComment());
-                name.setText(review.getContribName());
+                name.setText(review.getContributorName());
                 comment.setText(review.getComment());
-//                recipe.getReviewList().clear();
             }
         }
-        Log.d("REVIEWSIZE", String.valueOf(recipe.getReviewList().size()));
 
-        //rating
+        tvStarsSummary.setText(recipe.getRatingString());
 
-        if (reviewCtr > 0){
-            DecimalFormat value = new DecimalFormat("#.#");
-            float totalRating = (stars/reviewCtr);
-            String rating  = value.format(totalRating); 
-            tvStarsSummary.setText(String.valueOf(rating));
-        } else {
-            tvStarsSummary.setText("0.0");
-        }
-
-
-
-
-
-        if(empty){
+        if(recipe.getReviewCount() > 0){
             this.tvEmpty.setVisibility(View.VISIBLE);
         } else{
             this.tvEmpty.setVisibility(View.GONE);
         }
-
-
-//        boolean empty = true;
-//        for (int ctr = 0; ctr < HomeActivity.reviewList.size(); ctr++){
-//
-//            if (fr.getId().equalsIgnoreCase(HomeActivity.reviewList.get(ctr).getRecipeId())){
-//                empty = false;
-//                View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
-//                llCommentCont.addView(commentLayout);
-//
-//                TextView name = commentLayout.findViewById(R.id.tv_review_name);
-//                TextView comment = commentLayout.findViewById(R.id.tv_review_comment);
-//                ImageView pic = commentLayout.findViewById(R.id.iv_review_user_pic);
-//
-//                name.setText(HomeActivity.reviewList.get(ctr).getContribName());
-//                comment.setText(HomeActivity.reviewList.get(ctr).getComment());
-//            }
-//        }
-//
-//        if(empty){
-//            this.tvEmpty.setVisibility(View.VISIBLE);
-//        } else{
-//            this.tvEmpty.setVisibility(View.GONE);
-//        }
 
         this.clIngredients.setVisibility(View.VISIBLE);
 
@@ -286,8 +203,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
 
         this.tvIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,8 +280,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //notify the adapter about changes
     }
 
     @Override
@@ -376,6 +295,4 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             llComment2.setVisibility(View.VISIBLE);
         }
     }
-
-
 }

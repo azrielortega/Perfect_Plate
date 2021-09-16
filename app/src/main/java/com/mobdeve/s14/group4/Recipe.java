@@ -3,18 +3,17 @@ package com.mobdeve.s14.group4;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Recipe extends FirebaseRecipe
 {
     private User contributor;
     private ArrayList<Ingredient> ingredientDetailsList;
-    private ArrayList<Review> reviewList;
 
     public Recipe() {
         super();
         this.ingredientDetailsList = new ArrayList<Ingredient>();
-        this.reviewList = new ArrayList<Review>();
     }
 
     public Recipe(FirebaseRecipe firebaseRecipe){
@@ -41,16 +40,14 @@ public class Recipe extends FirebaseRecipe
         setIngredientsList(firebaseRecipe.getIngredientsList());
         setStepsList(firebaseRecipe.getStepsList());
         setUploadImage(firebaseRecipe.getUploadImage());
-        setReviewList(firebaseRecipe.getReviewArrayList());
 
         this.ingredientDetailsList = DataHelper.ingredientDatabase.findIngredients(firebaseRecipe.getIngredientsList());
-        this.reviewList = DataHelper.reviewDatabase.findReviews(firebaseRecipe.getIngredientsList());
     }
 
     //with id from database
     public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList, UploadImage image, ArrayList<String> reviews){
-        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image, reviews);
+                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList, UploadImage image){
+        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image);
     }
 
     public int getContributorPic(){
@@ -70,15 +67,13 @@ public class Recipe extends FirebaseRecipe
     }
 
     public String getRatingString() {
-        return String.valueOf(getRating());
+        DecimalFormat value = new DecimalFormat("#.#");
+
+        return value.format(getRating());
     }
 
     public ArrayList<Ingredient> getIngredientDetailsList(){
         return this.ingredientDetailsList;
-    }
-
-    public ArrayList<Review> getReviewList(){
-        return this.reviewList;
     }
 
     public FirebaseRecipe getFirebaseRecipe(){
@@ -98,7 +93,6 @@ public class Recipe extends FirebaseRecipe
 
         firebaseRecipe.setIngredientsList(getIngredientsList());
         firebaseRecipe.setStepsList(getStepsList());
-        firebaseRecipe.setReviewList(getReviewArrayList());
 
         firebaseRecipe.setCookingTime(getCookingTime());
         firebaseRecipe.setPrepTime(getPrepTime());
@@ -126,15 +120,14 @@ public class Recipe extends FirebaseRecipe
         addIngredientId(id);
     }
 
-    public void addReview(Review review){
-        Log.d("INRECIPEADDREVIEW", "INRECIPEADDREVIEW");
-        //get ingredient from db
-        String id = DataHelper.reviewDatabase.addReview(review);
+    public void addRating(double newRating){
+        int count = getReviewCount();
+        setReviewCount(count + 1);
 
-        //add reviews to both lists
-        review.setId(id);
-        this.reviewList.add(review);
-        addReviewId(id);
+        double rating = getRating();
+        rating = (rating / getReviewCount()) * (count / getReviewCount()) + (newRating / getReviewCount());
+
+        setRating(rating);
     }
 
     public void setContributor(User user){

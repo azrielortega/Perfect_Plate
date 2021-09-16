@@ -29,11 +29,18 @@ public class ReviewDatabase {
 //    public void
 
     public String addReview(Review review){
-        String key = this.databaseReference.push().getKey();
+        String key = "empty";
+        Recipe recipe = DataHelper.recipeDatabase.findRecipe(review.getRecipeId());
 
-        review.setId(key);
+        if (recipe != null){
+            key = this.databaseReference.push().getKey();
 
-        this.databaseReference.child(key).setValue(review);
+            review.setId(key);
+
+            this.databaseReference.child(key).setValue(review);
+
+            DataHelper.allReviews.add(review);
+        }
 
         return key;
     }
@@ -43,7 +50,7 @@ public class ReviewDatabase {
      * */
     public Review findReview(String reviewId){
         for (Review review : DataHelper.allReviews){
-            if(reviewId.equalsIgnoreCase(review.getId())){
+            if(reviewId.equals(review.getId())){
                 return review;
             }
         }
@@ -63,9 +70,6 @@ public class ReviewDatabase {
 
         return reviews;
     }
-
-
-
 
     public void getAllReviews(final CallbackListener callbackListener){
         ArrayList<Review> reviews = new ArrayList<Review>();
