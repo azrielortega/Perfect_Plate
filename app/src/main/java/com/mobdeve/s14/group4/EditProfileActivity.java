@@ -74,6 +74,19 @@ public class EditProfileActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.editprofile_et_email);
         ivEmail = findViewById(R.id.editprofile_iv_email);
 
+        if(DataHelper.user.getFirebaseUser().getProfile_Image() != null){
+            Log.d("userPic", DataHelper.user.getFirebaseUser().getProfile_Image().getmImageUrl());
+            Picasso.with(EditProfileActivity.this)
+                    .load(DataHelper.user.getFirebaseUser().getProfile_Image().getmImageUrl())
+                    .placeholder(R.drawable.vectorperson)
+                    .fit()
+                    .centerCrop()
+                    .into(ivPic);
+        }
+        else{
+            ivPic.setImageResource(R.drawable.vectorperson);
+        }
+
         ivPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +205,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }else{
             new UserDatabase().updateCurrentUser(user);
             Toast.makeText(EditProfileActivity.this, "Updated User Successfully!", Toast.LENGTH_SHORT).show();
-
+            finish();
         }
 
     }

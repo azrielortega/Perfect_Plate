@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         User user = DataHelper.user;
 
-        if(user.getFirebaseUser().getProfile_Image().getmImageUrl() != null){
+        if(user.getFirebaseUser().getProfile_Image() != null){
             Log.d("userPic", user.getFirebaseUser().getProfile_Image().getmImageUrl());
             Picasso.with(ProfileActivity.this)
                     .load(user.getFirebaseUser().getProfile_Image().getmImageUrl())
@@ -97,7 +97,6 @@ public class ProfileActivity extends AppCompatActivity {
             ivProfilePic.setImageResource(R.drawable.vectorperson);
         }
 
-        // loads picture
 
         tvName.setText(DataHelper.user.getFullName());
         tvUsername.setText(DataHelper.user.getUsername());
