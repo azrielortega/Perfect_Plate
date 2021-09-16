@@ -101,17 +101,6 @@ public class RecipeDatabase {
         return key;
     }
 
-    public void updateRecipe(String id, Recipe recipe){
-        //update rating
-        updateRating(id, recipe.getRating());
-
-        //update faveCount
-        updateFaveCount(id, recipe.getFaveCount());
-
-        //update reviewCount
-        updateReviewCount(id, recipe.getReviewCount());
-    }
-
     public void updateRating(String id, double rating){
         if (rating > 0){
             this.databaseReference.child(id).child("rating").setValue(rating);

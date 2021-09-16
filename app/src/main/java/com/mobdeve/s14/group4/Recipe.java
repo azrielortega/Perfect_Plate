@@ -127,7 +127,9 @@ public class Recipe extends FirebaseRecipe
         double rating = getRating();
         rating = (rating / getReviewCount()) * (count / getReviewCount()) + (newRating / getReviewCount());
 
+        //update lists
         setRating(rating);
+        DataHelper.recipeDatabase.updateRating(getId(), rating);
     }
 
     public void setContributor(User user){
