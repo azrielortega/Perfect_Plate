@@ -1,5 +1,8 @@
 package com.mobdeve.s14.group4;
 
+import android.content.Context;
+import android.os.Handler;
+import android.telecom.Call;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -10,11 +13,13 @@ public class DataHelper {
     public static User user;
 
     public static ArrayList<User> allUsers;
+
     public static ArrayList<Recipe> allRecipes;
-    public static ArrayList<Recipe> sortedRecipes;
     public static int popularRecipesCount;
     public static ArrayList<Recipe> popularRecipes;
+
     public static ArrayList<Ingredient> allIngredients;
+
     public static ArrayList<Review> allReviews;
 
     public static UserDatabase userDatabase;
@@ -29,6 +34,7 @@ public class DataHelper {
     public static void initDatabase(){
         allUsers = new ArrayList<User>();
         allRecipes = new ArrayList<Recipe>();
+        popularRecipes = new ArrayList<Recipe>();
         allReviews = new ArrayList<Review>();
 
 
@@ -37,12 +43,39 @@ public class DataHelper {
         ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
+        final CallbackListener recipesListener = new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
 
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        };
+
+        refreshDatabase(recipesListener);
+    }
+
+    public static void refreshDatabase(final CallbackListener recipesListener){
         initAllIngredients();
-        initRecipes();
-        initAllUsers();
+        initRecipes(recipesListener);
         initAllReviews();
+        initAllUsers();
+    }
 
+    public static void asyncRefreshDatabase(Context context, final CallbackListener recipesListener){
+        Handler handler = new Handler(context.getMainLooper());
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                DataHelper.refreshDatabase(recipesListener);
+            }
+        };
+
+        handler.post(runnable);
     }
 
     public static void loadUser(String uid){
@@ -73,16 +106,18 @@ public class DataHelper {
         });
     }
 
-    public static void initRecipes(){
+    public static void initRecipes(final CallbackListener listener){
         recipeDatabase.getAllRecipes(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 allRecipes = (ArrayList<Recipe>) o;
                 updatePopularity();
+                listener.onSuccess(allRecipes);
             }
 
             @Override
             public void onFailure() {
+                listener.onFailure();
                 Log.d("FAILURE", "Failed to get recipes");
             }
         });
@@ -121,7 +156,6 @@ public class DataHelper {
 
     public static void addRecipe(Recipe recipe){
         allRecipes.add(recipe);
-        sortedRecipes.add(recipe);
 
         if (popularRecipesCount < 10){
             popularRecipesCount++;
@@ -130,22 +164,19 @@ public class DataHelper {
     }
 
     public static void updatePopularity(){
-        if (popularRecipes != null){
-            popularRecipes.clear();
-        }
+        ArrayList<Recipe> newPopular = (ArrayList<Recipe>) allRecipes.clone();
 
-        popularRecipes = (ArrayList<Recipe>) allRecipes.clone();
-
-        Collections.sort(popularRecipes, new Comparator<Recipe>() {
+        Collections.sort(newPopular, new Comparator<Recipe>() {
             @Override
             public int compare(Recipe o1, Recipe o2) {
-                double o1Fave = o1.getFaveCount();
-                double o2Fave = o2.getFaveCount();
+                int o1Fave = o1.getFaveCount();
+                int o2Fave = o2.getFaveCount();
+
                 if (o1Fave > o2Fave){
-                    return 1;
+                    return -1;
                 }
                 else if (o1Fave < o2Fave){
-                    return -1;
+                    return 1;
                 }
 
                 return 0;
@@ -154,7 +185,8 @@ public class DataHelper {
 
         int recipeCount = allRecipes.size();
         popularRecipesCount = (recipeCount > 10)? 10 : recipeCount;
-        popularRecipes = new ArrayList<>(popularRecipes.subList(0, popularRecipesCount));
+
+        popularRecipes = new ArrayList<>(newPopular.subList(0, popularRecipesCount));
     }
 
     public static void setGlobalUser(User u){

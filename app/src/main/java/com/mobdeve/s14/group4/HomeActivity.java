@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,6 +50,26 @@ public class HomeActivity extends AppCompatActivity {
 
         this.initPopularRecyclerView();
         this.initRecentFeed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final CallbackListener recipesListener = new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                refreshAdapters();
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        };
+
+        DataHelper.asyncRefreshDatabase(getApplicationContext(), recipesListener);
+
     }
 
     private void initComponents(){
@@ -118,66 +139,18 @@ public class HomeActivity extends AppCompatActivity {
 //        Log.d("RECIPE LIST SIZE aaaaaa", String.valueOf(recipeList.size()));
     }
 
-//    private void initUsers(){
-//        usersDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                allIngredientList.clear();
-//                for (DataSnapshot userSnapshot : snapshot.getChildren()){
-//                    String id = userSnapshot.getKey();
-//                    String fName = userSnapshot.child("firstName").getValue().toString();
-//                    String lName = userSnapshot.child("lastName").getValue().toString();
-//
-//                    Log.d("FNAME", fName);
-//                    Log.d("LNAME", lName);
-//                    Log.d("ID", id);
-//
-//                    User u = new User(id, fName, lName);
-//                    userList.add(u);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//                System.out.println("The read failed: " + error.getCode());
-//            }
-//        });
-//    }
+    private void refreshAdapters(){
+        this.recentRecipeList.clear();
+        this.recentRecipeList.addAll(DataHelper.allRecipes);
+        this.recentAdapter.notifyDataSetChanged();
 
-//    private void initReviews(){
-//        //load reviews
-//        reviewsDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                reviewList.clear();
-//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()){
-//                    String reviewId = reviewSnapshot.getKey();
-//                    String contributorId = reviewSnapshot.child("contributorId").getValue().toString();
-//                    float rating = Float.valueOf(reviewSnapshot.child("rating").getValue().toString());
-//                    String comment = reviewSnapshot.child("comment").getValue().toString();
-//                    String recipeId = reviewSnapshot.child("recipeId").getValue().toString();
-//
-//                    Log.d("COMMENT", comment);
-//                    Log.d("CONTID" ,contributorId);
-//
-//                    Review temp = new Review(reviewId, contributorId, rating, comment, recipeId);
-//                    reviewList.add(temp);
-//                }
-//                Log.d("REVIEWSIZE", String.valueOf(reviewList.size()));
-//            }
-//
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//                System.out.println("The read failed: " + error.getCode());
-//            }
-//        });
-//    }
+        this.popularRecipeList.clear();
+        this.popularRecipeList.addAll(DataHelper.popularRecipes);
+        this.popularAdapter.notifyDataSetChanged();
+    }
 
     private void initPopularRecyclerView(){
         this.popularRecipeList = DataHelper.popularRecipes;
-        Log.d("SIZE FINAL", String.valueOf(this.popularRecipeList.size()));
         this.rvPopular = findViewById(R.id.rv_home_popular);
 
         this.popularManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
