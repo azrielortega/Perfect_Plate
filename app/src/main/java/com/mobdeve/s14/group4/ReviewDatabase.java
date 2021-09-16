@@ -100,13 +100,15 @@ public class ReviewDatabase {
     public void deleteReview(Review review){
         int remove_index = -1;
 
+
         Recipe recipe = DataHelper.recipeDatabase.findRecipe(review.getRecipeId());
+        Log.d("recipe.getId()", recipe.getId());
 
         if (recipe != null) {
             recipe.removeRating(review.getRating());
 
             for (int i = 0; i < DataHelper.allReviews.size(); i++) {
-                if (DataHelper.allReviews.get(i).equals(review.getId())) {
+                if (DataHelper.allReviews.get(i).getId().equals(review.getId())) {
                     remove_index = i;
                     break;
                 }
