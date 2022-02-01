@@ -18,4 +18,5 @@
 
     <color name="mobile_green">#37B47E</color>
     <color name="mobile_bg_white">#F4F0EF</color>
+    <color name="mobile_gray">#546681</color>
 </resources>
