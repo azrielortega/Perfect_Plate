@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF9400"
+    android:background="@color/mobile_green"
     tools:context=".SignUpActivity2">
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#FF9400"
+        android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:hint="First Name"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
-        android:backgroundTint="#FF9400"
+        android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:hint="Last Name"
@@ -72,7 +72,7 @@
         android:layout_marginTop="52dp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toBottomOf="@+id/signup2_iv_lname"
-        app:srcCompat="@drawable/perfectplate_birthday" />
+        app:srcCompat="@drawable/ic_bx_bxs_cakebday" />
 
     <ImageView
         android:id="@+id/signup2_iv_lname"
@@ -81,7 +81,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toBottomOf="@+id/signup2_iv_fname"
-        app:srcCompat="@drawable/person" />
+        app:srcCompat="@drawable/ic_user_alt" />
 
     <ImageView
         android:id="@+id/signup2_iv_fname"
@@ -90,16 +90,16 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
-        app:srcCompat="@drawable/person" />
+        app:srcCompat="@drawable/ic_user_alt" />
 
     <TextView
         android:id="@+id/signup2_tv_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Already have an account?"
-        android:textColor="#FF9400"
+        android:textColor="@color/mobile_green"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,13 +111,13 @@
         android:layout_height="40dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/roundercornersbutton"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_bold"
         android:foregroundTint="#FFFFFF"
         android:shadowColor="#7C7979"
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
-        app:backgroundTint="#FF9400"
+        app:backgroundTint="@color/mobile_green"
         app:layout_constraintEnd_toStartOf="@+id/guideline21"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline20"
@@ -213,7 +213,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="44dp"
-        android:backgroundTint="#FF9400"
+        android:backgroundTint="@color/mobile_green"
         android:editable="false"
         android:ems="10"
         android:focusable="false"
