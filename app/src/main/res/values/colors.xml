@@ -15,4 +15,7 @@
     <color name ="proj_blue">#02043f</color>
     <color name ="proj_red_pink">#d30045</color>
     <color name ="proj_orange">#ff9400</color>
+
+    <color name="mobile_green">#37B47E</color>
+    <color name="mobile_bg_white">#F4F0EF</color>
 </resources>
