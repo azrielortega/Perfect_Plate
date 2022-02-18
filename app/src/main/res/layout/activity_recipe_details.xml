@@ -321,7 +321,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="An easy and moist Banana Bread Recipe that is loaded with bananas, tangy-sweet raisins, and toasted walnuts. This is one of our favorite overripe banana recipes with hundreds of 5-star reviews."
+                    android:text="An easy and moist Banana Bread Recipe that is loaded with bananas, tangy-sweet raisins, and toasted walnuts. This is one of our favorite overripe banana books with hundreds of 5-star reviews."
                     android:textColor="#000000"
                     app:layout_constraintBottom_toTopOf="@id/v_details_desc_bot"
                     app:layout_constraintLeft_toLeftOf="parent"

@@ -100,8 +100,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvName.setText(DataHelper.user.getFullName());
         tvUsername.setText(DataHelper.user.getUsername());
-        String recipeCount = "Recipes: " + DataHelper.user.getUserRecipesCount();
-        tvRecipes.setText(recipeCount);
+//        String recipeCount = "Recipes: " + DataHelper.user.getUserRecipesCount();
+//        tvRecipes.setText(recipeCount);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +116,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         ibAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ProfileActivity.this, CreateRecipeActivity1.class);
-                startActivityForResult(i, 1);
+            public void onClick(View v){
+//                Intent i = new Intent(ProfileActivity.this, CreateRecipeActivity1.class);
+//                startActivityForResult(i, 1);
             }
         });
 
@@ -153,7 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvRecipes.setLayoutManager(manager);
 
-        adapter = new ProfileAdapter(DataHelper.user.getUserRecipes());
+//        adapter = new ProfileAdapter(DataHelper.user.getUserRecipes());
         rvRecipes.setAdapter(adapter);
     }
 

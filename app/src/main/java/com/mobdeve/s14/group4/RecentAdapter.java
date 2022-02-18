@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
-    private ArrayList<Recipe> foodList;
+    private ArrayList<Book> foodList;
 
 //    public static final String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
 //    public static final String KEY_RECIPE_PIC = "KEY_RECIPE_PIC";
@@ -27,7 +27,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
 //    public static final String KEY_RECIPE_REVIEWS_COUNT = "KEY_RECIPE_REVIEWS_COUNT";
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
-    public RecentAdapter(ArrayList<Recipe> p){
+    public RecentAdapter(ArrayList<Book> p){
         this.foodList = p;
     }
 
@@ -67,9 +67,9 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecentViewHolder holder, int position) {
-        holder.setIvRecentPic(foodList.get(position).getRecipePic());
-        holder.setTvRecentName(foodList.get(position).getRecipeName());
-        holder.setTvRecentAuthor(foodList.get(position).getContributorName());
+        holder.setIvRecentPic(foodList.get(position).getBookPic());
+        holder.setTvRecentName(foodList.get(position).getBookName());
+//        holder.setTvRecentAuthor(foodList.get(position).getContributorName());
         holder.setTvRecentRatings(foodList.get(position).getRatingString());
         holder.setTvRecentReviews(foodList.get(position).getReviewCount());
         holder.setTvRecentHearts(foodList.get(position).getFaveCount());

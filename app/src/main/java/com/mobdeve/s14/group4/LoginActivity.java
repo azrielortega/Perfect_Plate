@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
         this.initComponents();
         this.initFirebase();
-        this.initGoogleSignIn();
     }
 
     private void initFirebase(){
@@ -150,97 +149,6 @@ public class LoginActivity extends AppCompatActivity {
 
         finish();
 
-    }
-
-    private void initGoogleSignIn(){
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.server_client_id))
-                .requestEmail()
-                .build();
-        this.mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        this.btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pbLogin.setVisibility(View.VISIBLE);
-                Intent i = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(i, RC_SIGN_IN);
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            try{
-                GoogleSignInAccount account = task.getResult (ApiException.class);
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e){
-                Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
-                Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        String idToken = account.getIdToken();
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("SUCCESS", "signInWithCredential:success");
-                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
-                            if (firebaseUser != null){
-                                String id = firebaseUser.getUid();
-                                addGoogleUser(account, id);
-                                Log.d("SUCCESS", "successfully added Google user");
-                            }
-                            else{
-                                Log.d("FAILURE", "failed to add Google user");
-                            }
-                        } else {
-                            Log.w("FAILURE", "signInWithCredential:failure", task.getException());
-                        }
-                    }
-                });
-    }
-
-    private void addGoogleUser(GoogleSignInAccount account, String userId){
-        UserDatabase userDatabase = new UserDatabase();
-        userDatabase.getGoogleUser(account.getId(), new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                pbLogin.setVisibility(View.GONE);
-
-                User user = new User((com.mobdeve.s14.group4.FirebaseUser) o);
-                DataHelper.setGlobalUser(user); //add to static class
-                Log.d("SUCCESS", "signInResult:success for " + account.getDisplayName());
-
-                moveToHomeActivity();
-            }
-
-            @Override
-            public void onFailure() {
-                pbLogin.setVisibility(View.GONE);
-
-                User user = new User(account.getId(), account.getDisplayName(), account.getGivenName(), account.getFamilyName());
-                user.setUserId(userId);
-
-                DataHelper.setGlobalUser(user); //add to static class
-                new UserDatabase().addGoogleUser(user);
-
-                moveToHomeActivity();
-            }
-        });
     }
 
     private void moveToHomeActivity(){

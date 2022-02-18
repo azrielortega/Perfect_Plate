@@ -182,37 +182,37 @@ public class UserDatabase {
         //TODO: set birthday
         databaseReference.child(user.getUserId()).setValue(user);
     }
-
-    /**
-     * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
-     * to the user's list of recipes in the database. Adds recipe to the database.
-     *
-     * @param recipe    recipe to be added to the database
-     * */
-    public void addUserRecipe(Recipe recipe){
-        User user = DataHelper.user;
-        recipe.setContributor(user);
-
-        String recipeId = DataHelper.recipeDatabase.addRecipe(recipe);
-        recipe.setId(recipeId);
-
-        user.addUserRecipe(recipe);
-        DataHelper.addRecipe(recipe);
-        updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
-    }
-
-    /**
-     * Removes user recipe from user's list and from the recipe db
-     * */
-    public void removeUserRecipe(String recipeId){
-        //remove from recipe db
-        DataHelper.recipeDatabase.deleteRecipe(recipeId);
-
-        //remove from user db
-        User user = DataHelper.user;
-        user.removeUserRecipe(recipeId);
-        updateUserRecipes(user.getUserId(), user.getUserRecipesList(), user.getUserRecipesCount());
-    }
+//
+//    /**
+//     * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
+//     * to the user's list of recipes in the database. Adds recipe to the database.
+//     *
+//     * @param book    recipe to be added to the database
+//     * */
+//    public void addUserRecipe(Book book){
+//        User user = DataHelper.user;
+//        book.setContributor(user);
+//
+//        String recipeId = DataHelper.bookDatabase.addBook(book);
+//        book.setId(recipeId);
+//
+//        user.addUserRecipe(book);
+//        DataHelper.addBook(book);
+//        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
+//    }
+//
+//    /**
+//     * Removes user recipe from user's list and from the recipe db
+//     * */
+//    public void removeUserRecipe(String recipeId){
+//        //remove from recipe db
+//        DataHelper.bookDatabase.deleteRecipe(recipeId);
+//
+//        //remove from user db
+//        User user = DataHelper.user;
+//        user.removeUserRecipe(recipeId);
+//        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
+//    }
 
     public void updateUserRecipes(String userId, ArrayList<String> recipeList, int newSize){
         this.databaseReference.child(userId)
@@ -227,27 +227,27 @@ public class UserDatabase {
     /**
      * Adds fave recipe under user. Increase fave count of recipe
      *
-     * @param recipe  recipe of favorite recipe
+     * @param book  recipe of favorite recipe
      * */
-    public void addFaveRecipe(Recipe recipe){
+    public void addFaveRecipe(Book book){
         User user = DataHelper.user;
-        user.addFaveRecipe(recipe);
-        updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
+        user.addFaveBook(book);
+        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveRecipesCount());
 
-        DataHelper.recipeDatabase.updateFaveCount(recipe.getId(), recipe.getFaveCount());
+        DataHelper.bookDatabase.updateFaveCount(book.getId(), book.getFaveCount());
     }
 
     /**
      * Removes fave recipe from user's list
      * */
-    public void removeFaveRecipe(Recipe recipe){
-        String recipeId = recipe.getId();
+    public void removeFaveRecipe(Book book){
+        String recipeId = book.getId();
 
         User user = DataHelper.user;
-        user.removeFaveRecipe(recipe);
-        updateFaveRecipes(user.getUserId(), user.getFaveRecipesList(), user.getFaveRecipesCount());
+        user.removeFaveBook(book);
+        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveRecipesCount());
 
-        DataHelper.recipeDatabase.updateFaveCount(recipeId, recipe.getFaveCount());
+        DataHelper.bookDatabase.updateFaveCount(recipeId, book.getFaveCount());
     }
 
     public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){

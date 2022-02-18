@@ -353,7 +353,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="View all Perfect Plate recipes"
+        android:text="View all Perfect Plate books"
         android:textColor="#d30045"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/gl_search_left"

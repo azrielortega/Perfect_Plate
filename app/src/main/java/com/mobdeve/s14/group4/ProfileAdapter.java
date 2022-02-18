@@ -18,9 +18,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
-    private ArrayList<Recipe> data;
+    private ArrayList<Book> data;
 
-    public ProfileAdapter(ArrayList<Recipe> tempData){
+    public ProfileAdapter(ArrayList<Book> tempData){
         data = tempData;
     }
 
@@ -46,9 +46,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileRecipeHolder>{
         holder.ivBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataHelper.userDatabase.removeUserRecipe(data.get(holder.getBindingAdapterPosition()).getId());
-                data = DataHelper.user.getUserRecipes();
-                notifyDataSetChanged();
+//                DataHelper.userDatabase.removeUserRecipe(data.get(holder.getBindingAdapterPosition()).getId());
+//                data = DataHelper.user.getUserRecipes();
+//                notifyDataSetChanged();
             }
         });
 
