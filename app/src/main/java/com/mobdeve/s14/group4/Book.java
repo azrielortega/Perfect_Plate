@@ -1,68 +1,41 @@
 package com.mobdeve.s14.group4;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
-public class Recipe extends FirebaseRecipe
+public class Book extends FirebaseBook
 {
-    private User contributor;
-    private ArrayList<Ingredient> ingredientDetailsList;
-
-    public Recipe() {
+    public Book() {
         super();
-        this.ingredientDetailsList = new ArrayList<Ingredient>();
     }
 
-    public Recipe(FirebaseRecipe firebaseRecipe){
-        setId(firebaseRecipe.getId());
+    public Book(FirebaseBook firebaseBook){
+        setId(firebaseBook.getId());
 
-        setRecipePic(firebaseRecipe.getRecipePic());
-        setRecipeName(firebaseRecipe.getRecipeName());
-        setDescription(firebaseRecipe.getDescription());
+        setBookPic(firebaseBook.getBookPic());
+        setUploadImage(firebaseBook.getUploadImage());
 
-        setFaveCount(firebaseRecipe.getFaveCount());
-        setRating(firebaseRecipe.getRating());
-        setReviewCount(firebaseRecipe.getReviewCount());
+        setBookName(firebaseBook.getBookName());
+        setDescription(firebaseBook.getDescription());
 
-        setContributorId(firebaseRecipe.getContributorId());
-        contributor = DataHelper.userDatabase.findUser(getContributorId());
+        setAuthor(firebaseBook.getAuthor());
 
-        setCookingTime(firebaseRecipe.getCookingTime());
-        setPrepTime(firebaseRecipe.getPrepTime());
-        setServings(firebaseRecipe.getServings());
+        setPrice(firebaseBook.getPrice());
+        setStock(firebaseBook.getStock());
 
-        setCategory(firebaseRecipe.getCategory());
-        setDifficulty(firebaseRecipe.getDifficulty());
+        setFaveCount(firebaseBook.getFaveCount());
+        setRating(firebaseBook.getRating());
+        setReviewCount(firebaseBook.getReviewCount());
 
-        setIngredientsList(firebaseRecipe.getIngredientsList());
-        setStepsList(firebaseRecipe.getStepsList());
-        setUploadImage(firebaseRecipe.getUploadImage());
-
-        this.ingredientDetailsList = DataHelper.ingredientDatabase.findIngredients(firebaseRecipe.getIngredientsList());
+        setCategory(firebaseBook.getCategory());
     }
 
     //with id from database
-    public Recipe(String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
-                  String category, String difficulty, ArrayList<String> ingredientList, ArrayList<String> stepsList, UploadImage image){
-        super(id, recipePic, recipeName, foodFave, rating, contributorId, desc, reviewCount, cookingTime, prepTime, servings, category, difficulty, ingredientList, stepsList, image);
-    }
-
-    public UploadImage getContributorPic(){
-        if (contributor != null){
-            return contributor.getProfile_Image();
-        }
-        return null;
-    }
-
-    public String getContributorName(){
-        if (contributor != null){
-            return contributor.getUsername();
-        }
-
-        return "Guest";
+    public Book(String id, int bookPic, UploadImage upload, String bookName, String desc,
+                String author, double price, int stock, int faveCount, double rating,
+                int reviewCount, String category){
+        super(id, bookPic, upload, bookName, desc, author, price, stock, faveCount, rating, reviewCount, category);
     }
 
     public String getRatingString() {
@@ -73,52 +46,31 @@ public class Recipe extends FirebaseRecipe
         return "0.0";
     }
 
-    public ArrayList<Ingredient> getIngredientDetailsList(){
-        return this.ingredientDetailsList;
-    }
+    public FirebaseBook getFirebaseBook(){
+        FirebaseBook firebaseBook = new FirebaseBook();
 
-    public FirebaseRecipe getFirebaseRecipe(){
-        FirebaseRecipe firebaseRecipe = new FirebaseRecipe();
+        firebaseBook.setId(getId());
 
-        firebaseRecipe.setId(getId());
+        firebaseBook.setBookPic(getBookPic());
+        firebaseBook.setUploadImage(getUploadImage());
 
-        firebaseRecipe.setRecipePic(getRecipePic());
-        firebaseRecipe.setRecipeName(getRecipeName());
-        firebaseRecipe.setDescription(getDescription());
+        firebaseBook.setBookName(getBookName());
+        firebaseBook.setDescription(getDescription());
 
-        firebaseRecipe.setContributorId(getContributorId());
+        firebaseBook.setAuthor(getAuthor());
 
-        firebaseRecipe.setFaveCount(getFaveCount());
-        firebaseRecipe.setRating(getRating());
-        firebaseRecipe.setReviewCount(getReviewCount());
+        firebaseBook.setPrice(getPrice());
+        firebaseBook.setStock((getStock()));
 
-        firebaseRecipe.setIngredientsList(getIngredientsList());
-        firebaseRecipe.setStepsList(getStepsList());
+        firebaseBook.setFaveCount(getFaveCount());
+        firebaseBook.setRating(getRating());
+        firebaseBook.setReviewCount(getReviewCount());
 
-        firebaseRecipe.setCookingTime(getCookingTime());
-        firebaseRecipe.setPrepTime(getPrepTime());
-        firebaseRecipe.setServings(getServings());
+        firebaseBook.setCategory(getCategory());
 
-        firebaseRecipe.setCategory(getCategory());
-        firebaseRecipe.setDifficulty(getDifficulty());
+        Log.d("myTag", String.valueOf(firebaseBook));
 
-        firebaseRecipe.setUploadImage(getUploadImage());
-
-        Log.d("myTag", String.valueOf(firebaseRecipe));
-
-        return firebaseRecipe;
-    }
-
-    public void addIngredient(Ingredient ingredient){
-        Log.d("INRECIPEADDING", "INRECIPEADDING");
-
-        //get ingredient from db
-        String id = DataHelper.ingredientDatabase.addIngredient(ingredient);
-
-        //add ingredient to both lists
-        ingredient.setId(id);
-        this.ingredientDetailsList.add(ingredient);
-        addIngredientId(id);
+        return firebaseBook;
     }
 
     public void addRating(double newRating){
@@ -126,14 +78,14 @@ public class Recipe extends FirebaseRecipe
         int newCount = count + 1;
 
         setReviewCount(newCount);
-        DataHelper.recipeDatabase.updateReviewCount(getId(), newCount);
+        DataHelper.bookDatabase.updateReviewCount(getId(), newCount);
 
         double rating = getRating();
         rating = (rating * count / newCount) + (newRating / newCount);
 
         //update lists
         setRating(rating);
-        DataHelper.recipeDatabase.updateRating(getId(), rating);
+        DataHelper.bookDatabase.updateRating(getId(), rating);
     }
 
     public void removeRating(double removeRating){
@@ -141,7 +93,7 @@ public class Recipe extends FirebaseRecipe
         int newCount = count - 1;
 
         setReviewCount(newCount);
-        DataHelper.recipeDatabase.updateReviewCount(getId(), newCount);
+        DataHelper.bookDatabase.updateReviewCount(getId(), newCount);
 
         if (newCount > 0){
             double rating = getRating();
@@ -152,16 +104,11 @@ public class Recipe extends FirebaseRecipe
 
             //update lists
             setRating(rating);
-            DataHelper.recipeDatabase.updateRating(getId(), rating);
+            DataHelper.bookDatabase.updateRating(getId(), rating);
         }
         else{
             setRating(0);
-            DataHelper.recipeDatabase.updateRating(getId(), 0);
+            DataHelper.bookDatabase.updateRating(getId(), 0);
         }
-    }
-
-    public void setContributor(User user){
-        this.contributor = user;
-        setContributorId(user.getUserId());
     }
 }
