@@ -19,11 +19,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
-    private ArrayList<Recipe> data;
+    private ArrayList<Book> data;
 
     private CardView cvRecipe;
 
-    public FavoriteAdapter(ArrayList<Recipe> tempData){
+    public FavoriteAdapter(ArrayList<Book> tempData){
         data = tempData;
     }
 
@@ -52,7 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteRecipeHolder> 
     @Override
     public void onBindViewHolder(@NonNull @NotNull FavoriteRecipeHolder holder, int position) {
         holder.setRecipe(data.get(position));
-        holder.setRecipeName(data.get(position).getRecipeName());
+        holder.setRecipeName(data.get(position).getBookName());
         Picasso.with(holder.itemView.getContext())
                 .load(data.get(position).getUploadImage().getmImageUrl())
                 .placeholder(R.drawable.perfect_plate_transparent_bg)

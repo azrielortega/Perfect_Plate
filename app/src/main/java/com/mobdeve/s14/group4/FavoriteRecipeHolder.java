@@ -1,6 +1,5 @@
 package com.mobdeve.s14.group4;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,10 +9,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
-    private Recipe recipe;
+    private Book book;
 
     public ImageView ivRecipe;
     private TextView tvRecipe;
@@ -37,18 +35,18 @@ public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
                 if(bHeart == false) {
                     ivHeart.setImageResource(R.drawable.vectorheart_on);
                     bHeart = true;
-                    DataHelper.userDatabase.addFaveRecipe(recipe);
+                    DataHelper.userDatabase.addFaveRecipe(book);
                 }
                 else{
                     ivHeart.setImageResource(R.drawable.heart_off);
                     bHeart = false;
-                    DataHelper.userDatabase.removeFaveRecipe(recipe);
+                    DataHelper.userDatabase.removeFaveRecipe(book);
                 }
             }
         });
     }
 
-    public void setRecipe(Recipe recipe){ this.recipe = recipe; }
+    public void setRecipe(Book book){ this.book = book; }
 
     public void setRecipePic(int image){
         ivRecipe.setImageResource(image);

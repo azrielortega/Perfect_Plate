@@ -22,7 +22,7 @@ public class DataHelper {
     public static ArrayList<Review> allReviews;
 
     public static UserDatabase userDatabase;
-    public static RecipeDatabase bookDatabase;
+    public static BookDatabase bookDatabase;
 //    public static IngredientDatabase ingredientDatabase;
     public static ReviewDatabase reviewDatabase;
 
@@ -38,7 +38,7 @@ public class DataHelper {
 
 
         userDatabase = new UserDatabase();
-        bookDatabase = new RecipeDatabase();
+        bookDatabase = new BookDatabase();
 //        ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
@@ -106,7 +106,7 @@ public class DataHelper {
     }
 
     public static void initRecipes(final CallbackListener listener){
-        bookDatabase.getAllRecipes(new CallbackListener() {
+        bookDatabase.getAllBooks(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
                 allBooks = (ArrayList<Book>) o;

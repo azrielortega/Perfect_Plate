@@ -6,24 +6,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
-
 public class RecipeDetailsActivity extends AppCompatActivity {
-    private Recipe recipe;
+    private Book book;
 
     private TextView tvRecipeName;
     private ImageView ivRecipePic;
@@ -108,27 +102,27 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
 
-        this.recipe = DataHelper.recipeDatabase.findRecipe(id);
+        this.book = DataHelper.bookDatabase.findBook(id);
 
-        this.tvRecipeName.setText(recipe.getRecipeName());
+        this.tvRecipeName.setText(book.getBookName());
 //        this.ivRecipePic.setImageResource(recipe.getRecipePic());
-        this.tvDescription.setText(recipe.getDescription());
-        this.tvRecipeNameTop.setText(recipe.getRecipeName());
+        this.tvDescription.setText(book.getDescription());
+        this.tvRecipeNameTop.setText(book.getBookName());
         //this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
-        this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
-        this.tvReviewCount.setText(String.valueOf(recipe.getReviewCount()).concat(" reviews"));
+        this.tvFavCount.setText(String.valueOf(book.getFaveCount()));
+        this.tvReviewCount.setText(String.valueOf(book.getReviewCount()).concat(" reviews"));
 
-        String temp = "Category: ".concat(recipe.getCategory());
+        String temp = "Category: ".concat(book.getCategory());
         this.tvCategory.setText(temp);
 
 
         // set user
-        this.tvContributorName.setText(recipe.getContributorName());
+        this.tvContributorName.setText(book.getContributorName());
 
         // set contrib pic
-        if(recipe.getContributorPic() != null){
+        if(book.getContributorPic() != null){
             Picasso.with(this)
-                    .load(recipe.getContributorPic().getmImageUrl())
+                    .load(book.getContributorPic().getmImageUrl())
                     .placeholder(R.drawable.vectorperson)
                     .fit()
                     .centerCrop()
@@ -140,22 +134,22 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         //set pic
         Picasso.with(this)
-                .load(recipe.getUploadImage().getmImageUrl())
+                .load(book.getUploadImage().getmImageUrl())
                 .placeholder(R.drawable.perfect_plate_transparent_bg)
                 .fit()
                 .centerCrop()
                 .into(this.ivRecipePic);
 
         //set liked
-        for (Recipe tempRecipe : DataHelper.user.getFaveRecipes()){
-            if (recipe.getId().equals(tempRecipe.getId())){
+        for (Book tempBook : DataHelper.user.getFaveRecipes()){
+            if (book.getId().equals(tempBook.getId())){
                 setLiked();
                 break;
             }
         }
 
         // set ingredients
-        for (Ingredient ingredient : recipe.getIngredientDetailsList()){
+        for (Ingredient ingredient : book.getIngredientDetailsList()){
             View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
             llIngredientsCont.addView(ingredientLayout);
 
@@ -169,7 +163,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         }
 
         //set steps
-        for (int ctr = 0; ctr < recipe.getStepsList().size(); ctr++){
+        for (int ctr = 0; ctr < book.getStepsList().size(); ctr++){
             View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
             llStepsCont.addView(stepsLayout);
 
@@ -177,7 +171,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             TextView str = stepsLayout.findViewById(R.id.tv_step_text);
 
             number.setText(String.valueOf(ctr+1));
-            str.setText(recipe.getStepsList().get(ctr));
+            str.setText(book.getStepsList().get(ctr));
 
         }
         llCommentCont.removeAllViews();
@@ -257,14 +251,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     fabHeart.setImageResource(R.drawable.heart_on);
                     liked = true;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    DataHelper.userDatabase.addFaveRecipe(recipe);
-                    tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
+                    DataHelper.userDatabase.addFaveRecipe(book);
+                    tvFavCount.setText(String.valueOf(book.getFaveCount()));
                 } else {
                     fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    DataHelper.userDatabase.removeFaveRecipe(recipe);
-                    tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
+                    DataHelper.userDatabase.removeFaveRecipe(book);
+                    tvFavCount.setText(String.valueOf(book.getFaveCount()));
                 }
             }
         });
@@ -289,7 +283,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         llCommentCont.removeAllViews();
 
         for (Review review : DataHelper.allReviews){
-            if (review.getRecipeId().equals(recipe.getId())) {
+            if (review.getRecipeId().equals(book.getId())) {
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
@@ -355,7 +349,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             }
         }
 
-        if(recipe.getReviewCount() < 1){
+        if(book.getReviewCount() < 1){
             this.tvEmpty.setVisibility(View.VISIBLE);
         } else{
             this.tvEmpty.setVisibility(View.GONE);
@@ -370,12 +364,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
 
     public void loadCounters(){
-        this.tvStarsSummary.setText(recipe.getRatingString());
+        this.tvStarsSummary.setText(book.getRatingString());
 
-        String revCtr = recipe.getReviewCount() + " reviews";
+        String revCtr = book.getReviewCount() + " reviews";
         this.tvReviewCount.setText(revCtr);
 
-        this.tvFavCount.setText(String.valueOf(recipe.getFaveCount()));
+        this.tvFavCount.setText(String.valueOf(book.getFaveCount()));
     }
 
     @Override

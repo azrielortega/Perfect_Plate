@@ -17,7 +17,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager manager;
     private FavoriteAdapter adapter;
 
-    private ArrayList<Recipe> data;
+    private ArrayList<Book> data;
     private ImageButton ibBack;
     private TextView tvNoFave;
 
@@ -54,7 +54,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecipes.setLayoutManager(manager);
 
-        data = (ArrayList<Recipe>) DataHelper.user.getFaveRecipes().clone();
+        data = (ArrayList<Book>) DataHelper.user.getFaveRecipes().clone();
         adapter = new FavoriteAdapter(data);
         rvRecipes.setAdapter(adapter);
     }

@@ -1,8 +1,6 @@
 package com.mobdeve.s14.group4;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
-    private ArrayList<Recipe> foodList;
+    private ArrayList<Book> foodList;
     //String id, int recipePic, String recipeName, int foodFave, double rating, String contributorId, String desc, int reviewCount, int cookingTime, int prepTime, int servings,
     //String category, String difficulty
     public static final String KEY_RECIPE_CONTRIBUTOR_ID = "KEY_RECIPE_CONTRIBUTOR_ID";
@@ -39,7 +36,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
 
 
 
-    public PopularAdapter(ArrayList<Recipe> p){
+    public PopularAdapter(ArrayList<Book> p){
         this.foodList = p;
     }
 
@@ -85,7 +82,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
         //holder.setIvPopularPic(foodList.get(position).getRecipePic());
-        holder.setTvPopularName(foodList.get(position).getRecipeName());
+        holder.setTvPopularName(foodList.get(position).getBookName());
         System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
         Picasso.with(holder.itemView.getContext())
                 .load(foodList.get(position).getUploadImage().getmImageUrl())
