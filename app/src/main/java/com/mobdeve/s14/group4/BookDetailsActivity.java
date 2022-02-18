@@ -64,16 +64,16 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
         this.fabHeart = findViewById(R.id.fab_heart);
-        this.tvBookName = findViewById(R.id.tv_recipe_details_name);
-        this.ivBookPic = findViewById(R.id.iv_recipe_details_pic);
-        this.tvBookNameTop = findViewById(R.id.tv_recipe_details_name_top);
+        this.tvBookName = findViewById(R.id.tv_book_details_name);
+        this.ivBookPic = findViewById(R.id.iv_book_details_pic);
+        this.tvBookNameTop = findViewById(R.id.tv_book_details_name_top);
         this.tvStarsSummary = findViewById(R.id.tv_details_stars_summary);
         this.tvFavCount = findViewById(R.id.tv_details_fav_count);
-        this.ivContributorPic = findViewById(R.id.iv_recipe_details_contributor_pic);
-        this.tvContributorName = findViewById(R.id.tv_recipe_details_contributor_name);
-        this.tvDescription = findViewById(R.id.tv_recipe_details_description);
+        this.ivContributorPic = findViewById(R.id.iv_book_details_contributor_pic);
+        this.tvContributorName = findViewById(R.id.tv_book_details_contributor_name);
+        this.tvDescription = findViewById(R.id.tv_book_details_description);
         this.tvReviewCount = findViewById(R.id.tv_details_review_count);
-        this.tvCategory = findViewById(R.id.tv_recipe_details_category);
+        this.tvCategory = findViewById(R.id.tv_book_details_category);
 
         this.ivReviewUserPic = findViewById(R.id.iv_review_user_pic);
         this.tvReviewComment = findViewById(R.id.tv_review_comment);
@@ -93,7 +93,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         this.llCommentCont = findViewById(R.id.ll_comment_container);
         this.tvEmpty = findViewById(R.id.tv_review_empty);
 
-        this.ibBack = findViewById(R.id.ib_recipe_details_back);
+        this.ibBack = findViewById(R.id.ib_book_details_back);
 
         //this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
 

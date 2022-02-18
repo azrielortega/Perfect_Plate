@@ -67,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.ivEdit = findViewById(R.id.profile_iv_edit);
         this.tvName = findViewById(R.id.profile_tv_name);
         this.tvUsername = findViewById(R.id.profile_tv_username);
-        this.tvBooks = findViewById(R.id.profile_tv_norecipes);
+        this.tvBooks = findViewById(R.id.profile_tv_nobooks);
         this.ibBack = findViewById(R.id.ib_profile_back);
         this.ibAdd = findViewById(R.id.ib_profile_add);
         this.btnLogout = findViewById(R.id.btn_profile_logout);

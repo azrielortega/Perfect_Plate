@@ -138,8 +138,8 @@ public class FirebaseUser {
 //        this.userOrdersList = recipeList;
 //    }
 
-    public void setFaveBooksList(ArrayList<String> recipeList){
-        this.faveBooksList = recipeList;
+    public void setFaveBooksList(ArrayList<String> bookList){
+        this.faveBooksList = bookList;
     }
 
     public FirebaseUser duplicateUser(){

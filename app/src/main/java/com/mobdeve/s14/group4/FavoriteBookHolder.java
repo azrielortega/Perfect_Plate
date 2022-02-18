@@ -24,10 +24,10 @@ public class FavoriteBookHolder extends RecyclerView.ViewHolder{
     public FavoriteBookHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
-        ivBook = itemView.findViewById(R.id.template_fr_recipe_iv_cover);
-        tvBook = itemView.findViewById(R.id.template_fr_recipe_tv_name);
+        ivBook = itemView.findViewById(R.id.template_fr_book_iv_cover);
+        tvBook = itemView.findViewById(R.id.template_fr_book_tv_name);
         ivHeart = itemView.findViewById(R.id.template_fr_iv_heart);
-        cvBook = itemView.findViewById(R.id.template_fr_cv_recipe);
+        cvBook = itemView.findViewById(R.id.template_fr_cv_book);
 
         ivHeart.setOnClickListener(new View.OnClickListener() {
             @Override

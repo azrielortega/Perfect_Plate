@@ -49,7 +49,7 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        rvBooks = findViewById(R.id.viewfavorites_rv_recipes);
+        rvBooks = findViewById(R.id.viewfavorites_rv_books);
 
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(manager);
