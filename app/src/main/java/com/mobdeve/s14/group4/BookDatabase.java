@@ -74,7 +74,7 @@ public class BookDatabase {
     /**
      * Find recipes from data helper
      * */
-    public ArrayList<Book> findRecipes(ArrayList<String> bookIds){
+    public ArrayList<Book> findBooks(ArrayList<String> bookIds){
         ArrayList<String> clone = (ArrayList<String>) bookIds.clone();
         ArrayList<Book> books = new ArrayList<Book>();
 
@@ -124,7 +124,7 @@ public class BookDatabase {
     /**
      * Delete recipe from recipe database.
      * */
-    public void deleteRecipe(String id){
+    public void deleteBook(String id){
         this.databaseReference.child(id).setValue(null);
     }
 }

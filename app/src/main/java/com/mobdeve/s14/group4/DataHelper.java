@@ -59,7 +59,7 @@ public class DataHelper {
 
     public static void refreshDatabase(final CallbackListener recipesListener){
 //        initAllIngredients();
-        initRecipes(recipesListener);
+        initBooks(recipesListener);
         initAllReviews();
         initAllUsers();
     }
@@ -105,7 +105,7 @@ public class DataHelper {
         });
     }
 
-    public static void initRecipes(final CallbackListener listener){
+    public static void initBooks(final CallbackListener listener){
         bookDatabase.getAllBooks(new CallbackListener() {
             @Override
             public void onSuccess(Object o) {

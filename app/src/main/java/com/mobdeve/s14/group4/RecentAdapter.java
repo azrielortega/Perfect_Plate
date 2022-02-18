@@ -17,16 +17,8 @@ import java.util.ArrayList;
 public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
     private ArrayList<Book> foodList;
 
-//    public static final String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
-//    public static final String KEY_RECIPE_PIC = "KEY_RECIPE_PIC";
-//    public static final String KEY_RECIPE_FAV = "KEY_RECIPE_FAV";
-//    public static final String KEY_RECIPE_STARS = "KEY_RECIPE_STARS";
-//    public static final String KEY_CONTRIBUTOR_PIC = "KEY_CONTRIBUTOR_PIC";
-//    public static final String KEY_CONTRIBUTOR_NAME = "KEY_CONTRIBUTOR_NAME";
-//    public static final String KEY_RECIPE_DESCRIPTION = "KEY_RECIPE_DESCRIPTION";
-//    public static final String KEY_RECIPE_REVIEWS_COUNT = "KEY_RECIPE_REVIEWS_COUNT";
+    public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
 
-    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
     public RecentAdapter(ArrayList<Book> p){
         this.foodList = p;
     }
@@ -44,18 +36,8 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_ID, foodList.get(recentViewHolder.getBindingAdapterPosition()).getId());
-
-
-//                i.putExtra(KEY_RECIPE_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRecipeName());
-//                i.putExtra(KEY_RECIPE_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRecipePic());
-//                i.putExtra(KEY_RECIPE_FAV, foodList.get(recentViewHolder.getBindingAdapterPosition()).getFoodFave());
-//                i.putExtra(KEY_RECIPE_STARS, foodList.get(recentViewHolder.getBindingAdapterPosition()).getRating());
-//                i.putExtra(KEY_CONTRIBUTOR_PIC, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorPic());
-//                i.putExtra(KEY_CONTRIBUTOR_NAME, foodList.get(recentViewHolder.getBindingAdapterPosition()).getContributorName());
-//                i.putExtra(KEY_RECIPE_DESCRIPTION, foodList.get(recentViewHolder.getBindingAdapterPosition()).getDescription());
-//                i.putExtra(KEY_RECIPE_REVIEWS_COUNT, foodList.get(recentViewHolder.getBindingAdapterPosition()).getReviewCount());
+                Intent i = new Intent(v.getContext(), BookDetailsActivity.class);
+                i.putExtra(KEY_BOOK_ID, foodList.get(recentViewHolder.getBindingAdapterPosition()).getId());
 
                 v.getContext().startActivity(i);
 

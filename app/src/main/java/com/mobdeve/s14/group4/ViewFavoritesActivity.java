@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ViewFavoritesActivity extends AppCompatActivity {
 
-    private RecyclerView rvRecipes;
+    private RecyclerView rvBooks;
     private RecyclerView.LayoutManager manager;
     private FavoriteAdapter adapter;
 
@@ -49,13 +49,13 @@ public class ViewFavoritesActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        rvRecipes = findViewById(R.id.viewfavorites_rv_recipes);
+        rvBooks = findViewById(R.id.viewfavorites_rv_books);
 
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rvRecipes.setLayoutManager(manager);
+        rvBooks.setLayoutManager(manager);
 
-        data = (ArrayList<Book>) DataHelper.user.getFaveRecipes().clone();
+        data = (ArrayList<Book>) DataHelper.user.getFaveBooks().clone();
         adapter = new FavoriteAdapter(data);
-        rvRecipes.setAdapter(adapter);
+        rvBooks.setAdapter(adapter);
     }
 }

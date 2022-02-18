@@ -67,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
         this.tvViewAll = findViewById(R.id.tv_search_view_all);
 
         this.svSearch = findViewById(R.id.sv_search);
-        this.etSearch = findViewById(R.id.et_search_recipe_search);
+        this.etSearch = findViewById(R.id.et_search_book_search);
 
         this.bookFilter = new ArrayList<Book>();
 

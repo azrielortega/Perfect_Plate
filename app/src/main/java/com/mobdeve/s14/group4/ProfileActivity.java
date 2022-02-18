@@ -1,6 +1,5 @@
 package com.mobdeve.s14.group4;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,26 +13,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private RecyclerView rvRecipes;
+    private RecyclerView rvBooks;
     private RecyclerView.LayoutManager manager;
     private ProfileAdapter adapter;
 
@@ -41,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView ivProfilePic;
     private TextView tvName;
     private TextView tvUsername;
-    private TextView tvRecipes;
+    private TextView tvBooks;
 
     private FirebaseUser user;
     private DatabaseReference databaseReference;
@@ -76,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.ivEdit = findViewById(R.id.profile_iv_edit);
         this.tvName = findViewById(R.id.profile_tv_name);
         this.tvUsername = findViewById(R.id.profile_tv_username);
-        this.tvRecipes = findViewById(R.id.profile_tv_norecipes);
+        this.tvBooks = findViewById(R.id.profile_tv_nobooks);
         this.ibBack = findViewById(R.id.ib_profile_back);
         this.ibAdd = findViewById(R.id.ib_profile_add);
         this.btnLogout = findViewById(R.id.btn_profile_logout);
@@ -148,13 +139,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        rvRecipes = findViewById(R.id.profile_rv_recipes);
+        rvBooks = findViewById(R.id.profile_rv_books);
 
         manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvRecipes.setLayoutManager(manager);
+        rvBooks.setLayoutManager(manager);
 
 //        adapter = new ProfileAdapter(DataHelper.user.getUserRecipes());
-        rvRecipes.setAdapter(adapter);
+        rvBooks.setAdapter(adapter);
     }
 
     @Override

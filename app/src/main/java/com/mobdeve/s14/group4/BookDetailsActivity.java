@@ -16,12 +16,12 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class BookDetailsActivity extends AppCompatActivity {
     private Book book;
 
-    private TextView tvRecipeName;
-    private ImageView ivRecipePic;
-    private TextView tvRecipeNameTop;
+    private TextView tvBookName;
+    private ImageView ivBookPic;
+    private TextView tvBookNameTop;
     private TextView tvStarsSummary;
     private TextView tvFavCount;
     private ImageView ivContributorPic;
@@ -55,25 +55,25 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private Boolean liked = false;
     public static Boolean reviewed = false;
 
-    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+    public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
 
     private TextView tvEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        setContentView(R.layout.activity_book_details);
         this.fabHeart = findViewById(R.id.fab_heart);
-        this.tvRecipeName = findViewById(R.id.tv_recipe_details_name);
-        this.ivRecipePic = findViewById(R.id.iv_recipe_details_pic);
-        this.tvRecipeNameTop = findViewById(R.id.tv_recipe_details_name_top);
+        this.tvBookName = findViewById(R.id.tv_book_details_name);
+        this.ivBookPic = findViewById(R.id.iv_book_details_pic);
+        this.tvBookNameTop = findViewById(R.id.tv_book_details_name_top);
         this.tvStarsSummary = findViewById(R.id.tv_details_stars_summary);
         this.tvFavCount = findViewById(R.id.tv_details_fav_count);
-        this.ivContributorPic = findViewById(R.id.iv_recipe_details_contributor_pic);
-        this.tvContributorName = findViewById(R.id.tv_recipe_details_contributor_name);
-        this.tvDescription = findViewById(R.id.tv_recipe_details_description);
+        this.ivContributorPic = findViewById(R.id.iv_book_details_contributor_pic);
+        this.tvContributorName = findViewById(R.id.tv_book_details_contributor_name);
+        this.tvDescription = findViewById(R.id.tv_book_details_description);
         this.tvReviewCount = findViewById(R.id.tv_details_review_count);
-        this.tvCategory = findViewById(R.id.tv_recipe_details_category);
+        this.tvCategory = findViewById(R.id.tv_book_details_category);
 
         this.ivReviewUserPic = findViewById(R.id.iv_review_user_pic);
         this.tvReviewComment = findViewById(R.id.tv_review_comment);
@@ -93,21 +93,21 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.llCommentCont = findViewById(R.id.ll_comment_container);
         this.tvEmpty = findViewById(R.id.tv_review_empty);
 
-        this.ibBack = findViewById(R.id.ib_recipe_details_back);
+        this.ibBack = findViewById(R.id.ib_book_details_back);
 
         //this.ivDeleteComment = findViewById(R.id.iv_delete_comment);
 
         //this.clReviews = findViewById(R.id.cl_details_reviews);
 
         Intent i = getIntent();
-        String id = i.getStringExtra(PopularAdapter.KEY_RECIPE_ID);
+        String id = i.getStringExtra(PopularAdapter.KEY_BOOK_ID);
 
         this.book = DataHelper.bookDatabase.findBook(id);
 
-        this.tvRecipeName.setText(book.getBookName());
+        this.tvBookName.setText(book.getBookName());
 //        this.ivRecipePic.setImageResource(recipe.getRecipePic());
         this.tvDescription.setText(book.getDescription());
-        this.tvRecipeNameTop.setText(book.getBookName());
+        this.tvBookNameTop.setText(book.getBookName());
         //this.tvStarsSummary.setText(String.valueOf(recipe.getRating()));
         this.tvFavCount.setText(String.valueOf(book.getFaveCount()));
         this.tvReviewCount.setText(String.valueOf(book.getReviewCount()).concat(" reviews"));
@@ -138,10 +138,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 .placeholder(R.drawable.perfect_plate_transparent_bg)
                 .fit()
                 .centerCrop()
-                .into(this.ivRecipePic);
+                .into(this.ivBookPic);
 
         //set liked
-        for (Book tempBook : DataHelper.user.getFaveRecipes()){
+        for (Book tempBook : DataHelper.user.getFaveBooks()){
             if (book.getId().equals(tempBook.getId())){
                 setLiked();
                 break;
@@ -185,7 +185,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 reviewed = true;
                 Intent i = new Intent(v.getContext(), WriteReviewActivity.class);
-                i.putExtra(KEY_RECIPE_ID, id); //TODO: ???
+                i.putExtra(KEY_BOOK_ID, id); //TODO: ???
                 startActivity(i);
             }
         });
@@ -251,13 +251,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     fabHeart.setImageResource(R.drawable.heart_on);
                     liked = true;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    DataHelper.userDatabase.addFaveRecipe(book);
+                    DataHelper.userDatabase.addFaveBook(book);
                     tvFavCount.setText(String.valueOf(book.getFaveCount()));
                 } else {
                     fabHeart.setImageResource(R.drawable.heart_off);
                     liked = false;
                     fabHeart.setColorFilter(getResources().getColor(R.color.proj_red_pink));
-                    DataHelper.userDatabase.removeFaveRecipe(book);
+                    DataHelper.userDatabase.removeFaveBook(book);
                     tvFavCount.setText(String.valueOf(book.getFaveCount()));
                 }
             }

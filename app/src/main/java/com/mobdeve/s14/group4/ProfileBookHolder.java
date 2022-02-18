@@ -16,7 +16,7 @@ public class ProfileBookHolder extends RecyclerView.ViewHolder {
     public ProfileBookHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
-        ivCover = itemView.findViewById(R.id.pt_recipe_iv_cover);
-        ivBtnDelete = itemView.findViewById(R.id.iv_delete_user_recipe);
+        ivCover = itemView.findViewById(R.id.pt_book_iv_cover);
+        ivBtnDelete = itemView.findViewById(R.id.iv_delete_user_book);
     }
 }
