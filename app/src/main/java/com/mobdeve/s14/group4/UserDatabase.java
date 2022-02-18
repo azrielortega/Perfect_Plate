@@ -182,37 +182,37 @@ public class UserDatabase {
         //TODO: set birthday
         databaseReference.child(user.getUserId()).setValue(user);
     }
-
-    /**
-     * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
-     * to the user's list of recipes in the database. Adds recipe to the database.
-     *
-     * @param book    recipe to be added to the database
-     * */
-    public void addUserRecipe(Book book){
-        User user = DataHelper.user;
-        book.setContributor(user);
-
-        String recipeId = DataHelper.bookDatabase.addBook(book);
-        book.setId(recipeId);
-
-        user.addUserRecipe(book);
-        DataHelper.addBook(book);
-        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
-    }
-
-    /**
-     * Removes user recipe from user's list and from the recipe db
-     * */
-    public void removeUserRecipe(String recipeId){
-        //remove from recipe db
-        DataHelper.bookDatabase.deleteRecipe(recipeId);
-
-        //remove from user db
-        User user = DataHelper.user;
-        user.removeUserRecipe(recipeId);
-        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
-    }
+//
+//    /**
+//     * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
+//     * to the user's list of recipes in the database. Adds recipe to the database.
+//     *
+//     * @param book    recipe to be added to the database
+//     * */
+//    public void addUserRecipe(Book book){
+//        User user = DataHelper.user;
+//        book.setContributor(user);
+//
+//        String recipeId = DataHelper.bookDatabase.addBook(book);
+//        book.setId(recipeId);
+//
+//        user.addUserRecipe(book);
+//        DataHelper.addBook(book);
+//        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
+//    }
+//
+//    /**
+//     * Removes user recipe from user's list and from the recipe db
+//     * */
+//    public void removeUserRecipe(String recipeId){
+//        //remove from recipe db
+//        DataHelper.bookDatabase.deleteRecipe(recipeId);
+//
+//        //remove from user db
+//        User user = DataHelper.user;
+//        user.removeUserRecipe(recipeId);
+//        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
+//    }
 
     public void updateUserRecipes(String userId, ArrayList<String> recipeList, int newSize){
         this.databaseReference.child(userId)

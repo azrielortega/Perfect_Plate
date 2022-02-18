@@ -69,7 +69,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
     public void onBindViewHolder(@NonNull @NotNull RecentViewHolder holder, int position) {
         holder.setIvRecentPic(foodList.get(position).getBookPic());
         holder.setTvRecentName(foodList.get(position).getBookName());
-        holder.setTvRecentAuthor(foodList.get(position).getContributorName());
+//        holder.setTvRecentAuthor(foodList.get(position).getContributorName());
         holder.setTvRecentRatings(foodList.get(position).getRatingString());
         holder.setTvRecentReviews(foodList.get(position).getReviewCount());
         holder.setTvRecentHearts(foodList.get(position).getFaveCount());

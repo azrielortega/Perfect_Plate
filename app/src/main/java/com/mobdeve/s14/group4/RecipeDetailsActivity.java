@@ -116,21 +116,21 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         this.tvCategory.setText(temp);
 
 
-        // set user
-        this.tvContributorName.setText(book.getContributorName());
-
-        // set contrib pic
-        if(book.getContributorPic() != null){
-            Picasso.with(this)
-                    .load(book.getContributorPic().getmImageUrl())
-                    .placeholder(R.drawable.vectorperson)
-                    .fit()
-                    .centerCrop()
-                    .into(ivContributorPic);
-        }
-        else{
-            ivContributorPic.setImageResource(R.drawable.vectorperson);
-        }
+//        // set user
+//        this.tvContributorName.setText(book.getContributorName());
+//
+//        // set contrib pic
+//        if(book.getContributorPic() != null){
+//            Picasso.with(this)
+//                    .load(book.getContributorPic().getmImageUrl())
+//                    .placeholder(R.drawable.vectorperson)
+//                    .fit()
+//                    .centerCrop()
+//                    .into(ivContributorPic);
+//        }
+//        else{
+//            ivContributorPic.setImageResource(R.drawable.vectorperson);
+//        }
 
         //set pic
         Picasso.with(this)
@@ -147,33 +147,33 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 break;
             }
         }
+//
+//        // set ingredients
+//        for (Ingredient ingredient : book.getIngredientDetailsList()){
+//            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
+//            llIngredientsCont.addView(ingredientLayout);
+//
+//            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
+//            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
+//
+//            String tempM = String.valueOf(ingredient.getQuantity()).concat(" " + ingredient.getUnits());
+//            measurement.setText(tempM);
+//
+//            ingrName.setText(ingredient.getIngredientName());
+//        }
 
-        // set ingredients
-        for (Ingredient ingredient : book.getIngredientDetailsList()){
-            View ingredientLayout = getLayoutInflater().inflate(R.layout.ingredients_list_template, llIngredientsCont, false);
-            llIngredientsCont.addView(ingredientLayout);
-
-            TextView measurement = ingredientLayout.findViewById(R.id.tv_ingredients_amt);
-            TextView ingrName = ingredientLayout.findViewById(R.id.tv_ingredient_name);
-
-            String tempM = String.valueOf(ingredient.getQuantity()).concat(" " + ingredient.getUnits());
-            measurement.setText(tempM);
-
-            ingrName.setText(ingredient.getIngredientName());
-        }
-
-        //set steps
-        for (int ctr = 0; ctr < book.getStepsList().size(); ctr++){
-            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
-            llStepsCont.addView(stepsLayout);
-
-            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
-            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
-
-            number.setText(String.valueOf(ctr+1));
-            str.setText(book.getStepsList().get(ctr));
-
-        }
+//        //set steps
+//        for (int ctr = 0; ctr < book.getStepsList().size(); ctr++){
+//            View stepsLayout = getLayoutInflater().inflate(R.layout.steps_list_template, llStepsCont, false);
+//            llStepsCont.addView(stepsLayout);
+//
+//            TextView number = stepsLayout.findViewById(R.id.tv_step_number);
+//            TextView str = stepsLayout.findViewById(R.id.tv_step_text);
+//
+//            number.setText(String.valueOf(ctr+1));
+//            str.setText(book.getStepsList().get(ctr));
+//
+//        }
         llCommentCont.removeAllViews();
         // load the reviews for this recipe
         loadReviews();
