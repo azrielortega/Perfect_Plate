@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
+public class FavoriteBookHolder extends RecyclerView.ViewHolder{
     private Book book;
 
     public ImageView ivRecipe;
@@ -21,7 +21,7 @@ public class FavoriteRecipeHolder extends RecyclerView.ViewHolder{
 
     private boolean bHeart = true;
 
-    public FavoriteRecipeHolder(@NonNull @NotNull View itemView) {
+    public FavoriteBookHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
         ivRecipe = itemView.findViewById(R.id.template_fr_recipe_iv_cover);

@@ -232,7 +232,7 @@ public class UserDatabase {
     public void addFaveRecipe(Book book){
         User user = DataHelper.user;
         user.addFaveBook(book);
-        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveRecipesCount());
+        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
 
         DataHelper.bookDatabase.updateFaveCount(book.getId(), book.getFaveCount());
     }
@@ -245,7 +245,7 @@ public class UserDatabase {
 
         User user = DataHelper.user;
         user.removeFaveBook(book);
-        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveRecipesCount());
+        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
 
         DataHelper.bookDatabase.updateFaveCount(recipeId, book.getFaveCount());
     }

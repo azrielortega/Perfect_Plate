@@ -43,7 +43,7 @@ public class User extends FirebaseUser{
 
         this.faveBooks = bookDatabase.findRecipes(getFaveBooksList());
 
-        DataHelper.userDatabase.updateFaveRecipes(getUserId(), getFaveBooksList(), getFaveRecipesCount());
+        DataHelper.userDatabase.updateFaveRecipes(getUserId(), getFaveBooksList(), getFaveBooksCount());
     }
 
     public String getFullName(){
@@ -86,7 +86,7 @@ public class User extends FirebaseUser{
     public void removeFaveBook(Book book){
         int removeIndex = 0;
 
-        for (int i = 0; i < getFaveRecipesCount(); i++){
+        for (int i = 0; i < getFaveBooksCount(); i++){
             if (this.faveBooks.get(i).getId().equals(book.getId())){
                 removeIndex = i;
             }

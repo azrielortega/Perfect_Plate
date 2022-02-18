@@ -101,7 +101,7 @@ public class FirebaseUser {
 //        return this.userOrdersList;
 //    }
 
-    public int getFaveRecipesCount(){
+    public int getFaveBooksCount(){
         return this.faveBooksList.size();
     }
 
@@ -172,7 +172,7 @@ public class FirebaseUser {
     }
 
     public void removeFaveBookId(String id){
-        int n = getFaveRecipesCount();
+        int n = getFaveBooksCount();
         int removeIndex = 0;
 
         for (int i = 0; i < n; i++){

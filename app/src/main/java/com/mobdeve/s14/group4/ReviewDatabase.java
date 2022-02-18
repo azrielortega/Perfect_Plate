@@ -32,7 +32,7 @@ public class ReviewDatabase {
     public String addReview(Review review){
         String key = "empty";
 
-        Book book = DataHelper.bookDatabase.findBook(review.getRecipeId());
+        Book book = DataHelper.bookDatabase.findBook(review.getBookId());
 
         if (book != null){
             book.addRating(review.getRating());
@@ -101,7 +101,7 @@ public class ReviewDatabase {
         int remove_index = -1;
 
 
-        Book book = DataHelper.bookDatabase.findBook(review.getRecipeId());
+        Book book = DataHelper.bookDatabase.findBook(review.getBookId());
         Log.d("recipe.getId()", book.getId());
 
         if (book != null) {

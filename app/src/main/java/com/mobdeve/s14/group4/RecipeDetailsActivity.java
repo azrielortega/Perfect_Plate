@@ -283,7 +283,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         llCommentCont.removeAllViews();
 
         for (Review review : DataHelper.allReviews){
-            if (review.getRecipeId().equals(book.getId())) {
+            if (review.getBookId().equals(book.getId())) {
                 View commentLayout = getLayoutInflater().inflate(R.layout.comment_template, llCommentCont, false);
                 llCommentCont.addView(commentLayout);
 
