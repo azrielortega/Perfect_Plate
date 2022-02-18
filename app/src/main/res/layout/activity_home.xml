@@ -43,7 +43,7 @@
         app:srcCompat="@drawable/ic_vectorsearch" />
 
     <EditText
-        android:id="@+id/et_search_recipe"
+        android:id="@+id/et_search_book"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"

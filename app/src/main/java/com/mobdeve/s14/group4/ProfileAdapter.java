@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileBookHolder>{
 
-    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+    public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
 
     private ArrayList<Book> data;
 
@@ -30,15 +30,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileBookHolder>{
     @Override
     public ProfileBookHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.profile_recipe_template, parent, false);
+        View view = inflater.inflate(R.layout.profile_book_template, parent, false);
 
         ProfileBookHolder holder = new ProfileBookHolder(view);
 
         holder.ivCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), RecipeDetailsActivity.class);
-                i.putExtra(KEY_RECIPE_ID, data.get(holder.getBindingAdapterPosition()).getId());
+                Intent i = new Intent(v.getContext(), BookDetailsActivity.class);
+                i.putExtra(KEY_BOOK_ID, data.get(holder.getBindingAdapterPosition()).getId());
                 v.getContext().startActivity(i);
             }
         });

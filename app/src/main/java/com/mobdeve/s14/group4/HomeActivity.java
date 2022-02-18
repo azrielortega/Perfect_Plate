@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         this.llFavorites = findViewById(R.id.ll_fav);
         this.reviewList = DataHelper.allReviews;
 
-        this.etSearch = findViewById(R.id.et_search_recipe);
+        this.etSearch = findViewById(R.id.et_search_book);
 
 //        Log.d("LISTSIZE", String.valueOf(recipeList.size()));
         //initRecipes

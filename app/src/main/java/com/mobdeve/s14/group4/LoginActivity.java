@@ -49,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    private GoogleSignInClient mGoogleSignInClient;
-
     private ProgressBar pbLogin;
 
     @Override

@@ -214,7 +214,7 @@ public class UserDatabase {
 //        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
 //    }
 
-    public void updateUserRecipes(String userId, ArrayList<String> recipeList, int newSize){
+    public void updateUserBooks(String userId, ArrayList<String> recipeList, int newSize){
         this.databaseReference.child(userId)
                 .child("userRecipesCount")
                 .setValue(newSize);
@@ -229,10 +229,10 @@ public class UserDatabase {
      *
      * @param book  recipe of favorite recipe
      * */
-    public void addFaveRecipe(Book book){
+    public void addFaveBook(Book book){
         User user = DataHelper.user;
         user.addFaveBook(book);
-        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
+        updateFaveBooks(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
 
         DataHelper.bookDatabase.updateFaveCount(book.getId(), book.getFaveCount());
     }
@@ -240,17 +240,17 @@ public class UserDatabase {
     /**
      * Removes fave recipe from user's list
      * */
-    public void removeFaveRecipe(Book book){
+    public void removeFaveBook(Book book){
         String recipeId = book.getId();
 
         User user = DataHelper.user;
         user.removeFaveBook(book);
-        updateFaveRecipes(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
+        updateFaveBooks(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
 
         DataHelper.bookDatabase.updateFaveCount(recipeId, book.getFaveCount());
     }
 
-    public void updateFaveRecipes(String userId, ArrayList<String> recipeList, int newSize){
+    public void updateFaveBooks(String userId, ArrayList<String> recipeList, int newSize){
         this.databaseReference.child(userId)
                 .child("faveRecipesCount")
                 .setValue(newSize);

@@ -21,7 +21,7 @@ public class User extends FirebaseUser{
 
         setProfile_Image(user.getProfile_Image());
 
-        initializeRecipeLists();
+        initializeBookLists();
     }
 
     public User(String email, String  password, String username, String firstName, String lastName){
@@ -38,12 +38,12 @@ public class User extends FirebaseUser{
         this.faveBooks = new ArrayList<Book>();
     }
 
-    private void initializeRecipeLists(){
+    private void initializeBookLists(){
         BookDatabase bookDatabase = new BookDatabase();
 
-        this.faveBooks = bookDatabase.findRecipes(getFaveBooksList());
+        this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
 
-        DataHelper.userDatabase.updateFaveRecipes(getUserId(), getFaveBooksList(), getFaveBooksCount());
+        DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
     }
 
     public String getFullName(){
@@ -102,7 +102,7 @@ public class User extends FirebaseUser{
 //        return this.userBooks;
 //    }
 
-    public ArrayList<Book> getFaveRecipes(){
+    public ArrayList<Book> getFaveBooks(){
         return this.faveBooks;
     }
 
