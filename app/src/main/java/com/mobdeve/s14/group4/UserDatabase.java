@@ -180,7 +180,7 @@ public class UserDatabase {
         }
 
         //TODO: set birthday
-        databaseReference.child(user.getUserId()).setValue(user);
+        databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
     }
 //
 //    /**
@@ -214,15 +214,15 @@ public class UserDatabase {
 //        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
 //    }
 
-    public void updateUserBooks(String userId, ArrayList<String> recipeList, int newSize){
-        this.databaseReference.child(userId)
-                .child("userRecipesCount")
-                .setValue(newSize);
-
-        this.databaseReference.child(userId)
-                .child("userRecipesList")
-                .setValue(recipeList);
-    }
+//    public void updateUserBooks(String userId, ArrayList<String> recipeList, int newSize){
+//        this.databaseReference.child(userId)
+//                .child("userBooksCount")
+//                .setValue(newSize);
+//
+//        this.databaseReference.child(userId)
+//                .child("userBooksList")
+//                .setValue(recipeList);
+//    }
 
     /**
      * Adds fave recipe under user. Increase fave count of recipe
@@ -250,14 +250,14 @@ public class UserDatabase {
         DataHelper.bookDatabase.updateFaveCount(recipeId, book.getFaveCount());
     }
 
-    public void updateFaveBooks(String userId, ArrayList<String> recipeList, int newSize){
+    public void updateFaveBooks(String userId, ArrayList<String> bookList, int newSize){
         this.databaseReference.child(userId)
-                .child("faveRecipesCount")
+                .child("faveBooksCount")
                 .setValue(newSize);
 
         this.databaseReference.child(userId)
-                .child("faveRecipesList")
-                .setValue(recipeList);
+                .child("faveBooksList")
+                .setValue(bookList);
     }
 
     
