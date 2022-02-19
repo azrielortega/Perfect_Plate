@@ -25,7 +25,7 @@ public class BookDatabase {
     public BookDatabase(){
         this.auth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance();
-        this.databaseReference = this.database.getReference("recipes");
+        this.databaseReference = this.database.getReference("books");
 //        this.ingredientDatabase = new IngredientDatabase();
         this.reviewDatabase = new ReviewDatabase();
     }
@@ -93,7 +93,7 @@ public class BookDatabase {
     }
 
     public String addBook(Book book){
-        Log.d("myTag", "Add Recipe Entered");
+        Log.d("myTag", "Add Book Entered");
         String key = this.databaseReference.push().getKey();
 
         book.setId(key);

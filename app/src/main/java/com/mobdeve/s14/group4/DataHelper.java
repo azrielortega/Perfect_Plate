@@ -42,7 +42,7 @@ public class DataHelper {
 //        ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
-        final CallbackListener recipesListener = new CallbackListener() {
+        final CallbackListener booksListener = new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
 
@@ -54,7 +54,7 @@ public class DataHelper {
             }
         };
 
-        refreshDatabase(recipesListener);
+        refreshDatabase(booksListener);
     }
 
     public static void refreshDatabase(final CallbackListener recipesListener){
@@ -64,13 +64,13 @@ public class DataHelper {
         initAllUsers();
     }
 
-    public static void asyncRefreshDatabase(Context context, final CallbackListener recipesListener){
+    public static void asyncRefreshDatabase(Context context, final CallbackListener booksListener){
         Handler handler = new Handler(context.getMainLooper());
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                DataHelper.refreshDatabase(recipesListener);
+                DataHelper.refreshDatabase(booksListener);
             }
         };
 
