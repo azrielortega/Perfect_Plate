@@ -44,4 +44,26 @@ public class Address {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
+
+    public boolean isValid(){
+        boolean isValid = true;
+
+        if (this.street.isEmpty()){
+            isValid = false;
+        }
+
+        if (this.city.isEmpty()){
+            isValid = false;
+        }
+
+        if (this.state.isEmpty()){
+            isValid = false;
+        }
+
+        if (this.postalCode.isEmpty()){
+            isValid = false;
+        }
+
+        return isValid;
+    }
 }
