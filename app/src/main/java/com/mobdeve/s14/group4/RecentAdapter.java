@@ -55,12 +55,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
         holder.setTvRecentRatings(foodList.get(position).getRatingString());
         holder.setTvRecentReviews(foodList.get(position).getReviewCount());
         holder.setTvRecentHearts(foodList.get(position).getFaveCount());
-        Picasso.with(holder.itemView.getContext())
-                .load(foodList.get(position).getUploadImage().getmImageUrl())
-                .placeholder(R.drawable.perfect_plate_transparent_bg)
-                .fit()
-                .centerCrop()
-                .into(holder.ivRecentPic);
+//        Picasso.with(holder.itemView.getContext())
+//                .load(foodList.get(position).getUploadImage().getmImageUrl())
+//                .placeholder(R.drawable.perfect_plate_transparent_bg)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.ivRecentPic);
 
 
     }
