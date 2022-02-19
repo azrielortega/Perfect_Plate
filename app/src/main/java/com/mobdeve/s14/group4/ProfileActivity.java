@@ -90,7 +90,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         tvName.setText(DataHelper.user.getFullName());
-        tvUsername.setText(DataHelper.user.getUsername());
+//        tvUsername.setText(DataHelper.user.getUsername());
 //        String recipeCount = "Recipes: " + DataHelper.user.getUserRecipesCount();
 //        tvRecipes.setText(recipeCount);
 

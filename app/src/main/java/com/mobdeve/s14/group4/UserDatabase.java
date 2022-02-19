@@ -146,29 +146,22 @@ public class UserDatabase {
         //User user = new User();
 
 
-        String username = newUser.getUsername().trim();
-        if (!username.isEmpty()){
-            user.setUsername(username);
-        }
-
-
-        String firstName = newUser.getFirstName().trim();
-        if (!firstName.isEmpty()){
-            user.setFirstName(firstName);
-        }
-
-        String lastName = newUser.getLastName().trim();
-        if (!lastName.isEmpty()){
-            user.setLastName(lastName);
-        }
-        else{
-            user.setLastName("");
+        String fullName = newUser.getFullName().trim();
+        if (!fullName.isEmpty()){
+            user.setFullName(fullName);
         }
 
         if(newUser.getEmail() != null) {
             String email = newUser.getEmail().trim();
             if (!email.isEmpty()) {
                 user.setEmail(email);
+            }
+        }
+
+        if(newUser.getAddress() != null){
+            Address address = newUser.getAddress();
+            if(address.isValid()){
+                user.setAddress(address);
             }
         }
 
@@ -179,7 +172,6 @@ public class UserDatabase {
             }
         }
 
-        //TODO: set birthday
         databaseReference.child(user.getUserId()).setValue(user);
     }
 //
