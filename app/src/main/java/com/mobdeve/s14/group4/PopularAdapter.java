@@ -51,13 +51,13 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
         //holder.setIvPopularPic(foodList.get(position).getRecipePic());
         holder.setTvPopularName(foodList.get(position).getBookName());
-//        System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
-//        Picasso.with(holder.itemView.getContext())
-//                .load(foodList.get(position).getUploadImage().getmImageUrl())
-//                .placeholder(R.drawable.perfect_plate_transparent_bg)
-//                .fit()
-//                .centerCrop()
-//                .into(holder.ivPopularPic);
+        System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
+        Picasso.with(holder.itemView.getContext())
+                .load(foodList.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(holder.ivPopularPic);
     }
 
     @Override
