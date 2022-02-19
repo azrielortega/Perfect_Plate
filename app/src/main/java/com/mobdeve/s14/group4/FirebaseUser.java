@@ -24,30 +24,12 @@ public class FirebaseUser {
         this.profilePic = getProfile_Image();
     }
 
-    public FirebaseUser(String id, String fName, String lName){
-        this.userId = id;
-        this.firstName = fName;
-        this.lastName = lName;
-    }
-
     public FirebaseUser(String email, String  password, String username, String firstName, String lastName){
         this.email = email;
         this.password = password;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-
-//        this.userOrdersList = new ArrayList<String>();
-        this.faveBooksList = new ArrayList<String>();
-    }
-
-    public FirebaseUser(String email, String  password, String username, String firstName, String lastName, String birthday){
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
 
 //        this.userOrdersList = new ArrayList<String>();
         this.faveBooksList = new ArrayList<String>();
