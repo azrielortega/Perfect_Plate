@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvBooks;
 
     private FirebaseUser user;
-    private DatabaseReference databaseReference;
+    //private DatabaseReference databaseReference;
 
     private ImageButton ibBack;
     private ImageButton ibAdd;
