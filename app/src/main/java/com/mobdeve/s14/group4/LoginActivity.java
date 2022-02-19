@@ -14,10 +14,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
 
     private Button btnLogin;
-    private Button btnGoogleLogin;
 
     private EditText etEmail;
     private EditText etPassword;
@@ -69,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initComponents(){
         this.btnLogin = findViewById(R.id.login_btn_login);
-        this.btnGoogleLogin = findViewById(R.id.login_btn_google);
         this.etEmail = findViewById(R.id.login_et_email);
         this.etPassword = findViewById(R.id.login_et_password);
         pbLogin = findViewById(R.id.login_pb);
