@@ -42,7 +42,7 @@ public class DataHelper {
 //        ingredientDatabase = new IngredientDatabase();
         reviewDatabase = new ReviewDatabase();
 
-        final CallbackListener recipesListener = new CallbackListener() {
+        final CallbackListener booksListener = new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
 
@@ -54,7 +54,7 @@ public class DataHelper {
             }
         };
 
-        refreshDatabase(recipesListener);
+        refreshDatabase(booksListener);
     }
 
     public static void refreshDatabase(final CallbackListener recipesListener){
