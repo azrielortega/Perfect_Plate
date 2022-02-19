@@ -52,12 +52,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
         //holder.setIvPopularPic(foodList.get(position).getRecipePic());
         holder.setTvPopularName(bookList.get(position).getBookName());
         System.out.println("TESTPIC" + bookList.get(position).getUploadImage().getmImageUrl());
-        Picasso.with(holder.itemView.getContext())
-                .load(bookList.get(position).getUploadImage().getmImageUrl())
-                .placeholder(R.drawable.perfect_plate_transparent_bg)
-                .fit()
-                .centerCrop()
-                .into(holder.ivPopularPic);
+//        Picasso.with(holder.itemView.getContext())
+//                .load(bookList.get(position).getUploadImage().getmImageUrl())
+//                .placeholder(R.drawable.perfect_plate_transparent_bg)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.ivPopularPic);
     }
 
     @Override
