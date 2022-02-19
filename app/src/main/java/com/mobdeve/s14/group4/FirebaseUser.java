@@ -5,18 +5,14 @@ import java.util.ArrayList;
 public class FirebaseUser {
     private String userId;
 
+    private String fullName;
     private String email;
     private String password;
-    private String username;
-
-    private String firstName;
-    private String lastName;
-
-    private String birthday;
-
-    private ArrayList<String> faveBooksList;
+    private Address address;
 
     private UploadImage profilePic;
+
+    private ArrayList<String> faveBooksList;
 
 
     public FirebaseUser(){
@@ -24,57 +20,22 @@ public class FirebaseUser {
         this.profilePic = getProfile_Image();
     }
 
-    public FirebaseUser(String id, String fName, String lName){
-        this.userId = id;
-        this.firstName = fName;
-        this.lastName = lName;
-    }
-
-    public FirebaseUser(String email, String  password, String username, String firstName, String lastName){
+    public FirebaseUser(String fullName, String email, String  password, Address address){
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.address = address;
 
 //        this.userOrdersList = new ArrayList<String>();
         this.faveBooksList = new ArrayList<String>();
-    }
-
-    public FirebaseUser(String email, String  password, String username, String firstName, String lastName, String birthday){
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-
-//        this.userOrdersList = new ArrayList<String>();
-        this.faveBooksList = new ArrayList<String>();
-    }
-
-    public UploadImage getProfile_Image (){
-        return this.profilePic;
-    }
-
-    public void setProfile_Image (UploadImage p){
-        this.profilePic = p;
-    }
-
-    public String getBirthday(){
-        return this.birthday;
-    }
-
-    public void setBirthday (String b){
-        birthday = b;
     }
 
     public String getUserId(){
         return this.userId;
     }
 
-    public String getUsername(){
-        return this.username;
+    public String getFullName() {
+        return fullName;
     }
 
     public String getEmail(){
@@ -85,15 +46,15 @@ public class FirebaseUser {
         return this.password;
     }
 
-    public String getFirstName(){
-        return this.firstName;
+    public Address getAddress() {
+        return address;
     }
 
-    public String getLastName(){
-        return this.lastName;
+    public UploadImage getProfile_Image (){
+        return this.profilePic;
     }
 
-//    public int getUserRecipesCount(){
+    //    public int getUserRecipesCount(){
 //        return this.userOrdersList.size();
 //    }
 
@@ -113,8 +74,8 @@ public class FirebaseUser {
         this.userId = userId;
     }
 
-    public void setUsername(String username){
-        this.username = username;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setEmail(String email){
@@ -126,12 +87,12 @@ public class FirebaseUser {
         this.password = password;
     }
 
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public void setLastName(String lastName){
-        this.lastName = lastName;
+    public void setProfile_Image (UploadImage p){
+        this.profilePic = p;
     }
 
 //    public void setUserOrdersList(ArrayList<String> recipeList){
@@ -147,12 +108,10 @@ public class FirebaseUser {
 
         user.setUserId(this.userId);
 
-        user.setUsername(this.username);
+        user.setFullName(this.fullName);
         user.setEmail(this.email);
         user.setPassword(this.password);
-
-        user.setFirstName(this.firstName);
-        user.setLastName(this.lastName);
+        user.setAddress(this.address);
 
 //        user.setUserOrdersList(this.userOrdersList);
         user.setFaveBooksList(this.faveBooksList);

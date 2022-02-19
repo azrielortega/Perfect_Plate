@@ -55,7 +55,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/signup1_iv_password"
         app:srcCompat="@drawable/ic_vector__7_" />
@@ -65,7 +65,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/signup1_iv_username"
         app:srcCompat="@drawable/ic_email" />
@@ -99,15 +99,14 @@
         app:layout_constraintGuide_percent="0.13" />
 
     <EditText
-        android:id="@+id/signup1_et_username"
+        android:id="@+id/signup1_et_fullName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="Username"
+        android:hint="Full Name"
         android:inputType="textPersonName"
         android:textColor="#02043F"
         android:textColorHint="#9E9E9E"
@@ -121,7 +120,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:srcCompat="@drawable/ic_user_alt" />
@@ -166,7 +165,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -176,14 +175,14 @@
         android:textColorHint="#9E9E9E"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintStart_toEndOf="@+id/signup1_iv_email"
-        app:layout_constraintTop_toBottomOf="@+id/signup1_et_username" />
+        app:layout_constraintTop_toBottomOf="@+id/signup1_et_fullName" />
 
     <EditText
         android:id="@+id/signup1_et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -194,6 +193,23 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintStart_toEndOf="@+id/signup1_iv_password"
         app:layout_constraintTop_toBottomOf="@+id/signup1_et_email" />
+
+    <EditText
+        android:id="@+id/signup1_et_confirm_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/mobile_green"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textColor="#02043F"
+        android:textColorHint="#9E9E9E"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintStart_toEndOf="@+id/signup1_iv_password"
+        app:layout_constraintTop_toBottomOf="@+id/signup1_et_password" />
 
     <TextView
         android:id="@+id/signup1_tv_signin"

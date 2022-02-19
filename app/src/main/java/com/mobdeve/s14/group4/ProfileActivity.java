@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvBooks;
 
     private FirebaseUser user;
-    private DatabaseReference databaseReference;
+    //private DatabaseReference databaseReference;
 
     private ImageButton ibBack;
     private ImageButton ibAdd;
@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         tvName.setText(DataHelper.user.getFullName());
-        tvUsername.setText(DataHelper.user.getUsername());
+//        tvUsername.setText(DataHelper.user.getUsername());
 //        String recipeCount = "Recipes: " + DataHelper.user.getUserRecipesCount();
 //        tvRecipes.setText(recipeCount);
 
