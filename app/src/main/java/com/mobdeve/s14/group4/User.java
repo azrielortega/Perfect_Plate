@@ -10,29 +10,20 @@ public class User extends FirebaseUser{
     public User(FirebaseUser user){
         setUserId(user.getUserId());
 
-        setUsername(user.getUsername());
+        setFullName(user.getFullName());
         setEmail(user.getEmail());
         setPassword(user.getPassword());
-
-        setFirstName(user.getFirstName());
-        setLastName(user.getLastName());
-
-        setFaveBooksList(user.getFaveBooksList());
+        setAddress(user.getAddress());
 
         setProfile_Image(user.getProfile_Image());
+
+        setFaveBooksList(user.getFaveBooksList());
 
         initializeBookLists();
     }
 
-    public User(String email, String  password, String username, String firstName, String lastName){
-        super(email, password, username, firstName, lastName);
-
-//        this.userBooks = new ArrayList<Book>();
-        this.faveBooks = new ArrayList<Book>();
-    }
-
-    public User(String email, String  password, String username, String firstName, String lastName, String birthday){
-        super(email, password, username, firstName, lastName, birthday);
+    public User(String fullName, String email, String  password, Address address){
+        super(fullName, email, password, address);
 
 //        this.userBooks = new ArrayList<Book>();
         this.faveBooks = new ArrayList<Book>();
@@ -44,10 +35,6 @@ public class User extends FirebaseUser{
         this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
 
         DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
-    }
-
-    public String getFullName(){
-        return getFirstName() + " " + getLastName();
     }
 
 //    //add user recipe to current list of recipes
