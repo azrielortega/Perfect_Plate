@@ -232,7 +232,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:text="Create"
+            android:text="Cart"
             android:textAlignment="center"
             android:textColor="#868484"
             android:textSize="10sp" />
