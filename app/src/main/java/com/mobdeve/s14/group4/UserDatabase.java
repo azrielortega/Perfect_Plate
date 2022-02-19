@@ -61,36 +61,7 @@ public class UserDatabase {
         });
     }
 
-    public void getGoogleUser(String googleId, final CallbackListener listener){
-        this.databaseReference.orderByChild("googleId").equalTo(googleId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    Log.d("SUCCESS", "found user with googleId: " + googleId);
-                    for (DataSnapshot userSnapshot : snapshot.getChildren()){
-                        FirebaseUser firebaseUser = userSnapshot.getValue(FirebaseUser.class);
-                        listener.onSuccess(firebaseUser);
-                    }
-                }
-                else{
-                    Log.d("FAILURE", "user with google id " + googleId + " does not exist");
-                    listener.onFailure();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                Log.e("CANCELLED", "failed to get google user " + error);
-            }
-        });
-    }
-
     public void addUser(User user){
-        this.databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
-    }
-
-    public void addGoogleUser(User user){
         this.databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
     }
 
