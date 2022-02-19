@@ -15,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
-    private ArrayList<Book> foodList;
+    private ArrayList<Book> bookList;
 
     public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
 
     public PopularAdapter(ArrayList<Book> p){
-        this.foodList = p;
+        this.bookList = p;
     }
 
 
@@ -38,7 +38,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
             public void onClick(View v) {
 
                 Intent i = new Intent(v.getContext(), BookDetailsActivity.class);
-                i.putExtra(KEY_BOOK_ID, foodList.get(popularViewHolder.getBindingAdapterPosition()).getId());
+                i.putExtra(KEY_BOOK_ID, bookList.get(popularViewHolder.getBindingAdapterPosition()).getId());
 
                 v.getContext().startActivity(i);
 
@@ -50,18 +50,18 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull PopularViewHolder holder, int position) {
         //holder.setIvPopularPic(foodList.get(position).getRecipePic());
-        holder.setTvPopularName(foodList.get(position).getBookName());
-        System.out.println("TESTPIC" + foodList.get(position).getUploadImage().getmImageUrl());
-        Picasso.with(holder.itemView.getContext())
-                .load(foodList.get(position).getUploadImage().getmImageUrl())
-                .placeholder(R.drawable.perfect_plate_transparent_bg)
-                .fit()
-                .centerCrop()
-                .into(holder.ivPopularPic);
+        holder.setTvPopularName(bookList.get(position).getBookName());
+        System.out.println("TESTPIC" + bookList.get(position).getUploadImage().getmImageUrl());
+//        Picasso.with(holder.itemView.getContext())
+//                .load(bookList.get(position).getUploadImage().getmImageUrl())
+//                .placeholder(R.drawable.perfect_plate_transparent_bg)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.ivPopularPic);
     }
 
     @Override
     public int getItemCount() {
-        return this.foodList.size();
+        return this.bookList.size();
     }
 }

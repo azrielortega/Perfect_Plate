@@ -93,7 +93,7 @@ public class BookDatabase {
     }
 
     public String addBook(Book book){
-        Log.d("myTag", "Add Recipe Entered");
+        Log.d("myTag", "Add Book Entered");
         String key = this.databaseReference.push().getKey();
 
         book.setId(key);

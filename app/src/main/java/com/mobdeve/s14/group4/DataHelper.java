@@ -64,13 +64,13 @@ public class DataHelper {
         initAllUsers();
     }
 
-    public static void asyncRefreshDatabase(Context context, final CallbackListener recipesListener){
+    public static void asyncRefreshDatabase(Context context, final CallbackListener booksListener){
         Handler handler = new Handler(context.getMainLooper());
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                DataHelper.refreshDatabase(recipesListener);
+                DataHelper.refreshDatabase(booksListener);
             }
         };
 
