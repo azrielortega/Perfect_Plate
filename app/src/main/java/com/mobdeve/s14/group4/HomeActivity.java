@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         this.initComponents(); // init components and load data
 
         this.initPopularRecyclerView();
-        this.initRecentFeed();
+        //this.initRecentFeed();
     }
 
     @Override
@@ -139,9 +139,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void refreshAdapters(){
-        this.recentBookList.clear();
-        this.recentBookList.addAll(DataHelper.allBooks);
-        this.recentAdapter.notifyDataSetChanged();
+        //this.recentBookList.clear();
+        //this.recentBookList.addAll(DataHelper.allBooks);
+        //this.recentAdapter.notifyDataSetChanged();
 
         this.popularBookList.clear();
         this.popularBookList.addAll(DataHelper.popularBooks);

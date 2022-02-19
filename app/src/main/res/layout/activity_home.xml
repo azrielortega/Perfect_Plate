@@ -37,10 +37,11 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginLeft="15dp"
+        android:backgroundTint="@color/mobile_green"
         app:layout_constraintBottom_toBottomOf="@id/tv_search_top"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintTop_toTopOf="@id/tv_search_top"
-        app:srcCompat="@drawable/ic_vectorsearch" />
+        app:srcCompat="@drawable/ic_search" />
 
     <EditText
         android:id="@+id/et_search_book"
@@ -50,10 +51,10 @@
         android:background="@android:color/transparent"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="Search a Recipe..."
+        android:hint="What book are you looking for? "
         android:inputType="textPersonName"
         android:textColor="#99000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_search_top"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/iv_search"
@@ -66,30 +67,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="62dp" />
-
-    <View
-        android:id="@+id/v_divider"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="#02043F"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_search_top" />
+        app:layout_constraintGuide_begin="103dp" />
 
     <View
         android:id="@+id/v_dividerbot"
         android:layout_width="wrap_content"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
 
-        android:background="#02043F"
+        android:background="@color/mobile_gray"
         app:layout_constraintBottom_toTopOf="@id/ll_profile"
-        app:layout_constraintLeft_toLeftOf="parent"
-         />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
         android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/v_dividerbot"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -145,7 +137,6 @@
                 android:id="@+id/rv_home_popular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
 
                 android:layout_marginRight="15dp"
@@ -173,7 +164,9 @@
             android:id="@+id/iv_home_home"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/vectorhome" />
+            android:paddingTop="2dp"
+            android:paddingBottom="3dp"
+            app:srcCompat="@drawable/ic_fa_solid_home" />
 
         <TextView
             android:id="@+id/tv_home_home"
@@ -182,8 +175,8 @@
             android:fontFamily="@font/montserrat"
             android:text="Home"
             android:textAlignment="center"
-            android:textColor="#FF9400"
-            android:textSize="12sp" />
+            android:textColor="@color/mobile_green"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -201,6 +194,8 @@
             android:id="@+id/iv_home_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="3dp"
             app:srcCompat="@drawable/vectorsearch"
             app:tint="#868484" />
 
@@ -212,7 +207,7 @@
             android:text="Search"
             android:textAlignment="center"
             android:textColor="#868484"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -230,7 +225,7 @@
             android:id="@+id/iv_home_create"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/plus_circlecreate" />
+            app:srcCompat="@drawable/ic_bx_cart" />
 
         <TextView
             android:id="@+id/tv_home_create"
@@ -240,7 +235,7 @@
             android:text="Create"
             android:textAlignment="center"
             android:textColor="#868484"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -258,6 +253,8 @@
             android:id="@+id/iv_home_profile"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             app:srcCompat="@drawable/vectorperson" />
 
         <TextView
@@ -268,7 +265,7 @@
             android:text="Profile"
             android:textAlignment="center"
             android:textColor="#868484"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -286,6 +283,8 @@
             android:id="@+id/iv_home_fav"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             app:srcCompat="@drawable/vectorheart" />
 
         <TextView
@@ -296,7 +295,16 @@
             android:text="Favorites"
             android:textAlignment="center"
             android:textColor="#868484"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/v_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/mobile_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
