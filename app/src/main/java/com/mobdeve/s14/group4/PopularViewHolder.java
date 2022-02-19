@@ -1,6 +1,5 @@
 package com.mobdeve.s14.group4;
 
-import android.media.Image;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +20,7 @@ public class PopularViewHolder extends RecyclerView.ViewHolder {
 
     public PopularViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-//        this.ivPopularPic = itemView.findViewById(R.id.iv_popular_pic);
+        this.ivPopularPic = itemView.findViewById(R.id.iv_popular_pic);
         this.tvPopularName = itemView.findViewById(R.id.tv_popular_name);
         this.cvPopularCard = itemView.findViewById(R.id.cv_popular_card);
 
