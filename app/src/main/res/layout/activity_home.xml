@@ -190,16 +190,16 @@
         app:layout_constraintRight_toLeftOf="@id/ll_create">
 
         <ImageView
-            android:id="@+id/iv_home_search"
+            android:id="@+id/iv_search_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingTop="2dp"
             android:paddingBottom="3dp"
-            app:srcCompat="@drawable/vectorsearch"
+            app:srcCompat="@drawable/ic_search"
             app:tint="#868484" />
 
         <TextView
-            android:id="@+id/tv_home_search"
+            android:id="@+id/tv_search_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -227,7 +227,7 @@
             app:srcCompat="@drawable/ic_bx_cart" />
 
         <TextView
-            android:id="@+id/tv_home_create"
+            android:id="@+id/tv_search_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
@@ -249,7 +249,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/iv_home_profile"
+            android:id="@+id/iv_search_profile"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingTop="3dp"
@@ -257,7 +257,7 @@
             app:srcCompat="@drawable/vectorperson" />
 
         <TextView
-            android:id="@+id/tv_home_profile"
+            android:id="@+id/tv_search_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"

@@ -49,18 +49,15 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecentViewHolder holder, int position) {
-        holder.setIvRecentPic(bookList.get(position).getBookPic());
+        //holder.setIvRecentPic(bookList.get(position).getBookPic());
         holder.setTvRecentName(bookList.get(position).getBookName());
         holder.setTvRecentAuthor(bookList.get(position).getAuthor());
-        holder.setTvRecentRatings(bookList.get(position).getRatingString());
-        holder.setTvRecentReviews(bookList.get(position).getReviewCount());
-        holder.setTvRecentHearts(bookList.get(position).getFaveCount());
-        Picasso.with(holder.itemView.getContext())
-                .load(bookList.get(position).getUploadImage().getmImageUrl())
-                .placeholder(R.drawable.perfect_plate_transparent_bg)
-                .fit()
-                .centerCrop()
-                .into(holder.ivRecentPic);
+//        Picasso.with(holder.itemView.getContext())
+//                .load(bookList.get(position).getUploadImage().getmImageUrl())
+//                .placeholder(R.drawable.perfect_plate_transparent_bg)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.ivRecentPic);
 
 
     }

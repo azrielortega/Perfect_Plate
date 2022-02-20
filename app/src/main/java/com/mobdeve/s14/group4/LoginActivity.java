@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                     DataHelper.loadUser(user.getUid());
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
 
-                    moveToHomeActivity();
+                    moveToSearchActivity();
                     finish();
                 } else {
                     // User is signed out
@@ -137,8 +137,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void moveToHomeActivity(){
-        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+    private void moveToSearchActivity(){
+        Intent i = new Intent(LoginActivity.this, SearchActivity.class);
         startActivity(i);
     }
 }
