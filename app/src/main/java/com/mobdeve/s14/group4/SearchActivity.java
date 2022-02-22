@@ -18,17 +18,26 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity {
 
     private LinearLayout llProfile;
-    private LinearLayout llHome;
-    private LinearLayout llCreate;
-    private LinearLayout llFavorites;
+    private LinearLayout llCart;
+    private LinearLayout llSearch;
 
-    private TextView tvViewAll;
-    private CardView cvCategory;
-    private CardView cvPasta;
-    private CardView cvMain;
-    private CardView cvDessert;
-    private CardView cvPastry;
-    private CardView cvDrinks;
+
+    private CardView cvGrade1;
+    private CardView cvGrade2;
+    private CardView cvGrade3;
+    private CardView cvGrade4;
+    private CardView cvGrade5;
+    private CardView cvGrade6;
+    private CardView cvGrade7;
+    private CardView cvGrade8;
+    private CardView cvGrade9;
+    private CardView cvGrade10;
+    private CardView cvAll;
+
+
+
+
+
 
     private EditText etSearch;
 
@@ -55,16 +64,20 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initComponents() {
         this.llProfile = findViewById(R.id.ll_profile);
-        this.llHome = findViewById(R.id.ll_home);
-        llCreate = findViewById(R.id.ll_create);
-        llFavorites = findViewById(R.id.ll_fav);
-        this.cvCategory = findViewById(R.id.cv_search_appetizer);
-        this.cvPasta = findViewById(R.id.cv_search_pasta);
-        this.cvMain = findViewById(R.id.cv_search_main);
-        this.cvDessert = findViewById(R.id.cv_search_dessert);
-        this.cvPastry = findViewById(R.id.cv_search_pastry);
-        this.cvDrinks = findViewById(R.id.cv_search_drinks);
-        this.tvViewAll = findViewById(R.id.tv_search_view_all);
+        this.llCart = findViewById(R.id.ll_cart);
+        this.llSearch  =findViewById(R.id.ll_search);
+
+        this.cvGrade1 = findViewById(R.id.cv_search_grade1);
+        this.cvGrade2 = findViewById(R.id.cv_search_grade2);
+        this.cvGrade3 = findViewById(R.id.cv_search_grade3);
+        this.cvGrade4 = findViewById(R.id.cv_search_grade4);
+        this.cvGrade5 = findViewById(R.id.cv_search_grade5);
+        this.cvGrade6 = findViewById(R.id.cv_search_grade6);
+        this.cvGrade7 = findViewById(R.id.cv_search_grade7);
+        this.cvGrade8 = findViewById(R.id.cv_search_grade8);
+        this.cvGrade9 = findViewById(R.id.cv_search_grade9);
+        this.cvGrade10 = findViewById(R.id.cv_search_grade10);
+        this.cvAll = findViewById(R.id.cv_search_all);
 
         this.svSearch = findViewById(R.id.sv_search);
         this.etSearch = findViewById(R.id.et_search_book_search);
@@ -72,13 +85,6 @@ public class SearchActivity extends AppCompatActivity {
         this.bookFilter = new ArrayList<Book>();
 
 
-        llFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent (SearchActivity.this, ViewFavoritesActivity.class);
-                startActivity(i);
-            }
-        });
 
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,97 +94,20 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        this.llHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        this.llCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(SearchActivity.this, CreateRecipeActivity1.class);
-//                startActivity(i);
-            }
-        });
-
-        this.cvCategory.setOnClickListener(new View.OnClickListener() {
+        //TODO: do this until Grade 10
+        this.cvGrade1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Appetizer");
+                i.putExtra(KEY_CATEGORY, "Grade 1");
                 i.putExtra(KEY_SEARCH, "99999");
                 startActivity(i);
 
             }
         });
 
-        this.cvPasta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Pasta");
-                i.putExtra(KEY_SEARCH, "99999");
-                startActivity(i);
+        // add here for grade 2-10
 
-            }
-        });
-
-        this.cvMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Main");
-                i.putExtra(KEY_SEARCH, "-9999");
-                startActivity(i);
-
-            }
-        });
-
-        this.cvDessert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Dessert");
-                i.putExtra(KEY_SEARCH, "-9999");
-                startActivity(i);
-
-            }
-        });
-
-        this.cvPastry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Pastry");
-                i.putExtra(KEY_SEARCH, "-9999");
-                startActivity(i);
-
-            }
-        });
-
-        this.cvDrinks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Drinks");
-                i.putExtra(KEY_SEARCH, "-9999");
-                startActivity(i);
-
-            }
-        });
-
-        this.tvViewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "All Recipes");
-                i.putExtra(KEY_SEARCH, "-9999");
-                startActivity(i);
-
-            }
-        });
 
        this.etSearch.setOnKeyListener(new View.OnKeyListener() {
            @Override

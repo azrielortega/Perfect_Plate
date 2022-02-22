@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:paddingLeft="15dp"
+    android:paddingLeft="0dp"
     android:paddingBottom="10dp">
 
     <androidx.cardview.widget.CardView
@@ -85,50 +85,11 @@
             app:srcCompat="@drawable/ic_right_arrow" />
 
         <TextView
-            android:id="@+id/tv_recent_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="165dp"
-            android:fontFamily="@font/montserrat"
-
-            android:text="4.5"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:id="@+id/iv_recent_star"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="168dp"
-            android:layout_marginTop="166dp"
-            app:srcCompat="@drawable/vectorstar" />
-
-        <TextView
-            android:id="@+id/tv_recent_reviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="165dp"
-            android:fontFamily="@font/montserrat"
-            android:text="145"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="210dp"
-            android:layout_marginTop="165dp"
-            android:fontFamily="@font/montserrat"
-            android:text="reviews"
-            android:textSize="12sp" />
-
-        <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="150dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="150dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Php"
             android:textSize="16sp" />
@@ -138,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="183dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="150dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="140.00"
             android:textSize="16sp" />
