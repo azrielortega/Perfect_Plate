@@ -10,24 +10,23 @@ public class FirebaseUser {
     private String password;
     private Address address;
 
-    private UploadImage profilePic;
-
-    private ArrayList<String> faveBooksList;
+    private boolean isAdmin;
+    private ArrayList<String> userOrdersList;
 
 
     public FirebaseUser(){
-        this.faveBooksList = new ArrayList<String>();
-        this.profilePic = getProfile_Image();
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
     }
 
-    public FirebaseUser(String fullName, String email, String  password, Address address){
+    public FirebaseUser(String fullName, String email, String  password, Address address, boolean isAdmin){
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.address = address;
 
-//        this.userOrdersList = new ArrayList<String>();
-        this.faveBooksList = new ArrayList<String>();
+        this.isAdmin = isAdmin;
+        this.userOrdersList = new ArrayList<String>();
     }
 
     public String getUserId(){
@@ -47,27 +46,15 @@ public class FirebaseUser {
     }
 
     public Address getAddress() {
-        return address;
+        return this.address;
     }
 
-    public UploadImage getProfile_Image (){
-        return this.profilePic;
+    public boolean checkAdmin() {
+        return this.isAdmin;
     }
 
-    //    public int getUserRecipesCount(){
-//        return this.userOrdersList.size();
-//    }
-
-//    public ArrayList<String> getUserOrdersList(){
-//        return this.userOrdersList;
-//    }
-
-    public int getFaveBooksCount(){
-        return this.faveBooksList.size();
-    }
-
-    public ArrayList<String> getFaveBooksList(){
-        return this.faveBooksList;
+    public ArrayList<String> getUserOrdersList() {
+        return this.userOrdersList;
     }
 
     public void setUserId(String userId){
@@ -83,7 +70,6 @@ public class FirebaseUser {
     }
 
     public void setPassword(String password){
-        //TODO: apply hash
         this.password = password;
     }
 
@@ -91,16 +77,14 @@ public class FirebaseUser {
         this.address = address;
     }
 
-    public void setProfile_Image (UploadImage p){
-        this.profilePic = p;
+    public void makeAdmin(){
+        this.isAdmin = true;
     }
 
-//    public void setUserOrdersList(ArrayList<String> recipeList){
-//        this.userOrdersList = recipeList;
-//    }
+    public void removeAdmin() { this.isAdmin = false; }
 
-    public void setFaveBooksList(ArrayList<String> bookList){
-        this.faveBooksList = bookList;
+    public void setUserOrdersList(ArrayList<String> userOrdersList) {
+        this.userOrdersList = userOrdersList;
     }
 
     public FirebaseUser duplicateUser(){
@@ -113,33 +97,12 @@ public class FirebaseUser {
         user.setPassword(this.password);
         user.setAddress(this.address);
 
-//        user.setUserOrdersList(this.userOrdersList);
-        user.setFaveBooksList(this.faveBooksList);
+        if (this.checkAdmin()){
+            user.makeAdmin();
+        }
 
-        if(this.profilePic != null) {
-            user.setProfile_Image(this.profilePic);
-        }
-        else{
-            user.setProfile_Image(null);
-        }
+        user.setUserOrdersList(this.userOrdersList);
 
         return user;
-    }
-
-    public void addFaveBookId(String id){
-        this.faveBooksList.add(id);
-    }
-
-    public void removeFaveBookId(String id){
-        int n = getFaveBooksCount();
-        int removeIndex = 0;
-
-        for (int i = 0; i < n; i++){
-            if (this.faveBooksList.get(i).equals(id)){
-                removeIndex = i;
-            }
-        }
-
-        this.faveBooksList.remove(removeIndex);
     }
 }
