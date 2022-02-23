@@ -29,7 +29,7 @@ public class DataHelper {
         orderDatabase = new OrderDatabase();
 
         refreshBooks();
-        if (user.checkAdmin())
+        if (user.isAdmin())
             refreshOrders();
     }
 
