@@ -1,12 +1,13 @@
 package com.mobdeve.s14.group4;
 
+import com.google.firebase.database.ServerValue;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Order {
     private String orderId;
     private ArrayList<OrderDetails> orderDetails;
-    private Date date; //TODO: make timestamp
+    private Object timestamp;
 
     //customer details
     private String customer;
@@ -26,20 +27,17 @@ public class Order {
         this.customer = customer;
         this.address = address;
         this.orderDetails = new ArrayList<OrderDetails>();
+        this.timestamp = ServerValue.TIMESTAMP;
         this.paid = false;
         this.delivered = false;
     }
 
-    public String getOrderId() {
+    public String getId() {
         return orderId;
     }
 
     public ArrayList<OrderDetails> getOrderDetails() {
         return orderDetails;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public String getCustomer() {
@@ -50,6 +48,10 @@ public class Order {
         return address;
     }
 
+    public Object getTimestamp() {
+        return timestamp;
+    }
+
     public boolean isPaid() {
         return paid;
     }
@@ -58,7 +60,7 @@ public class Order {
         return delivered;
     }
 
-    public void setOrderId(String orderId) {
+    public void setId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -66,8 +68,8 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
     }
 
     public void setCustomer(String customer) {
