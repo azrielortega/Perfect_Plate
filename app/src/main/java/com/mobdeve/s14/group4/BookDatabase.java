@@ -97,6 +97,13 @@ public class BookDatabase {
         return key;
     }
 
+    public void updateBook(Book book){
+        Log.d("myTag", "Update Book");
+
+        this.databaseReference.child(book.getId()).setValue(book);
+        DataHelper.updateBook(book);
+    }
+
     /**
      * Delete book from books database.
      * */
