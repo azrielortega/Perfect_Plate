@@ -20,14 +20,10 @@ public class BookDatabase {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
-    private ReviewDatabase reviewDatabase;
-
     public BookDatabase(){
         this.auth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance();
         this.databaseReference = this.database.getReference("books");
-//        this.ingredientDatabase = new IngredientDatabase();
-        this.reviewDatabase = new ReviewDatabase();
     }
 
     /**
@@ -41,9 +37,7 @@ public class BookDatabase {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     for (DataSnapshot recipeSnapshot : snapshot.getChildren()){
-                        FirebaseBook firebaseBook = recipeSnapshot.getValue(FirebaseBook.class);
-                        Book book = new Book(firebaseBook);
-
+                        Book book = recipeSnapshot.getValue(Book.class);
                         books.add(book);
                     }
                 }
@@ -98,31 +92,13 @@ public class BookDatabase {
 
         book.setId(key);
 
-        this.databaseReference.child(key).setValue(book.getFirebaseBook());
+        this.databaseReference.child(key).setValue(book);
 
         return key;
     }
 
-    public void updateRating(String id, double rating){
-        if (rating >= 0){
-            this.databaseReference.child(id).child("rating").setValue(rating);
-        }
-    }
-
-    public void updateFaveCount(String id, long faveCount){
-        if (faveCount >= 0){
-            this.databaseReference.child(id).child("faveCount").setValue(faveCount);
-        }
-    }
-
-    public void updateReviewCount(String id, long reviewCount){
-        if (reviewCount >= 0){
-            this.databaseReference.child(id).child("reviewCount").setValue(reviewCount);
-        }
-    }
-
     /**
-     * Delete recipe from recipe database.
+     * Delete book from books database.
      * */
     public void deleteBook(String id){
         this.databaseReference.child(id).setValue(null);
