@@ -65,26 +65,26 @@ public class BookDatabase {
         return null;
     }
 
-    /**
-     * Find recipes from data helper
-     * */
-    public ArrayList<Book> findBooks(ArrayList<String> bookIds){
-        ArrayList<String> clone = (ArrayList<String>) bookIds.clone();
-        ArrayList<Book> books = new ArrayList<Book>();
-
-        for (String id : clone){
-            Book book = findBook(id);
-
-            if (book != null){
-                books.add(book);
-            }
-            else{
-                bookIds.remove(id);
-            }
-        }
-
-        return books;
-    }
+//    /**
+//     * Find recipes from data helper
+//     * */
+//    public ArrayList<Book> findBooks(ArrayList<String> bookIds){
+//        ArrayList<String> clone = (ArrayList<String>) bookIds.clone();
+//        ArrayList<Book> books = new ArrayList<Book>();
+//
+//        for (String id : clone){
+//            Book book = findBook(id);
+//
+//            if (book != null){
+//                books.add(book);
+//            }
+//            else{
+//                bookIds.remove(id);
+//            }
+//        }
+//
+//        return books;
+//    }
 
     public String addBook(Book book){
         Log.d("myTag", "Add Book Entered");
@@ -102,5 +102,6 @@ public class BookDatabase {
      * */
     public void deleteBook(String id){
         this.databaseReference.child(id).setValue(null);
+        DataHelper.deleteBook(id);
     }
 }
