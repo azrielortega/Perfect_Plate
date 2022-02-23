@@ -33,6 +33,9 @@ public class Order {
         this.delivered = false;
     }
 
+    //
+    // Getters and Setters
+    //
     public String getId() {
         return orderId;
     }
@@ -99,4 +102,13 @@ public class Order {
     public void setDelivered(boolean delivered) {
         this.delivered = delivered;
     }
+
+    //
+    // Functions
+    //
+    public void addOrderDetail(OrderDetails od){
+        orderDetails.add(od);
+    }
+
+    public void removeOrderDetail(OrderDetails od) { orderDetails.remove(od); }
 }

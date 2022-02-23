@@ -1,8 +1,18 @@
 package com.mobdeve.s14.group4;
 
+import com.google.firebase.database.Exclude;
+
 public class OrderDetails {
+    //
+    // ADDED TO FIREBASE
+    //
     private String bookId;
     private int quantity;
+
+    //
+    // EXCLUDED FROM FIREBASE
+    //
+    private Book book;
 
     public OrderDetails(){
 
@@ -11,6 +21,12 @@ public class OrderDetails {
     public OrderDetails(String bookId, int quantity){
         this.bookId = bookId;
         this.quantity = quantity;
+    }
+
+    public OrderDetails(String bookId, int quantity, Book book){
+        this.bookId = bookId;
+        this.quantity = quantity;
+        this.book = book;
     }
 
     public String getBookId() {
@@ -27,5 +43,18 @@ public class OrderDetails {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    //
+    // EXCLUDED FROM FIREBASE
+    //
+    @Exclude
+    public Book getBook() {
+        return book;
+    }
+
+    @Exclude
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
