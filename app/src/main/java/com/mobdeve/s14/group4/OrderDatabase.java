@@ -23,7 +23,7 @@ public class OrderDatabase {
     public OrderDatabase(){
         this.auth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance();
-        this.databaseReference = this.database.getReference("firebaseOrders");
+        this.databaseReference = this.database.getReference("orders");
     }
 
     /**
@@ -87,7 +87,7 @@ public class OrderDatabase {
 
         this.databaseReference.child(key).setValue(order);
 
-        if (DataHelper.user.checkAdmin())
+        if (DataHelper.user.isAdmin())
             DataHelper.addOrder(order);
 
         return key;
