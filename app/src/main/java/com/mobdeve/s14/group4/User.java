@@ -121,7 +121,13 @@ public class User {
     //
     // METHODS
     //
+    public void initializeOrderLists(){
+        //TODO: find all orders by id
+        // then, set order in orderhistory
+    }
+
     public void addOrder(Order order){
         this.orderHistory.add(order);
+        this.userOrdersList.add(order.getId());
     }
 }
