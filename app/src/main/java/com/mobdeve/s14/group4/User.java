@@ -1,5 +1,7 @@
 package com.mobdeve.s14.group4;
 
+import android.util.Log;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -122,8 +124,17 @@ public class User {
     // METHODS
     //
     public void initializeOrderLists(){
-        //TODO: find all orders by id
-        // then, set order in orderhistory
+        DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                setOrderHistory((ArrayList<Order>) o);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get user orders");
+            }
+        });
     }
 
     public void addOrder(Order order){
