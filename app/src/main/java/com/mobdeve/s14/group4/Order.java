@@ -3,6 +3,7 @@ package com.mobdeve.s14.group4;
 import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Order {
     private String orderId;
@@ -50,6 +51,17 @@ public class Order {
 
     public Object getTimestamp() {
         return timestamp;
+    }
+
+    public Date getDate(){
+        Date date;
+        try {
+            date = new Date((long) timestamp);
+        }
+        catch (Exception e){
+            date = null;
+        }
+        return date;
     }
 
     public boolean isPaid() {
