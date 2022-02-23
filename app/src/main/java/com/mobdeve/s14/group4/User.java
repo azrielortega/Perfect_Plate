@@ -3,11 +3,13 @@ package com.mobdeve.s14.group4;
 import java.util.ArrayList;
 
 public class User extends FirebaseUser{
-    private ArrayList<Book> faveBooks;
+    private ArrayList<Order> orderHistory;
 
     public User(){}
 
     public User(FirebaseUser user){
+        super();
+
         setUserId(user.getUserId());
 
         setFullName(user.getFullName());
@@ -15,26 +17,32 @@ public class User extends FirebaseUser{
         setPassword(user.getPassword());
         setAddress(user.getAddress());
 
-        setProfile_Image(user.getProfile_Image());
+        if (user.checkAdmin())
+            makeAdmin();
 
-        setFaveBooksList(user.getFaveBooksList());
+        setUserOrdersList(user.getUserOrdersList());
 
-        initializeBookLists();
+        initializeOrdersList();
     }
 
     public User(String fullName, String email, String  password, Address address){
         super(fullName, email, password, address);
 
-//        this.userBooks = new ArrayList<Book>();
-        this.faveBooks = new ArrayList<Book>();
+        this.orderHistory = new ArrayList<Order>();
     }
 
-    private void initializeBookLists(){
-        BookDatabase bookDatabase = new BookDatabase();
+    public User(String fullName, String email, String  password, Address address, boolean isAdmin){
+        super(fullName, email, password, address, isAdmin);
 
-        this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
+        this.orderHistory = new ArrayList<Order>();
+    }
 
-        DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
+    private void initializeOrdersList(){
+//        BookDatabase bookDatabase = new BookDatabase();
+//
+//        this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
+//
+//        DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
     }
 
 //    //add user recipe to current list of recipes
@@ -43,13 +51,6 @@ public class User extends FirebaseUser{
 //        this.userBooks.add(book);
 //        addUserOrderId(book.getId());
 //    }
-
-    public void addFaveBook(Book book){
-        this.faveBooks.add(book);
-        addFaveBookId(book.getId());
-
-        book.setFaveCount(book.getFaveCount() + 1);
-    }
 
 //    /**
 //     * Removes user recipe from User and FirebaseUser
@@ -67,31 +68,9 @@ public class User extends FirebaseUser{
 //        this.userBooks.remove(removeIndex);
 //    }
 
-    /**
-     * Removes favorite recipe from User and FirebaseUser
-     */
-    public void removeFaveBook(Book book){
-        int removeIndex = 0;
-
-        for (int i = 0; i < getFaveBooksCount(); i++){
-            if (this.faveBooks.get(i).getId().equals(book.getId())){
-                removeIndex = i;
-            }
-        }
-
-        removeFaveBookId(book.getId());
-        this.faveBooks.remove(removeIndex);
-
-        book.setFaveCount(book.getFaveCount() - 1);
-    }
-
 //    public ArrayList<Book> getUserRecipes(){
 //        return this.userBooks;
 //    }
-
-    public ArrayList<Book> getFaveBooks(){
-        return this.faveBooks;
-    }
 
     public FirebaseUser getFirebaseUser(){
         return duplicateUser();

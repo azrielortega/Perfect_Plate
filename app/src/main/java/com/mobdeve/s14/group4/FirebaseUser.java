@@ -19,6 +19,16 @@ public class FirebaseUser {
         this.userOrdersList = new ArrayList<String>();
     }
 
+    public FirebaseUser(String fullName, String email, String  password, Address address){
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
+    }
+
     public FirebaseUser(String fullName, String email, String  password, Address address, boolean isAdmin){
         this.fullName = fullName;
         this.email = email;
