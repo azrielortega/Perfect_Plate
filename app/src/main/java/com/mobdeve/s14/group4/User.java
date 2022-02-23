@@ -1,78 +1,127 @@
 package com.mobdeve.s14.group4;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 
-public class User extends FirebaseUser{
+public class User {
+    private String userId;
+
+    private String fullName;
+    private String email;
+    private String password;
+    private Address address;
+
+    private boolean isAdmin;
+    private ArrayList<String> userOrdersList;
+
+    //
+    // Excluded from Firebase
+    //
     private ArrayList<Order> orderHistory;
 
-    public User(){}
 
-    public User(FirebaseUser user){
-        super();
-
-        setUserId(user.getUserId());
-
-        setFullName(user.getFullName());
-        setEmail(user.getEmail());
-        setPassword(user.getPassword());
-        setAddress(user.getAddress());
-
-        if (user.checkAdmin())
-            makeAdmin();
-
-        setUserOrdersList(user.getUserOrdersList());
-
-        initializeOrdersList();
+    public User(){
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
+        this.orderHistory = new ArrayList<Order>();
     }
 
     public User(String fullName, String email, String  password, Address address){
-        super(fullName, email, password, address);
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
 
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
         this.orderHistory = new ArrayList<Order>();
     }
 
     public User(String fullName, String email, String  password, Address address, boolean isAdmin){
-        super(fullName, email, password, address, isAdmin);
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
 
+        this.isAdmin = isAdmin;
+        this.userOrdersList = new ArrayList<String>();
         this.orderHistory = new ArrayList<Order>();
     }
 
-    private void initializeOrdersList(){
-//        BookDatabase bookDatabase = new BookDatabase();
-//
-//        this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
-//
-//        DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
+    public String getUserId(){
+        return this.userId;
     }
 
-//    //add user recipe to current list of recipes
-//    public void addUserRecipe(Book book){
-//        //add to local lists
-//        this.userBooks.add(book);
-//        addUserOrderId(book.getId());
-//    }
+    public String getFullName() {
+        return fullName;
+    }
 
-//    /**
-//     * Removes user recipe from User and FirebaseUser
-//     */
-//    public void removeUserRecipe(String id){
-//        int removeIndex = 0;
-//
-//        for (int i = 0; i < getUserRecipesCount(); i++){
-//            if (this.userBooks.get(i).getId().equals(id)){
-//                removeIndex = i;
-//            }
-//        }
-//
-//        removeUserRecipeId(id);
-//        this.userBooks.remove(removeIndex);
-//    }
+    public String getEmail(){
+        return this.email;
+    }
 
-//    public ArrayList<Book> getUserRecipes(){
-//        return this.userBooks;
-//    }
+    public String getPassword(){
+        return this.password;
+    }
 
-    public FirebaseUser getFirebaseUser(){
-        return duplicateUser();
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
+
+    public ArrayList<String> getUserOrdersList() {
+        return this.userOrdersList;
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public void setUserOrdersList(ArrayList<String> userOrdersList) {
+        this.userOrdersList = userOrdersList;
+    }
+
+    //
+    // EXCLUDED FROM FIREBASE
+    //
+    @Exclude
+    public ArrayList<Order> getOrderHistory() {
+        return orderHistory;
+    }
+
+    @Exclude
+    public void setOrderHistory(ArrayList<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
+    //
+    // METHODS
+    //
+    public void addOrder(Order order){
+        this.orderHistory.add(order);
     }
 }
