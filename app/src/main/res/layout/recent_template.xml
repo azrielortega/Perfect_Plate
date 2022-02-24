@@ -43,7 +43,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="bottom"
-            android:lines="2"
             android:maxLines="2"
             android:text="The New Science Links Teacher’s Resource Materials"
             android:textColor="@color/mobile_green"
