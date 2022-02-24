@@ -10,20 +10,27 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_recent_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:background="@drawable/shadow"
-        android:clipToPadding="false"
-        android:elevation="8dp"
+        android:clipToPadding="true"
+        android:fadingEdge="horizontal|vertical"
+        android:focusable="auto"
+        android:longClickable="true"
+        android:padding="0dp"
         app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="false">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        >
 
         <ImageView
             android:id="@+id/iv_recent_pic"
             android:layout_width="140dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:adjustViewBounds="true"
             android:background="@drawable/shadow"
-            android:scaleType="centerCrop"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/book_cover" />
 
         <TextView
