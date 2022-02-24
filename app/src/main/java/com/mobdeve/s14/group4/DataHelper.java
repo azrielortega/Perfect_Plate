@@ -16,6 +16,8 @@ public class DataHelper {
     public static BookDatabase bookDatabase;
     public static OrderDatabase orderDatabase;
 
+    public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
+
     public static void initUser(String uid){
         loadUser(uid);
     }
@@ -29,8 +31,6 @@ public class DataHelper {
         orderDatabase = new OrderDatabase();
 
         refreshBooks();
-        if (user.isAdmin())
-            refreshOrders();
     }
 
     public static void refreshBooks(){
@@ -94,7 +94,11 @@ public class DataHelper {
         userDatabase.getUser(uid, new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
-                setGlobalUser((User) o);
+                User user = (User) o;
+                setGlobalUser(user);
+                
+                if (user.isAdmin())
+                    refreshOrders();
             }
 
             @Override
