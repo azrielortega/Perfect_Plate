@@ -3,13 +3,11 @@ package com.mobdeve.s14.group4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -79,7 +77,6 @@ public class SignUpActivity2 extends AppCompatActivity {
                 User user = new User(fullName, email, password, address);
                 if (validateUser(user)){
                     //add user to db
-
                     storeUser(user);
                 }
             }
@@ -156,7 +153,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         DataHelper.setGlobalUser(user);
 
-        moveToHomeActivity();
+        moveToSearchActivity();
         finish();
     }
 
@@ -175,8 +172,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.mDatabase = FirebaseDatabase.getInstance();
     }
 
-    private void moveToHomeActivity(){
-        Intent i = new Intent(SignUpActivity2.this, HomeActivity.class);
+    private void moveToSearchActivity(){
+        Intent i = new Intent(SignUpActivity2.this, SearchActivity.class);
         startActivity(i);
     }
 }
