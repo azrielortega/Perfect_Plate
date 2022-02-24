@@ -1,114 +1,89 @@
 package com.mobdeve.s14.group4;
 
-import android.util.Log;
+public class Book {
+    private String bookId;
 
-import java.text.DecimalFormat;
+    private int bookPic;
+    private UploadImage image;
 
-public class Book extends FirebaseBook
-{
-    public Book() {
-        super();
+    private String bookName;
+
+    private String author;
+    private String category;
+
+    private double price;
+    private int stock;
+
+    public Book(){
+
     }
 
-    public Book(FirebaseBook firebaseBook){
-        setId(firebaseBook.getId());
+    //get from database
+    public Book(String id, int bookPic, UploadImage upload, String bookName,
+                String author, String category, double price, int stock){
+        this.bookId = id;
 
-        setBookPic(firebaseBook.getBookPic());
-        setUploadImage(firebaseBook.getUploadImage());
+        this.bookPic = bookPic;
+        this.image = upload;
 
-        setBookName(firebaseBook.getBookName());
-        setDescription(firebaseBook.getDescription());
+        this.bookName = bookName;
 
-        setAuthor(firebaseBook.getAuthor());
+        this.author = author;
+        this.category = category;
 
-        setPrice(firebaseBook.getPrice());
-        setStock(firebaseBook.getStock());
-
-        setFaveCount(firebaseBook.getFaveCount());
-        setRating(firebaseBook.getRating());
-        setReviewCount(firebaseBook.getReviewCount());
-
-        setCategory(firebaseBook.getCategory());
+        this.price = price;
+        this.stock = stock;
     }
 
-    //with id from database
-    public Book(String id, int bookPic, UploadImage upload, String bookName, String desc,
-                String author, double price, int stock, int faveCount, double rating,
-                int reviewCount, String category){
-        super(id, bookPic, upload, bookName, desc, author, price, stock, faveCount, rating, reviewCount, category);
+    public String getId(){
+        return this.bookId;
     }
 
-    public String getRatingString() {
-        if (getRating() > 0){
-            DecimalFormat value = new DecimalFormat("#.#");
-            return value.format(getRating());
-        }
-        return "0.0";
+    public int getBookPic(){
+        return this.bookPic;
     }
 
-    public FirebaseBook getFirebaseBook(){
-        FirebaseBook firebaseBook = new FirebaseBook();
-
-        firebaseBook.setId(getId());
-
-        firebaseBook.setBookPic(getBookPic());
-        firebaseBook.setUploadImage(getUploadImage());
-
-        firebaseBook.setBookName(getBookName());
-        firebaseBook.setDescription(getDescription());
-
-        firebaseBook.setAuthor(getAuthor());
-
-        firebaseBook.setPrice(getPrice());
-        firebaseBook.setStock((getStock()));
-
-        firebaseBook.setFaveCount(getFaveCount());
-        firebaseBook.setRating(getRating());
-        firebaseBook.setReviewCount(getReviewCount());
-
-        firebaseBook.setCategory(getCategory());
-
-        Log.d("myTag", String.valueOf(firebaseBook));
-
-        return firebaseBook;
+    public UploadImage getUploadImage (){
+        return this.image;
     }
 
-    public void addRating(double newRating){
-        int count = getReviewCount();
-        int newCount = count + 1;
-
-        setReviewCount(newCount);
-        DataHelper.bookDatabase.updateReviewCount(getId(), newCount);
-
-        double rating = getRating();
-        rating = (rating * count / newCount) + (newRating / newCount);
-
-        //update lists
-        setRating(rating);
-        DataHelper.bookDatabase.updateRating(getId(), rating);
+    public String getBookName(){
+        return this.bookName;
     }
 
-    public void removeRating(double removeRating){
-        int count = getReviewCount();
-        int newCount = count - 1;
+    public String getAuthor() { return this.author; }
 
-        setReviewCount(newCount);
-        DataHelper.bookDatabase.updateReviewCount(getId(), newCount);
+    public String getCategory () {return this.category;}
 
-        if (newCount > 0){
-            double rating = getRating();
-            rating = (rating * count / newCount) - (removeRating / newCount);
+    public double getPrice() { return this.price; }
 
-            if (rating < 0)
-                rating = 0;
+    public int getStock() { return this.stock; }
 
-            //update lists
-            setRating(rating);
-            DataHelper.bookDatabase.updateRating(getId(), rating);
-        }
-        else{
-            setRating(0);
-            DataHelper.bookDatabase.updateRating(getId(), 0);
-        }
+    public void setId(String id){
+        this.bookId = id;
     }
+
+    public void setBookPic(int pic){
+        this.bookPic = pic;
+    }
+
+    public void setUploadImage (UploadImage ui){
+        this.image = ui;
+    }
+
+    public void setBookName(String bookName){
+        this.bookName = bookName;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setCategory(String category){
+        this.category = category;
+    }
+
+    public void setPrice(double price) { this.price = price; }
+
+    public void setStock(int stock) { this.stock = stock; }
 }

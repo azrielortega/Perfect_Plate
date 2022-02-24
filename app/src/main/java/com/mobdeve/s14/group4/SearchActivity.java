@@ -34,22 +34,9 @@ public class SearchActivity extends AppCompatActivity {
     private CardView cvGrade10;
     private CardView cvAll;
 
-
-
-
-
-
     private EditText etSearch;
 
-    private ArrayList<Book> bookFilter;
-
-
-
     private SearchView svSearch;
-
-
-    public static final String KEY_CATEGORY = "KEY_CATEGORY";
-    public static final String KEY_SEARCH = "KEY_SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +44,6 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         initComponents();
-
-
     }
 
 
@@ -82,31 +67,115 @@ public class SearchActivity extends AppCompatActivity {
         this.svSearch = findViewById(R.id.sv_search);
         this.etSearch = findViewById(R.id.et_search_book_search);
 
-        this.bookFilter = new ArrayList<Book>();
-
-
-
-        this.llProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, ProfileActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //TODO: do this until Grade 10
         this.cvGrade1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_CATEGORY, "Grade 1");
-                i.putExtra(KEY_SEARCH, "99999");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 1");
                 startActivity(i);
 
             }
         });
 
-        // add here for grade 2-10
+        this.cvGrade2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 2");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 3");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 4");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 5");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 6");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 7");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 8");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 9");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 10");
+                startActivity(i);
+
+            }
+        });
 
 
        this.etSearch.setOnKeyListener(new View.OnKeyListener() {
@@ -118,8 +187,8 @@ public class SearchActivity extends AppCompatActivity {
                    Log.d("SEARCHTEST", "enter pressed");
                    String key = etSearch.getText().toString();
                    Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                   i.putExtra(KEY_SEARCH, key);
-                   i.putExtra(KEY_CATEGORY, "-9999");
+                   i.putExtra(DataHelper.KEY_SEARCH, key);
+                   i.putExtra(DataHelper.KEY_CATEGORY, "All");
                    etSearch.setText("");
                    startActivity(i);
                    return true;
