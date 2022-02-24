@@ -42,7 +42,10 @@ public class SearchFilterActivity extends AppCompatActivity {
         Log.d("CATEG", categ);
 
         if (categ.equalsIgnoreCase("ALL")){
-            filterBook = DataHelper.allBooks;
+            for (Book b : DataHelper.allBooks){
+                if (b.getBookName().toLowerCase().contains(key.toLowerCase()))
+                    filterBook.add(b);
+            }
         } else {
             for (Book book : DataHelper.allBooks){
                 if (book.getCategory().equalsIgnoreCase(categ)){
