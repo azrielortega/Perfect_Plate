@@ -94,7 +94,104 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        // add here for grade 2-10
+        this.cvGrade2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 2");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 3");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 4");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 5");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 6");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 7");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 8");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 9");
+                startActivity(i);
+
+            }
+        });
+
+        this.cvGrade10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
+                i.putExtra(KEY_CATEGORY, "Grade 10");
+                startActivity(i);
+
+            }
+        });
 
 
        this.etSearch.setOnKeyListener(new View.OnKeyListener() {
