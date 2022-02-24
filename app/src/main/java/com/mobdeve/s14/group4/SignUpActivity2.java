@@ -49,7 +49,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etStreetAddress = findViewById(R.id.signup2_et_sAddress);
         this.etCity = findViewById(R.id.signup2_et_city);
         this.etState = findViewById(R.id.signup2_et_state);
-        this.etPostalCode = findViewById(R.id.signup2_et_state);
+        this.etPostalCode = findViewById(R.id.signup2_etPostalCode);
 
         this.pbSignup = findViewById(R.id.pb_signup);
 
@@ -72,7 +72,6 @@ public class SignUpActivity2 extends AppCompatActivity {
                 String postalCode = etPostalCode.getText().toString().trim();
 
                 address = new Address(street, city, state, postalCode);
-                //Toast.makeText(SignUpActivity2.this, birthday, Toast.LENGTH_SHORT).show();
 
                 User user = new User(fullName, email, password, address);
                 if (validateUser(user)){
@@ -98,6 +97,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         }
 
         //validate password
+        // TODO: password must be at least 6 characters for firebase
         if (user.getPassword().isEmpty()){
             isValidUser = false;
         }
