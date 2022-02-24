@@ -37,8 +37,8 @@ public class SearchFilterActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        String key = i.getStringExtra(SearchActivity.KEY_SEARCH);
-        String categ = i.getStringExtra(SearchActivity.KEY_CATEGORY);
+        String key = i.getStringExtra(DataHelper.KEY_SEARCH);
+        String categ = i.getStringExtra(DataHelper.KEY_CATEGORY);
         Log.d("CATEG", categ);
 
         if (categ.equalsIgnoreCase("ALL")){

@@ -34,22 +34,9 @@ public class SearchActivity extends AppCompatActivity {
     private CardView cvGrade10;
     private CardView cvAll;
 
-
-
-
-
-
     private EditText etSearch;
 
-    private ArrayList<Book> bookFilter;
-
-
-
     private SearchView svSearch;
-
-
-    public static final String KEY_CATEGORY = "KEY_CATEGORY";
-    public static final String KEY_SEARCH = "KEY_SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +67,12 @@ public class SearchActivity extends AppCompatActivity {
         this.svSearch = findViewById(R.id.sv_search);
         this.etSearch = findViewById(R.id.et_search_book_search);
 
-        this.bookFilter = new ArrayList<Book>();
-
-        //TODO: do this until Grade 10
         this.cvGrade1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 1");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 1");
                 startActivity(i);
 
             }
@@ -98,8 +82,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 2");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 2");
                 startActivity(i);
 
             }
@@ -109,8 +93,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 3");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 3");
                 startActivity(i);
 
             }
@@ -120,8 +104,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 4");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 4");
                 startActivity(i);
 
             }
@@ -131,8 +115,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 5");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 5");
                 startActivity(i);
 
             }
@@ -142,8 +126,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 6");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 6");
                 startActivity(i);
 
             }
@@ -153,8 +137,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 7");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 7");
                 startActivity(i);
 
             }
@@ -164,8 +148,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 8");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 8");
                 startActivity(i);
 
             }
@@ -175,8 +159,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 9");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 9");
                 startActivity(i);
 
             }
@@ -186,8 +170,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                i.putExtra(KEY_SEARCH, "");
-                i.putExtra(KEY_CATEGORY, "Grade 10");
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "Grade 10");
                 startActivity(i);
 
             }
@@ -203,8 +187,8 @@ public class SearchActivity extends AppCompatActivity {
                    Log.d("SEARCHTEST", "enter pressed");
                    String key = etSearch.getText().toString();
                    Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                   i.putExtra(KEY_SEARCH, key);
-                   i.putExtra(KEY_CATEGORY, "All");
+                   i.putExtra(DataHelper.KEY_SEARCH, key);
+                   i.putExtra(DataHelper.KEY_CATEGORY, "All");
                    etSearch.setText("");
                    startActivity(i);
                    return true;

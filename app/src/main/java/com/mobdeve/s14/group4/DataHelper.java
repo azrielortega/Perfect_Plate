@@ -17,6 +17,8 @@ public class DataHelper {
     public static OrderDatabase orderDatabase;
 
     public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
+    public static final String KEY_CATEGORY = "KEY_CATEGORY";
+    public static final String KEY_SEARCH = "KEY_SEARCH";
 
     public static void initUser(String uid){
         loadUser(uid);
