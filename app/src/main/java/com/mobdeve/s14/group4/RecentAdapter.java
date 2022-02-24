@@ -52,14 +52,14 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
         //holder.setIvRecentPic(bookList.get(position).getBookPic());
         holder.setTvRecentName(bookList.get(position).getBookName());
         holder.setTvRecentAuthor(bookList.get(position).getAuthor());
-//        Picasso.with(holder.itemView.getContext())
-//                .load(bookList.get(position).getUploadImage().getmImageUrl())
-//                .placeholder(R.drawable.perfect_plate_transparent_bg)
-//                .fit()
-//                .centerCrop()
-//                .into(holder.ivRecentPic);
-
-
+        holder.setTvRecentCategory(bookList.get(position).getCategory());
+        holder.setTvRecentPrice(bookList.get(position).getPrice());
+        Picasso.with(holder.itemView.getContext())
+                .load(bookList.get(position).getUploadImage().getmImageUrl())
+                .placeholder(R.drawable.perfect_plate_transparent_bg)
+                .fit()
+                .centerCrop()
+                .into(holder.ivRecentPic);
     }
 
     @Override

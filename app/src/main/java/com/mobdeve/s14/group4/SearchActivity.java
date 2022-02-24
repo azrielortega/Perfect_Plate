@@ -57,8 +57,6 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         initComponents();
-
-
     }
 
 
@@ -84,23 +82,13 @@ public class SearchActivity extends AppCompatActivity {
 
         this.bookFilter = new ArrayList<Book>();
 
-
-
-        this.llProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, ProfileActivity.class);
-                startActivity(i);
-            }
-        });
-
         //TODO: do this until Grade 10
         this.cvGrade1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(KEY_SEARCH, "");
                 i.putExtra(KEY_CATEGORY, "Grade 1");
-                i.putExtra(KEY_SEARCH, "99999");
                 startActivity(i);
 
             }
@@ -119,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
                    String key = etSearch.getText().toString();
                    Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
                    i.putExtra(KEY_SEARCH, key);
-                   i.putExtra(KEY_CATEGORY, "-9999");
+                   i.putExtra(KEY_CATEGORY, "All");
                    etSearch.setText("");
                    startActivity(i);
                    return true;

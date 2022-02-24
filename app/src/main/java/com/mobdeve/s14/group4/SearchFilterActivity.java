@@ -37,11 +37,11 @@ public class SearchFilterActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        String categ = i.getStringExtra(SearchActivity.KEY_CATEGORY);
         String key = i.getStringExtra(SearchActivity.KEY_SEARCH);
+        String categ = i.getStringExtra(SearchActivity.KEY_CATEGORY);
         Log.d("CATEG", categ);
 
-        if (categ.equalsIgnoreCase("All Recipes")){
+        if (categ.equalsIgnoreCase("ALL")){
             filterBook = DataHelper.allBooks;
         } else {
             for (Book book : DataHelper.allBooks){
@@ -51,25 +51,7 @@ public class SearchFilterActivity extends AppCompatActivity {
             }
         }
 
-        if(!key.equalsIgnoreCase("-9999")){
-            for (Book book : DataHelper.allBooks){
-                String tempName = book.getBookName().toLowerCase();
-                String tempKey = key.toLowerCase();
-
-                if (tempName.contains(tempKey)){
-                    filterBook.add(book);
-                }
-            }
-        }
-
-        String temp;
-        if (!categ.equalsIgnoreCase("-9999")){
-            temp = "'" + categ + "'";
-        } else {
-            temp = "'" + key + "'";
-        }
-
-        this.tvCategory.setText(temp);
+        this.tvCategory.setText(categ + " Books");
 
         this.ibBack.setOnClickListener(new View.OnClickListener() {
             @Override

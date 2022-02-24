@@ -96,7 +96,7 @@ public class DataHelper {
             public void onSuccess(Object o) {
                 User user = (User) o;
                 setGlobalUser(user);
-                
+
                 if (user.isAdmin())
                     refreshOrders();
             }
