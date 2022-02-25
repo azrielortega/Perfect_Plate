@@ -177,26 +177,23 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-       this.etSearch.setOnKeyListener(new View.OnKeyListener() {
-           @Override
-           public boolean onKey(View v, int keyCode, KeyEvent event) {
-               if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+        this.etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                   // Perform action on key press
-                   Log.d("SEARCHTEST", "enter pressed");
-                   String key = etSearch.getText().toString();
-                   Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
-                   i.putExtra(DataHelper.KEY_SEARCH, key);
-                   i.putExtra(DataHelper.KEY_CATEGORY, "All");
-                   etSearch.setText("");
-                   startActivity(i);
-                   return true;
-               }
-               return false;
-           }
+                    // Perform action on key press
+                    Log.d("SEARCHTEST", "enter pressed");
+                    String key = etSearch.getText().toString();
+                    Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                    i.putExtra(DataHelper.KEY_SEARCH, key);
+                    i.putExtra(DataHelper.KEY_CATEGORY, "All");
+                    etSearch.setText("");
+                    startActivity(i);
+                    return true;
+                }
+                return false;
+            }
        });
     }
-
-
 }
