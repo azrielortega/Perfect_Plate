@@ -57,4 +57,15 @@ public class OrderDetails {
     public void setBook(Book book) {
         this.book = book;
     }
+
+    @Exclude
+    public void addOne(){
+        this.quantity += 1;
+    }
+
+    @Exclude
+    public void subOne(){
+        if (this.quantity > 0)
+            this.quantity -= 1;
+    }
 }
