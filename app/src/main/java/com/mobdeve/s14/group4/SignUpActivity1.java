@@ -74,19 +74,23 @@ public class SignUpActivity1 extends AppCompatActivity {
                 Log.d("TEST PASSWORD SIGN UP 1", password);
                 Log.d("TEST USERNAME SIGN UP 1", fullName);
 
+                if (password.length() >= 6){
+                    if (password.equals(confirm)){
+                        Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
+                        i.putExtra(KEY_EMAIL, email);
+                        i.putExtra(KEY_FULLNAME, fullName);
+                        i.putExtra(KEY_PASSWORD, password);
 
-                if (password.equals(confirm)){
-                    Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
-                    i.putExtra(KEY_EMAIL, email);
-                    i.putExtra(KEY_FULLNAME, fullName);
-                    i.putExtra(KEY_PASSWORD, password);
 
-
-                    SignUpActivity1.this.startActivity(i);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        SignUpActivity1.this.startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                    else{
+                        showErrorMessage("PASSWORD DOES NOT MATCH");
+                    }
                 }
                 else{
-                    showErrorMessage("PASSWORD DOES NOT MATCH");
+                    showErrorMessage("PASSWORD MUST HAVE AT LEAST 6 CHARACTERS");
                 }
             }
         });
