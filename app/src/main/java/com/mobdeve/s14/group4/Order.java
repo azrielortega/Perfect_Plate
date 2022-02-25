@@ -108,7 +108,19 @@ public class Order {
     // Functions
     //
     public void addOrderDetail(OrderDetails od){
-        orderDetails.add(od);
+        OrderDetails temp = null;
+
+        for (OrderDetails od1 : orderDetails){
+            if (od1.getBook() == od.getBook()){
+                temp = od1;
+                break;
+            }
+        }
+
+        if (temp == null)
+            orderDetails.add(od);
+        else
+            temp.addOne();
     }
 
     public void removeOrderDetail(OrderDetails od) { orderDetails.remove(od); }

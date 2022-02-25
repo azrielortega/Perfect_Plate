@@ -115,14 +115,6 @@ public class DataHelper {
     public static void setGlobalUser(User u){
         user = u;
         cart = new Order(user.getFullName(), user.getAddress());
-
-        //TODO: remove test
-        // start test
-        Book book = allBooks.get(0);
-        cart.addOrderDetail(new OrderDetails(book.getId(), 1, book));
-        book = allBooks.get(1);
-        cart.addOrderDetail(new OrderDetails(book.getId(), 1, book));
-        // end test
     }
 
     //
