@@ -29,6 +29,8 @@ public class BookDetailsActivity extends AppCompatActivity {
     private TextView tvStock;
     private TextView tvPrice;
 
+    private ImageButton ibBack;
+    private ImageButton ibCart;
     private Button btnAddToCart;
 
     @Override
@@ -43,6 +45,9 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         this.tvStock = findViewById(R.id.tv_deatils_available);
         this.tvPrice = findViewById(R.id.tv_details_price);
+
+        this.ibBack = findViewById(R.id.ib_details_back);
+        this.ibCart = findViewById(R.id.ib_details_cart);
 
         this.btnAddToCart = findViewById(R.id.btn_details_addCart);
 
@@ -64,6 +69,21 @@ public class BookDetailsActivity extends AppCompatActivity {
                 .fit()
                 .centerCrop()
                 .into(this.ivBookPic);
+
+        this.ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        this.ibCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BookDetailsActivity.this, AddToCartActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
