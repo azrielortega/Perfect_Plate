@@ -113,6 +113,8 @@ public class Order {
 
     public void removeOrderDetail(OrderDetails od) { orderDetails.remove(od); }
 
+    public void removeOrderDetail(int position) { orderDetails.remove(position); }
+
     @Exclude
     public double getTotal(){
         double quantity = 0;

@@ -61,6 +61,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 ((AddToCartActivity) context).refreshTotal();
             }
         });
+
+        holder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataHelper.cart.removeOrderDetail(position);
+                ((AddToCartActivity) context).refreshTotal();
+                notifyItemRemoved(position);
+            }
+        });
     }
 
     @Override
