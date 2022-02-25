@@ -187,6 +187,17 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        this.cvAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, SearchFilterActivity.class);
+                i.putExtra(DataHelper.KEY_SEARCH, "");
+                i.putExtra(DataHelper.KEY_CATEGORY, "All");
+                startActivity(i);
+
+            }
+        });
+
         this.etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
