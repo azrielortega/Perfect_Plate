@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class AddToCartActivity extends AppCompatActivity {
     private TextView tvTotal;
+    private ImageButton ibBack;
 
     private RecyclerView rvCart;
     private RecyclerView.LayoutManager rvCartManager;
@@ -20,6 +23,14 @@ public class AddToCartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_cart);
 
         this.tvTotal = findViewById(R.id.tv_cart_total);
+        this.ibBack = findViewById(R.id.ib_cart_back);
+
+        this.ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         initCart();
         refreshTotal();
