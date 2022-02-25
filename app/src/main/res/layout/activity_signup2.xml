@@ -72,7 +72,7 @@
         android:backgroundTint="@color/mobile_green"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="State"
+        android:hint="Province"
         android:inputType="textPersonName"
         android:textColor="#02043F"
         android:textColorHint="#9E9E9E"
