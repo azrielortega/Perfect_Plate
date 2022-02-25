@@ -21,7 +21,6 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout llCart;
     private LinearLayout llSearch;
 
-
     private CardView cvGrade1;
     private CardView cvGrade2;
     private CardView cvGrade3;
@@ -35,8 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private CardView cvAll;
 
     private EditText etSearch;
-
-    private SearchView svSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +61,22 @@ public class SearchActivity extends AppCompatActivity {
         this.cvGrade10 = findViewById(R.id.cv_search_grade10);
         this.cvAll = findViewById(R.id.cv_search_all);
 
-        this.svSearch = findViewById(R.id.sv_search);
         this.etSearch = findViewById(R.id.et_search_book_search);
 
+        //
+        // NAVIGATION BAR
+        //
+        this.llCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, AddToCartActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //
+        // CATEGORIES
+        //
         this.cvGrade1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
