@@ -16,8 +16,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private TextView tvCartCategory;
     private TextView tvCartQuantity;
 
-    private ImageButton ibCartAdd;
-    private ImageButton ibCartSub;
+    public ImageButton ibCartAdd;
+    public ImageButton ibCartSub;
+    public ImageButton ibDelete;
 
     private OrderDetails orderDetails;
 
@@ -32,22 +33,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
 
         this.ibCartAdd = itemView.findViewById(R.id.ib_cart_add);
         this.ibCartSub = itemView.findViewById(R.id.ib_cart_sub);
-
-        ibCartAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderDetails.addOne();
-                setCartQuantity(orderDetails.getQuantity());
-            }
-        });
-
-        ibCartSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderDetails.subOne();
-                setCartQuantity(orderDetails.getQuantity());
-            }
-        });
+        this.ibDelete = itemView.findViewById(R.id.ib_cart_delete);
     }
 
     public void setOrderDetails(OrderDetails orderDetails){

@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
@@ -107,8 +108,33 @@ public class Order {
     // Functions
     //
     public void addOrderDetail(OrderDetails od){
-        orderDetails.add(od);
+        OrderDetails temp = null;
+
+        for (OrderDetails od1 : orderDetails){
+            if (od1.getBook() == od.getBook()){
+                temp = od1;
+                break;
+            }
+        }
+
+        if (temp == null)
+            orderDetails.add(od);
+        else
+            temp.addOne();
     }
 
     public void removeOrderDetail(OrderDetails od) { orderDetails.remove(od); }
+
+    public void removeOrderDetail(int position) { orderDetails.remove(position); }
+
+    @Exclude
+    public double getTotal(){
+        double quantity = 0;
+
+        for (OrderDetails od : orderDetails){
+            quantity += (od.getBook().getPrice() * od.getQuantity());
+        }
+
+        return quantity;
+    }
 }
