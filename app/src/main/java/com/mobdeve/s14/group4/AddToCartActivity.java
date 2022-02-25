@@ -22,21 +22,20 @@ public class AddToCartActivity extends AppCompatActivity {
         this.tvTotal = findViewById(R.id.tv_cart_total);
 
         initCart();
+        refreshTotal();
     }
 
     private void initCart(){
         this.rvCart = findViewById(R.id.rv_cart_items);
 
         this.rvCartManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        this.cartAdapter = new CartAdapter(DataHelper.cart);
+        this.cartAdapter = new CartAdapter(this, DataHelper.cart);
 
         this.rvCart.setLayoutManager(rvCartManager);
         this.rvCart.setAdapter(cartAdapter);
     }
 
     public void refreshTotal(){
-        double total = 0;
-
-
+        this.tvTotal.setText(String.format("%.2f", DataHelper.cart.getTotal()));
     }
 }

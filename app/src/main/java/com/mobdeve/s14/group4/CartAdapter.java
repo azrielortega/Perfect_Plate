@@ -1,5 +1,6 @@
 package com.mobdeve.s14.group4;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,11 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
+    private Context context;
     private Order cart;
 
-    public CartAdapter(Order cart){
+    public CartAdapter(Context context, Order cart){
+        this.context = context;
         this.cart = cart;
     }
 
@@ -31,13 +34,33 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CartViewHolder holder, int position) {
-        holder.setOrderDetails(cart.getOrderDetails().get(position));
+        OrderDetails od = cart.getOrderDetails().get(position);
+
+        holder.setOrderDetails(od);
         Picasso.with(holder.itemView.getContext())
-                .load(cart.getOrderDetails().get(position).getBook().getUploadImage().getmImageUrl())
+                .load(od.getBook().getUploadImage().getmImageUrl())
                 .placeholder(R.drawable.perfect_plate_transparent_bg)
                 .fit()
                 .centerCrop()
                 .into(holder.ivCartPic);
+
+        holder.ibCartAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                od.addOne();
+                holder.setCartQuantity(od.getQuantity());
+                ((AddToCartActivity) context).refreshTotal();
+            }
+        });
+
+        holder.ibCartSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                od.subOne();
+                holder.setCartQuantity(od.getQuantity());
+                ((AddToCartActivity) context).refreshTotal();
+            }
+        });
     }
 
     @Override
