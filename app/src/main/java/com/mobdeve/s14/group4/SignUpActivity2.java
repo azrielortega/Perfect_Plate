@@ -74,8 +74,7 @@ public class SignUpActivity2 extends AppCompatActivity {
                 address = new Address(street, city, state, postalCode);
 
                 User user = new User(fullName, email, password, address);
-                if (validateUser(user)){
-                    //add user to db
+                if (isValidInfo()){
                     storeUser(user);
                 }
             }
@@ -83,33 +82,35 @@ public class SignUpActivity2 extends AppCompatActivity {
 
     }
 
-    private boolean validateUser(User user){
-        boolean isValidUser = true;
+    private boolean isValidInfo(){
+        boolean valid = true;
 
-        //validate name
-        if (user.getFullName().isEmpty()){
-            isValidUser = false;
+        if (address.getStreet().isEmpty()){
+            showError(etStreetAddress, "Field is Required");
+            valid = false;
         }
 
-        //validate email
-        if(user.getEmail().isEmpty()){
-            isValidUser = false;
+        if (address.getCity().isEmpty()){
+            showError(etCity, "Field is Requried");
+            valid = false;
         }
 
-        //validate password
-        // TODO: password must be at least 6 characters for firebase
-        if (user.getPassword().isEmpty()){
-            isValidUser = false;
+        if (address.getState().isEmpty()){
+            showError(etState, "Field is Required");
+            valid = false;
         }
 
-        //validate first name
-        if (!user.getAddress().isValid()){
-            isValidUser = false;
+        if (address.getPostalCode().isEmpty()){
+            showError(etPostalCode, "Field is Required");
+            valid = false;
         }
 
-        return isValidUser;
+        return valid;
     }
 
+    private void showError(EditText inputBox, String error){
+        inputBox.setError(error);
+    }
 
     @Override
     public void finish(){
@@ -125,8 +126,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         Log.d("TEST PASSWORD STORE", password);
         Log.d("TEST USERNAME STORE", fullName);
 
-        Log.d("TEST GETEMAIL STORE", u.getEmail());
-        Log.d("TEST GETEMAIL PASSWORD", u.getPassword());
+        Log.d("TEST GET EMAIL STORE", u.getEmail());
+        Log.d("TEST GET EMAIL PASSWORD", u.getPassword());
 
 //        register to firebase
         this.mAuth.createUserWithEmailAndPassword(u.getEmail(), u.getPassword())
