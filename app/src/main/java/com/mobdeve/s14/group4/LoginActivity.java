@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnLogin.setEnabled(false);
                 pbLogin.setVisibility(View.VISIBLE);
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
@@ -111,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                 pbLogin.setVisibility(View.GONE);
                 if (user != null) {
                     // User is signed in
+                    btnLogin.setEnabled(true);
                     DataHelper.loadUser(user.getUid());
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
 
@@ -118,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 } else {
                     // User is signed out
+                    btnLogin.setEnabled(true);
                     Log.d("TAG", "onAuthStateChanged:signed_out");
                 }
             }
@@ -128,12 +131,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void failedLogin(){
         //this.btnNext.setVisibility(View.GONE);
+        btnLogin.setEnabled(true);
         Toast.makeText(this, "LOG IN FAIL", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
 
         finish();
-
     }
 
     private void moveToSearchActivity(){
