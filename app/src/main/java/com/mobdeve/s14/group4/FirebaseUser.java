@@ -10,6 +10,8 @@ public class FirebaseUser {
     private String password;
     private Address address;
 
+    private String contactNo;
+
     private UploadImage profilePic;
 
     private ArrayList<String> faveBooksList;
@@ -48,6 +50,8 @@ public class FirebaseUser {
     public Address getAddress() {
         return address;
     }
+
+    public String getContactNo() {return this.contactNo;}
 
     public UploadImage getProfile_Image (){
         return this.profilePic;
@@ -89,6 +93,8 @@ public class FirebaseUser {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public void setContactNo(String contactNo) {this.contactNo = contactNo;}
 
     public void setProfile_Image (UploadImage p){
         this.profilePic = p;

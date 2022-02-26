@@ -14,6 +14,8 @@ public class User {
     private String password;
     private Address address;
 
+    private String contactNo;
+
     private boolean isAdmin;
     private ArrayList<String> userOrdersList;
 
@@ -71,6 +73,8 @@ public class User {
         return this.address;
     }
 
+    public String getContactNo() {return this.contactNo;}
+
     public boolean isAdmin() {
         return this.isAdmin;
     }
@@ -98,6 +102,8 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public void setContactNo(String contactNo) {this.contactNo = contactNo;}
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
