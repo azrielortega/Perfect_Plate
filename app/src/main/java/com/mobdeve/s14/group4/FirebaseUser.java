@@ -14,7 +14,6 @@ public class FirebaseUser {
 
     private ArrayList<String> faveBooksList;
 
-
     public FirebaseUser(){
         this.faveBooksList = new ArrayList<String>();
         this.profilePic = getProfile_Image();
