@@ -175,6 +175,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
     private void moveToSearchActivity(){
         Intent i = new Intent(SignUpActivity2.this, SearchActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 }
