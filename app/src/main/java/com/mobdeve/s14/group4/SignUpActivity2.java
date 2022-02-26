@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +23,8 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String email;
     private String password;
     private String fullName;
+
+    private TextView tvSignIn;
 
     private EditText etStreetAddress;
     private EditText etCity;
@@ -50,6 +53,17 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etCity = findViewById(R.id.signup2_et_city);
         this.etState = findViewById(R.id.signup2_et_state);
         this.etPostalCode = findViewById(R.id.signup2_etPostalCode);
+
+        this.tvSignIn = findViewById(R.id.signup2_tv_signin);
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (SignUpActivity2.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            }
+        });
 
         this.pbSignup = findViewById(R.id.pb_signup);
 
