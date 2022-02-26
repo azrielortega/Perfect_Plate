@@ -31,22 +31,24 @@ public class User {
         this.orderHistory = new ArrayList<Order>();
     }
 
-    public User(String fullName, String email, String  password, Address address){
+    public User(String fullName, String email, String  password, Address address, String contactNo){
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.address = address;
+        this.contactNo = contactNo;
 
         this.isAdmin = false;
         this.userOrdersList = new ArrayList<String>();
         this.orderHistory = new ArrayList<Order>();
     }
 
-    public User(String fullName, String email, String  password, Address address, boolean isAdmin){
+    public User(String fullName, String email, String  password, Address address, boolean isAdmin, String contactNo){
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.address = address;
+        this.contactNo = contactNo;
 
         this.isAdmin = isAdmin;
         this.userOrdersList = new ArrayList<String>();

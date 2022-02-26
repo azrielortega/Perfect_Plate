@@ -26,6 +26,7 @@ public class FirebaseUser {
         this.email = email;
         this.password = password;
         this.address = address;
+        this.contactNo = contactNo;
 
 //        this.userOrdersList = new ArrayList<String>();
         this.faveBooksList = new ArrayList<String>();

@@ -84,10 +84,11 @@ public class SignUpActivity2 extends AppCompatActivity {
                 String city = etCity.getText().toString().trim();
                 String state = etState.getText().toString().trim();
                 String postalCode = etPostalCode.getText().toString().trim();
+                String contactNo = "09061234567";
 
                 address = new Address(street, city, state, postalCode);
 
-                User user = new User(fullName, email, password, address);
+                User user = new User(fullName, email, password, address, contactNo);
                 if (isValidInfo()){
                     storeUser(user);
                 }
@@ -105,7 +106,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         }
 
         if (address.getCity().isEmpty()){
-            showError(etCity, "Field is Requried");
+            showError(etCity, "Field is Required");
             valid = false;
         }
 
