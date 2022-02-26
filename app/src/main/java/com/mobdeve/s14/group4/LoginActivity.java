@@ -74,12 +74,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (!isEmpty(email, password)) {
                     signIn(email, password);
                 }
+
+                pbLogin.setVisibility(View.GONE);
             }
         });
     }
 
     private boolean isEmpty(String e, String p){
-
         if(e.isEmpty()){
             this.etEmail.setError("Required field");
             this.etEmail.requestFocus();
@@ -89,8 +90,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
-        // this.pbLogin.setVisibility(View.VISIBLE); ADD PROGRESS BAR LATER
-
         this.mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                        @Override
@@ -139,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void moveToSearchActivity(){
         Intent i = new Intent(LoginActivity.this, SearchActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 }
