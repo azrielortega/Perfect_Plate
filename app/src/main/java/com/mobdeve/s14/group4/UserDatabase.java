@@ -2,8 +2,6 @@ package com.mobdeve.s14.group4;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +28,8 @@ public class UserDatabase {
             @Override
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    FirebaseUser firebaseUser = dataSnapshot.getValue(FirebaseUser.class);
-                    listener.onSuccess(firebaseUser);
+                    User user = dataSnapshot.getValue(User.class);
+                    listener.onSuccess(user);
                 } else {
                     listener.onFailure();
                 }
@@ -48,9 +46,7 @@ public class UserDatabase {
         getFirebaseUser(userId, new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
-                FirebaseUser firebaseUser = (FirebaseUser) o;
-                User user = new User(firebaseUser);
-                listener.onSuccess(user);
+                listener.onSuccess((User) o);
             }
 
             @Override
@@ -61,64 +57,24 @@ public class UserDatabase {
     }
 
     public void addUser(User user){
-        this.databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
-    }
-
-    /**
-     * For initializing DataHelper
-     */
-    public void getAllUsers(final CallbackListener callbackListener){
-        ArrayList<User> users = new ArrayList<User>();
-
-        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot userSnapshot : snapshot.getChildren()){
-                        FirebaseUser firebaseUser = userSnapshot.getValue(FirebaseUser.class);
-                        User user = new User(firebaseUser);
-
-                        users.add(user);
-                    }
-                }
-
-                callbackListener.onSuccess(users);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                callbackListener.onFailure();
-            }
-        });
-    }
-
-    public User findUser(String userId){
-        for (User user : DataHelper.allUsers){
-            if (user.getUserId().equals(userId)){
-                return user;
-            }
-        }
-
-        return null;
+        this.databaseReference.child(user.getUserId()).setValue(user);
     }
 
     /**
      * Updates user values based on non-null and non-empty variables
-     * Does not update recipe or ingredient details
+     * Does not update books or orders
      *
      * @param newUser  new details to be updated
      * */
     public void updateCurrentUser(User newUser){
-
         Log.d("editprofiletag", "UPDATING CURRENT USER");
         User user = DataHelper.user;
 
-        //User user = new User();
-
-
-        String fullName = newUser.getFullName().trim();
-        if (!fullName.isEmpty()){
-            user.setFullName(fullName);
+        if(newUser.getFullName() != null) {
+            String fullName = newUser.getFullName().trim();
+            if (!fullName.isEmpty()){
+                user.setFullName(fullName);
+            }
         }
 
         if(newUser.getEmail() != null) {
@@ -135,41 +91,31 @@ public class UserDatabase {
             }
         }
 
-        if(newUser.getProfile_Image() != null) {
-            UploadImage profile_pic = newUser.getProfile_Image();
-            if (profile_pic != null) {
-                user.setProfile_Image(profile_pic);
-            }
-        }
-
-        //TODO: set birthday
-        databaseReference.child(user.getUserId()).setValue(user.getFirebaseUser());
+        databaseReference.child(user.getUserId()).setValue(user);
     }
-//
+
+    /**
+     * Adds user order under user. Adds order id to user's list oin the database
+     * Adds order to the database.
+     *
+     * @param order    recipe to be added to the database
+     * */
+    public void addUserOrder(Order order){
+        User user = DataHelper.user;
+
+        String orderId = DataHelper.orderDatabase.addOrder(order);
+        order.setId(orderId);
+
+        user.addOrder(order);
+        updateUserOrders(user.getUserId(), user.getUserOrdersList());
+    }
+
 //    /**
-//     * Adds user recipe under user. Assigns userId as contributorId of recipe and adds recipe Id
-//     * to the user's list of recipes in the database. Adds recipe to the database.
-//     *
-//     * @param book    recipe to be added to the database
+//     * Removes user order from user's list and from the order db
 //     * */
-//    public void addUserRecipe(Book book){
-//        User user = DataHelper.user;
-//        book.setContributor(user);
-//
-//        String recipeId = DataHelper.bookDatabase.addBook(book);
-//        book.setId(recipeId);
-//
-//        user.addUserRecipe(book);
-//        DataHelper.addBook(book);
-//        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
-//    }
-//
-//    /**
-//     * Removes user recipe from user's list and from the recipe db
-//     * */
-//    public void removeUserRecipe(String recipeId){
+//    public void updateUserOrder(String orderId){
 //        //remove from recipe db
-//        DataHelper.bookDatabase.deleteRecipe(recipeId);
+//        DataHelper.orderDatabase.cancelOrder(orderId);
 //
 //        //remove from user db
 //        User user = DataHelper.user;
@@ -177,51 +123,9 @@ public class UserDatabase {
 //        updateUserRecipes(user.getUserId(), user.getUserOrdersList(), user.getUserRecipesCount());
 //    }
 
-//    public void updateUserBooks(String userId, ArrayList<String> recipeList, int newSize){
-//        this.databaseReference.child(userId)
-//                .child("userBooksCount")
-//                .setValue(newSize);
-//
-//        this.databaseReference.child(userId)
-//                .child("userBooksList")
-//                .setValue(recipeList);
-//    }
-
-    /**
-     * Adds fave recipe under user. Increase fave count of recipe
-     *
-     * @param book  recipe of favorite recipe
-     * */
-    public void addFaveBook(Book book){
-        User user = DataHelper.user;
-        user.addFaveBook(book);
-        updateFaveBooks(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
-
-        DataHelper.bookDatabase.updateFaveCount(book.getId(), book.getFaveCount());
-    }
-
-    /**
-     * Removes fave recipe from user's list
-     * */
-    public void removeFaveBook(Book book){
-        String recipeId = book.getId();
-
-        User user = DataHelper.user;
-        user.removeFaveBook(book);
-        updateFaveBooks(user.getUserId(), user.getFaveBooksList(), user.getFaveBooksCount());
-
-        DataHelper.bookDatabase.updateFaveCount(recipeId, book.getFaveCount());
-    }
-
-    public void updateFaveBooks(String userId, ArrayList<String> bookList, int newSize){
+    public void updateUserOrders(String userId, ArrayList<String> orderList){
         this.databaseReference.child(userId)
-                .child("faveBooksCount")
-                .setValue(newSize);
-
-        this.databaseReference.child(userId)
-                .child("faveBooksList")
-                .setValue(bookList);
+                .child("userOrdersList")
+                .setValue(orderList);
     }
-
-    
 }

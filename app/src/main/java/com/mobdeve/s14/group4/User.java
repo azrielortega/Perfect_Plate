@@ -1,99 +1,144 @@
 package com.mobdeve.s14.group4;
 
+import android.util.Log;
+
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 
-public class User extends FirebaseUser{
-    private ArrayList<Book> faveBooks;
+public class User {
+    private String userId;
 
-    public User(){}
+    private String fullName;
+    private String email;
+    private String password;
+    private Address address;
 
-    public User(FirebaseUser user){
-        setUserId(user.getUserId());
+    private boolean isAdmin;
+    private ArrayList<String> userOrdersList;
 
-        setFullName(user.getFullName());
-        setEmail(user.getEmail());
-        setPassword(user.getPassword());
-        setAddress(user.getAddress());
+    //
+    // Excluded from Firebase
+    //
+    private ArrayList<Order> orderHistory;
 
-        setProfile_Image(user.getProfile_Image());
 
-        setFaveBooksList(user.getFaveBooksList());
-
-        initializeBookLists();
+    public User(){
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
+        this.orderHistory = new ArrayList<Order>();
     }
 
     public User(String fullName, String email, String  password, Address address){
-        super(fullName, email, password, address);
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
 
-//        this.userBooks = new ArrayList<Book>();
-        this.faveBooks = new ArrayList<Book>();
+        this.isAdmin = false;
+        this.userOrdersList = new ArrayList<String>();
+        this.orderHistory = new ArrayList<Order>();
     }
 
-    private void initializeBookLists(){
-        BookDatabase bookDatabase = new BookDatabase();
+    public User(String fullName, String email, String  password, Address address, boolean isAdmin){
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
 
-        this.faveBooks = bookDatabase.findBooks(getFaveBooksList());
-
-        DataHelper.userDatabase.updateFaveBooks(getUserId(), getFaveBooksList(), getFaveBooksCount());
+        this.isAdmin = isAdmin;
+        this.userOrdersList = new ArrayList<String>();
+        this.orderHistory = new ArrayList<Order>();
     }
 
-//    //add user recipe to current list of recipes
-//    public void addUserRecipe(Book book){
-//        //add to local lists
-//        this.userBooks.add(book);
-//        addUserOrderId(book.getId());
-//    }
-
-    public void addFaveBook(Book book){
-        this.faveBooks.add(book);
-        addFaveBookId(book.getId());
-
-        book.setFaveCount(book.getFaveCount() + 1);
+    public String getUserId(){
+        return this.userId;
     }
 
-//    /**
-//     * Removes user recipe from User and FirebaseUser
-//     */
-//    public void removeUserRecipe(String id){
-//        int removeIndex = 0;
-//
-//        for (int i = 0; i < getUserRecipesCount(); i++){
-//            if (this.userBooks.get(i).getId().equals(id)){
-//                removeIndex = i;
-//            }
-//        }
-//
-//        removeUserRecipeId(id);
-//        this.userBooks.remove(removeIndex);
-//    }
+    public String getFullName() {
+        return fullName;
+    }
 
-    /**
-     * Removes favorite recipe from User and FirebaseUser
-     */
-    public void removeFaveBook(Book book){
-        int removeIndex = 0;
+    public String getEmail(){
+        return this.email;
+    }
 
-        for (int i = 0; i < getFaveBooksCount(); i++){
-            if (this.faveBooks.get(i).getId().equals(book.getId())){
-                removeIndex = i;
+    public String getPassword(){
+        return this.password;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
+
+    public ArrayList<String> getUserOrdersList() {
+        return this.userOrdersList;
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public void setUserOrdersList(ArrayList<String> userOrdersList) {
+        this.userOrdersList = userOrdersList;
+    }
+
+    //
+    // EXCLUDED FROM FIREBASE
+    //
+    @Exclude
+    public ArrayList<Order> getOrderHistory() {
+        return orderHistory;
+    }
+
+    @Exclude
+    public void setOrderHistory(ArrayList<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
+    //
+    // METHODS
+    //
+    public void initializeOrderLists(){
+        DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                setOrderHistory((ArrayList<Order>) o);
             }
-        }
 
-        removeFaveBookId(book.getId());
-        this.faveBooks.remove(removeIndex);
-
-        book.setFaveCount(book.getFaveCount() - 1);
+            @Override
+            public void onFailure() {
+                Log.d("FAILURE", "Failed to get user orders");
+            }
+        });
     }
 
-//    public ArrayList<Book> getUserRecipes(){
-//        return this.userBooks;
-//    }
-
-    public ArrayList<Book> getFaveBooks(){
-        return this.faveBooks;
-    }
-
-    public FirebaseUser getFirebaseUser(){
-        return duplicateUser();
+    public void addOrder(Order order){
+        this.orderHistory.add(order);
+        this.userOrdersList.add(order.getId());
     }
 }

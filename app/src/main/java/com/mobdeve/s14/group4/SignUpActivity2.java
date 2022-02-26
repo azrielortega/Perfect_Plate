@@ -3,13 +3,11 @@ package com.mobdeve.s14.group4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -51,7 +49,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etStreetAddress = findViewById(R.id.signup2_et_sAddress);
         this.etCity = findViewById(R.id.signup2_et_city);
         this.etState = findViewById(R.id.signup2_et_state);
-        this.etPostalCode = findViewById(R.id.signup2_et_state);
+        this.etPostalCode = findViewById(R.id.signup2_etPostalCode);
 
         this.pbSignup = findViewById(R.id.pb_signup);
 
@@ -74,12 +72,10 @@ public class SignUpActivity2 extends AppCompatActivity {
                 String postalCode = etPostalCode.getText().toString().trim();
 
                 address = new Address(street, city, state, postalCode);
-                //Toast.makeText(SignUpActivity2.this, birthday, Toast.LENGTH_SHORT).show();
 
                 User user = new User(fullName, email, password, address);
                 if (validateUser(user)){
                     //add user to db
-
                     storeUser(user);
                 }
             }
@@ -101,6 +97,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         }
 
         //validate password
+        // TODO: password must be at least 6 characters for firebase
         if (user.getPassword().isEmpty()){
             isValidUser = false;
         }
@@ -156,7 +153,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         DataHelper.setGlobalUser(user);
 
-        moveToHomeActivity();
+        moveToSearchActivity();
         finish();
     }
 
@@ -175,8 +172,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.mDatabase = FirebaseDatabase.getInstance();
     }
 
-    private void moveToHomeActivity(){
-        Intent i = new Intent(SignUpActivity2.this, HomeActivity.class);
+    private void moveToSearchActivity(){
+        Intent i = new Intent(SignUpActivity2.this, SearchActivity.class);
         startActivity(i);
     }
 }
