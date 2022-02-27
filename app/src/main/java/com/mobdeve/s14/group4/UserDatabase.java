@@ -37,7 +37,6 @@ public class UserDatabase {
 
             @Override
             public void onCancelled(@NotNull DatabaseError error) {
-                // Failed to read value
                 Log.w("FAIL TAG", "User not found.", error.toException());
             }
         });

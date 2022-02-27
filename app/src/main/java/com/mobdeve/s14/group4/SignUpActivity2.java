@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +23,8 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String email;
     private String password;
     private String fullName;
+
+    private TextView tvSignIn;
 
     private EditText etStreetAddress;
     private EditText etCity;
@@ -51,6 +54,17 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etState = findViewById(R.id.signup2_et_state);
         this.etPostalCode = findViewById(R.id.signup2_etPostalCode);
 
+        this.tvSignIn = findViewById(R.id.signup2_tv_signin);
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (SignUpActivity2.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            }
+        });
+
         this.pbSignup = findViewById(R.id.pb_signup);
 
         Intent i = getIntent();
@@ -74,8 +88,7 @@ public class SignUpActivity2 extends AppCompatActivity {
                 address = new Address(street, city, state, postalCode);
 
                 User user = new User(fullName, email, password, address);
-                if (validateUser(user)){
-                    //add user to db
+                if (isValidInfo()){
                     storeUser(user);
                 }
             }
@@ -83,33 +96,35 @@ public class SignUpActivity2 extends AppCompatActivity {
 
     }
 
-    private boolean validateUser(User user){
-        boolean isValidUser = true;
+    private boolean isValidInfo(){
+        boolean valid = true;
 
-        //validate name
-        if (user.getFullName().isEmpty()){
-            isValidUser = false;
+        if (address.getStreet().isEmpty()){
+            showError(etStreetAddress, "Field is Required");
+            valid = false;
         }
 
-        //validate email
-        if(user.getEmail().isEmpty()){
-            isValidUser = false;
+        if (address.getCity().isEmpty()){
+            showError(etCity, "Field is Requried");
+            valid = false;
         }
 
-        //validate password
-        // TODO: password must be at least 6 characters for firebase
-        if (user.getPassword().isEmpty()){
-            isValidUser = false;
+        if (address.getState().isEmpty()){
+            showError(etState, "Field is Required");
+            valid = false;
         }
 
-        //validate first name
-        if (!user.getAddress().isValid()){
-            isValidUser = false;
+        if (address.getPostalCode().isEmpty()){
+            showError(etPostalCode, "Field is Required");
+            valid = false;
         }
 
-        return isValidUser;
+        return valid;
     }
 
+    private void showError(EditText inputBox, String error){
+        inputBox.setError(error);
+    }
 
     @Override
     public void finish(){
@@ -125,8 +140,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         Log.d("TEST PASSWORD STORE", password);
         Log.d("TEST USERNAME STORE", fullName);
 
-        Log.d("TEST GETEMAIL STORE", u.getEmail());
-        Log.d("TEST GETEMAIL PASSWORD", u.getPassword());
+        Log.d("TEST GET EMAIL STORE", u.getEmail());
+        Log.d("TEST GET EMAIL PASSWORD", u.getPassword());
 
 //        register to firebase
         this.mAuth.createUserWithEmailAndPassword(u.getEmail(), u.getPassword())
@@ -174,6 +189,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
     private void moveToSearchActivity(){
         Intent i = new Intent(SignUpActivity2.this, SearchActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 }

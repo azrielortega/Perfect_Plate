@@ -58,7 +58,7 @@ public class SignUpActivity1 extends AppCompatActivity {
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 
@@ -70,33 +70,56 @@ public class SignUpActivity1 extends AppCompatActivity {
                 confirm = etConfirm.getText().toString();
                 fullName = etFullName.getText().toString().trim();
 
-                Log.d("TEST EMAIL SIGN UP 1", email);
-                Log.d("TEST PASSWORD SIGN UP 1", password);
-                Log.d("TEST USERNAME SIGN UP 1", fullName);
+                Log.d("SIGN UP 1 - EMAIL", email);
+                Log.d("SIGN UP 1 - PASSWORD", password);
+                Log.d("SIGN UP 1 - CONFIRM", confirm);
+                Log.d("SIGN UP 1 - NAME", fullName);
 
-                if (password.length() >= 6){
-                    if (password.equals(confirm)){
-                        Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
-                        i.putExtra(KEY_EMAIL, email);
-                        i.putExtra(KEY_FULLNAME, fullName);
-                        i.putExtra(KEY_PASSWORD, password);
+                if(isInfoValid()){
+                    Intent i = new Intent(SignUpActivity1.this, SignUpActivity2.class);
+                    i.putExtra(KEY_EMAIL, email);
+                    i.putExtra(KEY_FULLNAME, fullName);
+                    i.putExtra(KEY_PASSWORD, password);
 
-
-                        SignUpActivity1.this.startActivity(i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
-                    else{
-                        showErrorMessage("PASSWORD DOES NOT MATCH");
-                    }
-                }
-                else{
-                    showErrorMessage("PASSWORD MUST HAVE AT LEAST 6 CHARACTERS");
+                    SignUpActivity1.this.startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });
     }
 
-    private void showErrorMessage(String error){
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    private boolean isInfoValid() {
+        Boolean valid = true;
+
+        if (password.length() < 6){
+            showErrorMessage(etPassword, "Password should have at least 6 characters");
+            valid = false;
+        }
+
+        if (!password.equals(confirm)){
+            showErrorMessage(etConfirm, "Password should be equal");
+            valid = false;
+        }
+
+        if (fullName.isEmpty()){
+            showErrorMessage(etFullName, "Full name is Required");
+            valid = false;
+        }
+
+        if (email.isEmpty()){
+            showErrorMessage(etEmail, "Email is required");
+            valid = false;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            showErrorMessage(etEmail, "Email is invalid");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    private void showErrorMessage(EditText inputBox, String error){
+        inputBox.setError(error);
     }
 }

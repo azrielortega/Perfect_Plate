@@ -252,6 +252,8 @@
         android:fontFamily="@font/montserrat"
         android:hint="Postal Code"
         android:inputType="number"
+        android:textColor="#000000"
+        android:textColorHint="#9E9E9E"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toEndOf="@+id/signup2_iv_fname"
         app:layout_constraintTop_toBottomOf="@+id/signup2_et_state" />
