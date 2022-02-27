@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PerfectPlate">
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".GCashPaymentActivity"></activity>
+        <activity android:name=".CheckoutDoneActivity" />
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".AddToCartActivity" />
         <activity android:name=".SearchFilterActivity" />
         <activity android:name=".SearchActivity" />
