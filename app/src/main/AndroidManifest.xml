@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PerfectPlate">
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".AddAdminActivity"></activity>
+        <activity android:name=".AdminAccessActivity" />
+        <activity android:name=".ViewOrderActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".GCashPaymentActivity" />
+        <activity android:name=".CheckoutDoneActivity" />
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".AddToCartActivity" />
         <activity android:name=".SearchFilterActivity" />
         <activity android:name=".SearchActivity" />
