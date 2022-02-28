@@ -15,6 +15,8 @@ public class Order {
     private String customer;
     private Address address;
 
+    private String modeOfPay;
+
     //order status
     private boolean paid;
     private boolean delivered;
@@ -68,6 +70,10 @@ public class Order {
         return date;
     }
 
+    public String getModeOfPay() {
+        return modeOfPay;
+    }
+
     public boolean isPaid() {
         return paid;
     }
@@ -94,6 +100,10 @@ public class Order {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public void setModeOfPay(String modeOfPay) {
+        this.modeOfPay = modeOfPay;
     }
 
     public void setPaid(boolean paid) {
