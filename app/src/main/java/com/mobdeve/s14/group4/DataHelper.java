@@ -64,6 +64,26 @@ public class DataHelper {
         handler.post(runnable);
     }
 
+    public static void refreshStock(String id, CallbackListener callbackListener){
+        bookDatabase.getBook(id, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                if (o != null){
+                    Book b = (Book) o;
+                    callbackListener.onSuccess(b.getStock());
+                }
+                else{
+                    callbackListener.onSuccess(null);
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                callbackListener.onFailure();
+            }
+        });
+    }
+
     public static void refreshOrders(){
         initOrders(new CallbackListener() {
             @Override
