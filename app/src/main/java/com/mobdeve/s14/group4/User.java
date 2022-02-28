@@ -174,6 +174,11 @@ public class User {
         }
     }
 
+    public void refreshCartInfo(){
+        this.cart.setCustomer(this.getFullName());
+        this.cart.setAddress(this.getAddress());
+    }
+
     public void addToCart(OrderDetails od){
         this.cart.addOrderDetail(od);
         DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);

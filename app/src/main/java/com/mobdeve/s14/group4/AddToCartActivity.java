@@ -39,6 +39,7 @@ public class AddToCartActivity extends AppCompatActivity {
         this.clCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataHelper.user.refreshCartInfo();
                 Intent i = new Intent(AddToCartActivity.this, CheckoutActivity.class);
                 startActivity(i);
             }
