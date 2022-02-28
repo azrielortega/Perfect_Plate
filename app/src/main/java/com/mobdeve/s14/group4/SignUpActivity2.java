@@ -23,6 +23,8 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String email;
     private String password;
     private String fullName;
+    private String contactNo;
+    private Address address;
 
     private TextView tvSignIn;
 
@@ -30,7 +32,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     private EditText etCity;
     private EditText etState;
     private EditText etPostalCode;
-    private Address address;
+    private EditText etContactNo;
 
     private ProgressBar pbSignup;
     private FirebaseAuth mAuth;
@@ -53,6 +55,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         this.etCity = findViewById(R.id.signup2_et_city);
         this.etState = findViewById(R.id.signup2_et_state);
         this.etPostalCode = findViewById(R.id.signup2_etPostalCode);
+        this.etContactNo = findViewById(R.id.signup2_et_phone);
 
         this.tvSignIn = findViewById(R.id.signup2_tv_signin);
 
@@ -84,10 +87,11 @@ public class SignUpActivity2 extends AppCompatActivity {
                 String city = etCity.getText().toString().trim();
                 String state = etState.getText().toString().trim();
                 String postalCode = etPostalCode.getText().toString().trim();
+                contactNo = etContactNo.getText().toString().trim();
 
                 address = new Address(street, city, state, postalCode);
 
-                User user = new User(fullName, email, password, address);
+                User user = new User(fullName, email, password, address, contactNo);
                 if (isValidInfo()){
                     storeUser(user);
                 }
@@ -99,13 +103,14 @@ public class SignUpActivity2 extends AppCompatActivity {
     private boolean isValidInfo(){
         boolean valid = true;
 
+
         if (address.getStreet().isEmpty()){
             showError(etStreetAddress, "Field is Required");
             valid = false;
         }
 
         if (address.getCity().isEmpty()){
-            showError(etCity, "Field is Requried");
+            showError(etCity, "Field is Required");
             valid = false;
         }
 
@@ -116,6 +121,21 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         if (address.getPostalCode().isEmpty()){
             showError(etPostalCode, "Field is Required");
+            valid = false;
+        }
+
+        if(contactNo.isEmpty()){
+            showError(etContactNo, "Field is Required");
+            valid = false;
+        }
+
+        if(contactNo.length() != 11){
+            showError(etContactNo, "Invalid Phone Number");
+            valid = false;
+        }
+
+        if(!contactNo.substring(0, 2).equals("09")){
+            showError(etContactNo, "Phone Number should start with 09");
             valid = false;
         }
 
