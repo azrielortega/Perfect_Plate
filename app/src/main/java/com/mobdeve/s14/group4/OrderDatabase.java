@@ -14,6 +14,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class OrderDatabase {
     private FirebaseAuth auth;
@@ -80,7 +84,7 @@ public class OrderDatabase {
     }
 
     public String addOrder(Order order){
-        Log.d("myTag", "Add Book Entered");
+        Log.d("myTag", "Add Order Entered");
         String key = this.databaseReference.push().getKey();
 
         order.setId(key);
@@ -91,5 +95,39 @@ public class OrderDatabase {
             DataHelper.addOrder(order);
 
         return key;
+    }
+
+    public void placeOrder(Order order, CallbackListener callbackListener){
+        ArrayList<OrderDetails> tempList = new ArrayList<OrderDetails>();
+
+        // async running
+        try {
+            int size = order.getOrderDetails().size();
+            ExecutorService ORDER_THREAD_POOL = Executors.newFixedThreadPool(size);
+            CountDownLatch latch = new CountDownLatch(size);
+
+            for (OrderDetails od : order.getOrderDetails()){
+                ORDER_THREAD_POOL.submit(() -> {
+                    DataHelper.bookDatabase.decreaseStock(od.getBookId(), od.getQuantity(), new CallbackListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            latch.countDown();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            tempList.add(od);
+                            latch.countDown();
+                        }
+                    });
+                });
+            }
+
+            latch.await();
+            callbackListener.onSuccess(tempList);
+        }
+        catch(InterruptedException e){
+            callbackListener.onFailure();
+        }
     }
 }
