@@ -14,11 +14,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private Context context;
+    private User user;
     private Order cart;
 
-    public CartAdapter(Context context, Order cart){
+    public CartAdapter(Context context){
         this.context = context;
-        this.cart = cart;
+        this.user = DataHelper.user;
+        this.cart = DataHelper.user.getCart();
     }
 
     @NonNull
@@ -49,6 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
             public void onClick(View v) {
                 od.addOne();
                 holder.setCartQuantity(od.getQuantity());
+                DataHelper.userDatabase.updateCart(user.getUserId(), cart);
                 ((AddToCartActivity) context).refreshTotal();
             }
         });
@@ -58,6 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
             public void onClick(View v) {
                 od.subOne();
                 holder.setCartQuantity(od.getQuantity());
+                DataHelper.userDatabase.updateCart(user.getUserId(), cart);
                 ((AddToCartActivity) context).refreshTotal();
             }
         });
@@ -65,7 +69,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         holder.ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataHelper.cart.removeOrderDetail(position);
+                DataHelper.user.removeFromCart(position);
                 ((AddToCartActivity) context).refreshTotal();
                 notifyItemRemoved(position);
             }

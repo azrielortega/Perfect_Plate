@@ -89,7 +89,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OrderDetails od = new OrderDetails(book.getId(), 1, book);
-                DataHelper.cart.addOrderDetail(od);
+                DataHelper.user.addToCart(od);
                 showMessage("Added to Cart");
             }
         });

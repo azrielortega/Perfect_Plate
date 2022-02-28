@@ -16,8 +16,6 @@ public class DataHelper {
     public static BookDatabase bookDatabase;
     public static OrderDatabase orderDatabase;
 
-    public static Order cart;
-
     public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
     public static final String KEY_SEARCH = "KEY_SEARCH";
@@ -119,6 +117,7 @@ public class DataHelper {
             @Override
             public void onSuccess(Object o) {
                 User user = (User) o;
+                user.initCart();
                 setGlobalUser(user);
 
                 if (user.isAdmin())
@@ -134,7 +133,6 @@ public class DataHelper {
 
     public static void setGlobalUser(User u){
         user = u;
-        cart = new Order(user.getFullName(), user.getAddress());
     }
 
     //
