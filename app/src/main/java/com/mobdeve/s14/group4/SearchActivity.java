@@ -63,6 +63,14 @@ public class SearchActivity extends AppCompatActivity {
 
         this.etSearch = findViewById(R.id.et_search_book_search);
 
+        this.llProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (SearchActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
         //
         // NAVIGATION BAR
         //
