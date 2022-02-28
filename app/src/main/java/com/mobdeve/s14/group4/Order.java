@@ -23,6 +23,8 @@ public class Order {
 
     public Order(){
         this.orderDetails = new ArrayList<OrderDetails>();
+        this.timestamp = ServerValue.TIMESTAMP;
+        this.modeOfPay = "COD";
         this.paid = false;
         this.delivered = false;
     }
@@ -32,6 +34,7 @@ public class Order {
         this.address = address;
         this.orderDetails = new ArrayList<OrderDetails>();
         this.timestamp = ServerValue.TIMESTAMP;
+        this.modeOfPay = "COD";
         this.paid = false;
         this.delivered = false;
     }
