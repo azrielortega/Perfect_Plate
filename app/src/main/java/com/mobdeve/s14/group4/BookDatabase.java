@@ -39,13 +39,37 @@ public class BookDatabase {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    for (DataSnapshot recipeSnapshot : snapshot.getChildren()){
-                        Book book = recipeSnapshot.getValue(Book.class);
+                    for (DataSnapshot bookSnapshot : snapshot.getChildren()){
+                        Book book = bookSnapshot.getValue(Book.class);
                         books.add(book);
                     }
                 }
 
                 callbackListener.onSuccess(books);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                callbackListener.onFailure();
+            }
+        });
+    }
+
+    /**
+     * Gets book if it exists
+     * Returns null in callback listener if it does not exist
+     * */
+    public void getBook(String id, final CallbackListener callbackListener){
+        this.databaseReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                Book book = null;
+
+                if (snapshot.exists()){
+                    book = snapshot.getValue(Book.class);
+                }
+
+                callbackListener.onSuccess(book);
             }
 
             @Override

@@ -98,8 +98,21 @@ public class BookDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: sync stock
-//        loadStock();
+
+        DataHelper.refreshStock(book.getId(), new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                //TODO: add support for deletion if needed
+                int stock = (int) o;
+                book.setStock(stock);
+                tvStock.setText(String.valueOf(stock));
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     private void showMessage(String msg){
