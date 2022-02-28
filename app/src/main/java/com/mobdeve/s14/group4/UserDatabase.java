@@ -110,6 +110,13 @@ public class UserDatabase {
         updateUserOrders(user.getUserId(), user.getUserOrdersList());
     }
 
+    /**
+     * Updates cart for specific user id
+     * */
+    public void updateCart(String userId, Order cart){
+        this.databaseReference.child(userId).child("cart").setValue(cart);
+    }
+
 //    /**
 //     * Removes user order from user's list and from the order db
 //     * */

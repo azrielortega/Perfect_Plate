@@ -40,13 +40,13 @@ public class AddToCartActivity extends AppCompatActivity {
         this.rvCart = findViewById(R.id.rv_cart_items);
 
         this.rvCartManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        this.cartAdapter = new CartAdapter(this, DataHelper.cart);
+        this.cartAdapter = new CartAdapter(this);
 
         this.rvCart.setLayoutManager(rvCartManager);
         this.rvCart.setAdapter(cartAdapter);
     }
 
     public void refreshTotal(){
-        this.tvTotal.setText(String.format("%.2f", DataHelper.cart.getTotal()));
+        this.tvTotal.setText(String.format("%.2f", DataHelper.user.getCart().getTotal()));
     }
 }

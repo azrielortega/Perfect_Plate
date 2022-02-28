@@ -16,6 +16,8 @@ public class User {
 
     private String contactNo;
 
+    private Order cart;
+
     private boolean isAdmin;
     private ArrayList<String> userOrdersList;
 
@@ -75,7 +77,13 @@ public class User {
         return this.address;
     }
 
-    public String getContactNo() {return this.contactNo;}
+    public String getContactNo() {
+        return this.contactNo;
+    }
+
+    public Order getCart(){
+        return this.cart;
+    }
 
     public boolean isAdmin() {
         return this.isAdmin;
@@ -105,7 +113,13 @@ public class User {
         this.address = address;
     }
 
-    public void setContactNo(String contactNo) {this.contactNo = contactNo;}
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    public void setCart(Order cart) {
+        this.cart = cart;
+    }
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
@@ -145,6 +159,34 @@ public class User {
         });
     }
 
+    //
+    // CART FUNCTIONS
+    //
+    public void initCart(){
+        if (this.cart == null){
+            this.cart = new Order(this.getFullName(), this.getAddress());
+        }
+        else{
+            for (OrderDetails od : this.cart.getOrderDetails()){
+                Book b = DataHelper.bookDatabase.findBook(od.getBookId());
+                od.setBook(b);
+            }
+        }
+    }
+
+    public void addToCart(OrderDetails od){
+        this.cart.addOrderDetail(od);
+        DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
+    }
+
+    public void removeFromCart(int position){
+        this.cart.removeOrderDetail(position);
+        DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
+    }
+
+    //
+    // ORDER FUNCTIONS
+    //
     public void addOrder(Order order){
         this.orderHistory.add(order);
         this.userOrdersList.add(order.getId());
