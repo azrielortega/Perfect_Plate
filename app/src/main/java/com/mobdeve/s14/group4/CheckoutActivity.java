@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +79,23 @@ public class CheckoutActivity extends AppCompatActivity {
                     setInactive(btnCOD);
                     setActive(btnGCash);
                 }
+            }
+        });
+
+        this.btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: subtract stock from backend
+                Intent i = null;
+
+                if (isCOD){
+                    i = new Intent(CheckoutActivity.this, CheckoutDoneActivity.class);
+                }
+                else{
+                    i = new Intent(CheckoutActivity.this, GCashPaymentActivity.class);
+                }
+
+                startActivity(i);
             }
         });
     }
