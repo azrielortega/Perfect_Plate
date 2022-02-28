@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +19,11 @@ public class CheckoutActivity extends AppCompatActivity {
     public RecyclerView.LayoutManager rvOrderManager;
     public CheckoutAdapter checkoutAdapter;
 
+    public Button btnCOD;
+    public Button btnGCash;
     public Button btnPlaceOrder;
+
+    private boolean isCOD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,8 @@ public class CheckoutActivity extends AppCompatActivity {
         this.tvAddressArea = findViewById(R.id.tv_city_province_postal);
         this.tvTotal = findViewById(R.id.tv_checkout_total);
 
+        this.btnCOD = findViewById(R.id.btn_checkout_cod);
+        this.btnGCash = findViewById(R.id.btn_checkout_gcash);
         this.btnPlaceOrder = findViewById(R.id.btn_checkout_place_order);
 
         this.rvOrder = findViewById(R.id.rv_checkout_summary);
@@ -40,6 +47,49 @@ public class CheckoutActivity extends AppCompatActivity {
         this.rvOrder.setAdapter(this.checkoutAdapter);
 
         setDetails();
+
+        if (DataHelper.user.getCart().getModeOfPay().equals("COD")){
+            this.isCOD = true;
+            setActive(btnCOD);
+        }
+        else{
+            this.isCOD = false;
+            setActive(btnGCash);
+        }
+
+        this.btnCOD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isCOD){
+                    isCOD = true;
+                    DataHelper.user.getCart().setModeOfPay("COD");
+                    setInactive(btnGCash);
+                    setActive(btnCOD);
+                }
+            }
+        });
+
+        this.btnGCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCOD){
+                    isCOD = false;
+                    DataHelper.user.getCart().setModeOfPay("GCASH");
+                    setInactive(btnCOD);
+                    setActive(btnGCash);
+                }
+            }
+        });
+    }
+
+    private void setActive(Button b){
+        b.setBackgroundColor(getResources().getColor(R.color.mobile_gray));
+        b.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    private void setInactive(Button b){
+        b.setBackgroundColor(getResources().getColor(R.color.white));
+        b.setTextColor(getResources().getColor(R.color.mobile_gray));
     }
 
     private void setDetails(){
