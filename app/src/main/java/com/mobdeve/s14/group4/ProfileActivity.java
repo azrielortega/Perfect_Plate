@@ -111,8 +111,9 @@ public class ProfileActivity extends AppCompatActivity {
                 User user = (User) o;
                 DataHelper.user = user;
 
-                if(!user.isAdmin()){
-                    clAdmin.setVisibility(View.GONE);
+                if(user.isAdmin()){
+                    clAdmin.setVisibility(View.VISIBLE);
+                    refreshOrders();
                 }
 
                 String address = user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + user.getAddress().getPostalCode();
@@ -140,5 +141,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Check if there were realtime updates to user made by other users
         initializeUser();
+    }
+
+    private void refreshOrders(){
+        
     }
 }
