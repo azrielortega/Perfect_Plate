@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class CheckoutActivity extends AppCompatActivity {
     public RecyclerView.LayoutManager rvOrderManager;
     public CheckoutAdapter checkoutAdapter;
 
+    public ImageButton ibBack;
     public Button btnCOD;
     public Button btnGCash;
     public Button btnPlaceOrder;
@@ -39,6 +41,7 @@ public class CheckoutActivity extends AppCompatActivity {
         this.tvAddressArea = findViewById(R.id.tv_city_province_postal);
         this.tvTotal = findViewById(R.id.tv_checkout_total);
 
+        this.ibBack = findViewById(R.id.ib_checkout_back);
         this.btnCOD = findViewById(R.id.btn_checkout_cod);
         this.btnGCash = findViewById(R.id.btn_checkout_gcash);
         this.btnPlaceOrder = findViewById(R.id.btn_checkout_place_order);
@@ -60,6 +63,13 @@ public class CheckoutActivity extends AppCompatActivity {
             this.isCOD = false;
             setActive(btnGCash);
         }
+
+        this.ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         this.btnCOD.setOnClickListener(new View.OnClickListener() {
             @Override
