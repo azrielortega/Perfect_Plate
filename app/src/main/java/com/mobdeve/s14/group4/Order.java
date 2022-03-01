@@ -24,8 +24,7 @@ public class Order {
     public Order(){
         this.orderDetails = new ArrayList<OrderDetails>();
         this.timestamp = ServerValue.TIMESTAMP;
-        this.modeOfPay = "COD";
-        this.paid = false;
+        setCOD();
         this.delivered = false;
     }
 
@@ -34,8 +33,7 @@ public class Order {
         this.address = address;
         this.orderDetails = new ArrayList<OrderDetails>();
         this.timestamp = ServerValue.TIMESTAMP;
-        this.modeOfPay = "COD";
-        this.paid = false;
+        setCOD();
         this.delivered = false;
     }
 
@@ -149,5 +147,17 @@ public class Order {
         }
 
         return quantity;
+    }
+
+    @Exclude
+    public void setGCash(){
+        this.modeOfPay = "GCASH";
+        this.paid = false;
+    }
+
+    @Exclude
+    public void setCOD(){
+        this.modeOfPay = "COD";
+        this.paid = true;
     }
 }

@@ -132,7 +132,13 @@ public class OrderDatabase {
                 if (success.size() > 0){
                     Order newOrder = new Order(order.getCustomer(), order.getAddress());
                     newOrder.setOrderDetails(success);
-                    newOrder.setModeOfPay(order.getModeOfPay());
+
+                    if (order.getModeOfPay().equals("COD")){
+                        newOrder.setCOD();
+                    }
+                    else{
+                        newOrder.setGCash();
+                    }
 
                     DataHelper.userDatabase.addUserOrder(newOrder);
                 }
