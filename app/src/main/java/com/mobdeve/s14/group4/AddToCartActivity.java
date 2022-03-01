@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class AddToCartActivity extends AppCompatActivity {
     private TextView tvTotal;
@@ -39,9 +42,23 @@ public class AddToCartActivity extends AppCompatActivity {
         this.clCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataHelper.user.refreshCartInfo();
-                Intent i = new Intent(AddToCartActivity.this, CheckoutActivity.class);
-                startActivity(i);
+                // if items > 0, proceed to checkout
+                ArrayList<OrderDetails> odList = new ArrayList<OrderDetails>();
+                for (OrderDetails od : DataHelper.user.getCart().getOrderDetails()){
+                    if (od.getQuantity() > 0){
+                        odList.add(od);
+                    }
+                }
+
+                if (odList.size() > 0){
+                    DataHelper.user.setCart(odList);
+                    DataHelper.user.refreshCartInfo();
+                    Intent i = new Intent(AddToCartActivity.this, CheckoutActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    showError("No items in cart!");
+                }
             }
         });
 
@@ -61,5 +78,9 @@ public class AddToCartActivity extends AppCompatActivity {
 
     public void refreshTotal(){
         this.tvTotal.setText(String.format("%.2f", DataHelper.user.getCart().getTotal()));
+    }
+
+    private void showError(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
