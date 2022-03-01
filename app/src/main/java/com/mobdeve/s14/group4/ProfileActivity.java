@@ -119,6 +119,9 @@ public class ProfileActivity extends AppCompatActivity {
                     clAdmin.setVisibility(View.VISIBLE);
                     refreshOrders();
                 }
+                else{
+                    clAdmin.setVisibility(View.GONE);
+                }
 
                 String address = user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + user.getAddress().getPostalCode();
 
