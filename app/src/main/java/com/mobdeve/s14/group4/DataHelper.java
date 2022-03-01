@@ -114,10 +114,20 @@ public class DataHelper {
             public void onSuccess(Object o) {
                 User user = (User) o;
                 user.initCart();
-                setGlobalUser(user);
+                user.initializeOrderLists(new CallbackListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        setGlobalUser(user);
 
-                if (user.isAdmin())
-                    refreshOrders();
+                        if (user.isAdmin())
+                            refreshOrders();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        setGlobalUser(user);
+                    }
+                });
             }
 
             @Override

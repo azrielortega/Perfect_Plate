@@ -145,18 +145,37 @@ public class User {
     //
     // METHODS
     //
-    public void initializeOrderLists(){
-        DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                setOrderHistory((ArrayList<Order>) o);
-            }
+    public void initializeOrderLists(CallbackListener callbackListener){
+        if (this.userOrdersList != null){
+            DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    ArrayList<Order> orders = (ArrayList<Order>) o;
 
-            @Override
-            public void onFailure() {
-                Log.d("FAILURE", "Failed to get user orders");
-            }
-        });
+                    for (Order t_o : orders){
+                        for (OrderDetails t_od : t_o.getOrderDetails()){
+                            Book b = DataHelper.bookDatabase.findBook(t_od.getBookId());
+                            t_od.setBook(b);
+                        }
+                    }
+
+                    setOrderHistory(orders);
+
+                    callbackListener.onSuccess(null);
+                }
+
+                @Override
+                public void onFailure() {
+                    Log.d("FAILURE", "Failed to get user orders");
+                    setOrderHistory(new ArrayList<Order>());
+                    callbackListener.onFailure();
+                }
+            });
+        }
+        else{
+            setOrderHistory(new ArrayList<Order>());
+            callbackListener.onSuccess(null);
+        }
     }
 
     //
