@@ -24,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout llCart;
     private LinearLayout llSearch;
+    private LinearLayout llManageAdmins;
 
     private ConstraintLayout clAdmin;
 
@@ -51,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         llCart = findViewById(R.id.ll_cart);
         llSearch = findViewById(R.id.ll_search);
 
+        llManageAdmins = findViewById(R.id.ll_manage_admins);
+
         //CONSTRAINT LAYOUT
         clAdmin = findViewById(R.id.cl_profile_admin_func);
 
@@ -67,6 +70,14 @@ public class ProfileActivity extends AppCompatActivity {
         tvContactNo.setText(user.getContactNo());
         tvStreet.setText(user.getAddress().getStreet());
         tvAddress.setText(address);
+
+        this.llManageAdmins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (ProfileActivity.this, AdminAccessActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
