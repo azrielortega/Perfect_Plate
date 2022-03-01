@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class SearchFilterActivity extends AppCompatActivity {
     private TextView tvCategory;
     private ImageButton ibBack;
-    private CardView cvFood;
+
     private RecyclerView rvFilterCategory;
     private ArrayList<Book> filterBook;
     private RecyclerView.LayoutManager filterCategoryManager;
@@ -73,7 +73,6 @@ public class SearchFilterActivity extends AppCompatActivity {
     }
 
     private void initFilter(){
-
         Log.d("FILTER SIZE", String.valueOf(this.filterBook.size()));
         this.rvFilterCategory = findViewById(R.id.rv_filter_category);
 
