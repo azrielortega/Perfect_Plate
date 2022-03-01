@@ -95,10 +95,10 @@ public class UserDatabase {
     }
 
     /**
-     * Adds user order under user. Adds order id to user's list oin the database
+     * Adds user order under user. Adds order id to user's list in the database
      * Adds order to the database.
      *
-     * @param order    recipe to be added to the database
+     * @param order    order to be added to the database
      * */
     public void addUserOrder(Order order){
         User user = DataHelper.user;
