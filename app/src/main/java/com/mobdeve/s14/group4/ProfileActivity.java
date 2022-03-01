@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout llCart;
     private LinearLayout llSearch;
+
+    private ImageButton ibEditProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         llCart = findViewById(R.id.ll_cart);
         llSearch = findViewById(R.id.ll_search);
 
+        ibEditProfile = findViewById(R.id.ib_profile_edit);
+
         User user = DataHelper.user;
         String address = user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + user.getAddress().getPostalCode();
 
@@ -42,6 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
         tvContactNo.setText(user.getContactNo());
         tvStreet.setText(user.getAddress().getStreet());
         tvAddress.setText(address);
+
+        this.ibEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +70,18 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        User user = DataHelper.user;
+        String address = user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + user.getAddress().getPostalCode();
+
+        tvName.setText(user.getFullName());
+        tvContactNo.setText(user.getContactNo());
+        tvStreet.setText(user.getAddress().getStreet());
+        tvAddress.setText(address);
     }
 }
