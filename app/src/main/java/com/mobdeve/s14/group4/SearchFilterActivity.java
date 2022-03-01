@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class SearchFilterActivity extends AppCompatActivity {
     private RecentAdapter filterAdapter;
     private TextView tvNoResult;
 
+    private String key;
+    private String categ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +36,14 @@ public class SearchFilterActivity extends AppCompatActivity {
         this.tvCategory = findViewById(R.id.tv_category);
         this.ibBack = findViewById(R.id.ib_category_back);
         this.tvNoResult = findViewById(R.id.tv_no_result);
-        this.filterBook = new ArrayList<Book>();
 
         Intent i = getIntent();
 
-        String key = i.getStringExtra(DataHelper.KEY_SEARCH);
-        String categ = i.getStringExtra(DataHelper.KEY_CATEGORY);
+        this.key = i.getStringExtra(DataHelper.KEY_SEARCH);
+        this.categ = i.getStringExtra(DataHelper.KEY_CATEGORY);
         Log.d("CATEG", categ);
 
-        if (categ.equalsIgnoreCase("ALL")){
-            for (Book b : DataHelper.allBooks){
-                if (b.getBookName().toLowerCase().contains(key.toLowerCase()))
-                    filterBook.add(b);
-            }
-        } else {
-            for (Book book : DataHelper.allBooks){
-                if (book.getCategory().equalsIgnoreCase(categ)){
-                    filterBook.add(book);
-                }
-            }
-        }
+        this.filterBook = getList();
 
         this.tvCategory.setText(categ + " Books");
 
@@ -72,6 +63,23 @@ public class SearchFilterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.refreshList(new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                filterBook = (ArrayList<Book>) o;
+                filterAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure() {
+                showError("Failed to reload books");
+            }
+        });
+    }
+
     private void initFilter(){
         Log.d("FILTER SIZE", String.valueOf(this.filterBook.size()));
         this.rvFilterCategory = findViewById(R.id.rv_filter_category);
@@ -83,4 +91,40 @@ public class SearchFilterActivity extends AppCompatActivity {
         this.rvFilterCategory.setAdapter(this.filterAdapter);
     }
 
+    private ArrayList<Book> getList(){
+        ArrayList<Book> temp = new ArrayList<Book>();
+
+        if (categ.equalsIgnoreCase("ALL")){
+            for (Book b : DataHelper.allBooks){
+                if (b.getBookName().toLowerCase().contains(key.toLowerCase()))
+                    temp.add(b);
+            }
+        } else {
+            for (Book book : DataHelper.allBooks){
+                if (book.getCategory().equalsIgnoreCase(categ)){
+                    temp.add(book);
+                }
+            }
+        }
+
+        return temp;
+    }
+
+    private void refreshList(CallbackListener callbackListener){
+        DataHelper.asyncRefreshBooks(this, new CallbackListener() {
+            @Override
+            public void onSuccess(Object o) {
+                callbackListener.onSuccess(getList());
+            }
+
+            @Override
+            public void onFailure() {
+                callbackListener.onFailure();
+            }
+        });
+    }
+
+    private void showError(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }
