@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
     public TextView tvCustomer;
@@ -85,17 +88,24 @@ public class CheckoutActivity extends AppCompatActivity {
         this.btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: subtract stock from backend
-                Intent i = null;
+                DataHelper.orderDatabase.placeOrder(DataHelper.user.getCart(), new CallbackListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        ArrayList<OrderDetails> failed = (ArrayList<OrderDetails>) o;
 
-                if (isCOD){
-                    i = new Intent(CheckoutActivity.this, CheckoutDoneActivity.class);
-                }
-                else{
-                    i = new Intent(CheckoutActivity.this, GCashPaymentActivity.class);
-                }
+                        if (failed.size() > 0){
+                            //TODO: add notification for failure to buy due to excess
+                        }
 
-                startActivity(i);
+                        DataHelper.user.setCart(failed);
+                        goToNextActivity();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        showError("Database error");
+                    }
+                });
             }
         });
     }
@@ -118,5 +128,22 @@ public class CheckoutActivity extends AppCompatActivity {
         this.tvAddressArea.setText(address.getCity() + ", " + address.getState() + " " + address.getPostalCode());
 
         this.tvTotal.setText(String.format("%.2f", DataHelper.user.getCart().getTotal()));
+    }
+
+    private void showError(String error){
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToNextActivity(){
+        Intent i;
+
+        if (isCOD){
+            i = new Intent(CheckoutActivity.this, CheckoutDoneActivity.class);
+        }
+        else{
+            i = new Intent(CheckoutActivity.this, GCashPaymentActivity.class);
+        }
+
+        startActivity(i);
     }
 }

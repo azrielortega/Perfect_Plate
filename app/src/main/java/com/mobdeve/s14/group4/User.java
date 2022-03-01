@@ -162,9 +162,11 @@ public class User {
     //
     // CART FUNCTIONS
     //
+    @Exclude
     public void initCart(){
         if (this.cart == null){
             this.cart = new Order(this.getFullName(), this.getAddress());
+            this.cart.setId("cart");
         }
         else{
             for (OrderDetails od : this.cart.getOrderDetails()){
@@ -174,18 +176,27 @@ public class User {
         }
     }
 
+    @Exclude
     public void refreshCartInfo(){
         this.cart.setCustomer(this.getFullName());
         this.cart.setAddress(this.getAddress());
     }
 
+    @Exclude
     public void addToCart(OrderDetails od){
         this.cart.addOrderDetail(od);
         DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
     }
 
+    @Exclude
     public void removeFromCart(int position){
         this.cart.removeOrderDetail(position);
+        DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
+    }
+
+    @Exclude
+    public void setCart(ArrayList<OrderDetails> cart){
+        this.cart.setOrderDetails(cart);
         DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
     }
 

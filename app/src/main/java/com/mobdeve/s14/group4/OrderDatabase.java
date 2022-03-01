@@ -98,36 +98,50 @@ public class OrderDatabase {
     }
 
     public void placeOrder(Order order, CallbackListener callbackListener){
-        ArrayList<OrderDetails> tempList = new ArrayList<OrderDetails>();
+        ArrayList<OrderDetails> success = new ArrayList<OrderDetails>();
+        ArrayList<OrderDetails> failed = new ArrayList<OrderDetails>();
 
         // async running
-        try {
-            int size = order.getOrderDetails().size();
-            ExecutorService ORDER_THREAD_POOL = Executors.newFixedThreadPool(size);
-            CountDownLatch latch = new CountDownLatch(size);
+        new Thread(() -> {
+            try {
+                int size = order.getOrderDetails().size();
+                ExecutorService ORDER_THREAD_POOL = Executors.newFixedThreadPool(size);
+                CountDownLatch latch = new CountDownLatch(size);
 
-            for (OrderDetails od : order.getOrderDetails()){
-                ORDER_THREAD_POOL.submit(() -> {
-                    DataHelper.bookDatabase.decreaseStock(od.getBookId(), od.getQuantity(), new CallbackListener() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            latch.countDown();
-                        }
+                for (OrderDetails od : order.getOrderDetails()){
+                    ORDER_THREAD_POOL.submit(() -> {
+                        DataHelper.bookDatabase.decreaseStock(od.getBookId(), od.getQuantity(), new CallbackListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                success.add(od);
+                                latch.countDown();
+                            }
 
-                        @Override
-                        public void onFailure() {
-                            tempList.add(od);
-                            latch.countDown();
-                        }
+                            @Override
+                            public void onFailure() {
+                                failed.add(od);
+                                latch.countDown();
+                            }
+                        });
                     });
-                });
-            }
+                }
 
-            latch.await();
-            callbackListener.onSuccess(tempList);
-        }
-        catch(InterruptedException e){
-            callbackListener.onFailure();
-        }
+                latch.await();
+
+                // if there are some successful, create order and add to db and user
+                if (success.size() > 0){
+                    Order newOrder = new Order(order.getCustomer(), order.getAddress());
+                    newOrder.setOrderDetails(success);
+                    newOrder.setModeOfPay(order.getModeOfPay());
+
+                    DataHelper.userDatabase.addUserOrder(newOrder);
+                }
+
+                callbackListener.onSuccess(failed);
+            }
+            catch(InterruptedException e){
+                callbackListener.onFailure();
+            }
+        }).start();
     }
 }
