@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeUser(){
-        new UserDatabase().getUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), new CallbackListener() {
+        DataHelper.userDatabase.getUser(DataHelper.user.getUserId(), new CallbackListener() {
             @Override
             public void onSuccess(Object o) { //If user exists
                 User user = (User) o;
