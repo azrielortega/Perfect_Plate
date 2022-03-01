@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (!isEmpty(email, password)) {
                     signIn(email, password);
                 }
-
+                btnLogin.setEnabled(true);
                 pbLogin.setVisibility(View.GONE);
             }
         });
@@ -132,11 +132,11 @@ public class LoginActivity extends AppCompatActivity {
     private void failedLogin(){
         //this.btnNext.setVisibility(View.GONE);
         btnLogin.setEnabled(true);
-        Toast.makeText(this, "LOG IN FAIL", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
-
-        finish();
+        Toast.makeText(this, "Log in failed, Try again", Toast.LENGTH_SHORT).show();
+//        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//        startActivity(i);
+//
+//        finish();
     }
 
     private void moveToSearchActivity(){
