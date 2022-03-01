@@ -11,7 +11,6 @@ import android.widget.TextView;
 public class GCashPaymentActivity extends AppCompatActivity {
     private TextView tvTotal;
     private Button btnDone;
-    private Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,6 @@ public class GCashPaymentActivity extends AppCompatActivity {
 
         this.tvTotal = findViewById(R.id.tv_total_payment);
         this.btnDone = findViewById(R.id.btn_gcash_done);
-        this.btnCancel = findViewById(R.id.btn_gcash_cancel);
 
         this.tvTotal.setText(String.format("%.2f", DataHelper.user.getCart().getTotal()));
 
@@ -29,14 +27,6 @@ public class GCashPaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(GCashPaymentActivity.this, CheckoutDoneActivity.class);
                 startActivity(i);
-            }
-        });
-
-        this.btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: add back
-                finish();
             }
         });
     }
