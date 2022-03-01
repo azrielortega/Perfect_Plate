@@ -127,10 +127,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void updateUser(Address address, String phone) {
 
-        DataHelper.user.setAddress(address);
-        DataHelper.user.setContactNo(phone);
+        User user = DataHelper.user;
+        user.setAddress(address);
+        user.setContactNo(phone);
 
-        new UserDatabase().updateCurrentUser(DataHelper.user);
+        new UserDatabase().updateCurrentUser(user);
     }
 
     private void showError(EditText inputBox, String error){
