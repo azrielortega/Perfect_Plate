@@ -20,10 +20,6 @@ public class DataHelper {
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
     public static final String KEY_SEARCH = "KEY_SEARCH";
 
-    public static void initUser(String uid){
-        loadUser(uid);
-    }
-
     public static void initDatabase(){
         allBooks = new ArrayList<Book>();
         allOrders = new ArrayList<Order>();
