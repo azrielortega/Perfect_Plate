@@ -76,7 +76,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!isCOD){
                     isCOD = true;
-                    DataHelper.user.getCart().setModeOfPay("COD");
+                    DataHelper.user.getCart().setCOD();
                     setInactive(btnGCash);
                     setActive(btnCOD);
                 }
@@ -88,7 +88,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isCOD){
                     isCOD = false;
-                    DataHelper.user.getCart().setModeOfPay("GCASH");
+                    DataHelper.user.getCart().setGCash();
                     setInactive(btnCOD);
                     setActive(btnGCash);
                 }
