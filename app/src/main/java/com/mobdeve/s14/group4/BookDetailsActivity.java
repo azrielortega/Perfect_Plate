@@ -1,21 +1,16 @@
 package com.mobdeve.s14.group4;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -51,10 +46,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         this.btnAddToCart = findViewById(R.id.btn_details_addCart);
 
-        Intent i = getIntent();
-        String id = i.getStringExtra(DataHelper.KEY_BOOK_ID);
-
-        this.book = DataHelper.bookDatabase.findBook(id);
+        this.book = DataHelper.selectedBook;
 
         this.tvBookName.setText(book.getBookName());
         this.tvAuthors.setText(book.getAuthor());

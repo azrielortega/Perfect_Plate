@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class DataHelper {
     public static User user;
+    public static Book selectedBook;
 
     public static ArrayList<Book> allBooks;
     public static ArrayList<Order> allOrders; //only for admin; garbage data for regular user
