@@ -66,6 +66,30 @@ public class AddToCartActivity extends AppCompatActivity {
         refreshTotal();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        int i = 0;
+        for (OrderDetails od : DataHelper.user.getCart().getOrderDetails()){
+            int position = i++;
+            Book b = od.getBook();
+            
+            DataHelper.refreshStock(b.getId(), new CallbackListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    b.setStock((int) o);
+                    cartAdapter.notifyItemChanged(position);
+                }
+
+                @Override
+                public void onFailure() {
+                    //failed to refresh stock
+                }
+            });
+        }
+    }
+
     private void initCart(){
         this.rvCart = findViewById(R.id.rv_cart_items);
 
