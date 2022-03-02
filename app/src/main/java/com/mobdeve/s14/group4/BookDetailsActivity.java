@@ -53,6 +53,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         this.tvCategory.setText(book.getCategory());
         this.tvStock.setText(String.valueOf(book.getStock()));
         this.tvPrice.setText(String.format("%.2f", book.getPrice()));
+        this.btnAddToCart.setEnabled(book.getStock() > 0);
 
         //set pic
         Picasso.with(this)
@@ -96,6 +97,8 @@ public class BookDetailsActivity extends AppCompatActivity {
             public void onSuccess(Object o) {
                 //TODO: add support for deletion if needed
                 int stock = (int) o;
+
+                btnAddToCart.setEnabled(stock > 0);
                 book.setStock(stock);
                 tvStock.setText(String.valueOf(stock));
             }
