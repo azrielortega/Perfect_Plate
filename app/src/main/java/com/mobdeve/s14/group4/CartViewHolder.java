@@ -15,6 +15,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private TextView tvCartTitle;
     private TextView tvCartCategory;
     private TextView tvCartQuantity;
+    private TextView tvOutOfStock;
 
     public ImageButton ibCartAdd;
     public ImageButton ibCartSub;
@@ -34,6 +35,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         this.ibCartAdd = itemView.findViewById(R.id.ib_cart_add);
         this.ibCartSub = itemView.findViewById(R.id.ib_cart_sub);
         this.ibDelete = itemView.findViewById(R.id.ib_cart_delete);
+        this.tvOutOfStock = itemView.findViewById(R.id.tv_cart_outofstock);
     }
 
     public void setOrderDetails(OrderDetails orderDetails){
@@ -42,6 +44,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         setCartTitle(orderDetails.getBook().getBookName());
         setCartCategory(orderDetails.getBook().getCategory());
         setCartQuantity(orderDetails.getQuantity());
+
+        if (orderDetails.getBook().getStock() <= 0){
+            this.tvOutOfStock.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setCartTitle(String title){
