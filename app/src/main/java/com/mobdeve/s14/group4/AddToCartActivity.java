@@ -74,7 +74,7 @@ public class AddToCartActivity extends AppCompatActivity {
         for (OrderDetails od : DataHelper.user.getCart().getOrderDetails()){
             int position = i++;
             Book b = od.getBook();
-            
+
             DataHelper.refreshStock(b.getId(), new CallbackListener() {
                 @Override
                 public void onSuccess(Object o) {

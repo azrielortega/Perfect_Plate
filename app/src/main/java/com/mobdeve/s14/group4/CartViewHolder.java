@@ -45,8 +45,19 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         setCartCategory(orderDetails.getBook().getCategory());
         setCartQuantity(orderDetails.getQuantity());
 
-        if (orderDetails.getBook().getStock() <= 0){
+        int stock = orderDetails.getBook().getStock();
+        if (orderDetails.getQuantity() > stock){
+            if (stock <= 0){
+                this.tvOutOfStock.setText("out of stock");
+            }
+            else{
+                this.tvOutOfStock.setText("not enough stock");
+            }
+
             this.tvOutOfStock.setVisibility(View.VISIBLE);
+        }
+        else{
+            this.tvOutOfStock.setVisibility(View.GONE);
         }
     }
 
