@@ -113,13 +113,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object o) { //If user exists
                 User user = (User) o;
-                DataHelper.user = user;
 
                 if(user.isAdmin()){
+                    DataHelper.user.setAdmin(true);
                     clAdmin.setVisibility(View.VISIBLE);
                     refreshOrders();
                 }
                 else{
+                    DataHelper.user.setAdmin(false);
                     clAdmin.setVisibility(View.GONE);
                 }
 
