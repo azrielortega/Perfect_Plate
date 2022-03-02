@@ -37,7 +37,7 @@
         android:layout_width="55dp"
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/mobile_yellow"
         android:fontFamily="@font/montserrat_bold"
         android:text="GRADE 10"
@@ -56,7 +56,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="₱"
-        android:textColor="#0C0C0C"
+        android:textColor="@color/mobile_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/iv_checkout_pic" />
 
@@ -68,7 +68,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="1234.00"
-        android:textColor="#000000"
+        android:textColor="@color/mobile_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/textView12" />
 
@@ -80,8 +80,8 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="x"
-        android:textColor="#000000"
-        android:textSize="10sp"
+        android:textColor="@color/mobile_gray"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_checkout_qty" />
 
@@ -92,8 +92,8 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="1"
-        android:textColor="#000000"
-        android:textSize="10sp"
+        android:textColor="@color/mobile_gray"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,17 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="130dp">
+    android:layout_height="140dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="140dp"
             android:background="#FFFFFF"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
@@ -68,15 +69,43 @@
                 android:gravity="center"
                 android:text="GRADE 10"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="#FDFDFD"
                 android:textSize="10sp"
                 app:layout_constraintLeft_toRightOf="@id/iv_cart_pic"
                 app:layout_constraintTop_toBottomOf="@id/tv_cart_title" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView43"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:text="₱ "
+                android:textColor="@color/mobile_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_cart_pic" />
+
+            <TextView
+                android:id="@+id/tv_cart_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:text="1234.00"
+
+                android:textColor="@color/mobile_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/textView43" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toRightOf="@id/iv_cart_pic"
