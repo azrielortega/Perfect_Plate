@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class DataHelper {
     public static User user;
+    public static Book selectedBook;
 
     public static ArrayList<Book> allBooks;
     public static ArrayList<Order> allOrders; //only for admin; garbage data for regular user
@@ -19,10 +20,6 @@ public class DataHelper {
     public static final String KEY_BOOK_ID = "KEY_BOOK_ID";
     public static final String KEY_CATEGORY = "KEY_CATEGORY";
     public static final String KEY_SEARCH = "KEY_SEARCH";
-
-    public static void initUser(String uid){
-        loadUser(uid);
-    }
 
     public static void initDatabase(){
         allBooks = new ArrayList<Book>();
@@ -118,10 +115,20 @@ public class DataHelper {
             public void onSuccess(Object o) {
                 User user = (User) o;
                 user.initCart();
-                setGlobalUser(user);
+                user.initializeOrderLists(new CallbackListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        setGlobalUser(user);
 
-                if (user.isAdmin())
-                    refreshOrders();
+                        if (user.isAdmin())
+                            refreshOrders();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        setGlobalUser(user);
+                    }
+                });
             }
 
             @Override

@@ -145,26 +145,47 @@ public class User {
     //
     // METHODS
     //
-    public void initializeOrderLists(){
-        DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
-            @Override
-            public void onSuccess(Object o) {
-                setOrderHistory((ArrayList<Order>) o);
-            }
+    public void initializeOrderLists(CallbackListener callbackListener){
+        if (this.userOrdersList != null){
+            DataHelper.orderDatabase.getOrders(this.userOrdersList, new CallbackListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    ArrayList<Order> orders = (ArrayList<Order>) o;
 
-            @Override
-            public void onFailure() {
-                Log.d("FAILURE", "Failed to get user orders");
-            }
-        });
+                    for (Order t_o : orders){
+                        for (OrderDetails t_od : t_o.getOrderDetails()){
+                            Book b = DataHelper.bookDatabase.findBook(t_od.getBookId());
+                            t_od.setBook(b);
+                        }
+                    }
+
+                    setOrderHistory(orders);
+
+                    callbackListener.onSuccess(null);
+                }
+
+                @Override
+                public void onFailure() {
+                    Log.d("FAILURE", "Failed to get user orders");
+                    setOrderHistory(new ArrayList<Order>());
+                    callbackListener.onFailure();
+                }
+            });
+        }
+        else{
+            setOrderHistory(new ArrayList<Order>());
+            callbackListener.onSuccess(null);
+        }
     }
 
     //
     // CART FUNCTIONS
     //
+    @Exclude
     public void initCart(){
         if (this.cart == null){
             this.cart = new Order(this.getFullName(), this.getAddress());
+            this.cart.setId("cart");
         }
         else{
             for (OrderDetails od : this.cart.getOrderDetails()){
@@ -174,13 +195,27 @@ public class User {
         }
     }
 
+    @Exclude
+    public void refreshCartInfo(){
+        this.cart.setCustomer(this.getFullName());
+        this.cart.setAddress(this.getAddress());
+    }
+
+    @Exclude
     public void addToCart(OrderDetails od){
         this.cart.addOrderDetail(od);
         DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
     }
 
+    @Exclude
     public void removeFromCart(int position){
         this.cart.removeOrderDetail(position);
+        DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
+    }
+
+    @Exclude
+    public void setCart(ArrayList<OrderDetails> cart){
+        this.cart.setOrderDetails(cart);
         DataHelper.userDatabase.updateCart(this.getUserId(), this.cart);
     }
 

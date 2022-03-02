@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,14 +36,24 @@ public class SearchActivity extends AppCompatActivity {
 
     private EditText etSearch;
 
+    private boolean isRefreshing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        this.isRefreshing = false;
+
         initComponents();
+        refreshBooks();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshBooks();
+    }
 
     private void initComponents() {
         this.llProfile = findViewById(R.id.ll_profile);
@@ -224,5 +235,27 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
        });
+    }
+
+    private void refreshBooks(){
+        if (!isRefreshing){
+            isRefreshing = true;
+            DataHelper.asyncRefreshBooks(this, new CallbackListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    isRefreshing = false;
+                }
+
+                @Override
+                public void onFailure() {
+                    isRefreshing = false;
+                    showError("Failed to refresh the page");
+                }
+            });
+        }
+    }
+
+    private void showError(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
