@@ -109,7 +109,7 @@ public class DataHelper {
     //
     // USER
     //
-    public static void loadUser(String uid){
+    public static void loadUser(String uid, CallbackListener callbackListener){
         userDatabase.getUser(uid, new CallbackListener() {
             @Override
             public void onSuccess(Object o) {
@@ -122,11 +122,14 @@ public class DataHelper {
 
                         if (user.isAdmin())
                             refreshOrders();
+
+                        callbackListener.onSuccess(true);
                     }
 
                     @Override
                     public void onFailure() {
                         setGlobalUser(user);
+                        callbackListener.onSuccess(false);
                     }
                 });
             }
@@ -134,6 +137,7 @@ public class DataHelper {
             @Override
             public void onFailure() {
                 Log.d("MISSING", "User" + uid + " not found");
+                callbackListener.onFailure();
             }
         });
     }
