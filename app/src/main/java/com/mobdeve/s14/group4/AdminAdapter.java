@@ -56,7 +56,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder>{
     public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
         holder.setTvEmail(admins.get(position).getEmail());
         holder.setTvName(admins.get(position).getFullName());
-        
+
         if(DataHelper.user.getEmail().equals(holder.getEmail())){
             holder.getIBDelete().setVisibility(View.GONE);
         }
