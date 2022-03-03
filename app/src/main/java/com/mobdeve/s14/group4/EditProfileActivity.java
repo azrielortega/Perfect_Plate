@@ -131,7 +131,7 @@ public class EditProfileActivity extends AppCompatActivity {
         user.setAddress(address);
         user.setContactNo(phone);
 
-        new UserDatabase().updateCurrentUser(user);
+        new UserDatabase().updateUser(user);
     }
 
     private void showError(EditText inputBox, String error){

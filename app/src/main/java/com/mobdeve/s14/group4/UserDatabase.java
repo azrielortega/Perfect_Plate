@@ -60,7 +60,7 @@ public class UserDatabase {
     }
 
     public void getAllUsers (final CallbackListener listener){
-        this.databaseReference.addValueEventListener(new ValueEventListener() {
+        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -87,36 +87,48 @@ public class UserDatabase {
     }
 
     /**
+     * For Deletion -matt
      * Updates user values based on non-null and non-empty variables
      * Does not update books or orders
      *
      * @param newUser  new details to be updated
      * */
-    public void updateCurrentUser(User newUser){
+//    public void updateCurrentUser(User newUser){
+//        Log.d("editprofiletag", "UPDATING CURRENT USER");
+//        User user = DataHelper.user;
+//
+//        if(newUser.getFullName() != null) {
+//            String fullName = newUser.getFullName().trim();
+//            if (!fullName.isEmpty()){
+//                user.setFullName(fullName);
+//            }
+//        }
+//
+//        if(newUser.getEmail() != null) {
+//            String email = newUser.getEmail().trim();
+//            if (!email.isEmpty()) {
+//                user.setEmail(email);
+//            }
+//        }
+//
+//        if(newUser.getAddress() != null){
+//            Address address = newUser.getAddress();
+//            if(address.isValid()){
+//                user.setAddress(address);
+//            }
+//        }
+//
+//        databaseReference.child(user.getUserId()).setValue(user);
+//    }
+
+    /**
+     * Updates user values
+     * Does not update books or orders
+     *
+     * @param newUser  new details to be updated
+     * */
+    public void updateUser(User user){
         Log.d("editprofiletag", "UPDATING CURRENT USER");
-        User user = DataHelper.user;
-
-        if(newUser.getFullName() != null) {
-            String fullName = newUser.getFullName().trim();
-            if (!fullName.isEmpty()){
-                user.setFullName(fullName);
-            }
-        }
-
-        if(newUser.getEmail() != null) {
-            String email = newUser.getEmail().trim();
-            if (!email.isEmpty()) {
-                user.setEmail(email);
-            }
-        }
-
-        if(newUser.getAddress() != null){
-            Address address = newUser.getAddress();
-            if(address.isValid()){
-                user.setAddress(address);
-            }
-        }
-
         databaseReference.child(user.getUserId()).setValue(user);
     }
 
