@@ -1,6 +1,7 @@
 package com.mobdeve.s14.group4;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder>{
@@ -28,21 +30,45 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder>{
 
         AdminViewHolder holder = new AdminViewHolder(itemView);
 
-        holder.getIBDelete().setOnClickListener(new View.OnClickListener() {
+        return holder;
+    }
+
+    private void deleteAdmin(String email) {
+        new UserDatabase().getAllUsers(new CallbackListener() {
             @Override
-            public void onClick(View v) {
-                //Delete Admin
-                Toast.makeText(parent.getContext(), "Admin Deleted", Toast.LENGTH_SHORT).show();
+            public void onSuccess(Object o) {
+                ArrayList<User> users= (ArrayList<User>) o;
+                for (User u : users){
+                    if (u.getEmail().equals(email)){
+                        u.setAdmin(false);
+                        new UserDatabase().updateUser(u);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure() {
             }
         });
-
-        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
         holder.setTvEmail(admins.get(position).getEmail());
         holder.setTvName(admins.get(position).getFullName());
+        
+        if(DataHelper.user.getEmail().equals(holder.getEmail())){
+            holder.getIBDelete().setVisibility(View.GONE);
+        }
+        else {
+            holder.getIBDelete().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Delete Admin
+                    deleteAdmin(holder.getEmail());
+                }
+            });
+        }
     }
 
     @Override

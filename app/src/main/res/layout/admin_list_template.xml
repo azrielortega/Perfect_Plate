@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:text="john.doe@gmail.com"
+        android:textColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_admin_name" />
 
@@ -35,8 +36,9 @@
         android:layout_height="20dp"
         android:background="@null"
         android:backgroundTint="#FFFFFF"
-        app:tint="@color/proj_red_pink"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:visibility="visible"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="@color/proj_red_pink" />
 </androidx.constraintlayout.widget.ConstraintLayout>

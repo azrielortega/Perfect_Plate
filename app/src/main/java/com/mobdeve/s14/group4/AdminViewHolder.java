@@ -31,6 +31,8 @@ public class AdminViewHolder extends RecyclerView.ViewHolder{
         this.tvEmail.setText(e);
     }
 
+    public String getEmail (){ return this.tvEmail.getText().toString().trim();}
+
     public ImageButton getIBDelete (){
         return this.ibDelete;
     }
