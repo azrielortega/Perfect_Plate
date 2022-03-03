@@ -24,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout llCart;
     private LinearLayout llSearch;
+    private LinearLayout llManageAdmins;
 
     private ConstraintLayout clAdmin;
 
@@ -55,6 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
         llCart = findViewById(R.id.ll_cart);
         llSearch = findViewById(R.id.ll_search);
 
+        llManageAdmins = findViewById(R.id.ll_manage_admins);
+
         //CONSTRAINT LAYOUT
         clAdmin = findViewById(R.id.cl_profile_admin_func);
 
@@ -71,6 +74,14 @@ public class ProfileActivity extends AppCompatActivity {
         tvContactNo.setText(user.getContactNo());
         tvStreet.setText(user.getAddress().getStreet());
         tvAddress.setText(address);
+
+        this.llManageAdmins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (ProfileActivity.this, AdminAccessActivity.class);
+                startActivity(i);
+            }
+        });
 
         this.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,17 +120,19 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeUser(){
-        DataHelper.userDatabase.getUser(DataHelper.user.getUserId(), new CallbackListener() {
+        DataHelper.userDatabase.getUserIRT(DataHelper.user.getUserId(), new CallbackListener() {
             @Override
             public void onSuccess(Object o) { //If user exists
                 User user = (User) o;
                 DataHelper.user = user;
 
                 if(user.isAdmin()){
+                    user.setAdmin(true);
                     clAdmin.setVisibility(View.VISIBLE);
                     refreshOrders();
                 }
                 else{
+                    user.setAdmin(false);
                     clAdmin.setVisibility(View.GONE);
                 }
 
@@ -142,13 +155,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //Check if there were realtime updates to user made by other users
-        initializeUser();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        //Check if there were realtime updates to user made by other users
+//        initializeUser();
+//    }
 
     private void refreshOrders(){
         if (!isRefreshing){

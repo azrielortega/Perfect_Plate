@@ -45,7 +45,12 @@ public class SearchFilterActivity extends AppCompatActivity {
 
         this.filterBook = getList();
 
-        this.tvCategory.setText(categ + " Books");
+        if (this.key.length() == 0){
+            this.tvCategory.setText(categ + " Books");
+        }
+        else{
+            this.tvCategory.setText("\"" + key + "\" Books");
+        }
 
         this.ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
