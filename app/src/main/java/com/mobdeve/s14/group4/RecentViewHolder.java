@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 public class RecentViewHolder extends RecyclerView.ViewHolder  {
+    private CardView cvRecentCard;
     public ImageView ivRecentPic;
     private TextView tvRecentName;
     private TextView tvRecentAuthor;
@@ -20,6 +21,7 @@ public class RecentViewHolder extends RecyclerView.ViewHolder  {
     public RecentViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
+        this.cvRecentCard = itemView.findViewById(R.id.cv_recent_card);
         this.ivRecentPic = itemView.findViewById(R.id.iv_recent_pic);
         this.ivRecentPic.setClipToOutline(true);
         this.tvRecentName = itemView.findViewById(R.id.tv_recent_name);
@@ -28,8 +30,8 @@ public class RecentViewHolder extends RecyclerView.ViewHolder  {
         this.tvRecentCategory = itemView.findViewById(R.id.tv_recent_category);
     }
 
-    public ImageView getRecentCard(){
-        return this.ivRecentPic;
+    public CardView getRecentCard(){
+        return this.cvRecentCard;
     }
 
     public void setIvRecentPic(int p){

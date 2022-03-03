@@ -113,11 +113,22 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     btnLogin.setEnabled(true);
-                    DataHelper.loadUser(user.getUid());
+
                     Log.d("SIGNED IN LOGGED IN", "onAuthStateChanged:signed_in:" + user.getUid());
 
-                    moveToSearchActivity();
-                    finish();
+                    DataHelper.loadUser(user.getUid(), new CallbackListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            moveToSearchActivity();
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    });
+
                 } else {
                     // User is signed out
                     btnLogin.setEnabled(true);
@@ -132,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
     private void failedLogin(){
         //this.btnNext.setVisibility(View.GONE);
         btnLogin.setEnabled(true);
-        Toast.makeText(this, "Log in failed, Try again", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Log in failed. Try again.", Toast.LENGTH_SHORT).show();
 //        Intent i = new Intent(LoginActivity.this, MainActivity.class);
 //        startActivity(i);
 //

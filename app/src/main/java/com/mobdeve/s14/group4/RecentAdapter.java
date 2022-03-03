@@ -33,12 +33,11 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder>{
         recentViewHolder.getRecentCard().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataHelper.selectedBook = bookList.get(recentViewHolder.getBindingAdapterPosition());
 
                 Intent i = new Intent(v.getContext(), BookDetailsActivity.class);
-                i.putExtra(DataHelper.KEY_BOOK_ID, bookList.get(recentViewHolder.getBindingAdapterPosition()).getId());
 
                 v.getContext().startActivity(i);
-
             }
         });
 

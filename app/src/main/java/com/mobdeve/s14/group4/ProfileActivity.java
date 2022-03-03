@@ -32,11 +32,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ImageButton ibEditProfile;
 
+    private boolean isRefreshing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        this.isRefreshing = false;
 
         initComponents();
         initializeUser();
@@ -116,13 +120,18 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeUser(){
-        new UserDatabase().getUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), new CallbackListener() {
+        DataHelper.userDatabase.getUser(DataHelper.user.getUserId(), new CallbackListener() {
             @Override
             public void onSuccess(Object o) { //If user exists
                 User user = (User) o;
-                DataHelper.user = user;
 
-                if(!user.isAdmin()){
+                if(user.isAdmin()){
+                    DataHelper.user.setAdmin(true);
+                    clAdmin.setVisibility(View.VISIBLE);
+                    refreshOrders();
+                }
+                else{
+                    DataHelper.user.setAdmin(false);
                     clAdmin.setVisibility(View.GONE);
                 }
 
@@ -136,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure() { //If user does not exist.
-                Toast.makeText(ProfileActivity.this, "User does not exist, Log in again", Toast.LENGTH_SHORT).show();
+                showError("User does not exist, Log in again");
 
                 Intent i = new Intent(ProfileActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -151,5 +160,28 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Check if there were realtime updates to user made by other users
         initializeUser();
+    }
+
+    private void refreshOrders(){
+        if (!isRefreshing){
+            isRefreshing = true;
+
+            DataHelper.asyncRefreshOrders(this, new CallbackListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    isRefreshing = false;
+                }
+
+                @Override
+                public void onFailure() {
+                    isRefreshing = false;
+                    showError("Failed to refresh the page");
+                }
+            });
+        }
+    }
+
+    private void showError(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
