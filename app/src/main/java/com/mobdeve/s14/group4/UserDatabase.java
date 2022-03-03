@@ -2,6 +2,8 @@ package com.mobdeve.s14.group4;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDatabase {
     private final DatabaseReference databaseReference;
@@ -56,41 +59,125 @@ public class UserDatabase {
         });
     }
 
+    public void getAllUsers (final CallbackListener listener){
+        this.databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    ArrayList<User> users = new ArrayList<User>();
+                    for (DataSnapshot s : snapshot.getChildren()){
+                        User user = s.getValue(User.class);
+                        users.add(user);
+                    }
+
+                    listener.onSuccess(users);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Users Tag", error.toString());
+                listener.onFailure();
+            }
+        });
+    }
+
+    /**
+     * Gets all admins, while checking for updates in database
+     * */
+    public void getAllAdminsIRT (final CallbackListener listener){
+        this.databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    ArrayList<User> users = new ArrayList<User>();
+                    for (DataSnapshot s : snapshot.getChildren()){
+                        User user = s.getValue(User.class);
+
+                        if (user.isAdmin()) users.add(user);
+                    }
+
+                    listener.onSuccess(users);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Users Tag", error.toString());
+                listener.onFailure();
+            }
+        });
+    }
+
+    /**
+     * Gets user, while checking for updates in database
+     * */
+    public void getUserIRT(String userId, final CallbackListener listener){
+        this.databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    listener.onSuccess(user);
+                } else {
+                    listener.onFailure();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NotNull DatabaseError error) {
+                Log.w("FAIL TAG", "User not found.", error.toException());
+            }
+        });
+    }
+
     public void addUser(User user){
         this.databaseReference.child(user.getUserId()).setValue(user);
     }
 
     /**
+     * For Deletion -matt
      * Updates user values based on non-null and non-empty variables
      * Does not update books or orders
      *
      * @param newUser  new details to be updated
      * */
-    public void updateCurrentUser(User newUser){
+//    public void updateCurrentUser(User newUser){
+//        Log.d("editprofiletag", "UPDATING CURRENT USER");
+//        User user = DataHelper.user;
+//
+//        if(newUser.getFullName() != null) {
+//            String fullName = newUser.getFullName().trim();
+//            if (!fullName.isEmpty()){
+//                user.setFullName(fullName);
+//            }
+//        }
+//
+//        if(newUser.getEmail() != null) {
+//            String email = newUser.getEmail().trim();
+//            if (!email.isEmpty()) {
+//                user.setEmail(email);
+//            }
+//        }
+//
+//        if(newUser.getAddress() != null){
+//            Address address = newUser.getAddress();
+//            if(address.isValid()){
+//                user.setAddress(address);
+//            }
+//        }
+//
+//        databaseReference.child(user.getUserId()).setValue(user);
+//    }
+
+    /**
+     * Updates user values
+     * Does not update books or orders
+     *
+     * @param user  new details to be updated
+     * */
+    public void updateUser(User user){
         Log.d("editprofiletag", "UPDATING CURRENT USER");
-        User user = DataHelper.user;
-
-        if(newUser.getFullName() != null) {
-            String fullName = newUser.getFullName().trim();
-            if (!fullName.isEmpty()){
-                user.setFullName(fullName);
-            }
-        }
-
-        if(newUser.getEmail() != null) {
-            String email = newUser.getEmail().trim();
-            if (!email.isEmpty()) {
-                user.setEmail(email);
-            }
-        }
-
-        if(newUser.getAddress() != null){
-            Address address = newUser.getAddress();
-            if(address.isValid()){
-                user.setAddress(address);
-            }
-        }
-
         databaseReference.child(user.getUserId()).setValue(user);
     }
 
