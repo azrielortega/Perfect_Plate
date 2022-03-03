@@ -47,11 +47,21 @@ public class AddAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //validateInfo
+                btnSave.setEnabled(false);
                 String email = etEmail.getText().toString().trim();
-                makeAdmin(email);
+
+                if(email.isEmpty()){
+                    etEmail.setError("Field is Required");
+                }
+                else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    etEmail.setError("Email is invalid");
+                }
+                else{
+                    makeAdmin(email);
+                }
+                btnSave.setEnabled(true);
             }
         });
-
     }
 
     private void makeAdmin(String email) {
