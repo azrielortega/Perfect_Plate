@@ -120,18 +120,19 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeUser(){
-        DataHelper.userDatabase.getUser(DataHelper.user.getUserId(), new CallbackListener() {
+        DataHelper.userDatabase.getUserIRT(DataHelper.user.getUserId(), new CallbackListener() {
             @Override
             public void onSuccess(Object o) { //If user exists
                 User user = (User) o;
+                DataHelper.user = user;
 
                 if(user.isAdmin()){
-                    DataHelper.user.setAdmin(true);
+                    user.setAdmin(true);
                     clAdmin.setVisibility(View.VISIBLE);
                     refreshOrders();
                 }
                 else{
-                    DataHelper.user.setAdmin(false);
+                    user.setAdmin(false);
                     clAdmin.setVisibility(View.GONE);
                 }
 
@@ -154,13 +155,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //Check if there were realtime updates to user made by other users
-        initializeUser();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        //Check if there were realtime updates to user made by other users
+//        initializeUser();
+//    }
 
     private void refreshOrders(){
         if (!isRefreshing){

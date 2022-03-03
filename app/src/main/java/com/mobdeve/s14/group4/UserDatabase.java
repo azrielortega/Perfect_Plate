@@ -82,6 +82,55 @@ public class UserDatabase {
         });
     }
 
+    /**
+     * Gets all admins, while checking for updates in database
+     * */
+    public void getAllAdminsIRT (final CallbackListener listener){
+        this.databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    ArrayList<User> users = new ArrayList<User>();
+                    for (DataSnapshot s : snapshot.getChildren()){
+                        User user = s.getValue(User.class);
+
+                        if (user.isAdmin()) users.add(user);
+                    }
+
+                    listener.onSuccess(users);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Users Tag", error.toString());
+                listener.onFailure();
+            }
+        });
+    }
+
+    /**
+     * Gets user, while checking for updates in database
+     * */
+    public void getUserIRT(String userId, final CallbackListener listener){
+        this.databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    listener.onSuccess(user);
+                } else {
+                    listener.onFailure();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NotNull DatabaseError error) {
+                Log.w("FAIL TAG", "User not found.", error.toException());
+            }
+        });
+    }
+
     public void addUser(User user){
         this.databaseReference.child(user.getUserId()).setValue(user);
     }
@@ -125,7 +174,7 @@ public class UserDatabase {
      * Updates user values
      * Does not update books or orders
      *
-     * @param newUser  new details to be updated
+     * @param user  new details to be updated
      * */
     public void updateUser(User user){
         Log.d("editprofiletag", "UPDATING CURRENT USER");
